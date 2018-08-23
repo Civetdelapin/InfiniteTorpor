@@ -1,11 +1,12 @@
 #pragma once
+#include <math.h>
 
 namespace OwnMathFuncs
 {
 	struct Vector2
 	{
-		int x;
-		int y;
+		double x;
+		double y;
 	};
 
 
@@ -13,7 +14,7 @@ class OwnMathFuncs
 {
 public:
 	
-	
+	static void normalize(Vector2 &vec);
 
 };
 

@@ -1,5 +1,7 @@
 #include "Game.h"
 
+SDL_Event Game::event;
+
 Game::Game(const char * title, int xpos, int ypos, int width, int height, bool fullscreen, bool isDebugMode) : isDebugMode(isDebugMode)
 {
 
@@ -35,7 +37,7 @@ Game::~Game()
 
 void Game::handleEvents()
 {
-	SDL_Event event;
+
 	SDL_PollEvent(&event);
 
 	switch (event.type)
@@ -54,13 +56,13 @@ void Game::update()
 	//handle the deltatime
 	timeLast = timeNow;
 	timeNow = SDL_GetPerformanceCounter();
-	deltaTime = (float)((timeNow - timeLast) * 1000 / (float)SDL_GetPerformanceFrequency());
+	Time::deltaTime = (float)((timeNow - timeLast) * 1000 / (float)SDL_GetPerformanceFrequency());
+
+	//printInConsole("delta time : " + std::to_string(deltaTime));
 
 	for (GameObject* game_object : game_objects) {
 		game_object->update();
 	}
-
-	//printInConsole("delta time : " + std::to_string(deltaTime));
 }
 
 void Game::render()
@@ -92,14 +94,26 @@ void Game::clean()
 	printInConsole("Game closed!");
 }
 
-void Game::addGameObject(GameObject * game_object, std::string img_path)
+void Game::addGameObject(GameObject * game_object, std::string img_path, OwnMathFuncs::Vector2* sprite_size)
 {
 	if (img_path != "") {
 	
-		game_object->setTexture(TextureManager::LoadTexture(img_path.c_str(), renderer, game_object->img_size.x, game_object->img_size.y));
+		game_object->setTexture(TextureManager::LoadTexture(img_path.c_str(), renderer,game_object->img_sizeX, game_object->img_sizeY));
+
+		if (sprite_size == nullptr) {
+			game_object->sprite_sizeX = game_object->img_sizeX;
+			game_object->sprite_sizeY = game_object->img_sizeY;
+		}
+		else {
+			game_object->sprite_sizeX = sprite_size->x;
+			game_object->sprite_sizeY = sprite_size->y;
+		}
 	}
 
 	game_objects.push_back(game_object);
+	std::sort(game_objects.begin(), game_objects.end(), [](GameObject* a, GameObject* b) {
+		return a->layer > b->layer;
+	});
 }
 
 bool Game::getIsRunning()

@@ -1,5 +1,4 @@
 #include "GameObject.h"
-#include "TextureManager.h"
 
 GameObject::GameObject(SDL_Renderer* renderer) : renderer(renderer)
 {
@@ -17,20 +16,24 @@ void GameObject::handleEvents()
 
 void GameObject::update()
 {
+	
 
+	position.x += (velocity.x * Time::deltaTime);
+	position.y += (velocity.y * Time::deltaTime);
+
+	dstrect.x = position.x;
+	dstrect.y = position.y;
 }
 
 void GameObject::render()
 {
 	if (texture != nullptr) {
 
-		dstrect.x = position.x;
-		dstrect.y = position.y;
-		dstrect.w = img_size.x;
-		dstrect.h = img_size.y;
+		dstrect.w = sprite_sizeX;
+		dstrect.h = sprite_sizeY;
 
-		srcrect.w = img_size.x;
-		srcrect.h = img_size.y;
+		srcrect.w = sprite_sizeX;
+		srcrect.h = sprite_sizeY;
 
 		SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
 	}

@@ -6,6 +6,9 @@
 #include <vector>
 #include "GameObject.h"
 #include "TextureManager.h"
+#include "OwnMathFuncs.h"
+#include <algorithm>
+#include "Time.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -16,8 +19,6 @@ public:
 	Game(const char* title, int xpos = SDL_WINDOWPOS_CENTERED, int ypos = SDL_WINDOWPOS_CENTERED, int width = 600, int height = 400, bool fullscreen = false, bool isDebugMode = true);
 	~Game();
 
-	double deltaTime;
-
 	std::vector<GameObject*> game_objects;
 
 	void handleEvents();
@@ -25,14 +26,15 @@ public:
 	void render();
 	void clean();
 
-	void addGameObject(GameObject* gameObject, std::string imgPath = "");
+	void addGameObject(GameObject* gameObject, std::string imgPath = "", OwnMathFuncs::Vector2* sprite_size = nullptr);
 
 	bool getIsRunning();
 	bool getIsDebugMode();
 
 	SDL_Window* getWindow();
 	SDL_Renderer* getRenderer();
-
+	static SDL_Event event;
+	
 	void printInConsole(std::string str);
 
 private:
