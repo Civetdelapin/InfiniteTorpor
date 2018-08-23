@@ -13,8 +13,5 @@ AnimatedGameObject::~AnimatedGameObject()
 
 void AnimatedGameObject::render()
 {
-
-
-
 	GameObject::render();
 }

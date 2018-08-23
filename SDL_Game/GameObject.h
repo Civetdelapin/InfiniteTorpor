@@ -16,6 +16,7 @@ class GameObject
 public:
 	
 	OwnMathFuncs::Vector2 position = {0, 0};
+	OwnMathFuncs::Vector2 img_size = { 30, 30 };
 
 	explicit GameObject(SDL_Renderer* renderer);
 	~GameObject();
@@ -24,6 +25,8 @@ public:
 	virtual void update();
 	virtual void render();
 	void clean();
+
+	void setTexture(SDL_Texture* texture);
 
 private:
 	SDL_Texture * texture;

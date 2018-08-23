@@ -12,18 +12,26 @@ GameObject::~GameObject()
 
 void GameObject::handleEvents()
 {
+
 }
 
 void GameObject::update()
 {
-
-
 
 }
 
 void GameObject::render()
 {
 	if (texture != nullptr) {
+
+		dstrect.x = position.x;
+		dstrect.y = position.y;
+		dstrect.w = img_size.x;
+		dstrect.h = img_size.y;
+
+		srcrect.w = img_size.x;
+		srcrect.h = img_size.y;
+
 		SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
 	}
 }
@@ -31,4 +39,9 @@ void GameObject::render()
 void GameObject::clean()
 {
 	SDL_DestroyTexture(texture);
+}
+
+void GameObject::setTexture(SDL_Texture* text)
+{
+	texture = text;
 }

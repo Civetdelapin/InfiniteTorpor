@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "GameObject.h"
+#include "TextureManager.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -24,6 +25,8 @@ public:
 	void render();
 	void clean();
 
+	void addGameObject(GameObject* gameObject, std::string imgPath = "");
+
 	bool getIsRunning();
 	bool getIsDebugMode();
 
@@ -33,8 +36,6 @@ public:
 	void printInConsole(std::string str);
 
 private:
-
-	
 
 	bool isDebugMode;
 	bool isRunning;

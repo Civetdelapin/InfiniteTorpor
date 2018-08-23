@@ -30,6 +30,7 @@ Game::Game(const char * title, int xpos, int ypos, int width, int height, bool f
 
 Game::~Game()
 {
+
 }
 
 void Game::handleEvents()
@@ -89,6 +90,16 @@ void Game::clean()
 	SDL_Quit();
 
 	printInConsole("Game closed!");
+}
+
+void Game::addGameObject(GameObject * game_object, std::string img_path)
+{
+	if (img_path != "") {
+	
+		game_object->setTexture(TextureManager::LoadTexture(img_path.c_str(), renderer, game_object->img_size.x, game_object->img_size.y));
+	}
+
+	game_objects.push_back(game_object);
 }
 
 bool Game::getIsRunning()
