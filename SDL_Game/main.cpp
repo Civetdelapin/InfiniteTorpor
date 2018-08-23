@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Player.h"
+#include "TextureManager.h"
 
 int main(int argc, char* args[]) {
 
@@ -7,8 +8,7 @@ int main(int argc, char* args[]) {
 
 	//Add the player in the game
 	Player *player = new Player(main_game->getRenderer());
-	player->loadImgAndSetRect("img/rat.png");
-	
+
 
 	main_game->game_objects.push_back(player);
 
@@ -21,7 +21,5 @@ int main(int argc, char* args[]) {
 	}
 
 	main_game->clean();
-
-
 	return 0;
 }

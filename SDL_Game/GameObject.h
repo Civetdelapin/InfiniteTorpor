@@ -32,7 +32,6 @@ private:
 	SDL_Rect dstrect;
 
 	SDL_Renderer* renderer;
-
 };
 
 #endif

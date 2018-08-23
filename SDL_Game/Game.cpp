@@ -78,6 +78,10 @@ void Game::render()
 
 void Game::clean()
 {
+	for (GameObject* game_object : game_objects) {
+		game_object->clean();
+	}
+
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 
