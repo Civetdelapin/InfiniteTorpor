@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include "Time.h"
+#include "TextureManager.h"
 
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
@@ -25,6 +26,8 @@ public:
 	int sprite_sizeX = 30;
 	int sprite_sizeY = 30;
 
+	float scale_factor = 2.5;
+
 	int layer = 0;
 
 	explicit GameObject(SDL_Renderer* renderer);
@@ -32,19 +35,16 @@ public:
 
 	virtual void handleEvents();
 	virtual void update();
-	virtual void render();
+	virtual void render(float camera_pos_x, float camera_pos_y);
 	void clean();
 
 	void setTexture(SDL_Texture* texture);
 
-private:
-
-	SDL_Texture* texture;
+protected:
+	SDL_Texture * texture;
 	SDL_Rect srcrect;
 	SDL_Rect dstrect;
 	SDL_Renderer* renderer;
-
-	
 };
 
 #endif

@@ -23,13 +23,13 @@ Game::Game(const char * title, int xpos, int ypos, int width, int height, bool f
 			printInConsole("renderer created!");
 		}
 
-		mapValues = Map::loadMap(renderer);
-
 		isRunning = true;
 	}
 	else {
 		isRunning = false;
 	}
+
+	camera = new Camera();
 }
 
 Game::~Game()
@@ -65,20 +65,23 @@ void Game::update()
 	for (GameObject* game_object : game_objects) {
 		game_object->update();
 	}
+
+	camera->update();
 }
 
 void Game::render()
 {
-	SDL_SetRenderDrawColor(renderer, 168, 230, 255, 255);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
+	
+	//drawLevels();
+
 	for (GameObject* game_object : game_objects) {
-		game_object->render();
 
-		SDL_RenderPresent(renderer);
+		game_object->render(camera->camera_pos_x, camera->camera_pos_y);
+
 	}
-
-	drawLevels();
 
 	SDL_RenderPresent(renderer);
 }
@@ -116,7 +119,7 @@ void Game::addGameObject(GameObject * game_object, std::string img_path, OwnMath
 
 	game_objects.push_back(game_object);
 	std::sort(game_objects.begin(), game_objects.end(), [](GameObject* a, GameObject* b) {
-		return a->layer > b->layer;
+		return a->layer < b->layer;
 	});
 }
 
@@ -157,13 +160,18 @@ int Game::getScreenHeight()
 	return screen_height;
 }
 
+Camera* Game::getCamera()
+{
+	return camera;
+}
+
 void Game::drawLevels()
 {
 
 	int nb_visible_tiles_x = getScreenWidth() / Map::tile_width;
 	int nb_visible_tiles_y = getScreenHeight() / Map::tile_height;
 
-
+	/*
 	//Draw visible tile map 
 	for (int x = 0; x < nb_visible_tiles_x; x++) {
 
@@ -174,5 +182,5 @@ void Game::drawLevels()
 		}
 
 	}
-
+	*/
 }

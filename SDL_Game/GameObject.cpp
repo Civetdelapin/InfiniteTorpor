@@ -16,26 +16,24 @@ void GameObject::handleEvents()
 
 void GameObject::update()
 {
-	
-
 	position.x += (velocity.x * Time::deltaTime);
 	position.y += (velocity.y * Time::deltaTime);
-
-	dstrect.x = position.x;
-	dstrect.y = position.y;
 }
 
-void GameObject::render()
+void GameObject::render(float camera_pos_x, float camera_pos_y)
 {
 	if (texture != nullptr) {
 
-		dstrect.w = sprite_sizeX;
-		dstrect.h = sprite_sizeY;
+		dstrect.x = (position.x + camera_pos_x - (sprite_sizeX/2) * scale_factor);
+		dstrect.y = (position.y + camera_pos_y - (sprite_sizeY/2) * scale_factor);
+
+		dstrect.w = sprite_sizeX * scale_factor;
+		dstrect.h = sprite_sizeY * scale_factor;
 
 		srcrect.w = sprite_sizeX;
 		srcrect.h = sprite_sizeY;
 
-		SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
+		TextureManager::DrawTexture(texture, renderer, srcrect, dstrect);
 	}
 }
 

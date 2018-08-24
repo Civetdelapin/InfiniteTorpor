@@ -9,11 +9,27 @@ int main(int argc, char* args[]) {
 
 	//Add the player in the game
 	Player *player = new Player(main_game->getRenderer());
-
 	OwnMathFuncs::Vector2* sprite = new OwnMathFuncs::Vector2();
 	sprite->x = 32;
 	sprite->y = 32;
+	player->layer = 5;
 	main_game->addGameObject(player, "img/rat.png", sprite);
+
+	player->position.x = main_game->getScreenWidth() / 2;
+	player->position.y = main_game->getScreenHeight() / 2;
+
+	main_game->getCamera()->objectToFollow = player;
+
+
+	//Add the background
+	Map* map = new Map(main_game->getRenderer(),1);
+	map->sprite_sizeX = 16;
+	map->sprite_sizeY = 16;
+	map->layer = -1;
+	main_game->addGameObject(map);
+
+	map->position.x = (main_game->getScreenWidth() / 2) + 250;
+	map->position.y = (main_game->getScreenHeight() / 2);
 
 	while (main_game->getIsRunning()) {
 

@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "Time.h"
 #include "Map.h"
+#include "Camera.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -40,15 +41,16 @@ public:
 
 	int getScreenWidth();
 	int getScreenHeight();
+	Camera* getCamera();
+	
 
 private:
-
-	std::vector<std::string> mapValues;
-
 	bool isDebugMode;
 	bool isRunning;
 	SDL_Window *window;
 	SDL_Renderer *renderer;
+
+	Camera* camera;
 
 	int screen_width;
 	int screen_height;
@@ -58,8 +60,7 @@ private:
 	Uint64 timeNow = SDL_GetPerformanceCounter();
 	Uint64 timeLast = 0;
 
-	float camera_pos_x;
-	float camera_pos_y; 
+	
 };
 
 #endif
