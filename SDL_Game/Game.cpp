@@ -2,7 +2,7 @@
 
 SDL_Event Game::event;
 
-Game::Game(const char * title, int xpos, int ypos, int width, int height, bool fullscreen, bool isDebugMode) : isDebugMode(isDebugMode)
+Game::Game(const char * title, int xpos, int ypos, int width, int height, bool fullscreen, bool isDebugMode) : isDebugMode(isDebugMode), screen_width(width), screen_height(height)
 {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
@@ -22,6 +22,8 @@ Game::Game(const char * title, int xpos, int ypos, int width, int height, bool f
 		if (renderer != nullptr) {
 			printInConsole("renderer created!");
 		}
+
+		mapValues = Map::loadMap(renderer);
 
 		isRunning = true;
 	}
@@ -75,6 +77,8 @@ void Game::render()
 
 		SDL_RenderPresent(renderer);
 	}
+
+	drawLevels();
 
 	SDL_RenderPresent(renderer);
 }
@@ -141,4 +145,34 @@ void Game::printInConsole(std::string str)
 	if (getIsDebugMode()) {
 		std::cout << str << std::endl;
 	}
+}
+
+int Game::getScreenWidth()
+{
+	return screen_width;
+}
+
+int Game::getScreenHeight()
+{
+	return screen_height;
+}
+
+void Game::drawLevels()
+{
+
+	int nb_visible_tiles_x = getScreenWidth() / Map::tile_width;
+	int nb_visible_tiles_y = getScreenHeight() / Map::tile_height;
+
+
+	//Draw visible tile map 
+	for (int x = 0; x < nb_visible_tiles_x; x++) {
+
+		for (int y = 0; y < nb_visible_tiles_y; y++) {
+
+			std::cout << mapValues[x][y] << std::endl;
+
+		}
+
+	}
+
 }

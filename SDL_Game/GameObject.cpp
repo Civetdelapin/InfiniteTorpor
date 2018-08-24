@@ -48,3 +48,5 @@ void GameObject::setTexture(SDL_Texture* text)
 {
 	texture = text;
 }
+
+

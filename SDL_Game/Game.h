@@ -9,6 +9,7 @@
 #include "OwnMathFuncs.h"
 #include <algorithm>
 #include "Time.h"
+#include "Map.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -37,16 +38,28 @@ public:
 	
 	void printInConsole(std::string str);
 
+	int getScreenWidth();
+	int getScreenHeight();
+
 private:
+
+	std::vector<std::string> mapValues;
 
 	bool isDebugMode;
 	bool isRunning;
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 
+	int screen_width;
+	int screen_height;
+
+	void drawLevels();
 
 	Uint64 timeNow = SDL_GetPerformanceCounter();
 	Uint64 timeLast = 0;
+
+	float camera_pos_x;
+	float camera_pos_y; 
 };
 
 #endif
