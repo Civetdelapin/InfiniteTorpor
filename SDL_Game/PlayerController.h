@@ -8,7 +8,8 @@ public:
 	~PlayerController();
 
 	OwnMathFuncs::Vector2 velocity = { 0, 0 };
-	double speed = 0.5;
+	double speed = 2500;
+	double drag = 8;
 
 	bool can_move = true;
 

@@ -131,6 +131,7 @@
     <ClCompile Include="OwnMathFuncs.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
@@ -143,6 +144,7 @@
     <ClInclude Include="OwnMathFuncs.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>

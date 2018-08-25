@@ -17,3 +17,11 @@ void Component::update()
 {
 
 }
+
+void Component::render(float camera_pos_x, float camera_pos_y)
+{
+}
+
+void Component::clean()
+{
+}

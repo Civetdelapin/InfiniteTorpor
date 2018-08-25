@@ -7,12 +7,12 @@
 #include <fstream>
 #include <sstream>
 #include "GameObject.h"
-
+/*
 class Map : public virtual GameObject
 {
 public:
 
-	Map(SDL_Renderer* renderer, int map_int);
+	Map(int map_int);
 	~Map();
 
 	
@@ -34,4 +34,4 @@ private:
 
 	SDL_Texture* map_texture;
 };
-
+*/

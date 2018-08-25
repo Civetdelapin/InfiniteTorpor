@@ -15,38 +15,73 @@ PlayerController::~PlayerController()
 void PlayerController::update()
 {
 
-	velocity.x = 0;
-	velocity.y = 0;
+	OwnMathFuncs::Vector2 normalizeDirection = { 0, 0 };
 
 	if (can_move) {
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);
 
 		if (keystates[SDL_SCANCODE_W])
-			velocity.y += -1;
+			normalizeDirection.y = -1;
 
 		if (keystates[SDL_SCANCODE_S])
-			velocity.y += 1;
+			normalizeDirection.y = 1;
 
 		if (keystates[SDL_SCANCODE_A]) {
-			velocity.x += -1;
+			normalizeDirection.x = -1;
 		}
 
 		if (keystates[SDL_SCANCODE_D]) {
-			velocity.x += 1;
+			normalizeDirection.x = 1;
 		}
 
-		if (velocity.x < 0) {
-			game_object->isFlipped = true;
-		}
-		else if (velocity.x > 0) {
-			game_object->isFlipped = false;
-		}
+		OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
 
-		OwnMathFuncs::OwnMathFuncs::normalize(velocity);
-		velocity.x *= speed;
-		velocity.y *= speed;
+
+		velocity.x += normalizeDirection.x * speed * Time::deltaTime;
+		velocity.y += normalizeDirection.y * speed * Time::deltaTime;
+
+
+		//Make the drag
+		velocity.x += -drag * velocity.x * Time::deltaTime;
+		if (fabs(velocity.x) < 1)
+			velocity.x = 0.0f;
+
+		velocity.y += -drag * velocity.y * Time::deltaTime;
+		if (fabs(velocity.y) < 1)
+			velocity.y = 0.0f;
+
+	
+		if (velocity.x < 0 && game_object->scale.x > 0) {
+			game_object->scale.x *= -1;
+		}
+		else if (velocity.x > 0 && game_object->scale.x < 0) {
+			game_object->scale.x *= -1;
+		}
+		
+
+		// Clamp velocities
+		if (velocity.x > 500.0f)
+			velocity.x = 500.0f;
+
+		if (velocity.x < -500.0f)
+			velocity.x = -500.0f;
+
+		if (velocity.y > 500.0f)
+			velocity.y = 500.0f;
+
+		if (velocity.y < -500.0f)
+			velocity.y = -500.0f;
+
+
+		//OwnMathFuncs::OwnMathFuncs::normalize(velocity);
+
+
+		//std::cout << "v.x : " << velocity.x << ", v.y : " << velocity.y << std::endl;
+
 	}
 	
+
+
 
 	float new_player_pos_x = game_object->position.x + (velocity.x * Time::deltaTime);
 	float new_player_pos_y = game_object->position.y + (velocity.y * Time::deltaTime);

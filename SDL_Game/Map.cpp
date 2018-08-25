@@ -1,9 +1,9 @@
 #include "Map.h"
-
-Map::Map(SDL_Renderer* renderer, int map_int) : GameObject(renderer)
+/*
+Map::Map(int map_int)
 {
 	int w, h;
-	map_texture = TextureManager::LoadTexture("img/dungeon_tileset.png", renderer, w, h);
+	map_texture = TextureManager::LoadTexture("img/dungeon_tileset.png", w, h);
 
 	std::ostringstream o;
 	o << "levels/TileMap_" << map_int << ".csv" ;
@@ -79,7 +79,7 @@ void Map::DrawMap(std::vector<std::vector<int>> vecToDraw, float camera_pos_x, f
 				dstrect.h = Map::tile_height * scale_factor;
 				dstrect.w = Map::tile_width * scale_factor;
 
-				TextureManager::DrawTexture(map_texture, renderer, srcrect, dstrect);
+				TextureManager::DrawTexture(map_texture, srcrect, dstrect);
 
 			}
 			x++;
@@ -125,6 +125,6 @@ void Map::readCSV(const char* file_path, std::vector<std::vector<int>>& vls)
 
 	vls = vecTemp;
 }
-
+*/
 
 

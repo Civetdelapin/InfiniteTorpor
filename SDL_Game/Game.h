@@ -28,13 +28,13 @@ public:
 	void render();
 	void clean();
 
-	void addGameObject(GameObject* gameObject, std::string imgPath = "", OwnMathFuncs::Vector2* sprite_size = nullptr);
+	void addGameObject(GameObject* gameObject);
 
 	bool getIsRunning();
 	bool getIsDebugMode();
 
 	SDL_Window* getWindow();
-	SDL_Renderer* getRenderer();
+	
 	static SDL_Event event;
 	
 	void printInConsole(std::string str);
@@ -43,13 +43,13 @@ public:
 	int getScreenHeight();
 	Camera* getCamera();
 	
+	static SDL_Renderer *renderer;
 
 private:
 	bool isDebugMode;
 	bool isRunning;
 	SDL_Window *window;
-	SDL_Renderer *renderer;
-
+	
 	Camera* camera;
 
 	int screen_width;

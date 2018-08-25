@@ -20,28 +20,17 @@ class GameObject
 public:
 	
 	OwnMathFuncs::Vector2 position = {0, 0};
-	
-	bool isFlipped = false;
-
-	int img_sizeX = 30;
-	int img_sizeY = 30;
-
-	int sprite_sizeX = 30;
-	int sprite_sizeY = 30;
-
-	float scale_factor = 3;
+	OwnMathFuncs::Vector2 scale = { 1, 1};
 
 	int layer = 0;
 
-	explicit GameObject(SDL_Renderer* renderer);
+	explicit GameObject();
 	~GameObject();
 
 	virtual void handleEvents();
 	virtual void update();
 	virtual void render(float camera_pos_x, float camera_pos_y);
 	void clean();
-
-	void setTexture(SDL_Texture* texture);
 
 	void addComponent(Component* component);
 
@@ -50,12 +39,6 @@ public:
 
 	template <class T>
 	Component* getComponent();
-
-protected:
-	SDL_Texture * texture;
-	SDL_Rect srcrect;
-	SDL_Rect dstrect;
-	SDL_Renderer* renderer;
 
 private:
 	std::vector<Component*> components;
