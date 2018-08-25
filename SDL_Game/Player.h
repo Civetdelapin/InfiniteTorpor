@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Game.h"
 #include "Map.h"
+#include "PlayerController.h"
 
 class Player : public virtual GameObject
 {
@@ -13,6 +14,11 @@ public:
 
 private:
 	Map* test_map;
-	double speed = 0.5;
+	
+
+	int world_collider_up_offset = 6;
+	int world_collider_bottom_offset = 1;
+	int world_collider_left_offset = 12;
+	int world_collider_right_offset = 12;
 };
 

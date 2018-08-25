@@ -6,10 +6,12 @@
 #include <iostream>
 #include "Time.h"
 #include "TextureManager.h"
+#include <vector>
 
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+class Component;
 
 // Base class for all the objects of the game
 class GameObject
@@ -18,7 +20,6 @@ class GameObject
 public:
 	
 	OwnMathFuncs::Vector2 position = {0, 0};
-	OwnMathFuncs::Vector2 velocity = {0, 0};
 	
 	bool isFlipped = false;
 
@@ -42,11 +43,22 @@ public:
 
 	void setTexture(SDL_Texture* texture);
 
+	void addComponent(Component* component);
+
+	template <class T>
+	void removeComponent();
+
+	template <class T>
+	Component* getComponent();
+
 protected:
 	SDL_Texture * texture;
 	SDL_Rect srcrect;
 	SDL_Rect dstrect;
 	SDL_Renderer* renderer;
+
+private:
+	std::vector<Component*> components;
 };
 
 #endif
