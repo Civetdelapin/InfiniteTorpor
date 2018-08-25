@@ -34,8 +34,8 @@ void Map::render(float camera_pos_x, float camera_pos_y)
 				srcrect.h = Map::tile_height;
 				srcrect.w = Map::tile_width;
 
-				dstrect.x = position.x + camera_pos_x + (x * Map::tile_width * scale_factor) - ((mapValue.size() / 2) * scale_factor * Map::tile_width) ;
-				dstrect.y = position.y + camera_pos_y + (y * Map::tile_height * scale_factor) - ((mapValues.size() / 2) * scale_factor * Map::tile_width);
+				dstrect.x = position.x - camera_pos_x + (x * Map::tile_width * scale_factor) - ((mapValue.size() / 2) * scale_factor * Map::tile_width) ;
+				dstrect.y = position.y - camera_pos_y + (y * Map::tile_height * scale_factor) - ((mapValues.size() / 2) * scale_factor * Map::tile_width);
 
 				dstrect.h = Map::tile_height * scale_factor;
 				dstrect.w = Map::tile_width * scale_factor;
