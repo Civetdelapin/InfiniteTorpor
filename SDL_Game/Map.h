@@ -21,10 +21,16 @@ public:
 
 	void render(float camera_pos_x, float camera_pos_y);
 
+	int getTile(int x, int y);
+
 private:
 	
 	void readCSV(const char* file_path, std::vector<std::vector<int>>& vls);
 	std::vector<std::vector<int>> mapValues;
+
+	std::vector<std::vector<int>> mapCollider;
+
+	void DrawMap(std::vector<std::vector<int>> vecToDraw, float camera_pos_x, float camera_pos_y);
 
 	SDL_Texture* map_texture;
 };

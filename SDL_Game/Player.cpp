@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(SDL_Renderer* renderer) : GameObject(renderer)
+Player::Player(SDL_Renderer* renderer, Map* test_map) : GameObject(renderer), test_map(test_map)
 {
 	
 }
@@ -33,60 +33,61 @@ void Player::update()
 		velocity.x = 1;
 		isFlipped = false;
 	}
-		
-
-	/*
-	if (Game::event.type == SDL_KEYDOWN) {
-
-		switch (Game::event.key.keysym.sym) {
-
-		case SDLK_z:
-			velocity.y = -speed;
-			break;
-
-		case SDLK_s:
-			velocity.y = speed;
-			break;
-
-		case SDLK_q:
-			velocity.x = -speed;
-			break;
-
-		case SDLK_d:
-			velocity.x = speed;
-			break;
-		}
-	}
-
-
-	if (Game::event.type == SDL_KEYUP) {
-
-		switch (Game::event.key.keysym.sym) {
-
-		case SDLK_z:
-			velocity.y = 0;
-			break;
-
-		case SDLK_s:
-			velocity.y = 0;
-			break;
-
-		case SDLK_q:
-			velocity.x = 0;
-			break;
-
-		case SDLK_d:
-			velocity.x = 0;
-			break;
-		}
-	}
-
-	*/
-
-	OwnMathFuncs::OwnMathFuncs::normalize(velocity);
 	
+	OwnMathFuncs::OwnMathFuncs::normalize(velocity);
 	velocity.x *= speed;
 	velocity.y *= speed;
+
+	float new_player_pos_x = position.x + (velocity.x * Time::deltaTime);
+	float new_player_pos_y = position.y + (velocity.y * Time::deltaTime);
+
+	//Test the collision with the tilemap
+	if (velocity.x <= 0) // Moving Left
+	{
+	
+		if (test_map->getTile(new_player_pos_x, position.y) != -1) {
+			
+			new_player_pos_x = position.x;
+			velocity.x = 0;
+
+		}
+
+	}
+	else // Moving Right
+	{
+		if (test_map->getTile(new_player_pos_x, position.y) != -1) {
+
+			new_player_pos_x = position.x;
+			velocity.x = 0;
+
+		}
+	}
+
+
+	if (velocity.y <= 0) // Moving Up
+	{
+		if (test_map->getTile(position.x, new_player_pos_y) != -1) {
+
+			new_player_pos_y = position.y;
+			velocity.y = 0;
+
+		}
+	}
+	else // Moving Down
+	{
+		if (test_map->getTile(position.x, new_player_pos_y) != -1) {
+
+			new_player_pos_y = position.y;
+			velocity.y = 0;
+
+		}
+	}
+
+
+
+
+	position.x = new_player_pos_x;
+	position.y = new_player_pos_y;
 
 	GameObject::update();
 }

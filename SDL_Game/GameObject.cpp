@@ -16,8 +16,7 @@ void GameObject::handleEvents()
 
 void GameObject::update()
 {
-	position.x += (velocity.x * Time::deltaTime);
-	position.y += (velocity.y * Time::deltaTime);
+	
 }
 
 void GameObject::render(float camera_pos_x, float camera_pos_y)
