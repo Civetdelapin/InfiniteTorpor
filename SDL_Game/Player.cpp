@@ -20,14 +20,20 @@ void Player::update()
 
 	if (keystates[SDL_SCANCODE_W])
 		velocity.y = -1;
-	if (keystates[SDL_SCANCODE_A])
-		velocity.x = -1;
+
 	if (keystates[SDL_SCANCODE_S])
 		velocity.y = 1;
-	if (keystates[SDL_SCANCODE_D])
+
+	if (keystates[SDL_SCANCODE_A]) {
+		velocity.x = -1; 
+		isFlipped = true;
+	}
+		
+	if (keystates[SDL_SCANCODE_D]) {
 		velocity.x = 1;
-
-
+		isFlipped = false;
+	}
+		
 
 	/*
 	if (Game::event.type == SDL_KEYDOWN) {

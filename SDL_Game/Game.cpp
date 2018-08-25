@@ -62,11 +62,10 @@ void Game::update()
 
 	//printInConsole("delta time : " + std::to_string(deltaTime));
 
+	camera->update();
 	for (GameObject* game_object : game_objects) {
 		game_object->update();
 	}
-
-	camera->update();
 }
 
 void Game::render()

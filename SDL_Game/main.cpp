@@ -13,7 +13,7 @@ int main(int argc, char* args[]) {
 	sprite->x = 32;
 	sprite->y = 32;
 	player->layer = 5;
-	main_game->addGameObject(player, "img/rat.png", sprite);
+	main_game->addGameObject(player, "img/player.png", sprite);
 
 	player->position.x = main_game->getScreenWidth() / 2;
 	player->position.y = main_game->getScreenHeight() / 2;

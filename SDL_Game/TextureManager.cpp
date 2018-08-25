@@ -12,7 +12,7 @@ SDL_Texture * TextureManager::LoadTexture(const char * fileName, SDL_Renderer * 
 	return texture;
 }
 
-void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Renderer * renderer, SDL_Rect srcrect, SDL_Rect destrect)
+void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Renderer * renderer, SDL_Rect srcrect, SDL_Rect destrect, SDL_RendererFlip render_flip)
 {
-	SDL_RenderCopy(renderer, texture, &srcrect, &destrect);
+	SDL_RenderCopyEx(renderer, texture, &srcrect, &destrect, NULL, NULL, render_flip);
 }

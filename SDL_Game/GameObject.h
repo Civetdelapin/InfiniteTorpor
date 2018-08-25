@@ -19,6 +19,8 @@ public:
 	
 	OwnMathFuncs::Vector2 position = {0, 0};
 	OwnMathFuncs::Vector2 velocity = {0, 0};
+	
+	bool isFlipped = false;
 
 	int img_sizeX = 30;
 	int img_sizeY = 30;
@@ -26,7 +28,7 @@ public:
 	int sprite_sizeX = 30;
 	int sprite_sizeY = 30;
 
-	float scale_factor = 2.5;
+	float scale_factor = 3;
 
 	int layer = 0;
 

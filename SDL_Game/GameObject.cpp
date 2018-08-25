@@ -33,7 +33,12 @@ void GameObject::render(float camera_pos_x, float camera_pos_y)
 		srcrect.w = sprite_sizeX;
 		srcrect.h = sprite_sizeY;
 
-		TextureManager::DrawTexture(texture, renderer, srcrect, dstrect);
+		SDL_RendererFlip flip = SDL_FLIP_NONE;
+		if (isFlipped) {
+			flip = SDL_FLIP_HORIZONTAL;
+		}
+
+		TextureManager::DrawTexture(texture, renderer, srcrect, dstrect, flip);
 	}
 }
 
