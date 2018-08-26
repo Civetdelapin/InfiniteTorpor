@@ -25,8 +25,6 @@ void SpriteRenderer::render(float camera_pos_x, float camera_pos_y)
 	
 	if (texture != nullptr) {
 
-		
-
 		dstrect.x = (game_object->position.x - camera_pos_x - (sprite_sizeX / 2) * fabs(game_object->scale.x));
 		dstrect.y = (game_object->position.y - camera_pos_y - (sprite_sizeY / 2) * fabs(game_object->scale.y));
 
@@ -35,7 +33,6 @@ void SpriteRenderer::render(float camera_pos_x, float camera_pos_y)
 
 		srcrect.w = sprite_sizeX;
 		srcrect.h = sprite_sizeY;
-
 
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 		if (game_object->scale.x < 0) {

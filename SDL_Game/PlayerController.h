@@ -1,5 +1,8 @@
 #pragma once
 #include "Component.h"
+#include "VelocityBody.h"
+#include "GameObject.h"
+#include "OwnMathFuncs.h"
 
 class PlayerController : public virtual Component
 {
@@ -7,12 +10,15 @@ public:
 	PlayerController(GameObject* game_object);
 	~PlayerController();
 
-	OwnMathFuncs::Vector2 velocity = { 0, 0 };
-	double speed = 2500;
-	double drag = 8;
+	float speed = 2500;
 
 	bool can_move = true;
 
 	void update();
+
+private:
+
+	VelocityBody* velocityBody;
+
 };
 

@@ -2,7 +2,14 @@
 
 PlayerController::PlayerController(GameObject* game_object) : Component(game_object)
 {
+	velocityBody = game_object->getComponent<VelocityBody>();
+	
+	if (velocityBody == nullptr) {
 
+		velocityBody = new VelocityBody(game_object);
+		game_object->addComponent(velocityBody);
+	}
+	
 }
 
 
@@ -37,54 +44,44 @@ void PlayerController::update()
 		OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
 
 
-		velocity.x += normalizeDirection.x * speed * Time::deltaTime;
-		velocity.y += normalizeDirection.y * speed * Time::deltaTime;
+		velocityBody->velocity.x += normalizeDirection.x * speed * Time::deltaTime;
+		velocityBody->velocity.y += normalizeDirection.y * speed * Time::deltaTime;
 
+		//std::cout << velocityBody->drag.x << std::endl;
 
 		//Make the drag
-		velocity.x += -drag * velocity.x * Time::deltaTime;
-		if (fabs(velocity.x) < 1)
-			velocity.x = 0.0f;
+		velocityBody->velocity.x += -velocityBody->drag.x * velocityBody->velocity.x * Time::deltaTime;
+		if (fabs(velocityBody->velocity.x) < 0.1)
+			velocityBody->velocity.x = 0.0f;
 
-		velocity.y += -drag * velocity.y * Time::deltaTime;
-		if (fabs(velocity.y) < 1)
-			velocity.y = 0.0f;
+		velocityBody->velocity.y += -velocityBody->drag.y * velocityBody->velocity.y * Time::deltaTime;
+		if (fabs(velocityBody->velocity.y) < 0.1)
+			velocityBody->velocity.y = 0.0f;
 
 	
-		if (velocity.x < 0 && game_object->scale.x > 0) {
+		if (velocityBody->velocity.x < 0 && game_object->scale.x > 0) {
 			game_object->scale.x *= -1;
 		}
-		else if (velocity.x > 0 && game_object->scale.x < 0) {
+		else if (velocityBody->velocity.x > 0 && game_object->scale.x < 0) {
 			game_object->scale.x *= -1;
 		}
 		
-
 		// Clamp velocities
-		if (velocity.x > 500.0f)
-			velocity.x = 500.0f;
+		if (velocityBody->velocity.x > 500.0f)
+			velocityBody->velocity.x = 500.0f;
 
-		if (velocity.x < -500.0f)
-			velocity.x = -500.0f;
+		if (velocityBody->velocity.x < -500.0f)
+			velocityBody->velocity.x = -500.0f;
 
-		if (velocity.y > 500.0f)
-			velocity.y = 500.0f;
+		if (velocityBody->velocity.y > 500.0f)
+			velocityBody->velocity.y = 500.0f;
 
-		if (velocity.y < -500.0f)
-			velocity.y = -500.0f;
-
-
-		//OwnMathFuncs::OwnMathFuncs::normalize(velocity);
-
-
-		//std::cout << "v.x : " << velocity.x << ", v.y : " << velocity.y << std::endl;
-
+		if (velocityBody->velocity.y < -500.0f)
+			velocityBody->velocity.y = -500.0f;
 	}
 	
-
-
-
-	float new_player_pos_x = game_object->position.x + (velocity.x * Time::deltaTime);
-	float new_player_pos_y = game_object->position.y + (velocity.y * Time::deltaTime);
+	float new_player_pos_x = game_object->position.x + (velocityBody->velocity.x * Time::deltaTime);
+	float new_player_pos_y = game_object->position.y + (velocityBody->velocity.y * Time::deltaTime);
 
 
 	/*

@@ -35,10 +35,40 @@ public:
 	void addComponent(Component* component);
 
 	template <class T>
-	void removeComponent();
+	void removeComponent()
+	{
+		int idFound = -1;
+		for (int i = 0; i < components.size(); i++) {
+
+			T *t = (T *)components[i];
+
+			if (t != 0) {
+				idFound = i;
+				i = components.size();
+			}
+		}
+
+		if (idFound >= 0) {
+			vec.erase(vec.begin() + idFound);
+		}
+	}
 
 	template <class T>
-	Component* getComponent();
+	T* getComponent()
+	{
+
+		for (Component* component : components) {
+
+			T *t = (T *)component;
+
+			if (t != 0) {
+				return t;
+			}
+
+		}
+
+		return nullptr;
+	}
 
 private:
 	std::vector<Component*> components;

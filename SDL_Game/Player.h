@@ -4,8 +4,10 @@
 #include "Map.h"
 #include "PlayerController.h"
 #include "SpriteRenderer.h"
+#include "VelocityBody.h"
+#include "Animator.h"
 
-class Player : public virtual GameObject
+class Player : public GameObject
 {
 public:
 	Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size);

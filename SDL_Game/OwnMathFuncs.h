@@ -5,8 +5,13 @@ namespace OwnMathFuncs
 {
 	struct Vector2
 	{
-		double x;
-		double y;
+		float x;
+		float y;
+
+		Vector2(float x, float y) : x(x), y(y) {
+
+		}
+
 	};
 
 
