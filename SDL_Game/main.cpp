@@ -17,6 +17,13 @@ int main(int argc, char* args[]) {
 	//map->position.x = (main_game->getScreenWidth() / 2);
 	//map->position.y = (main_game->getScreenHeight() / 2);
 
+	
+	GameObject* box_collider_test = new GameObject();
+	BoxCollider* box_collider = new BoxCollider(box_collider_test);
+	box_collider_test->addComponent(box_collider);
+	
+	main_game->addGameObject(box_collider_test);
+	
 
 	//Add the player in the game
 	Player *player = new Player("img/player.png", new OwnMathFuncs::Vector2(32, 32));

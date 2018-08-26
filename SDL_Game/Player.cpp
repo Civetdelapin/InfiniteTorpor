@@ -14,7 +14,7 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	// Creation of Animations
 	Animation animIdle;
 	animIdle.nb_sprites = 10;
-	animIdle.speed = 0.1f;
+	animIdle.speed = 0.5f;
 	animIdle.y_index = 0;
 
 	animator->animations.insert(std::pair <std::string, Animation> ("Idle", animIdle));
@@ -23,7 +23,7 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 
 	Animation animWalking;
 	animWalking.nb_sprites = 10;
-	animWalking.speed = 0.1f;
+	animWalking.speed = 0.2f;
 	animWalking.y_index = 2;
 
 	animator->animations.insert(std::pair <std::string, Animation>("Walking", animWalking));
@@ -33,6 +33,12 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	
 	VelocityBody* velocityBody = new VelocityBody(this);
 	addComponent(velocityBody);
+
+	BoxCollider* boxCollider = new BoxCollider(this);
+	boxCollider->offset = { 0, 14};
+	boxCollider->size = { 10, 6 };
+
+	addComponent(boxCollider);
 
 	PlayerController* playerController = new PlayerController(this);
 	addComponent(playerController);

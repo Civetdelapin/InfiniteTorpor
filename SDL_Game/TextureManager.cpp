@@ -27,3 +27,11 @@ void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Re
 {
 	SDL_RenderCopyEx(Game::renderer, texture, &srcrect, &destrect, NULL, NULL, render_flip);
 }
+
+void TextureManager::DrawRect(SDL_Rect rect)
+{
+	SDL_SetRenderDrawColor(Game::renderer, 255, 0, 0, 255);
+	SDL_RenderDrawRect(Game::renderer, &rect);
+
+	//SDL_RenderClear(Game::renderer);
+}

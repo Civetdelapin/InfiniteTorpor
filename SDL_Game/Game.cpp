@@ -2,6 +2,7 @@
 
 SDL_Event Game::event;
 SDL_Renderer* Game::renderer;
+ColliderManager* Game::collider_manager = new ColliderManager();
 
 Game::Game(const char * title, int xpos, int ypos, int width, int height, bool fullscreen, bool isDebugMode) : isDebugMode(isDebugMode), screen_width(width), screen_height(height)
 {
@@ -23,6 +24,8 @@ Game::Game(const char * title, int xpos, int ypos, int width, int height, bool f
 		if (renderer != nullptr) {
 			printInConsole("renderer created!");
 		}
+
+		
 
 		isRunning = true;
 	}
@@ -63,7 +66,9 @@ void Game::update()
 
 	//printInConsole("delta time : " + std::to_string(deltaTime));
 
+	collider_manager->update();
 	camera->update();
+
 	for (GameObject* game_object : game_objects) {
 		game_object->update();
 	}

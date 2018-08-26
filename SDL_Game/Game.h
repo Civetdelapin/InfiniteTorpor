@@ -11,6 +11,7 @@
 #include "Time.h"
 #include "Map.h"
 #include "Camera.h"
+#include "ColliderManager.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -44,6 +45,7 @@ public:
 	Camera* getCamera();
 	
 	static SDL_Renderer *renderer;
+	static ColliderManager * collider_manager;
 
 private:
 	bool isDebugMode;
@@ -55,12 +57,8 @@ private:
 	int screen_width;
 	int screen_height;
 
-	void drawLevels();
-
 	Uint64 timeNow = SDL_GetPerformanceCounter();
 	Uint64 timeLast = 0;
-
-	
 };
 
 #endif

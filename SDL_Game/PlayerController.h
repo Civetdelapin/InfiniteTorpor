@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "OwnMathFuncs.h"
 #include "Animator.h"
+#include "BoxCollider.h"
 
 class PlayerController : public virtual Component
 {
@@ -21,5 +22,6 @@ private:
 
 	VelocityBody* velocityBody;
 	Animator* animator;
+	BoxCollider* box_collider;
 };
 

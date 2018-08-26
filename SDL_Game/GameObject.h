@@ -12,6 +12,7 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+
 class Component;
 
 // Base class for all the objects of the game
@@ -34,6 +35,7 @@ public:
 	void clean();
 
 	void addComponent(Component* component);
+
 
 	//NOT WORKING NEED REDO
 	/*
@@ -73,6 +75,8 @@ public:
 
 private:
 	std::vector<Component*> components;
+
+	
 };
 
 #endif

@@ -1,11 +1,12 @@
 #include "PlayerController.h"
+#include "Game.h"
 
 PlayerController::PlayerController(GameObject* game_object) : Component(game_object)
 {
 
 	velocityBody = game_object->getComponent<VelocityBody>();
 	animator = game_object->getComponent<Animator>();
-
+	box_collider = game_object->getComponent<BoxCollider>();
 
 	if (velocityBody == nullptr) {
 
@@ -24,6 +25,12 @@ PlayerController::~PlayerController()
 
 void PlayerController::update()
 {
+
+	if (box_collider == nullptr) {
+		box_collider = game_object->getComponent<BoxCollider>();
+		game_object->addComponent(box_collider);
+	}
+
 
 	OwnMathFuncs::Vector2 normalizeDirection = { 0, 0 };
 
@@ -83,8 +90,45 @@ void PlayerController::update()
 			velocityBody->velocity.y = -500.0f;
 	}
 	
-	float new_player_pos_x = game_object->position.x + (velocityBody->velocity.x * Time::deltaTime);
-	float new_player_pos_y = game_object->position.y + (velocityBody->velocity.y * Time::deltaTime);
+
+
+		if (velocityBody->velocity.x != 0) {
+			float new_player_pos_x = game_object->position.x + (velocityBody->velocity.x * Time::deltaTime);
+
+			//Save the old position in casse we need resolve collision
+			float old_player_pos_x = game_object->position.x;
+
+			game_object->position.x = new_player_pos_x;
+			if (box_collider != nullptr) {
+
+				std::vector<Collider*> vect = Game::collider_manager->isTrigger(box_collider);
+				if (vect.size() > 0) {
+					game_object->position.x = old_player_pos_x;
+					velocityBody->velocity.x = 0;
+				}
+			}
+		}
+
+		if (velocityBody->velocity.y != 0) {
+			float new_player_pos_y = game_object->position.y + (velocityBody->velocity.y * Time::deltaTime);
+
+			//Save the old position in casse we need resolve collision
+			float old_player_pos_y = game_object->position.y;
+
+			game_object->position.y = new_player_pos_y;
+			if (box_collider != nullptr) {
+
+				std::vector<Collider*> vect = Game::collider_manager->isTrigger(box_collider);
+				if (vect.size() > 0) {
+					game_object->position.y = old_player_pos_y;
+					velocityBody->velocity.y = 0;
+				}
+			}
+		}
+		
+	
+
+	//std::cout << "velocity x : " << velocityBody->velocity.x << ", velocity y : " << velocityBody->velocity.y << std::endl;
 
 	if (abs(velocityBody->velocity.x) > 3 || abs(velocityBody->velocity.y) > 3) {
 		animator->play("Walking");
@@ -92,8 +136,6 @@ void PlayerController::update()
 	else {
 		animator->play("Idle");
 	}
-	
-
 
 	/*
 
@@ -140,7 +182,4 @@ void PlayerController::update()
 	}
 	*/
 
-
-	game_object->position.x = new_player_pos_x;
-	game_object->position.y = new_player_pos_y;
 }
