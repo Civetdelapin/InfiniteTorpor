@@ -1,15 +1,18 @@
 #include "PlayerController.h"
 
-PlayerController::PlayerController(GameObject* game_object) : Component(game_object)
+PlayerController::PlayerController(GameObject* game_object, VelocityBody* velocity_body, Animator* animator) : Component(game_object), velocityBody(velocity_body), animator(animator)
 {
-	velocityBody = game_object->getComponent<VelocityBody>();
-	
+	/*
+	velocityBody = &game_object->getComponent<VelocityBody>();
+
 	if (velocityBody == nullptr) {
 
 		velocityBody = new VelocityBody(game_object);
 		game_object->addComponent(velocityBody);
 	}
-	
+	*/
+
+	std::cout << "velocityBody PLAYER CTRONLLER : " << velocityBody << std::endl;
 }
 
 
@@ -82,6 +85,14 @@ void PlayerController::update()
 	
 	float new_player_pos_x = game_object->position.x + (velocityBody->velocity.x * Time::deltaTime);
 	float new_player_pos_y = game_object->position.y + (velocityBody->velocity.y * Time::deltaTime);
+
+	if (abs(velocityBody->velocity.x) > 3 || abs(velocityBody->velocity.y) > 3) {
+		animator->play("Walking");
+	}
+	else {
+		animator->play("Idle");
+	}
+	
 
 
 	/*

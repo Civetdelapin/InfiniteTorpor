@@ -7,6 +7,7 @@
 #include "Time.h"
 #include "TextureManager.h"
 #include <vector>
+#include <functional>
 
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
@@ -34,6 +35,8 @@ public:
 
 	void addComponent(Component* component);
 
+	//NOT WORKING NEED REDO
+	/*
 	template <class T>
 	void removeComponent()
 	{
@@ -53,22 +56,16 @@ public:
 		}
 	}
 
-	template <class T>
-	T* getComponent()
-	{
-
-		for (Component* component : components) {
-
-			T *t = (T *)component;
-
-			if (t != 0) {
-				return t;
-			}
-
+	template< class ComponentType >
+	ComponentType & getComponent() {
+		for (auto && component : components) {
+			if (typeid(component) == typeid(ComponentType))
+				return *static_cast< ComponentType * >(component);
 		}
 
-		return nullptr;
+		return *std::unique_ptr< ComponentType >(nullptr);
 	}
+	*/
 
 private:
 	std::vector<Component*> components;
