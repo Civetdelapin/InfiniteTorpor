@@ -55,17 +55,21 @@ public:
 			vec.erase(vec.begin() + idFound);
 		}
 	}
+	*/
 
 	template< class ComponentType >
-	ComponentType & getComponent() {
+	ComponentType* getComponent() {
 		for (auto && component : components) {
-			if (typeid(component) == typeid(ComponentType))
-				return *static_cast< ComponentType * >(component);
+
+			if (ComponentType* t = dynamic_cast<ComponentType*>(component)) {
+
+				return t;
+			}	
 		}
 
-		return *std::unique_ptr< ComponentType >(nullptr);
+		return nullptr;
 	}
-	*/
+	
 
 private:
 	std::vector<Component*> components;

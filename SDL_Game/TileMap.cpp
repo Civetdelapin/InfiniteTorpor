@@ -2,11 +2,10 @@
 
 TileMap::TileMap(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2* sprite_size, std::string data_path) : Component(game_object), sprite_size(sprite_size)
 {
+
 	texture = TextureManager::LoadTexture(img_path.c_str());
 
 	readCSV(data_path.c_str(), data);
-
-	
 
 }
 
@@ -19,8 +18,6 @@ void TileMap::render(float camera_pos_x, float camera_pos_y)
 {
 
 	for (Tile tile : data) {
-
-		//std::cout << "Vect_x : " << tile.position_grid.x << " vect_y : " << tile.position_grid.y << " img : " << tile.nb_img << std::endl;
 
 		SDL_Rect srcrect;
 		SDL_Rect dstrect;

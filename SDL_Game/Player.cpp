@@ -8,7 +8,7 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	SpriteRenderer* spriteRenderer = new SpriteRenderer(this, img_path, sprite_size);
 	addComponent(spriteRenderer);
 	
-	Animator* animator = new Animator(this, spriteRenderer);
+	Animator* animator = new Animator(this);
 
 
 	// Creation of Animations
@@ -34,15 +34,13 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	VelocityBody* velocityBody = new VelocityBody(this);
 	addComponent(velocityBody);
 
-	PlayerController* playerController = new PlayerController(this, velocityBody, animator);
+	PlayerController* playerController = new PlayerController(this);
 	addComponent(playerController);
 
 
 	scale.x = 3;
 	scale.y = 3;
 
-	std::cout << "SPRITE RENDEDER PLAYER : " << spriteRenderer << std::endl;
-	std::cout << "velocityBody PLAYER : " << velocityBody << std::endl;
 }
 
 

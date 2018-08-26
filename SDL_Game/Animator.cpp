@@ -2,11 +2,9 @@
 
 
 
-Animator::Animator(GameObject* game_object, SpriteRenderer* spriteRenderer): Component(game_object), spriteRenderer(spriteRenderer)
+Animator::Animator(GameObject* game_object): Component(game_object)
 {
-	//spriteRenderer = &game_object->getComponent<SpriteRenderer>();
-
-	std::cout << "SPRITERENDERER ANIMATOR ADRESSE : " << spriteRenderer << std::endl;
+	spriteRenderer = game_object->getComponent<SpriteRenderer>();
 }
 
 
@@ -18,8 +16,6 @@ void Animator::update()
 {
 	
 	if (spriteRenderer != nullptr && cur_animation != "") {
-
-
 
 		if (time_passed > animations[cur_animation].speed) {
 

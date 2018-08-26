@@ -1,18 +1,18 @@
 #include "PlayerController.h"
 
-PlayerController::PlayerController(GameObject* game_object, VelocityBody* velocity_body, Animator* animator) : Component(game_object), velocityBody(velocity_body), animator(animator)
+PlayerController::PlayerController(GameObject* game_object) : Component(game_object)
 {
-	/*
-	velocityBody = &game_object->getComponent<VelocityBody>();
+
+	velocityBody = game_object->getComponent<VelocityBody>();
+	animator = game_object->getComponent<Animator>();
+
 
 	if (velocityBody == nullptr) {
 
 		velocityBody = new VelocityBody(game_object);
 		game_object->addComponent(velocityBody);
 	}
-	*/
-
-	std::cout << "velocityBody PLAYER CTRONLLER : " << velocityBody << std::endl;
+	
 }
 
 

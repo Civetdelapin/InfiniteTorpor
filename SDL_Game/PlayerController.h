@@ -8,7 +8,7 @@
 class PlayerController : public virtual Component
 {
 public:
-	PlayerController(GameObject* game_object, VelocityBody* velocity_body, Animator* animator);
+	PlayerController(GameObject* game_object);
 	~PlayerController();
 
 	float speed = 2500;

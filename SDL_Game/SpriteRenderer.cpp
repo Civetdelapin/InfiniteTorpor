@@ -3,6 +3,7 @@
 
 SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2* sprite_size) : Component(game_object)
 {
+
 	texture = TextureManager::LoadTexture(img_path.c_str(), img_sizeX, img_sizeY);
 
 	if (sprite_size == nullptr) {

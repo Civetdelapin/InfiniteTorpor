@@ -13,7 +13,7 @@ struct Animation {
 class Animator : public Component
 {
 public:
-	Animator(GameObject* game_object, SpriteRenderer * spriteRenderer);
+	Animator(GameObject* game_object);
 	~Animator();
 
 	std::map <std::string, Animation> animations;
