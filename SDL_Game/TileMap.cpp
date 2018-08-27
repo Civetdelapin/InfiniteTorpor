@@ -1,13 +1,13 @@
 #include "TileMap.h"
 
-TileMap::TileMap(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2* sprite_size, std::string data_path) : Component(game_object), sprite_size(sprite_size)
+TileMap::TileMap(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string data_path) : Component(game_object), sprite_size(sprite_size)
 {
 	texture = TextureManager::LoadTexture(img_path.c_str());
 
 	readCSV(data_path.c_str(), data);
 }
 
-TileMap::TileMap(GameObject * game_object, std::string img_path, OwnMathFuncs::Vector2 * sprite_size, std::string data_path, std::string collider_path) : Component(game_object), sprite_size(sprite_size)
+TileMap::TileMap(GameObject * game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string data_path, std::string collider_path) : Component(game_object), sprite_size(sprite_size)
 {
 	texture = TextureManager::LoadTexture(img_path.c_str());
 	readCSV(data_path.c_str(), data);
@@ -31,16 +31,16 @@ void TileMap::render(float camera_pos_x, float camera_pos_y)
 				SDL_Rect srcrect;
 				SDL_Rect dstrect;
 
-				srcrect.x = (tile.nb_img % 30) * sprite_size->x;
-				srcrect.y = (tile.nb_img / 30) * sprite_size->y;
-				srcrect.h = sprite_size->x;
-				srcrect.w = sprite_size->y;
+				srcrect.x = (tile.nb_img % 30) * sprite_size.x;
+				srcrect.y = (tile.nb_img / 30) * sprite_size.y;
+				srcrect.h = sprite_size.x;
+				srcrect.w = sprite_size.y;
 
-				dstrect.x = game_object->position.x - camera_pos_x + (tile.position_grid.x * sprite_size->x * game_object->scale.x);
-				dstrect.y = game_object->position.y - camera_pos_y + (tile.position_grid.y * sprite_size->y * game_object->scale.y);
+				dstrect.x = game_object->position.x - camera_pos_x + (tile.position_grid.x * sprite_size.x * game_object->scale.x);
+				dstrect.y = game_object->position.y - camera_pos_y + (tile.position_grid.y * sprite_size.y * game_object->scale.y);
 
-				dstrect.h = sprite_size->x * game_object->scale.x;
-				dstrect.w = sprite_size->y * game_object->scale.y;
+				dstrect.h = sprite_size.x * game_object->scale.x;
+				dstrect.w = sprite_size.y * game_object->scale.y;
 
 				TextureManager::DrawTexture(texture, srcrect, dstrect);
 
@@ -170,36 +170,6 @@ void TileMap::readCSVCollider(const char * file_path)
 	}
 
 }
-
-
-
-
-/*
-int TileMap::getTile(int x, int y)
-{
-	//std::cout << "---------------" << std::endl;
-	//std::cout << "x : " << x << " , y : " << y << std::endl;
-
-
-	//Get the x and y by the world space
-	x = (x - position.x) / (scale_factor * Map::tile_width);
-	y = (y - position.y) / (scale_factor * Map::tile_height);
-
-	//std::cout << "x : " << x << " , y : " << y << std::endl;
-
-	if (y >= 0 && y < mapCollider.size()) {
-		//std::cout << "COLLISION : " << std::endl;
-
-		if (x >= 0 && x < mapCollider[y].size()) {
-			//std::cout << "collider : " << mapCollider[y][x] << std::endl;
-			return mapCollider[y][x];
-		}
-
-	}
-
-	return -1;
-}
-*/
 
 
 Tile::Tile()

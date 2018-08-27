@@ -13,10 +13,6 @@ int main(int argc, char* args[]) {
 	map->layer = -1;
 	main_game->addGameObject(map);
 	
-
-	//map->position.x = (main_game->getScreenWidth() / 2);
-	//map->position.y = (main_game->getScreenHeight() / 2);
-
 	
 	GameObject* box_collider_test = new GameObject();
 	BoxCollider* box_collider = new BoxCollider(box_collider_test);

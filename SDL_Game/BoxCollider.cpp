@@ -18,20 +18,14 @@ bool BoxCollider::isColliding(Collider * collider)
 		update();
 		collider->update();
 
-		if (
-			rect.x + rect.w >= box_collider->rect.x &&
-			box_collider->rect.x + box_collider->rect.w >= rect.x &&
-			rect.y + rect.h >= box_collider->rect.y &&
-			box_collider->rect.y + box_collider->rect.h >= rect.y)
-		{
+		if (Collider::AABB(rect, box_collider->rect)) {
 			return true;
 		}
-		
-		return false;
+		else {
+			return false;
+		}
 	}
-	else if (true) {
-
-	}
+	
 
 	return false;
 }

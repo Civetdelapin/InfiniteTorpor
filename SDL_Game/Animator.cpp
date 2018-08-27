@@ -1,7 +1,5 @@
 #include "Animator.h"
 
-
-
 Animator::Animator(GameObject* game_object): Component(game_object)
 {
 	spriteRenderer = game_object->getComponent<SpriteRenderer>();
