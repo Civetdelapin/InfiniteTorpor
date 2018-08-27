@@ -9,7 +9,7 @@ int main(int argc, char* args[]) {
 
 	//Add the background
 	
-	Map* map = new Map("img/dungeon_tileset.png", new OwnMathFuncs::Vector2(16,16), "levels/TileMap_1.csv");
+	Map* map = new Map("img/dungeon_tileset.png", new OwnMathFuncs::Vector2(16,16), "levels/TileMap_1.csv", "levels/TileMap_1_Collider.csv");
 	map->layer = -1;
 	main_game->addGameObject(map);
 	
