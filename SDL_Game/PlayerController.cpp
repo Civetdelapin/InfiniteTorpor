@@ -26,38 +26,79 @@ PlayerController::~PlayerController()
 void PlayerController::update()
 {
 
-	if (box_collider == nullptr) {
-		box_collider = game_object->getComponent<BoxCollider>();
-		game_object->addComponent(box_collider);
+
+	if (can_move) {
+
+
+
+		if (state != State::dashing) {
+
+			normalizeDirection = { 0, 0 };
+
+			const Uint8* keystates = SDL_GetKeyboardState(NULL);
+
+			if (keystates[SDL_SCANCODE_W])
+				normalizeDirection.y = -1;
+
+			if (keystates[SDL_SCANCODE_S])
+				normalizeDirection.y = 1;
+
+			if (keystates[SDL_SCANCODE_A]) {
+				normalizeDirection.x = -1;
+			}
+
+			if (keystates[SDL_SCANCODE_D]) {
+				normalizeDirection.x = 1;
+			}
+
+			OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
+
+			//std::cout << normalizeDirection.x << ", "<< normalizeDirection.y << std::endl;
+
+			velocityBody->velocity.x += normalizeDirection.x * speed * Time::deltaTime;
+			velocityBody->velocity.y += normalizeDirection.y * speed * Time::deltaTime;
+
+			//std::cout << velocityBody->drag.x << std::endl;
+
+			if (state != State::cant_dash) {
+
+				if (keystates[SDL_SCANCODE_SPACE]) {
+
+					state = State::dashing;
+					time_passed = time_dash;
+				}
+			}
+			else {
+				time_passed -= Time::deltaTime;
+
+				if (time_passed <= 0) {
+					state = State::ready_dash;
+				}
+			}
+
+		}
+		else {
+
+			//std::cout << normalizeDirection.x << ", " << normalizeDirection.y << std::endl;
+
+			OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
+
+			velocityBody->velocity.x += normalizeDirection.x * dash_speed * Time::deltaTime;
+			velocityBody->velocity.y += normalizeDirection.y * dash_speed * Time::deltaTime;
+
+			time_passed -= Time::deltaTime;
+
+			if (time_passed <= 0) {
+				state = State::cant_dash;
+
+				time_passed = time_cd_dash;
+			}
+		}
+
 	}
 
 
-	OwnMathFuncs::Vector2 normalizeDirection = { 0, 0 };
 
-	if (can_move) {
-		const Uint8* keystates = SDL_GetKeyboardState(NULL);
-
-		if (keystates[SDL_SCANCODE_W])
-			normalizeDirection.y = -1;
-
-		if (keystates[SDL_SCANCODE_S])
-			normalizeDirection.y = 1;
-
-		if (keystates[SDL_SCANCODE_A]) {
-			normalizeDirection.x = -1;
-		}
-
-		if (keystates[SDL_SCANCODE_D]) {
-			normalizeDirection.x = 1;
-		}
-
-		OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
-
-
-		velocityBody->velocity.x += normalizeDirection.x * speed * Time::deltaTime;
-		velocityBody->velocity.y += normalizeDirection.y * speed * Time::deltaTime;
-
-		//std::cout << velocityBody->drag.x << std::endl;
 
 		//Make the drag
 		velocityBody->velocity.x += -velocityBody->drag.x * velocityBody->velocity.x * Time::deltaTime;
@@ -76,6 +117,7 @@ void PlayerController::update()
 			game_object->scale.x *= -1;
 		}
 		
+		/*
 		// Clamp velocities
 		if (velocityBody->velocity.x > 500.0f)
 			velocityBody->velocity.x = 500.0f;
@@ -88,9 +130,10 @@ void PlayerController::update()
 
 		if (velocityBody->velocity.y < -500.0f)
 			velocityBody->velocity.y = -500.0f;
-	}
-	
+		*/
+			
 
+		//Collision detection
 
 		if (velocityBody->velocity.x != 0) {
 			float new_player_pos_x = game_object->position.x + (velocityBody->velocity.x * Time::deltaTime);
@@ -136,50 +179,4 @@ void PlayerController::update()
 	else {
 		animator->play("Idle");
 	}
-
-	/*
-
-	//Test the collision with the tilemap
-	if (velocity.x <= 0) // Moving Left
-	{
-
-		if (test_map->getTile(new_player_pos_x - ((game_object->sprite_sizeX / 2) - world_collider_left_offset) * scale_factor, position.y + ((sprite_sizeY / 2) - world_collider_up_offset) * scale_factor) != -1) {
-
-			new_player_pos_x = position.x;
-			velocity.x = 0;
-
-		}
-
-	}
-	else // Moving Right
-	{
-		if (test_map->getTile(new_player_pos_x + ((sprite_sizeX / 2) - world_collider_right_offset) * scale_factor, position.y + ((sprite_sizeY / 2) - world_collider_up_offset) * scale_factor) != -1) {
-
-			new_player_pos_x = position.x;
-			velocity.x = 0;
-
-		}
-	}
-
-
-	if (velocity.y <= 0) // Moving Up
-	{
-		if (test_map->getTile(position.x, new_player_pos_y + ((sprite_sizeY / 2) - world_collider_up_offset) * scale_factor) != -1) {
-
-			new_player_pos_y = position.y;
-			velocity.y = 0;
-
-		}
-	}
-	else // Moving Down
-	{
-		if (test_map->getTile(position.x, new_player_pos_y + ((sprite_sizeY / 2) - world_collider_bottom_offset) * scale_factor) != -1) {
-
-			new_player_pos_y = position.y;
-			velocity.y = 0;
-
-		}
-	}
-	*/
-
 }

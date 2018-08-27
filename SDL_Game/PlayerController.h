@@ -13,6 +13,9 @@ public:
 	~PlayerController();
 
 	float speed = 2500;
+	float dash_speed = 6000;
+	float time_dash = 0.25;
+	float time_cd_dash = 0.10;
 
 	bool can_move = true;
 
@@ -23,5 +26,11 @@ private:
 	VelocityBody* velocityBody;
 	Animator* animator;
 	BoxCollider* box_collider;
+
+	enum State { dashing, ready_dash, cant_dash };
+	State state = ready_dash;
+
+	float time_passed;
+	OwnMathFuncs::Vector2 normalizeDirection = { 0, 0 };
 };
 

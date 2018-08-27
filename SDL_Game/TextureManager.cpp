@@ -32,6 +32,4 @@ void TextureManager::DrawRect(SDL_Rect rect)
 {
 	SDL_SetRenderDrawColor(Game::renderer, 255, 0, 0, 255);
 	SDL_RenderDrawRect(Game::renderer, &rect);
-
-	//SDL_RenderClear(Game::renderer);
 }

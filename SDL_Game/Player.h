@@ -19,5 +19,8 @@ private:
 	int world_collider_bottom_offset = 1;
 	int world_collider_left_offset = 12;
 	int world_collider_right_offset = 12;
+
+
+
 };
 
