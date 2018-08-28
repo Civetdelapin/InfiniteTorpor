@@ -35,17 +35,17 @@ void PlayerController::update()
 
 			const Uint8* keystates = SDL_GetKeyboardState(NULL);
 
-			if (keystates[SDL_SCANCODE_W])
+			if (keystates[SDL_SCANCODE_UP])
 				normalizeDirection.y = -1;
 
-			if (keystates[SDL_SCANCODE_S])
+			if (keystates[SDL_SCANCODE_DOWN])
 				normalizeDirection.y = 1;
 
-			if (keystates[SDL_SCANCODE_A]) {
+			if (keystates[SDL_SCANCODE_LEFT]) {
 				normalizeDirection.x = -1;
 			}
 
-			if (keystates[SDL_SCANCODE_D]) {
+			if (keystates[SDL_SCANCODE_RIGHT]) {
 				normalizeDirection.x = 1;
 			}
 
@@ -60,7 +60,7 @@ void PlayerController::update()
 
 			if (state != State::cant_dash) {
 
-				if (keystates[SDL_SCANCODE_SPACE]) {
+				if (keystates[SDL_SCANCODE_LCTRL]) {
 
 					state = State::dashing;
 					time_passed = time_dash;

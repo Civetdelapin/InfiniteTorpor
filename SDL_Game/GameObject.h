@@ -23,6 +23,8 @@ public:
 	
 	int layer = 0;
 
+	std::string tag = "Default";
+
 	explicit GameObject();
 	~GameObject();
 

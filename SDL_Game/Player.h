@@ -7,6 +7,7 @@
 #include "VelocityBody.h"
 #include "Animator.h"
 #include "PlayerStat.h"
+#include "PlayerAttack.h"
 
 class Player : public GameObject
 {

@@ -12,14 +12,15 @@ public:
 	PlayerController(GameObject* game_object);
 	~PlayerController();
 
-	float speed = 830;
-	float dash_speed = 2000;
-	float time_dash = 0.25;
+	float speed = 2300;
+	float dash_speed = 3500;
+	float time_dash = 0.30;
 	float time_cd_dash = 0.10;
 
 	bool can_move = true;
 
 	void update();
+
 
 private:
 
@@ -31,6 +32,8 @@ private:
 	State state = ready_dash;
 
 	float time_passed;
+	
 	OwnMathFuncs::Vector2 normalizeDirection = { 0, 0 };
+
 };
 

@@ -47,6 +47,19 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	boxColliderHitBox->collision_layer = 5;
 
 	addGameObject(game_object_child);
+
+
+
+	GameObject* game_object_child_2 = new GameObject();
+
+	BoxCollider* boxColliderHitBoxAttack = new BoxCollider(game_object_child_2);
+	boxColliderHitBoxAttack->offset = {15, 0 };
+	boxColliderHitBoxAttack->size = { 15, 40};
+	boxColliderHitBoxAttack->collision_layer = 5;
+
+	PlayerAttack* player_attack = new PlayerAttack(game_object_child_2, boxColliderHitBoxAttack, playerController, velocityBody);
+
+	addGameObject(game_object_child_2);
 }
 
 
