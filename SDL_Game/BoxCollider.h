@@ -14,6 +14,6 @@ public:
 	SDL_Rect rect;
 
 	void update();
-	void render(float camera_pos_x, float camera_pos_y);
+	void render();
 };
 

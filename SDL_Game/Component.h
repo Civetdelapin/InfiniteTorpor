@@ -14,7 +14,7 @@ public:
 	~Component();
 
 	virtual void update();
-	virtual void render(float camera_pos_x, float camera_pos_y);
+	virtual void render();
 	virtual void clean();
 
 	GameObject* game_object;

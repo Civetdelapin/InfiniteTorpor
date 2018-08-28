@@ -6,6 +6,7 @@
 #include "SpriteRenderer.h"
 #include "VelocityBody.h"
 #include "Animator.h"
+#include "PlayerStat.h"
 
 class Player : public GameObject
 {

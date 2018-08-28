@@ -20,7 +20,7 @@ public:
 	TileMap(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string data_path, std::string collider_path);
 	~TileMap();
 
-	void render(float camera_pos_x, float camera_pos_y);
+	void render();
 
 	void readCSV(const char* file_path, std::vector<std::vector<Tile>>& vls);
 	

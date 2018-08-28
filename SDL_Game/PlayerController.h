@@ -12,8 +12,8 @@ public:
 	PlayerController(GameObject* game_object);
 	~PlayerController();
 
-	float speed = 2500;
-	float dash_speed = 6000;
+	float speed = 830;
+	float dash_speed = 2000;
 	float time_dash = 0.25;
 	float time_cd_dash = 0.10;
 

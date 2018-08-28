@@ -18,9 +18,22 @@ void Animator::update()
 		if (time_passed > animations[cur_animation].speed) {
 
 			time_passed = 0;
-			cur_sprite = (cur_sprite + 1) % animations[cur_animation].nb_sprites;
-			spriteRenderer->srcrect.x = cur_sprite * spriteRenderer->sprite_sizeX;
-			spriteRenderer->srcrect.y = animations[cur_animation].y_index * spriteRenderer->sprite_sizeY;
+
+			cur_sprite++;
+
+			if (!animations[cur_animation].is_looping && cur_sprite >= animations[cur_animation].nb_sprites) {
+				for (Transition transi : animations[cur_animation].transitions) {
+
+					if (transi.ready_when_animation_is_over) {
+						cur_animation = transi.next_animation;
+					}
+				}
+			}
+			else {
+				cur_sprite = cur_sprite % animations[cur_animation].nb_sprites;
+				spriteRenderer->srcrect.x = cur_sprite * spriteRenderer->sprite_sizeX;
+				spriteRenderer->srcrect.y = animations[cur_animation].y_index * spriteRenderer->sprite_sizeY;
+			}
 		}
 
 		time_passed += Time::deltaTime;

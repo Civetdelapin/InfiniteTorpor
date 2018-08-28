@@ -20,7 +20,7 @@ TileMap::~TileMap()
 {
 }
 
-void TileMap::render(float camera_pos_x, float camera_pos_y)
+void TileMap::render()
 {
 
 	for (std::vector<Tile> tiles_ligne : data) {
@@ -36,11 +36,11 @@ void TileMap::render(float camera_pos_x, float camera_pos_y)
 				srcrect.h = sprite_size.x;
 				srcrect.w = sprite_size.y;
 
-				dstrect.x = game_object->position.x - camera_pos_x + (tile.position_grid.x * sprite_size.x * game_object->scale.x);
-				dstrect.y = game_object->position.y - camera_pos_y + (tile.position_grid.y * sprite_size.y * game_object->scale.y);
+				dstrect.x = game_object->getWorldPosition().x + (tile.position_grid.x * sprite_size.x * game_object->getWorldScale().x);
+				dstrect.y = game_object->getWorldPosition().y + (tile.position_grid.y * sprite_size.y * game_object->getWorldScale().y);
 
-				dstrect.h = sprite_size.x * game_object->scale.x;
-				dstrect.w = sprite_size.y * game_object->scale.y;
+				dstrect.h = sprite_size.x * game_object->getWorldScale().x;
+				dstrect.w = sprite_size.y * game_object->getWorldScale().y;
 
 				TextureManager::DrawTexture(texture, srcrect, dstrect);
 

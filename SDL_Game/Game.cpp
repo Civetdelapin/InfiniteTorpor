@@ -33,7 +33,7 @@ Game::Game(const char * title, int xpos, int ypos, int width, int height, bool f
 		isRunning = false;
 	}
 
-	camera = new Camera();
+	camera = new Camera(this);
 }
 
 Game::~Game()
@@ -70,7 +70,9 @@ void Game::update()
 	camera->update();
 
 	for (GameObject* game_object : game_objects) {
-		game_object->update();
+		if (game_object->is_active) {
+			game_object->update();
+		}
 	}
 }
 
@@ -84,8 +86,9 @@ void Game::render()
 
 	for (GameObject* game_object : game_objects) {
 
-		game_object->render(camera->camera_pos_x, camera->camera_pos_y);
-
+		if (game_object->is_active) {
+			game_object->render();
+		}
 	}
 
 	SDL_RenderPresent(renderer);

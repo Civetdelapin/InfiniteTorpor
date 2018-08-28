@@ -31,21 +31,13 @@ bool BoxCollider::isColliding(Collider * collider)
 }
 
 void BoxCollider::update() {
-	rect.x = game_object->position.x + (offset.x * game_object->scale.x) - ((size.x / 2) * abs(game_object->scale.x));
-	rect.y = game_object->position.y + (offset.y * game_object->scale.y) - ((size.y / 2) * abs(game_object->scale.y));
+	rect.x = game_object->getWorldPosition().x + (offset.x * game_object->getWorldScale().x) - ((size.x / 2) * abs(game_object->getWorldScale().x));
+	rect.y = game_object->getWorldPosition().y + (offset.y * game_object->getWorldScale().y) - ((size.y / 2) * abs(game_object->getWorldScale().y));
 
-	rect.h = size.y * abs(game_object->scale.y);
-	rect.w = size.x * abs(game_object->scale.x);
+	rect.h = size.y * abs(game_object->getWorldScale().y);
+	rect.w = size.x * abs(game_object->getWorldScale().x);
 }
 
-void BoxCollider::render(float camera_pos_x, float camera_pos_y) {
-	SDL_Rect rect_temp;
-	rect_temp.x = rect.x - camera_pos_x;
-	rect_temp.y = rect.y - camera_pos_y;
-
-	rect_temp.h = rect.h;
-	rect_temp.w = rect.w;
-
-
-	TextureManager::DrawRect(rect_temp);
+void BoxCollider::render() {
+	TextureManager::DrawRect(rect);
 }

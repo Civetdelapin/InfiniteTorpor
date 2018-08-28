@@ -21,29 +21,29 @@ SpriteRenderer::~SpriteRenderer()
 {
 }
 
-void SpriteRenderer::render(float camera_pos_x, float camera_pos_y)
+void SpriteRenderer::render()
 {
 	
 	if (texture != nullptr) {
 
-		dstrect.x = (game_object->position.x - camera_pos_x - (sprite_sizeX / 2) * fabs(game_object->scale.x));
-		dstrect.y = (game_object->position.y - camera_pos_y - (sprite_sizeY / 2) * fabs(game_object->scale.y));
+		dstrect.x = (game_object->getWorldPosition().x - (sprite_sizeX / 2) * fabs(game_object->getWorldScale().x));
+		dstrect.y = (game_object->getWorldPosition().y - (sprite_sizeY / 2) * fabs(game_object->getWorldScale().y));
 
-		dstrect.w = sprite_sizeX * fabs(game_object->scale.x);
-		dstrect.h = sprite_sizeY * fabs(game_object->scale.y);
+		dstrect.w = sprite_sizeX * fabs(game_object->getWorldScale().x);
+		dstrect.h = sprite_sizeY * fabs(game_object->getWorldScale().y);
 
 		srcrect.w = sprite_sizeX;
 		srcrect.h = sprite_sizeY;
 
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
-		if (game_object->scale.x < 0) {
+		if (game_object->getWorldScale().x < 0) {
 			flip = SDL_FLIP_HORIZONTAL;
 		}
 
 		TextureManager::DrawTexture(texture, srcrect, dstrect, flip);
 	}
 
-	Component::render(camera_pos_x, camera_pos_y);
+	Component::render();
 }
 
 void SpriteRenderer::clean()

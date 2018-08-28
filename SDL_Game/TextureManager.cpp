@@ -25,11 +25,18 @@ SDL_Texture * TextureManager::LoadTexture(const char * fileName)
 
 void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Rect destrect, SDL_RendererFlip render_flip)
 {
+
+	destrect.x -= Camera::camera_pos_x;
+	destrect.y -= Camera::camera_pos_y;
+
 	SDL_RenderCopyEx(Game::renderer, texture, &srcrect, &destrect, NULL, NULL, render_flip);
 }
 
 void TextureManager::DrawRect(SDL_Rect rect)
 {
+	rect.x -= Camera::camera_pos_x;
+	rect.y -= Camera::camera_pos_y;
+
 	SDL_SetRenderDrawColor(Game::renderer, 255, 0, 0, 255);
 	SDL_RenderDrawRect(Game::renderer, &rect);
 }

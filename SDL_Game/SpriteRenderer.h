@@ -12,7 +12,7 @@ public:
 	int sprite_sizeX = 30;
 	int sprite_sizeY = 30;
 
-	void render(float camera_pos_x, float camera_pos_y);
+	void render();
 	void clean();
 
 	SDL_Rect srcrect;

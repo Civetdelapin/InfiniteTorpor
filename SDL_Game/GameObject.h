@@ -21,9 +21,6 @@ class GameObject
 
 public:
 	
-	OwnMathFuncs::Vector2 position = {0, 0};
-	OwnMathFuncs::Vector2 scale = { 1, 1};
-
 	int layer = 0;
 
 	explicit GameObject();
@@ -31,11 +28,13 @@ public:
 
 	virtual void handleEvents();
 	virtual void update();
-	virtual void render(float camera_pos_x, float camera_pos_y);
+	virtual void render();
 	void clean();
 
 	void addComponent(Component* component);
+	void addGameObject(GameObject* game_object);
 
+	bool is_active = true;
 
 	//NOT WORKING NEED REDO
 	/*
@@ -72,10 +71,18 @@ public:
 		return nullptr;
 	}
 	
+	OwnMathFuncs::Vector2 getWorldPosition();
+	OwnMathFuncs::Vector2 getWorldScale();
+
+	OwnMathFuncs::Vector2 local_position = { 0, 0 };
+	OwnMathFuncs::Vector2 parent_position = { 0, 0 };
+
+	OwnMathFuncs::Vector2 local_scale = { 1, 1 };
+	OwnMathFuncs::Vector2 parent_scale = { 1, 1 };
 
 private:
 	std::vector<Component*> components;
-
+	std::vector<GameObject*> game_objects;
 	
 };
 

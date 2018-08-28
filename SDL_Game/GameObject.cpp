@@ -22,13 +22,28 @@ void GameObject::update()
 		component->update();
 	}
 
+
+	for (GameObject* game_object : game_objects) {
+		game_object->parent_position = getWorldPosition();
+		game_object->parent_scale = getWorldScale();
+
+		if (game_object->is_active) {
+			game_object->update();
+		}
+	}
 }
 
-void GameObject::render(float camera_pos_x, float camera_pos_y)
+void GameObject::render()
 {
 	//Render all the components
 	for (Component* component : components) {
-		component->render(camera_pos_x, camera_pos_y);
+		component->render();
+	}
+
+	for (GameObject* game_object : game_objects) {
+		if (game_object->is_active) {
+			game_object->render();
+		}
 	}
 }
 
@@ -47,8 +62,19 @@ void GameObject::addComponent(Component * component)
 	components.push_back(component);
 }
 
+void GameObject::addGameObject(GameObject * game_object)
+{
+	game_objects.push_back(game_object);
+}
 
+OwnMathFuncs::Vector2 GameObject::getWorldPosition()
+{
+	return local_position + parent_position;
+}
 
-
-
+OwnMathFuncs::Vector2 GameObject::getWorldScale()
+{
+	OwnMathFuncs::Vector2 vect = { local_scale.x * parent_scale.x, local_scale.y * parent_scale.y };
+	return vect;
+}
 

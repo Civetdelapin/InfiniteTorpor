@@ -12,6 +12,12 @@ namespace OwnMathFuncs
 
 		}
 
+
+		Vector2 operator+(Vector2& vec) {
+
+			Vector2 vector = { x + vec.x, y + vec.y };
+			return vector;
+		}
 	};
 
 
