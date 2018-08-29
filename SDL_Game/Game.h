@@ -44,6 +44,8 @@ public:
 	int getScreenHeight();
 	Camera* getCamera();
 	
+	static Camera* camera;
+
 	static SDL_Renderer *renderer;
 	static ColliderManager * collider_manager;
 
@@ -51,8 +53,6 @@ private:
 	bool isDebugMode;
 	bool isRunning;
 	SDL_Window *window;
-	
-	Camera* camera;
 
 	int screen_width;
 	int screen_height;

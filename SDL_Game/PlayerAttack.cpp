@@ -97,6 +97,8 @@ void PlayerAttack::attackButtonPressed()
 
 		velocity_body->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime;
 		velocity_body->velocity.y += normalizeDirection.y * velocity_attack * Time::deltaTime;
+		
+		Game::camera->startShake(10, 15, 0.25);
 	}
 }
 

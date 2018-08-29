@@ -3,6 +3,7 @@
 SDL_Event Game::event;
 SDL_Renderer* Game::renderer;
 ColliderManager* Game::collider_manager = new ColliderManager();
+Camera* Game::camera = new Camera();
 
 Game::Game(const char * title, int xpos, int ypos, int width, int height, bool fullscreen, bool isDebugMode) : isDebugMode(isDebugMode), screen_width(width), screen_height(height)
 {
@@ -68,19 +69,6 @@ void Game::update()
 
 	collider_manager->update();
 	camera->update();
-
-
-	switch (Game::event.type) {
-	case SDL_KEYDOWN:
-		switch (Game::event.key.keysym.sym) {
-		case SDLK_SPACE:
-			camera->startShake(10, 15, 0.25);
-
-			std::cout << "SALUT" << std::endl;
-			break;
-		}
-		break;
-	}
 
 	for (GameObject* game_object : game_objects) {
 		if (game_object->is_active) {

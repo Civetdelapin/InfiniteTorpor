@@ -10,6 +10,10 @@ Camera::Camera(Game* game) : game(game)
 {
 }
 
+Camera::Camera()
+{
+}
+
 Camera::~Camera()
 {
 }

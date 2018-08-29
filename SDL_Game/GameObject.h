@@ -88,8 +88,6 @@ public:
 private:
 	std::vector<Component*> components;
 	std::vector<GameObject*> game_objects;
-	
-
 };
 
 #endif

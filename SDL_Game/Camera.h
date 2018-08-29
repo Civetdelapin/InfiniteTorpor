@@ -31,6 +31,7 @@ class Camera
 {
 public:
 	Camera(Game* game);
+	Camera();
 	~Camera();
 
 	static float camera_pos_x;
