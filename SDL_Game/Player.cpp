@@ -24,21 +24,19 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	animator->animations.insert(std::pair <std::string, Animation>("Walking", animWalking));
 	animator->play("Idle");
 	
-	VelocityBody* velocityBody = new VelocityBody(this);
-	
 	BoxCollider* boxCollider = new BoxCollider(this);
 	boxCollider->offset = { 1, 14};
 	boxCollider->size = { 10, 5.5 };
+
+	VelocityBody* velocityBody = new VelocityBody(this);
 
 	PlayerController* playerController = new PlayerController(this);
 	PlayerStat* playerStat = new PlayerStat(this);
 
 	local_scale = { 3, 3 };
-
-
+	tag = "Player";
 
 	//Creation of child
-
 	GameObject* game_object_child = new GameObject();
 
 	BoxCollider* boxColliderHitBox = new BoxCollider(game_object_child);
@@ -46,6 +44,7 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	boxColliderHitBox->size = { 10, 30 };
 	boxColliderHitBox->collision_layer = 5;
 
+	game_object_child->tag = "Player";
 	addGameObject(game_object_child);
 
 
@@ -53,12 +52,13 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	GameObject* game_object_child_2 = new GameObject();
 
 	BoxCollider* boxColliderHitBoxAttack = new BoxCollider(game_object_child_2);
-	boxColliderHitBoxAttack->offset = {15, 0 };
-	boxColliderHitBoxAttack->size = { 15, 40};
+	boxColliderHitBoxAttack->offset = {12, 0 };
+	boxColliderHitBoxAttack->size = { 26, 40};
 	boxColliderHitBoxAttack->collision_layer = 5;
 
 	PlayerAttack* player_attack = new PlayerAttack(game_object_child_2, boxColliderHitBoxAttack, playerController, velocityBody);
 
+	game_object_child_2->tag = "Player";
 	addGameObject(game_object_child_2);
 }
 

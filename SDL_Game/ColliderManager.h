@@ -15,7 +15,7 @@ public:
 	std::vector<Collider*> isTrigger(Collider* collider_to_test);
 
 private:
-	std::vector<Collider*>* colliders_to_test = new std::vector<Collider*>();
+	std::vector<Collider*> colliders_to_test;
 	std::vector<Collider*> getIsTriggerColliders();
 };
 

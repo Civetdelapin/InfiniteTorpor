@@ -36,6 +36,8 @@ public:
 	void addComponent(Component* component);
 	void addGameObject(GameObject* game_object);
 
+	GameObject* parent_game_object = nullptr;
+
 	bool is_active = true;
 
 	//NOT WORKING NEED REDO
@@ -65,7 +67,6 @@ public:
 		for (auto && component : components) {
 
 			if (ComponentType* t = dynamic_cast<ComponentType*>(component)) {
-
 				return t;
 			}	
 		}
@@ -73,6 +74,8 @@ public:
 		return nullptr;
 	}
 	
+	GameObject* getRootParent();
+
 	OwnMathFuncs::Vector2 getWorldPosition();
 	OwnMathFuncs::Vector2 getWorldScale();
 
@@ -86,6 +89,7 @@ private:
 	std::vector<Component*> components;
 	std::vector<GameObject*> game_objects;
 	
+
 };
 
 #endif

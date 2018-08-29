@@ -1,5 +1,11 @@
 #pragma once
 #include "Component.h"
+#include "Collider.h"
+#include <cstdint>
+#include <algorithm>
+#include <iostream>
+#include <iomanip>
+#include <random>
 
 class VelocityBody : public Component
 {
@@ -12,5 +18,9 @@ public:
 	void update();
 
 	~VelocityBody();
+
+
+private:
+	Collider * collider;
 };
 

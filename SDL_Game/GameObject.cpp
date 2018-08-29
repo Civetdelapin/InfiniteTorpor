@@ -68,7 +68,20 @@ void GameObject::addComponent(Component * component)
 
 void GameObject::addGameObject(GameObject * game_object)
 {
+	game_object->parent_game_object = this;
 	game_objects.push_back(game_object);
+}
+
+GameObject * GameObject::getRootParent()
+{
+	
+	if (parent_game_object == nullptr) {
+		return this;
+	}
+	else {
+		return parent_game_object->getRootParent();
+	}
+
 }
 
 OwnMathFuncs::Vector2 GameObject::getWorldPosition()

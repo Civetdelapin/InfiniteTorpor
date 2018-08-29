@@ -20,8 +20,6 @@ void PlayerAttack::update()
 	manageAttackButton();
 	
 	if (state == State::attacking) {
-		velocity_body->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime;
-		velocity_body->velocity.y += normalizeDirection.y * velocity_attack * Time::deltaTime;
 
 		time_passed -= Time::deltaTime;
 
@@ -63,6 +61,27 @@ void PlayerAttack::update()
 			state = State::ready_attack;
 		}
 	}
+		
+		//We tried to find if we hit someone
+		std::vector<Collider*> vect = Game::collider_manager->isTrigger(box_collider_attack);
+		if (vect.size() > 0) {
+
+			for (Collider* collider : vect) {
+				if (std::find(game_objects_touched.begin(), game_objects_touched.end(), collider->game_object) == game_objects_touched.end()) {
+
+
+
+					if (collider->game_object->tag == "Enemy") {
+						std::cout << "COLLIDED ATTACK" << std::endl;
+						collider->game_object->getRootParent()->getComponent<VelocityBody>()->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime * 0.75;
+						collider->game_object->getRootParent()->getComponent<VelocityBody>()->velocity.y += normalizeDirection.y * velocity_attack * Time::deltaTime * 0.75;
+					}
+					game_objects_touched.push_back(collider->game_object);	
+				}
+			}
+		
+		}
+	
 }
 
 void PlayerAttack::attackButtonPressed()
@@ -71,10 +90,15 @@ void PlayerAttack::attackButtonPressed()
 		box_collider_attack->is_active = true;
 		player_controller->can_move = false;
 
+		game_objects_touched.clear();
+
 		state = State::attacking;
 
 		time_passed = time_attack_up;
 		nb_combo++;
+
+		velocity_body->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime;
+		velocity_body->velocity.y += normalizeDirection.y * velocity_attack * Time::deltaTime;
 	}
 }
 

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "OwnMathFuncs.h"
 #include "SDL.h"
+#include "Enemy.h"
 
 int main(int argc, char* args[]) {
 
@@ -30,8 +31,21 @@ int main(int argc, char* args[]) {
 	player->local_position.y = 768;
 
 
-
 	main_game->getCamera()->objectToFollow = player;
+
+
+	//Add enemy
+	Enemy *enemy = new Enemy("img/slimes.png", new OwnMathFuncs::Vector2(32, 32));
+	enemy->layer = 4;
+
+	enemy->local_position.x = 1000;
+	enemy->local_position.y = 768;
+
+	main_game->addGameObject(enemy);
+
+
+
+
 	//Main loop of the game
 	while (main_game->getIsRunning()) {
 

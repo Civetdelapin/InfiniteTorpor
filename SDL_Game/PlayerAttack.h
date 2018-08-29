@@ -13,13 +13,13 @@ public:
 	void update();
 
 	float time_attack_up = 0.25;
-	float time_attack_cd = 1;
-	float time_attack_cancel_combo = 0.5;
+	float time_attack_cd = 0.5;
+	float time_attack_cancel_combo = 1;
 	int nb_combo_max = 3;
 
 	enum State { attacking, ready_attack, between_attack, cant_attack};
 
-	float velocity_attack = 3000;
+	float velocity_attack = 300000;
 
 
 private:
