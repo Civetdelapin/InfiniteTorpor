@@ -29,6 +29,7 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	boxCollider->size = { 10, 5.5 };
 
 	VelocityBody* velocityBody = new VelocityBody(this);
+	velocityBody->drag = { 20, 20 };
 
 	PlayerController* playerController = new PlayerController(this);
 	PlayerStat* playerStat = new PlayerStat(this);

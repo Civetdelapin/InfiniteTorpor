@@ -2,10 +2,30 @@
 #include "GameObject.h"
 
 
-#ifndef CAMERA_H
-#define CAMERA_H_H
+
 
 class Game;
+
+struct Shake {
+
+	bool is_shaking = false;
+
+	std::vector<float> samples;
+
+	Shake(float frequency, float duration);
+
+	Shake();
+
+	float amplitude();
+	float decay(float time);
+	float noise(int index);
+	float t = 0;
+	float _frequency = 20;
+
+	float _duration = 0;
+
+	void update();
+};
 
 class Camera
 {
@@ -22,9 +42,14 @@ public:
 
 	const static float scale;
 
+	void startShake(float ampli, float frequency, float duration);
+
 private:
 	Game * game;
-};
+	
+	float _amplitude = 2000;
 
-#endif
+	Shake shake_x;
+	Shake shake_y;
+};
 

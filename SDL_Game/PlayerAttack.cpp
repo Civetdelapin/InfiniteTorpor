@@ -69,8 +69,6 @@ void PlayerAttack::update()
 			for (Collider* collider : vect) {
 				if (std::find(game_objects_touched.begin(), game_objects_touched.end(), collider->game_object) == game_objects_touched.end()) {
 
-
-
 					if (collider->game_object->tag == "Enemy") {
 						std::cout << "COLLIDED ATTACK" << std::endl;
 						collider->game_object->getRootParent()->getComponent<VelocityBody>()->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime * 0.75;

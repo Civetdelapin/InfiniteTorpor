@@ -69,6 +69,19 @@ void Game::update()
 	collider_manager->update();
 	camera->update();
 
+
+	switch (Game::event.type) {
+	case SDL_KEYDOWN:
+		switch (Game::event.key.keysym.sym) {
+		case SDLK_SPACE:
+			camera->startShake(10, 15, 0.25);
+
+			std::cout << "SALUT" << std::endl;
+			break;
+		}
+		break;
+	}
+
 	for (GameObject* game_object : game_objects) {
 		if (game_object->is_active) {
 			game_object->update();

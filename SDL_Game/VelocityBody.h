@@ -13,7 +13,7 @@ public:
 	VelocityBody(GameObject* game_object);
 
 	OwnMathFuncs::Vector2 velocity = { 0, 0 };
-	OwnMathFuncs::Vector2 drag = { 20, 20};
+	OwnMathFuncs::Vector2 drag = { 15, 15};
 
 	void update();
 
