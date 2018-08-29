@@ -1,9 +1,6 @@
 #include "Game.h"
 
-SDL_Event Game::event;
-SDL_Renderer* Game::renderer;
-ColliderManager* Game::collider_manager = new ColliderManager();
-Camera* Game::camera = new Camera();
+Game *Game::s_instance = 0;
 
 Game::Game(const char * title, int xpos, int ypos, int width, int height, bool fullscreen, bool isDebugMode) : isDebugMode(isDebugMode), screen_width(width), screen_height(height)
 {
@@ -26,7 +23,9 @@ Game::Game(const char * title, int xpos, int ypos, int width, int height, bool f
 			printInConsole("renderer created!");
 		}
 
-		
+		collider_manager = new ColliderManager();
+		camera = new Camera();
+
 
 		isRunning = true;
 	}
@@ -75,6 +74,13 @@ void Game::update()
 			game_object->update();
 		}
 	}
+
+	for (GameObject* game_object : game_objects_to_be_destroyed) {
+		game_objects.erase(std::remove(game_objects.begin(), game_objects.end(), game_object), game_objects.end());
+		game_object = NULL;
+	}
+
+	game_objects_to_be_destroyed.clear();
 }
 
 void Game::render()
@@ -82,7 +88,6 @@ void Game::render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
-	
 	//drawLevels();
 
 	for (GameObject* game_object : game_objects) {
@@ -116,6 +121,13 @@ void Game::addGameObject(GameObject * game_object)
 	std::sort(game_objects.begin(), game_objects.end(), [](GameObject* a, GameObject* b) {
 		return a->layer < b->layer;
 	});
+}
+
+void Game::destroyGameObject(GameObject * game_object)
+{
+
+	game_objects_to_be_destroyed.push_back(game_object);
+
 }
 
 bool Game::getIsRunning()

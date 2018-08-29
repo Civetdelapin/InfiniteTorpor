@@ -3,6 +3,7 @@
 #include "VelocityBody.h"
 #include "BoxCollider.h"
 #include "SpriteRenderer.h"
+#include "EnemyStat.h"
 
 class Enemy : public GameObject
 {

@@ -63,7 +63,7 @@ void VelocityBody::update()
 		game_object->local_position.x = new_player_pos_x;
 		if (collider != nullptr) {
 
-			std::vector<Collider*> vect = Game::collider_manager->isTrigger(collider);
+			std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(collider);
 			if (vect.size() > 0) {
 				game_object->local_position.x = old_player_pos_x;
 				velocity.x = 0;
@@ -80,7 +80,7 @@ void VelocityBody::update()
 		game_object->local_position.y = new_player_pos_y;
 		if (collider != nullptr) {
 
-			std::vector<Collider*> vect = Game::collider_manager->isTrigger(collider);
+			std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(collider);
 			if (vect.size() > 0) {
 				game_object->local_position.y = old_player_pos_y;
 				velocity.y = 0;

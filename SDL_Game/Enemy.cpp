@@ -11,8 +11,11 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : GameObj
 
 	tag = "Enemy";
 	local_scale = { 3, 3 };
-	VelocityBody* velocityBody = new VelocityBody(this);
 
+	VelocityBody* velocityBody = new VelocityBody(this);
+	
+	EnemyStat* enemyState = new EnemyStat(this);
+	enemyState->max_hp = 30;
 
 	//Creation of child
 	GameObject* game_object_child = new GameObject();

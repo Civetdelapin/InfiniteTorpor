@@ -19,10 +19,24 @@
 class Game
 {
 public:
-	Game(const char* title, int xpos = SDL_WINDOWPOS_CENTERED, int ypos = SDL_WINDOWPOS_CENTERED, int width = 600, int height = 400, bool fullscreen = false, bool isDebugMode = true);
+	Game(const char* title = "Untitled Game", int xpos = SDL_WINDOWPOS_CENTERED, int ypos = SDL_WINDOWPOS_CENTERED, int width = 600, int height = 400, bool fullscreen = false, bool isDebugMode = true);
 	~Game();
 
-	std::vector<GameObject*> game_objects;
+
+	static Game *s_instance;
+
+	static Game *instance()
+	{
+		if (!s_instance)
+			s_instance = new Game;
+		return s_instance;
+	}
+
+	static void setInstance(Game* new_instance) {
+		delete s_instance;
+		s_instance = new_instance;
+	}
+
 
 	void handleEvents();
 	void update();
@@ -30,32 +44,39 @@ public:
 	void clean();
 
 	void addGameObject(GameObject* gameObject);
+	void destroyGameObject(GameObject* game_object);
+
 
 	bool getIsRunning();
 	bool getIsDebugMode();
 
 	SDL_Window* getWindow();
 	
-	static SDL_Event event;
+	SDL_Event event;
 	
 	void printInConsole(std::string str);
 
 	int getScreenWidth();
 	int getScreenHeight();
+
 	Camera* getCamera();
 	
-	static Camera* camera;
-
-	static SDL_Renderer *renderer;
-	static ColliderManager * collider_manager;
+	SDL_Renderer *renderer;
+	ColliderManager *collider_manager;
 
 private:
+
+	std::vector<GameObject*> game_objects;
+	std::vector<GameObject*> game_objects_to_be_destroyed;
+
 	bool isDebugMode;
 	bool isRunning;
 	SDL_Window *window;
 
 	int screen_width;
 	int screen_height;
+
+	Camera* camera;
 
 	Uint64 timeNow = SDL_GetPerformanceCounter();
 	Uint64 timeLast = 0;

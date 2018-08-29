@@ -21,6 +21,7 @@ public:
 
 	float velocity_attack = 300000;
 
+	float attack_dmg = 10;
 
 private:
 	BoxCollider * box_collider_attack;

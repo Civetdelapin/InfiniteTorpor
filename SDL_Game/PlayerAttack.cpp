@@ -1,5 +1,6 @@
 #include "PlayerAttack.h"
 #include "Game.h"
+#include "EnemyStat.h"
 
 PlayerAttack::PlayerAttack(GameObject* game_object, BoxCollider* box_collider_attack, PlayerController* player_controller, VelocityBody* velocity_body) : Component(game_object), box_collider_attack(box_collider_attack), player_controller(player_controller), velocity_body(velocity_body)
 {
@@ -63,16 +64,31 @@ void PlayerAttack::update()
 	}
 		
 		//We tried to find if we hit someone
-		std::vector<Collider*> vect = Game::collider_manager->isTrigger(box_collider_attack);
+		std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(box_collider_attack);
 		if (vect.size() > 0) {
 
 			for (Collider* collider : vect) {
 				if (std::find(game_objects_touched.begin(), game_objects_touched.end(), collider->game_object) == game_objects_touched.end()) {
 
 					if (collider->game_object->tag == "Enemy") {
-						std::cout << "COLLIDED ATTACK" << std::endl;
-						collider->game_object->getRootParent()->getComponent<VelocityBody>()->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime * 0.75;
-						collider->game_object->getRootParent()->getComponent<VelocityBody>()->velocity.y += normalizeDirection.y * velocity_attack * Time::deltaTime * 0.75;
+
+						VelocityBody* velocity_body = collider->game_object->getRootParent()->getComponent<VelocityBody>();
+						if (velocity_body != nullptr) {
+							std::cout << "ATTACK FOUND" << std::endl;
+							collider->game_object->getRootParent()->getComponent<VelocityBody>()->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime * 0.75;
+							collider->game_object->getRootParent()->getComponent<VelocityBody>()->velocity.y += normalizeDirection.y * velocity_attack * Time::deltaTime * 0.75;
+						}
+
+						velocity_body = NULL;
+
+						EnemyStat* enemy_stat = collider->game_object->getRootParent()->getComponent<EnemyStat>();
+						if (enemy_stat != nullptr) {
+							enemy_stat->cur_hp -= attack_dmg;
+
+						}
+
+						enemy_stat = NULL;
+						Game::instance()->getCamera()->startShake(10, 15, 0.25);
 					}
 					game_objects_touched.push_back(collider->game_object);	
 				}
@@ -97,8 +113,6 @@ void PlayerAttack::attackButtonPressed()
 
 		velocity_body->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime;
 		velocity_body->velocity.y += normalizeDirection.y * velocity_attack * Time::deltaTime;
-		
-		Game::camera->startShake(10, 15, 0.25);
 	}
 }
 
@@ -136,9 +150,9 @@ void PlayerAttack::manageNormalizeDirection()
 
 void PlayerAttack::manageAttackButton()
 {
-	switch (Game::event.type) {
+	switch (Game::instance()->event.type) {
 	case SDL_KEYDOWN:
-		switch (Game::event.key.keysym.sym) {
+		switch (Game::instance()->event.key.keysym.sym) {
 		case SDLK_SPACE:
 			if (!button_pressed) {
 				attackButtonPressed();
@@ -149,7 +163,7 @@ void PlayerAttack::manageAttackButton()
 		break;
 
 	case SDL_KEYUP:
-		switch (Game::event.key.keysym.sym) {
+		switch (Game::instance()->event.key.keysym.sym) {
 		case SDLK_SPACE:
 			button_pressed = false;
 			break;
