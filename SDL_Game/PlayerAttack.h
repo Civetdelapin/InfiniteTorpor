@@ -7,7 +7,7 @@
 class PlayerAttack : public Component
 {
 public:
-	PlayerAttack(GameObject* game_object, BoxCollider* box_collider_attack, PlayerController* player_controller, VelocityBody* velocity_body);
+	PlayerAttack(GameObject* game_object, BoxCollider* box_collider_attack, BoxCollider* box_coolider_attack_up, BoxCollider* box_collider_attack_corner,PlayerController* player_controller, VelocityBody* velocity_body);
 	~PlayerAttack();
 
 	void update();
@@ -25,6 +25,9 @@ public:
 
 private:
 	BoxCollider * box_collider_attack;
+	BoxCollider* box_coolider_attack_up;
+	BoxCollider* box_collider_attack_corner;
+
 	PlayerController* player_controller;
 	VelocityBody* velocity_body;
 
@@ -40,9 +43,16 @@ private:
 
 	int nb_combo = 0;
 
+	float box_collider_attack_up_down_offset;
+	float box_collider_attack_corner_offset;
+
 	void manageNormalizeDirection();
 	void manageAttackButton();
 	void attackButtonPressed();
 
+	void cancelAttackColliders();
+	void activeAttackColliders();
+
+	BoxCollider* getActiveCollider();
 };
 

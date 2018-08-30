@@ -48,8 +48,6 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	game_object_child->tag = "Player";
 	addGameObject(game_object_child);
 
-
-
 	GameObject* game_object_child_2 = new GameObject();
 
 	BoxCollider* boxColliderHitBoxAttack = new BoxCollider(game_object_child_2);
@@ -57,7 +55,19 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	boxColliderHitBoxAttack->size = { 26, 40};
 	boxColliderHitBoxAttack->collision_layer = 5;
 
-	PlayerAttack* player_attack = new PlayerAttack(game_object_child_2, boxColliderHitBoxAttack, playerController, velocityBody);
+	BoxCollider* boxColliderHitBoxAttackUpDown = new BoxCollider(game_object_child_2);
+	boxColliderHitBoxAttackUpDown->offset = { 0, -16 };
+	boxColliderHitBoxAttackUpDown->size = { 40, 26 };
+	boxColliderHitBoxAttackUpDown->collision_layer = 5;
+
+
+	BoxCollider* boxColliderHitBoxAttackCorner1 = new BoxCollider(game_object_child_2);
+	boxColliderHitBoxAttackCorner1->offset = { 12, -13 };
+	boxColliderHitBoxAttackCorner1->size = { 28, 28 };
+	boxColliderHitBoxAttackCorner1->collision_layer = 5;
+
+
+	PlayerAttack* player_attack = new PlayerAttack(game_object_child_2, boxColliderHitBoxAttack, boxColliderHitBoxAttackUpDown, boxColliderHitBoxAttackCorner1 ,playerController, velocityBody);
 
 	game_object_child_2->tag = "Player";
 	addGameObject(game_object_child_2);
