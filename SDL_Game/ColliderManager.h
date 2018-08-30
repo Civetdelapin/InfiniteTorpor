@@ -10,6 +10,8 @@ public:
 	~ColliderManager();
 
 	void addCollider(Collider* collider);
+	void removeGameObjectColliders(GameObject* game_object);
+
 	void update();
 
 	std::vector<Collider*> isTrigger(Collider* collider_to_test);

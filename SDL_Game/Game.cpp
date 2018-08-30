@@ -77,6 +77,10 @@ void Game::update()
 
 	for (GameObject* game_object : game_objects_to_be_destroyed) {
 		game_objects.erase(std::remove(game_objects.begin(), game_objects.end(), game_object), game_objects.end());
+
+		collider_manager->removeGameObjectColliders(game_object);
+
+		delete game_object;
 		game_object = NULL;
 	}
 
@@ -126,6 +130,8 @@ void Game::addGameObject(GameObject * game_object)
 void Game::destroyGameObject(GameObject * game_object)
 {
 	game_object->is_active = false;
+	game_object->setActiveChildren(false);
+
 	game_objects_to_be_destroyed.push_back(game_object);
 }
 

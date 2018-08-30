@@ -35,6 +35,8 @@ public:
 
 	void addComponent(Component* component);
 	void addGameObject(GameObject* game_object);
+	void setActiveChildren(bool value);
+	std::vector<GameObject*> getChildren();
 
 	GameObject* parent_game_object = nullptr;
 
@@ -74,10 +76,25 @@ public:
 		return nullptr;
 	}
 	
+	template< class ComponentType >
+	std::vector<ComponentType*>  getComponents() {
+		std::vector<ComponentType*> vec_temp;
+		for (auto && component : components) {
+
+			if (ComponentType* t = dynamic_cast<ComponentType*>(component)) {
+				vec_temp.push_back(t);
+			}
+		}
+
+		return vec_temp;
+	}
+
 	GameObject* getRootParent();
 
 	OwnMathFuncs::Vector2 getWorldPosition();
 	OwnMathFuncs::Vector2 getWorldScale();
+
+	bool getIsReallyActive();
 
 	OwnMathFuncs::Vector2 local_position = { 0, 0 };
 	OwnMathFuncs::Vector2 parent_position = { 0, 0 };

@@ -72,6 +72,19 @@ void GameObject::addGameObject(GameObject * game_object)
 	game_objects.push_back(game_object);
 }
 
+void GameObject::setActiveChildren(bool value)
+{
+	for (GameObject* game_object : game_objects) {
+		game_object->is_active = value;
+		game_object->setActiveChildren(value);
+	}
+}
+
+std::vector<GameObject*> GameObject::getChildren()
+{
+	return game_objects;
+}
+
 GameObject * GameObject::getRootParent()
 {
 	
@@ -93,5 +106,15 @@ OwnMathFuncs::Vector2 GameObject::getWorldScale()
 {
 	OwnMathFuncs::Vector2 vect = { local_scale.x * parent_scale.x, local_scale.y * parent_scale.y };
 	return vect;
+}
+
+bool GameObject::getIsReallyActive()
+{
+	if (parent_game_object == nullptr) {
+		return is_active;
+	}
+	else {
+		return parent_game_object->getIsReallyActive();
+	}
 }
 

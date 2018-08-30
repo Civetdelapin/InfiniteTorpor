@@ -20,9 +20,11 @@ void Component::update()
 
 void Component::render()
 {
+
 }
 
 void Component::clean()
 {
+
 }
 

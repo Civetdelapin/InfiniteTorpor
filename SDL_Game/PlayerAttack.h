@@ -17,11 +17,11 @@ public:
 	float time_attack_cancel_combo = 1;
 	int nb_combo_max = 3;
 
+	float attack_dmg[3] = {8, 12, 15};
+
 	enum State { attacking, ready_attack, between_attack, cant_attack};
 
 	float velocity_attack = 300000;
-
-	float attack_dmg = 10;
 
 private:
 	BoxCollider * box_collider_attack;

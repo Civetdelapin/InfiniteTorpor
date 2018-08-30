@@ -88,7 +88,7 @@ void PlayerAttack::update()
 
 						EnemyStat* enemy_stat = collider->game_object->getRootParent()->getComponent<EnemyStat>();
 						if (enemy_stat != nullptr) {
-							enemy_stat->cur_hp -= attack_dmg;
+							enemy_stat->cur_hp -= attack_dmg[nb_combo - 1];
 
 						}
 
