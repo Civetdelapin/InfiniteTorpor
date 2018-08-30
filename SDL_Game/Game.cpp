@@ -125,9 +125,8 @@ void Game::addGameObject(GameObject * game_object)
 
 void Game::destroyGameObject(GameObject * game_object)
 {
-
+	game_object->is_active = false;
 	game_objects_to_be_destroyed.push_back(game_object);
-
 }
 
 bool Game::getIsRunning()

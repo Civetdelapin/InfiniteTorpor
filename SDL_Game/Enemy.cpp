@@ -15,7 +15,9 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : GameObj
 	VelocityBody* velocityBody = new VelocityBody(this);
 	
 	EnemyStat* enemyState = new EnemyStat(this);
-	enemyState->max_hp = 30;
+
+
+	DisplayEnemyHp* displayEnemyHp = new DisplayEnemyHp(this, enemyState);
 
 	//Creation of child
 	GameObject* game_object_child = new GameObject();

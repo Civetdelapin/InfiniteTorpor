@@ -13,8 +13,6 @@ EnemyStat::~EnemyStat()
 
 void EnemyStat::update()
 {
-	std::cout << cur_hp << std::endl;
-
 	if (cur_hp > max_hp) {
 		cur_hp = max_hp;
 	}

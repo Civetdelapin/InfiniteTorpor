@@ -32,11 +32,17 @@ void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Re
 	SDL_RenderCopyEx(Game::instance()->renderer, texture, &srcrect, &destrect, NULL, NULL, render_flip);
 }
 
-void TextureManager::DrawRect(SDL_Rect rect)
+void TextureManager::DrawRect(SDL_Rect rect, int r, int g, int b, int a, bool is_fill)
 {
 	rect.x -= Camera::camera_pos_x;
 	rect.y -= Camera::camera_pos_y;
 
-	SDL_SetRenderDrawColor(Game::instance()->renderer, 255, 0, 0, 255);
-	SDL_RenderDrawRect(Game::instance()->renderer, &rect);
+	SDL_SetRenderDrawColor(Game::instance()->renderer, r, g, b, a);
+
+	if (is_fill) {
+		SDL_RenderFillRect(Game::instance()->renderer, &rect);
+	}
+	else {
+		SDL_RenderDrawRect(Game::instance()->renderer, &rect);
+	}
 }
