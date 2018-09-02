@@ -36,18 +36,29 @@ void PlayerController::update()
 			const Uint8* keystates = SDL_GetKeyboardState(NULL);
 
 			if (keystates[SDL_SCANCODE_UP])
-				normalizeDirection.y = -1;
+				normalizeDirection.y += -1;
 
 			if (keystates[SDL_SCANCODE_DOWN])
-				normalizeDirection.y = 1;
+				normalizeDirection.y += 1;
 
 			if (keystates[SDL_SCANCODE_LEFT]) {
-				normalizeDirection.x = -1;
+				normalizeDirection.x += -1;
 			}
 
 			if (keystates[SDL_SCANCODE_RIGHT]) {
-				normalizeDirection.x = 1;
+				normalizeDirection.x += 1;
 			}
+
+
+			
+			if (normalizeDirection.x != 0) {
+				direction.x = normalizeDirection.x;
+			}
+
+			if (normalizeDirection.y != 0) {
+				direction.y = normalizeDirection.y;
+			}
+			
 
 			OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
 

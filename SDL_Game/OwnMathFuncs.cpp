@@ -16,3 +16,20 @@ float OwnMathFuncs::OwnMathFuncs::magnitude(Vector2 &vec)
 {
 	return sqrt(pow(vec.x, 2) + pow(vec.y, 2));
 }
+
+OwnMathFuncs::Vector2 OwnMathFuncs::OwnMathFuncs::getNormalize(Vector2 & vec)
+{
+	
+	double magnitude = OwnMathFuncs::magnitude(vec);
+
+	float x = 0;
+	float y = 0;
+
+	if (magnitude != 0) {
+		x = vec.x /= magnitude;
+		y = vec.y /= magnitude;
+	}
+
+	return Vector2(x,y);
+}
+

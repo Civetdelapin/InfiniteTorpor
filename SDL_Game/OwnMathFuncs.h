@@ -28,6 +28,7 @@ public:
 	static void normalize(Vector2 &vec);
 	static float magnitude(Vector2 &vec);
 
+	static Vector2 getNormalize(Vector2& vec);
 };
 
 }

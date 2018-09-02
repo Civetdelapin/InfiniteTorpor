@@ -110,7 +110,7 @@ OwnMathFuncs::Vector2 GameObject::getWorldScale()
 
 bool GameObject::getIsReallyActive()
 {
-	if (parent_game_object == nullptr) {
+	if (parent_game_object == nullptr || is_active == false) {
 		return is_active;
 	}
 	else {

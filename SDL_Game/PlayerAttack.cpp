@@ -107,6 +107,11 @@ void PlayerAttack::attackButtonPressed()
 {
 	if (state == State::ready_attack || state == State::between_attack) {
 
+		
+		if (normalizeDirection.x != 0 && normalizeDirection.x != game_object->getRootParent()->getComponent<PlayerController>()->direction.x) {
+			normalizeDirection.x = game_object->getRootParent()->getComponent<PlayerController>()->direction.x;
+		}
+
 		activeAttackColliders();
 
 		player_controller->can_move = false;
@@ -118,8 +123,10 @@ void PlayerAttack::attackButtonPressed()
 		time_passed = time_attack_up;
 		nb_combo++;
 
-		velocity_body->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime;
-		velocity_body->velocity.y += normalizeDirection.y * velocity_attack * Time::deltaTime;
+		OwnMathFuncs::Vector2 vec_normalized = OwnMathFuncs::OwnMathFuncs::getNormalize(normalizeDirection);
+
+		velocity_body->velocity.x += vec_normalized.x * velocity_attack * Time::deltaTime;
+		velocity_body->velocity.y += vec_normalized.y * velocity_attack * Time::deltaTime;
 	}
 }
 
@@ -174,34 +181,43 @@ BoxCollider * PlayerAttack::getActiveCollider()
 
 void PlayerAttack::manageNormalizeDirection()
 {
-	if (Game::instance()->event.type == SDL_KEYDOWN &&(Game::instance()->event.key.keysym.sym == SDLK_UP || Game::instance()->event.key.keysym.sym == SDLK_DOWN || Game::instance()->event.key.keysym.sym == SDLK_LEFT || Game::instance()->event.key.keysym.sym == SDLK_RIGHT)) {
+	
 
-		normalizeDirection = { 0, 0 };
+	if (Game::instance()->event.type == SDL_KEYDOWN && (Game::instance()->event.key.keysym.sym == SDLK_UP || Game::instance()->event.key.keysym.sym == SDLK_DOWN || Game::instance()->event.key.keysym.sym == SDLK_LEFT || Game::instance()->event.key.keysym.sym == SDLK_RIGHT)) {
+
+		normalizeDirection = game_object->getRootParent()->getComponent<PlayerController>()->direction;
+
+		
 
 		//Managing the normalize direction
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);
-		if (keystates[SDL_SCANCODE_UP]) {
-			normalizeDirection.y = -1;
+		
+		
+		
+		if (!keystates[SDL_SCANCODE_UP] && !keystates[SDL_SCANCODE_DOWN]) {
+			normalizeDirection.y = 0;
+		}
+
+		
+		if (!keystates[SDL_SCANCODE_LEFT] && !keystates[SDL_SCANCODE_RIGHT]) {
+			normalizeDirection.x = 0;
 		}
 		
-		if (keystates[SDL_SCANCODE_DOWN] && normalizeDirection.y >= 0) {
-			normalizeDirection.y = 1;
-		}
+		
+		//OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
 
-		if (keystates[SDL_SCANCODE_LEFT]) {
-			normalizeDirection.x = -1;
-		}
-
-		if (keystates[SDL_SCANCODE_RIGHT]) {
-			normalizeDirection.x = 1;
-		}
-
-		OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
+		//std::cout << "X : " << normalizeDirection.x << ", Y : " << normalizeDirection.y << std::endl;
 
 		if (abs(normalizeDirection.x) < 0.1) {
 			normalizeDirection.x = 0;
 		}
+
+		if (abs(normalizeDirection.y) < 0.1) {
+			normalizeDirection.y = 0;
+		}
+		
 	}
+	
 }
 
 
@@ -231,93 +247,3 @@ void PlayerAttack::manageAttackButton()
 		break;
 	}
 }
-
-
-
-
-/*
-
-if (state != State::attacking) {
-
-
-const Uint8* keystates = SDL_GetKeyboardState(NULL);
-
-if (keystates[SDL_SCANCODE_W])
-normalizeDirection.y = -1;
-
-if (keystates[SDL_SCANCODE_S])
-normalizeDirection.y = 1;
-
-if (keystates[SDL_SCANCODE_A]) {
-normalizeDirection.x = -1;
-}
-
-if (keystates[SDL_SCANCODE_D]) {
-normalizeDirection.x = 1;
-}
-
-OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
-
-
-if (ready_attack) {
-switch (Game::event.type) {
-case SDL_KEYDOWN:
-switch (Game::event.key.keysym.sym) {
-case SDLK_SPACE:
-if (!button_pressed) {
-box_collider_attack->is_active = true;
-state = State::attacking;
-
-player_controller->can_move = false;
-
-time_passed = time_attack_up;
-
-
-
-button_pressed = true;
-}
-break;
-}
-break;
-
-case SDL_KEYUP:
-switch (Game::event.key.keysym.sym) {
-case SDLK_SPACE:
-button_pressed = false;
-break;
-}
-break;
-
-default:
-break;
-}
-}
-else {
-time_passed -= Time::deltaTime;
-
-if (time_passed <= 0) {
-state = State::ready_attack;
-}
-}
-
-}
-else {
-time_passed -= Time::deltaTime;
-
-velocity_body->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime;
-velocity_body->velocity.y += normalizeDirection.y * velocity_attack * Time::deltaTime;
-
-if (time_passed <= 0) {
-box_collider_attack->is_active = false;
-
-state = State::ready_attack;
-time_passed = time_attack_cd;
-
-velocity_body->velocity.x *= 0.5f;
-velocity_body->velocity.y *= 0.5f;
-
-player_controller->can_move = true;
-}
-}
-*/
-

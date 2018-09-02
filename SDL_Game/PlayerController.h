@@ -21,6 +21,7 @@ public:
 
 	void update();
 
+	OwnMathFuncs::Vector2 direction = { 1, 0 };
 
 private:
 
