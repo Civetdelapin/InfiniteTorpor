@@ -4,6 +4,7 @@
 #include "SDL.h"
 #include "Enemy.h"
 #include "SlimPrefab.h"
+#include "DisplayPlayerHealth.h"
 
 int main(int argc, char* args[]) {
 
@@ -45,7 +46,12 @@ int main(int argc, char* args[]) {
 	Game::instance()->addGameObject(enemy);
 
 
+	//Add UI Manager
+	GameObject* ui_manager = new GameObject();
+	ui_manager->layer = 50;
+	DisplayPlayerHealth* display = new DisplayPlayerHealth(ui_manager, player->getComponent<PlayerStat>());
 
+	Game::instance()->addGameObject(ui_manager);
 
 	//Main loop of the game
 	while (Game::instance()->getIsRunning()) {

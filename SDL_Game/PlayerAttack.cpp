@@ -68,6 +68,9 @@ void PlayerAttack::update()
 		}
 	}
 		
+	if (getActiveCollider() != nullptr) {
+
+		
 		//We tried to find if we hit someone
 		std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(getActiveCollider());
 		if (vect.size() > 0) {
@@ -100,14 +103,18 @@ void PlayerAttack::update()
 			}
 		
 		}
-	
+	}
 }
 
 void PlayerAttack::attackButtonPressed()
 {
 	if (state == State::ready_attack || state == State::between_attack) {
 
-		
+		const Uint8* keystates = SDL_GetKeyboardState(NULL);
+		if (!keystates[SDL_SCANCODE_UP] && !keystates[SDL_SCANCODE_DOWN]) {
+			normalizeDirection.y = 0;
+		}
+
 		if (normalizeDirection.x != 0 && normalizeDirection.x != game_object->getRootParent()->getComponent<PlayerController>()->direction.x) {
 			normalizeDirection.x = game_object->getRootParent()->getComponent<PlayerController>()->direction.x;
 		}
@@ -121,6 +128,7 @@ void PlayerAttack::attackButtonPressed()
 		state = State::attacking;
 
 		time_passed = time_attack_up;
+
 		nb_combo++;
 
 		OwnMathFuncs::Vector2 vec_normalized = OwnMathFuncs::OwnMathFuncs::getNormalize(normalizeDirection);
@@ -175,7 +183,10 @@ BoxCollider * PlayerAttack::getActiveCollider()
 		return box_collider_attack_corner;
 	}
 
-	return box_coolider_attack_up;
+	if (box_coolider_attack_up->is_active) {
+		return box_coolider_attack_up;
+	}
+	return nullptr;
 }
 
 
@@ -185,14 +196,11 @@ void PlayerAttack::manageNormalizeDirection()
 
 	if (Game::instance()->event.type == SDL_KEYDOWN && (Game::instance()->event.key.keysym.sym == SDLK_UP || Game::instance()->event.key.keysym.sym == SDLK_DOWN || Game::instance()->event.key.keysym.sym == SDLK_LEFT || Game::instance()->event.key.keysym.sym == SDLK_RIGHT)) {
 
-		normalizeDirection = game_object->getRootParent()->getComponent<PlayerController>()->direction;
-
 		
+		normalizeDirection = game_object->getRootParent()->getComponent<PlayerController>()->direction;
 
 		//Managing the normalize direction
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);
-		
-		
 		
 		if (!keystates[SDL_SCANCODE_UP] && !keystates[SDL_SCANCODE_DOWN]) {
 			normalizeDirection.y = 0;

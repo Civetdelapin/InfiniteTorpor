@@ -23,12 +23,13 @@ SDL_Texture * TextureManager::LoadTexture(const char * fileName)
 	return texture;
 }
 
-void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Rect destrect, SDL_RendererFlip render_flip)
+void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Rect destrect, SDL_RendererFlip render_flip, bool is_relative_to_camera)
 {
-
-	destrect.x -= Camera::camera_pos_x;
-	destrect.y -= Camera::camera_pos_y;
-
+	if (is_relative_to_camera) {
+		destrect.x -= Camera::camera_pos_x;
+		destrect.y -= Camera::camera_pos_y;
+	}
+	
 	SDL_RenderCopyEx(Game::instance()->renderer, texture, &srcrect, &destrect, NULL, NULL, render_flip);
 }
 
