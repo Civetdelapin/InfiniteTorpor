@@ -46,6 +46,7 @@ public:
 	void addGameObject(GameObject* gameObject);
 	void destroyGameObject(GameObject* game_object);
 
+	GameObject* findGameObject(std::string tag);
 
 	bool getIsRunning();
 	bool getIsDebugMode();
@@ -65,6 +66,8 @@ public:
 	ColliderManager *collider_manager;
 
 private:
+
+	GameObject * findGameObjectRecursive(std::string tag, std::vector<GameObject*> &vect);
 
 	std::vector<GameObject*> game_objects;
 	std::vector<GameObject*> game_objects_to_be_destroyed;

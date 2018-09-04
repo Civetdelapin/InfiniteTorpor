@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "SlimPrefab.h"
 #include "DisplayPlayerHealth.h"
+#include "GoblinPrefab.h"
 
 int main(int argc, char* args[]) {
 
@@ -44,6 +45,16 @@ int main(int argc, char* args[]) {
 	enemy->local_position.y = 768;
 
 	Game::instance()->addGameObject(enemy);
+
+	GoblinPrefab *goblin = new GoblinPrefab("img/goblin.png", new OwnMathFuncs::Vector2(32, 32));
+	goblin->layer = 4;
+
+	goblin->local_position.x = 900;
+	goblin->local_position.y = 768;
+
+	Game::instance()->addGameObject(goblin);
+	
+
 
 
 	//Add UI Manager

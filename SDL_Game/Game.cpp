@@ -135,6 +135,13 @@ void Game::destroyGameObject(GameObject * game_object)
 	game_objects_to_be_destroyed.push_back(game_object);
 }
 
+GameObject* Game::findGameObject(std::string tag)
+{
+
+
+
+}
+
 bool Game::getIsRunning()
 {
 	return isRunning;
@@ -171,4 +178,10 @@ Camera* Game::getCamera()
 {
 	return camera;
 }
+
+GameObject * Game::findGameObjectRecursive(std::string tag, std::vector<GameObject*>& vect)
+{
+	return nullptr;
+}
+
 

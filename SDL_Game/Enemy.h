@@ -5,6 +5,7 @@
 #include "SpriteRenderer.h"
 #include "EnemyStat.h"
 #include "DisplayEnemyHp.h"
+#include "StateMachine.h"
 
 class Enemy : public GameObject
 {

@@ -136,6 +136,7 @@
     <ClCompile Include="EnemyStat.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GoblinPrefab.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="OwnMathFuncs.cpp" />
@@ -145,6 +146,8 @@
     <ClCompile Include="PlayerStat.cpp" />
     <ClCompile Include="SlimPrefab.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="StateRushPlayer.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TileMapCollider.cpp" />
@@ -164,6 +167,9 @@
     <ClInclude Include="EnemyStat.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GoblinPrefab.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="OwnMathFuncs.h" />
     <ClInclude Include="Player.h" />
@@ -172,6 +178,8 @@
     <ClInclude Include="PlayerStat.h" />
     <ClInclude Include="SlimPrefab.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="StateRushPlayer.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TileMapCollider.h" />

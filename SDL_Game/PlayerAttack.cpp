@@ -111,8 +111,9 @@ void PlayerAttack::attackButtonPressed()
 	if (state == State::ready_attack || state == State::between_attack) {
 
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);
-		if (!keystates[SDL_SCANCODE_UP] && !keystates[SDL_SCANCODE_DOWN]) {
-			normalizeDirection.y = 0;
+		
+		if (normalizeDirection.y != 0 && normalizeDirection.y != game_object->getRootParent()->getComponent<PlayerController>()->direction.y) {
+			normalizeDirection.y = game_object->getRootParent()->getComponent<PlayerController>()->direction.y;
 		}
 
 		if (normalizeDirection.x != 0 && normalizeDirection.x != game_object->getRootParent()->getComponent<PlayerController>()->direction.x) {

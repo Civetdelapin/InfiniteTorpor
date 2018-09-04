@@ -1,8 +1,6 @@
-#include "SlimPrefab.h"
+#include "GoblinPrefab.h"
 
-
-
-SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : Enemy(img_path, sprite_size)
+GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : Enemy(img_path, sprite_size)
 {
 
 	getComponent<VelocityBody>()->drag = { 13, 13 };
@@ -13,12 +11,13 @@ SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size)
 	GameObject* game_object_child = new GameObject();
 
 	BoxCollider* boxColliderHitBox = new BoxCollider(game_object_child);
-	boxColliderHitBox->offset = { 0, 10 };
-	boxColliderHitBox->size = { 12, 10 };
+	boxColliderHitBox->offset = { 0, 8 };
+	boxColliderHitBox->size = { 12, 15 };
 	boxColliderHitBox->collision_layer = 5;
 
 	game_object_child->tag = "Enemy";
 	addGameObject(game_object_child);
+
 
 
 	Animator* animator = new Animator(this);
@@ -42,6 +41,6 @@ SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size)
 }
 
 
-SlimPrefab::~SlimPrefab()
+GoblinPrefab::~GoblinPrefab()
 {
 }

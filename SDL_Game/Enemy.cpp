@@ -19,17 +19,7 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : GameObj
 
 	DisplayEnemyHp* displayEnemyHp = new DisplayEnemyHp(this, enemyState);
 
-	//Creation of child
-	GameObject* game_object_child = new GameObject();
-
-	BoxCollider* boxColliderHitBox = new BoxCollider(game_object_child); 
-	boxColliderHitBox->offset = { 0, 10 };
-	boxColliderHitBox->size = { 12, 10};
-	boxColliderHitBox->collision_layer = 5;
-
-	game_object_child->tag = "Enemy";
-	addGameObject(game_object_child);
-
+	StateMachine* stateMachine = new StateMachine(this);
 }
 
 
