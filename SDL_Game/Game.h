@@ -67,7 +67,7 @@ public:
 
 private:
 
-	GameObject * findGameObjectRecursive(std::string tag, std::vector<GameObject*> &vect);
+	GameObject * findGameObjectRecursive(std::string tag, GameObject* game_object);
 
 	std::vector<GameObject*> game_objects;
 	std::vector<GameObject*> game_objects_to_be_destroyed;

@@ -67,6 +67,14 @@ void PlayerController::update()
 			velocityBody->velocity.x += normalizeDirection.x * cur_speed * Time::deltaTime;
 			velocityBody->velocity.y += normalizeDirection.y * cur_speed * Time::deltaTime;
 
+
+			if (velocityBody->velocity.x < 0 && game_object->getWorldScale().x > 0) {
+				game_object->local_scale.x *= -1;
+			}
+			else if (velocityBody->velocity.x > 0 && game_object->getWorldScale().x < 0) {
+				game_object->local_scale.x *= -1;
+			}
+
 			//std::cout << velocityBody->drag.x << std::endl;
 
 			if (state != State::cant_dash) {

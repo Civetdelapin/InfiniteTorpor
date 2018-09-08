@@ -4,7 +4,7 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_s
 {
 
 	getComponent<VelocityBody>()->drag = { 13, 13 };
-	getComponent<EnemyStat>()->max_hp = 50;
+	getComponent<EnemyBasicBehavior>()->max_hp = 70;
 
 
 	//Creation of child
@@ -21,6 +21,8 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_s
 
 
 	Animator* animator = new Animator(this);
+
+
 	// Creation of Animations
 	Animation animIdle;
 	animIdle.nb_sprites = 10;
@@ -28,7 +30,6 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_s
 	animIdle.y_index = 0;
 
 	animator->animations.insert(std::pair <std::string, Animation>("Idle", animIdle));
-
 
 	Animation animWalking;
 	animWalking.nb_sprites = 10;
@@ -38,6 +39,10 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_s
 	animator->animations.insert(std::pair <std::string, Animation>("Walking", animWalking));
 	animator->play("Idle");
 
+
+
+	//Set the current State
+	getComponent<StateMachine>()->setSet(new StateRushPlayer(this));
 }
 
 

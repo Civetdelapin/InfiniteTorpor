@@ -6,7 +6,7 @@ SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size)
 {
 
 	getComponent<VelocityBody>()->drag = { 13, 13 };
-	getComponent<EnemyStat>()->max_hp = 50;
+	getComponent<EnemyBasicBehavior>()->max_hp = 50;
 
 
 	//Creation of child

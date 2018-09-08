@@ -21,5 +21,6 @@ void StateMachine::update()
 
 void StateMachine::setSet(State * state) 
 {
+	delete cur_state;
 	cur_state = state;
 }

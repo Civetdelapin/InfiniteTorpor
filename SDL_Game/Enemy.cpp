@@ -14,7 +14,7 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : GameObj
 
 	VelocityBody* velocityBody = new VelocityBody(this);
 	
-	EnemyStat* enemyState = new EnemyStat(this);
+	EnemyBasicBehavior* enemyState = new EnemyBasicBehavior(this);
 
 
 	DisplayEnemyHp* displayEnemyHp = new DisplayEnemyHp(this, enemyState);

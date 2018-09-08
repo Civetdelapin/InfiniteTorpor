@@ -133,7 +133,7 @@
     <ClCompile Include="DisplayEnemyHp.cpp" />
     <ClCompile Include="DisplayPlayerHealth.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyStat.cpp" />
+    <ClCompile Include="EnemyBasicBehavior.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GoblinPrefab.cpp" />
@@ -164,7 +164,7 @@
     <ClInclude Include="DisplayEnemyHp.h" />
     <ClInclude Include="DisplayPlayerHealth.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyStat.h" />
+    <ClInclude Include="EnemyBasicBehavior.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GoblinPrefab.h" />

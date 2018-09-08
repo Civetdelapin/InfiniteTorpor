@@ -1,11 +1,11 @@
 #pragma once
 #include "Component.h"
-#include "EnemyStat.h"
+#include "EnemyBasicBehavior.h"
 
 class DisplayEnemyHp : public Component
 {
 public:
-	DisplayEnemyHp(GameObject* game_object, EnemyStat* enemy_stat);
+	DisplayEnemyHp(GameObject* game_object, EnemyBasicBehavior* enemy_stat);
 	~DisplayEnemyHp();
 
 	void update();
@@ -16,7 +16,7 @@ public:
 	float time_display_when_hit = 3;
 
 private:
-	EnemyStat * enemy_stat;
+	EnemyBasicBehavior * enemy_stat;
 
 	float time_passed;
 	float last_hp;

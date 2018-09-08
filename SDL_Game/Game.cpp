@@ -137,9 +137,16 @@ void Game::destroyGameObject(GameObject * game_object)
 
 GameObject* Game::findGameObject(std::string tag)
 {
+	for (GameObject* game_object : game_objects) {
+		GameObject* object_found = Game::findGameObjectRecursive(tag, game_object);
+		if (object_found != nullptr) {
+			return object_found;
+		}
 
+		object_found = NULL;
+	}
 
-
+	return nullptr;
 }
 
 bool Game::getIsRunning()
@@ -179,8 +186,21 @@ Camera* Game::getCamera()
 	return camera;
 }
 
-GameObject * Game::findGameObjectRecursive(std::string tag, std::vector<GameObject*>& vect)
+GameObject * Game::findGameObjectRecursive(std::string tag, GameObject* game_object)
 {
+	if (game_object->tag == tag) {
+		return game_object;
+	}
+
+	for (GameObject* game_object_child : game_object->getChildren()) {
+		GameObject* object_found = Game::findGameObjectRecursive(tag, game_object_child);
+		if (object_found != nullptr) {
+			return object_found;
+		}
+
+		object_found = NULL;
+	}
+
 	return nullptr;
 }
 

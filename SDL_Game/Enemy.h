@@ -3,7 +3,7 @@
 #include "VelocityBody.h"
 #include "BoxCollider.h"
 #include "SpriteRenderer.h"
-#include "EnemyStat.h"
+#include "EnemyBasicBehavior.h"
 #include "DisplayEnemyHp.h"
 #include "StateMachine.h"
 

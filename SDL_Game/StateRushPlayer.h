@@ -1,6 +1,8 @@
 #pragma once
 #include "State.h"
 #include "VelocityBody.h"
+#include "EnemyBasicBehavior.h"
+
 class StateRushPlayer : public State
 {
 public:
@@ -11,6 +13,6 @@ public:
 
 private:
 	GameObject * target;
-	VelocityBody* velocity_body;
+	EnemyBasicBehavior* enemy_basic_behavior;
 };
 

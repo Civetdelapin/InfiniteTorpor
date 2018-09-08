@@ -1,6 +1,6 @@
 #include "PlayerAttack.h"
 #include "Game.h"
-#include "EnemyStat.h"
+#include "EnemyBasicBehavior.h"
 
 PlayerAttack::PlayerAttack(GameObject* game_object, BoxCollider* box_collider_attack, BoxCollider* box_coolider_attack_up, BoxCollider* box_collider_attack_corner, PlayerController* player_controller, VelocityBody* velocity_body) : Component(game_object), box_collider_attack(box_collider_attack), player_controller(player_controller), velocity_body(velocity_body), box_coolider_attack_up(box_coolider_attack_up), box_collider_attack_corner(box_collider_attack_corner)
 {
@@ -80,22 +80,12 @@ void PlayerAttack::update()
 
 					if (collider->game_object->tag == "Enemy") {
 
-						VelocityBody* velocity_body = collider->game_object->getRootParent()->getComponent<VelocityBody>();
-						if (velocity_body != nullptr) {
-							//std::cout << "ATTACK FOUND" << std::endl;
-							collider->game_object->getRootParent()->getComponent<VelocityBody>()->velocity.x += normalizeDirection.x * velocity_attack * Time::deltaTime * 0.75;
-							collider->game_object->getRootParent()->getComponent<VelocityBody>()->velocity.y += normalizeDirection.y * velocity_attack * Time::deltaTime * 0.75;
+						EnemyBasicBehavior* enemy_stat = collider->game_object->getRootParent()->getComponent<EnemyBasicBehavior>();
+						if (enemy_stat != nullptr) {	
+							enemy_stat->takeDamage(normalizeDirection, velocity_attack * 0.80, attack_dmg[nb_combo - 1], time_enemy_stun);
 						}
-
-						velocity_body = NULL;
-
-						EnemyStat* enemy_stat = collider->game_object->getRootParent()->getComponent<EnemyStat>();
-						if (enemy_stat != nullptr) {
-							enemy_stat->cur_hp -= attack_dmg[nb_combo - 1];
-
-						}
-
 						enemy_stat = NULL;
+
 						Game::instance()->getCamera()->startShake(10, 15, 0.25);
 					}
 					game_objects_touched.push_back(collider->game_object);	

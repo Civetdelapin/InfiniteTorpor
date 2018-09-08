@@ -31,12 +31,6 @@ void VelocityBody::update()
 
 	//std::cout << velocity.x << std::endl;
 
-	if (velocity.x < 0 && game_object->getWorldScale().x > 0) {
-		game_object->local_scale.x *= -1;
-	}
-	else if (velocity.x > 0 && game_object->getWorldScale().x < 0) {
-		game_object->local_scale.x *= -1;
-	}
 
 	/*
 	// Clamp velocities

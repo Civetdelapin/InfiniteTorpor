@@ -18,6 +18,8 @@ public:
 	int nb_combo_max = 3;
 
 	float attack_dmg[3] = {8, 12, 15};
+	float time_enemy_stun = 0.5f;
+
 
 	enum State { attacking, ready_attack, between_attack, cant_attack};
 
