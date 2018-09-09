@@ -6,6 +6,8 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_s
 	getComponent<VelocityBody>()->drag = { 10, 10 };
 	getComponent<EnemyBasicBehavior>()->max_hp = 70;
 	getComponent<EnemyBasicBehavior>()->speed = 2000;
+	getComponent<DisplayEnemyHp>()->y_offset = 8;
+
 
 	//Creation of child
 	GameObject* game_object_child = new GameObject();
@@ -15,9 +17,24 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_s
 	boxColliderHitBox->size = { 12, 15 };
 	boxColliderHitBox->collision_layer = 5;
 
+	
+
 	game_object_child->tag = "Enemy";
+
 	addGameObject(game_object_child);
 
+
+	GameObject* game_object_child2 = new GameObject();
+	BoxCollider* boxColliderAttack = new BoxCollider(game_object_child2);
+	boxColliderAttack->offset = { 12, 8 };
+	boxColliderAttack->size = { 12, 15 };
+	boxColliderAttack->collision_layer = 10;
+
+	boxColliderAttack->is_active = false;
+
+	EnemyAttackCollider* enemy_attack_collider = new EnemyAttackCollider(game_object_child2, boxColliderAttack);
+
+	addGameObject(game_object_child2);
 
 	Animator* animator = new Animator(this);
 
@@ -47,7 +64,7 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_s
 
 	Animation animAttack;
 	animAttack.nb_sprites = 5;
-	animAttack.speed = 0.1f;
+	animAttack.speed = 0.05f;
 	animAttack.y_index = 3;
 	animAttack.x_index = 5;
 	animAttack.is_looping = false;

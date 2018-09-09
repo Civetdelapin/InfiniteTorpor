@@ -30,3 +30,8 @@ void StateRushPlayer::operation(GameObject * game_object)
 		}
 	}
 }
+
+void StateRushPlayer::exit(GameObject * game_object)
+{
+
+}

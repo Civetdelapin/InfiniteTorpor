@@ -1,5 +1,5 @@
 #include "PlayerStat.h"
-
+#include "Game.h"
 
 
 PlayerStat::PlayerStat(GameObject* game_object) : Component(game_object)
@@ -28,13 +28,19 @@ void PlayerStat::update()
 	}	
 }
 
+void PlayerStat::setInvicible(float time)
+{
+	is_invicible = true;
+	time_passed = time;
+}
+
 void PlayerStat::addDamage(float dmg)
 {
 	if (!is_invicible) {
+		Game::instance()->getCamera()->startShake(15, 20, 0.5);
+
 		cur_hp -= dmg;
-
-		is_invicible = true;
-
-		time_passed = time_invicible;
+		
+		setInvicible(time_invicible);
 	}
 }

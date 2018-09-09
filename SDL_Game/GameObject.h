@@ -89,6 +89,31 @@ public:
 		return vec_temp;
 	}
 
+	template< class ComponentType >
+	ComponentType*  getComponentInChild() {
+
+		ComponentType* component = getComponent<ComponentType>();
+
+		if (component != nullptr) {
+			return component;
+		}
+		else {
+
+			for (GameObject* game_object : game_objects) {
+				component = game_object->getComponent<ComponentType>();
+				if (component != nullptr) {
+					return component;
+				}
+
+				component = NULL;
+			}
+
+		}
+
+		return nullptr;
+	}
+
+
 	GameObject* getRootParent();
 
 	OwnMathFuncs::Vector2 getWorldPosition();

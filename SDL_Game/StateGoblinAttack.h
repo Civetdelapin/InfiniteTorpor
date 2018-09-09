@@ -3,6 +3,7 @@
 #include "EnemyBasicBehavior.h"
 #include "Animator.h"
 #include "StateRushPlayer.h"
+#include "EnemyAttackCollider.h"
 
 class StateGoblinAttack : public State
 {
@@ -14,10 +15,12 @@ public:
 	const float velocity_attack = 300000;
 
 	void operation(GameObject* game_object);
+	void exit(GameObject* game_object);
 
 private:
 	GameObject * target;
 	EnemyBasicBehavior* enemy_basic_behavior;
+	Collider* collider_active;
 
 	float time_passed;
 	bool before_attack = true;

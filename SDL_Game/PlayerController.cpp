@@ -84,6 +84,8 @@ void PlayerController::update()
 					state = State::dashing;
 					time_passed = time_dash;
 
+					game_object->getComponent<PlayerStat>()->setInvicible(time_dash);
+
 					if (normalizeDirection.x == 0 && normalizeDirection.y == 0) {
 						
 						//We dash where the player is looking

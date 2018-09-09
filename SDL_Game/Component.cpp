@@ -28,3 +28,13 @@ void Component::clean()
 
 }
 
+bool Component::getIsReallyActive()
+{
+	if (is_active) {
+		return game_object->getIsReallyActive();
+	}
+	else {
+		return is_active;
+	}
+}
+

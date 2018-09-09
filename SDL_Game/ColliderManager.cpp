@@ -39,12 +39,12 @@ std::vector<Collider*> ColliderManager::isTrigger(Collider * collider_to_test)
 	//std::cout << "--------------------------" << std::endl;
 	std::vector<Collider*> vecTemp;
 
-	if (collider_to_test->game_object->getIsReallyActive()){
+	if (collider_to_test->getIsReallyActive()){
 
 		for (Collider* collider : colliders_to_test) {
 
 			//std::cout << "TESTED COLLIDER" << std::endl;
-			if (collider->game_object->getIsReallyActive() && collider->collision_layer == collider_to_test->collision_layer && collider->is_active &&!collider->is_trigger && collider != collider_to_test && collider->isColliding(collider_to_test)) {
+			if (collider->getIsReallyActive() && collider->collision_layer == collider_to_test->collision_layer && collider->is_active &&!collider->is_trigger && collider != collider_to_test && collider->isColliding(collider_to_test)) {
 				vecTemp.push_back(collider);
 			}
 		}

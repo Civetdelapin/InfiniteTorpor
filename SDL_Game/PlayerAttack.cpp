@@ -88,6 +88,8 @@ void PlayerAttack::update()
 
 						Game::instance()->getCamera()->startShake(10, 15, 0.25);
 					}
+
+
 					game_objects_touched.push_back(collider->game_object);	
 				}
 			}

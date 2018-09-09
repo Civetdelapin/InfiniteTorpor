@@ -19,6 +19,8 @@ StateGoblinAttack::StateGoblinAttack(GameObject * game_object)
 		normalize_dir = (target->getWorldPosition() - game_object->getWorldPosition());
 	}
 	
+	collider_active = game_object->getRootParent()->getComponentInChild<EnemyAttackCollider>()->collider_to_check;
+
 }
 
 
@@ -41,11 +43,20 @@ void StateGoblinAttack::operation(GameObject * game_object)
 
 				before_attack = false;
 
-				time_passed = time_attack;
+				time_passed = time_attack * 0.5;
+
+				collider_active->is_active = true;
 			}
 			else {
+				collider_active->is_active = false;
+
 				game_object->getComponent<StateMachine>()->setSet(new StateRushPlayer(game_object));
 			}
 		}
 	}
+}
+
+void StateGoblinAttack::exit(GameObject * game_object)
+{
+	collider_active->is_active = false;
 }

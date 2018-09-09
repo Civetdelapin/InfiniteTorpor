@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Animator.h"
 #include "StateRushPlayer.h"
+#include "EnemyAttackCollider.h"
 
 class GoblinPrefab : public Enemy
 {

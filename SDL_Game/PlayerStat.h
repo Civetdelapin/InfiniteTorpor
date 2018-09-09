@@ -16,6 +16,8 @@ public:
 
 	void update();
 
+	void setInvicible(float time);
+
 private:
 
 	float cur_hp = 5;

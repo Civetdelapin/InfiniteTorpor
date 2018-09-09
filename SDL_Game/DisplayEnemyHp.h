@@ -13,6 +13,8 @@ public:
 
 	OwnMathFuncs::Vector2 size = {23, 3};
 		 
+	float y_offset = 1.75;
+
 	float time_display_when_hit = 3;
 
 private:

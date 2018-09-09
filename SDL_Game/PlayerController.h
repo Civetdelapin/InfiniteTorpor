@@ -5,6 +5,7 @@
 #include "OwnMathFuncs.h"
 #include "Animator.h"
 #include "BoxCollider.h"
+#include "PlayerStat.h"
 
 class PlayerController : public virtual Component
 {

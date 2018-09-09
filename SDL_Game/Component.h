@@ -19,6 +19,8 @@ public:
 
 	GameObject* game_object;
 
+	bool getIsReallyActive();
+
 	bool is_active = true;
 };
 

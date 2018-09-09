@@ -21,6 +21,10 @@ void StateMachine::update()
 
 void StateMachine::setSet(State * state) 
 {
+	if (cur_state != nullptr) {
+		cur_state->exit(game_object);
+	}
+	
 	delete cur_state;
 	cur_state = state;
 }

@@ -41,9 +41,9 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	GameObject* game_object_child = new GameObject();
 
 	BoxCollider* boxColliderHitBox = new BoxCollider(game_object_child);
-	boxColliderHitBox->offset = { 0, 0 };
-	boxColliderHitBox->size = { 10, 30 };
-	boxColliderHitBox->collision_layer = 5;
+	boxColliderHitBox->offset = { 0, 4 };
+	boxColliderHitBox->size = { 10, 22 };
+	boxColliderHitBox->collision_layer = 10;
 
 	game_object_child->tag = "Player";
 	addGameObject(game_object_child);

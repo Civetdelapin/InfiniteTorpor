@@ -12,6 +12,7 @@ public:
 	~StateRushPlayer();
 
 	void operation(GameObject* game_object);
+	void exit(GameObject* game_object);
 
 private:
 	GameObject * target;

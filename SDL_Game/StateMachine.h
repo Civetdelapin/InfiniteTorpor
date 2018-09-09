@@ -11,7 +11,7 @@ public:
 	void update();
 
 	void setSet(State* state);
-	void setDefaultState();
+	
 
 private:
 

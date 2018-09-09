@@ -38,7 +38,7 @@ void DisplayEnemyHp::render()
 	if (time_passed > 0) {
 		SDL_Rect rect;
 		rect.x = game_object->getWorldPosition().x - ((size.x / 2) * abs(game_object->getWorldScale().x));
-		rect.y = game_object->getWorldPosition().y - (1.75 * abs(game_object->getWorldScale().y));
+		rect.y = game_object->getWorldPosition().y - (y_offset * abs(game_object->getWorldScale().y));
 
 
 		//Draw the background
