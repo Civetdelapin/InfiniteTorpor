@@ -3,9 +3,9 @@
 GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : Enemy(img_path, sprite_size)
 {
 
-	getComponent<VelocityBody>()->drag = { 13, 13 };
+	getComponent<VelocityBody>()->drag = { 10, 10 };
 	getComponent<EnemyBasicBehavior>()->max_hp = 70;
-
+	getComponent<EnemyBasicBehavior>()->speed = 2000;
 
 	//Creation of child
 	GameObject* game_object_child = new GameObject();
@@ -19,9 +19,7 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_s
 	addGameObject(game_object_child);
 
 
-
 	Animator* animator = new Animator(this);
-
 
 	// Creation of Animations
 	Animation animIdle;
@@ -37,9 +35,27 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_s
 	animWalking.y_index = 2;
 
 	animator->animations.insert(std::pair <std::string, Animation>("Walking", animWalking));
+
+
+	Animation animBeforeAttack;
+	animBeforeAttack.nb_sprites = 5;
+	animBeforeAttack.speed = 0.075f;
+	animBeforeAttack.y_index = 3;
+	animBeforeAttack.is_looping = false;
+
+	animator->animations.insert(std::pair <std::string, Animation>("BeforeAttack", animBeforeAttack));
+
+	Animation animAttack;
+	animAttack.nb_sprites = 5;
+	animAttack.speed = 0.1f;
+	animAttack.y_index = 3;
+	animAttack.x_index = 5;
+	animAttack.is_looping = false;
+
+	animator->animations.insert(std::pair <std::string, Animation>("Attack", animAttack));
+
+
 	animator->play("Idle");
-
-
 
 	//Set the current State
 	getComponent<StateMachine>()->setSet(new StateRushPlayer(this));

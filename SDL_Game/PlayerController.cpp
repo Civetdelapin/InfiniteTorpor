@@ -121,9 +121,6 @@ void PlayerController::update()
 
 	}
 
-
-	
-
 	//std::cout << "velocity x : " << velocityBody->velocity.x << ", velocity y : " << velocityBody->velocity.y << std::endl;
 
 	if (abs(velocityBody->velocity.x) > 3 || abs(velocityBody->velocity.y) > 3) {

@@ -13,7 +13,10 @@ struct Transition {
 
 struct Animation {
 	float speed;
-	int y_index;
+
+	int y_index = 0;
+	int x_index = 0;
+
 	int nb_sprites;
 	bool is_looping = true;
 

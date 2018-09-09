@@ -34,7 +34,7 @@ void DisplayPlayerHealth::render()
 	//std::cout << player_stat->cur_hp << std::endl;
 	for (int i = 1; i <= player_stat->max_hp; i++) {
 		
-		if (i <= player_stat->cur_hp) {
+		if (i <= player_stat->getCurHP()) {
 			TextureManager::DrawTexture(full_heart_texture, src_rect, dest_rect, SDL_FLIP_NONE, false);
 		}
 		else {

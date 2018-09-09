@@ -33,3 +33,8 @@ OwnMathFuncs::Vector2 OwnMathFuncs::OwnMathFuncs::getNormalize(Vector2 & vec)
 	return Vector2(x,y);
 }
 
+float OwnMathFuncs::OwnMathFuncs::distanceBetweenVect(Vector2 vec, Vector2 vec2)
+{
+	return sqrt(pow(vec.x - vec2.x, 2) + pow(vec.y - vec2.y,2));
+}
+

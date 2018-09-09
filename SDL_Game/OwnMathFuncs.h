@@ -35,6 +35,8 @@ public:
 	static float magnitude(Vector2 &vec);
 
 	static Vector2 getNormalize(Vector2& vec);
+
+	static float distanceBetweenVect(Vector2 vec, Vector2 vec2);
 };
 
 }

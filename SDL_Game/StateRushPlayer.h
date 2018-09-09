@@ -2,6 +2,8 @@
 #include "State.h"
 #include "VelocityBody.h"
 #include "EnemyBasicBehavior.h"
+#include "StateMachine.h"
+#include "StateGoblinAttack.h"
 
 class StateRushPlayer : public State
 {
@@ -14,5 +16,7 @@ public:
 private:
 	GameObject * target;
 	EnemyBasicBehavior* enemy_basic_behavior;
+
+	
 };
 

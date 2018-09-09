@@ -12,18 +12,18 @@ public:
 
 	void update();
 
-	float time_attack_up = 0.25;
-	float time_attack_cd = 0.5;
-	float time_attack_cancel_combo = 1;
-	int nb_combo_max = 3;
+	const float time_attack_up = 0.25;
+	const float time_attack_cd = 0.5;
+	const float time_attack_cancel_combo = 1;
+	const int nb_combo_max = 3;
 
-	float attack_dmg[3] = {8, 12, 15};
-	float time_enemy_stun = 0.5f;
+	const float attack_dmg[3] = {8, 12, 15};
+	const float time_enemy_stun = 0.5f;
 
 
 	enum State { attacking, ready_attack, between_attack, cant_attack};
 
-	float velocity_attack = 300000;
+	const float velocity_attack = 300000;
 
 private:
 	BoxCollider * box_collider_attack;

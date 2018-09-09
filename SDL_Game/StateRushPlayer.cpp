@@ -5,6 +5,8 @@ StateRushPlayer::StateRushPlayer(GameObject * game_object)
 {
 	enemy_basic_behavior = game_object->getComponent<EnemyBasicBehavior>();
 	target = Game::instance()->findGameObject("Player");
+
+	game_object->getComponent<Animator>()->play("Walking");
 }
 
 
@@ -15,12 +17,16 @@ StateRushPlayer::~StateRushPlayer()
 void StateRushPlayer::operation(GameObject * game_object)
 {
 
-	if (target != nullptr) {
+	if (target != nullptr && !enemy_basic_behavior->isStunned()) {
 			
-		OwnMathFuncs::Vector2 dir_vect = (target->getWorldPosition() - game_object->getWorldPosition());
-		OwnMathFuncs::OwnMathFuncs::normalize(dir_vect);
+		if (OwnMathFuncs::OwnMathFuncs::distanceBetweenVect(target->getWorldPosition(), game_object->getWorldPosition()) <= 80) {
+			game_object->getComponent<StateMachine>()->setSet(new StateGoblinAttack(game_object));
+		}
+		else {
+			OwnMathFuncs::Vector2 dir_vect = (target->getWorldPosition() - game_object->getWorldPosition());
+			OwnMathFuncs::OwnMathFuncs::normalize(dir_vect);
 
-		enemy_basic_behavior->addForce(dir_vect, 2300);
+			enemy_basic_behavior->addForce(dir_vect, enemy_basic_behavior->speed);
+		}
 	}
-	
 }

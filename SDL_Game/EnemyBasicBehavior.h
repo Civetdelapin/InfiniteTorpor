@@ -10,11 +10,14 @@ public:
 	float cur_hp;
 	float max_hp = 100;
 
+	float speed = 2300;
+
 	void update();
 
 	void addForce(OwnMathFuncs::Vector2 direction, float power);
-
 	void takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float time_stunned);
+
+	bool isStunned();
 
 private:
 

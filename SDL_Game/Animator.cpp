@@ -30,8 +30,9 @@ void Animator::update()
 				}
 			}
 			else {
-				cur_sprite = cur_sprite % animations[cur_animation].nb_sprites;
-				spriteRenderer->srcrect.x = cur_sprite * spriteRenderer->sprite_sizeX;
+				cur_sprite = (cur_sprite % animations[cur_animation].nb_sprites);
+
+				spriteRenderer->srcrect.x = (cur_sprite + animations[cur_animation].x_index) * spriteRenderer->sprite_sizeX;
 				spriteRenderer->srcrect.y = animations[cur_animation].y_index * spriteRenderer->sprite_sizeY;
 			}
 		}

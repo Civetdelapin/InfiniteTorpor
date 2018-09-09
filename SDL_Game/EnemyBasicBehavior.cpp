@@ -64,3 +64,8 @@ void EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power
 
 	is_stunned = true;
 }
+
+bool EnemyBasicBehavior::isStunned()
+{
+	return is_stunned;
+}
