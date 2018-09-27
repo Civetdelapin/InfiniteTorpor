@@ -12,10 +12,8 @@ public:
 	void clean();
 
 	void setSet(State* state);
-	
 
 private:
-
 	State* cur_state = nullptr;
 };
 

@@ -35,7 +35,9 @@ public:
 
 	void addComponent(Component* component);
 	void addGameObject(GameObject* game_object);
+
 	void setActiveChildren(bool value);
+
 	std::vector<GameObject*> getChildren();
 	std::vector<Component*> getAllComponents();
 
