@@ -10,10 +10,11 @@ public:
 
 	void update();
 	void render();
+	void clean();
 
 private:
-	SDL_Texture * full_heart_texture;
-	SDL_Texture * empty_heart_texture;
+	SDL_Texture* full_heart_texture;
+	SDL_Texture* empty_heart_texture;
 
 	SDL_Rect src_rect;
 	

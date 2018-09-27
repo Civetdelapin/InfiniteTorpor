@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : GameObject()
+Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2 sprite_size) : GameObject()
 {
 	SpriteRenderer* spriteRenderer = new SpriteRenderer(this, img_path, sprite_size);
 
@@ -15,7 +15,6 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : GameObj
 	VelocityBody* velocityBody = new VelocityBody(this);
 	
 	EnemyBasicBehavior* enemyState = new EnemyBasicBehavior(this);
-
 
 	DisplayEnemyHp* displayEnemyHp = new DisplayEnemyHp(this, enemyState);
 

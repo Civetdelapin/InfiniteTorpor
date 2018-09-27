@@ -45,3 +45,16 @@ void DisplayPlayerHealth::render()
 	}
 	
 }
+
+void DisplayPlayerHealth::clean()
+{
+	delete full_heart_texture;
+	full_heart_texture = NULL;
+
+	delete empty_heart_texture;
+	empty_heart_texture = NULL;
+
+	player_stat = NULL;
+
+	Component::clean();
+}

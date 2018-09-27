@@ -2,7 +2,7 @@
 
 
 
-SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : Enemy(img_path, sprite_size)
+SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Enemy(img_path, sprite_size)
 {
 
 	getComponent<VelocityBody>()->drag = { 13, 13 };
@@ -20,8 +20,9 @@ SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size)
 	game_object_child->tag = "Enemy";
 	addGameObject(game_object_child);
 
-
+	
 	Animator* animator = new Animator(this);
+	/*
 	// Creation of Animations
 	Animation animIdle;
 	animIdle.nb_sprites = 10;
@@ -30,7 +31,6 @@ SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size)
 
 	animator->animations.insert(std::pair <std::string, Animation>("Idle", animIdle));
 
-
 	Animation animWalking;
 	animWalking.nb_sprites = 10;
 	animWalking.speed = 0.1f;
@@ -38,7 +38,7 @@ SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size)
 
 	animator->animations.insert(std::pair <std::string, Animation>("Walking", animWalking));
 	animator->play("Idle");
-
+	*/
 }
 
 

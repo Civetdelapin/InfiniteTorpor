@@ -4,7 +4,7 @@
 class SlimPrefab : public Enemy
 {
 public:
-	SlimPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size);
+	SlimPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size);
 	~SlimPrefab();
 };
 

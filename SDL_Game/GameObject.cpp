@@ -54,10 +54,21 @@ void GameObject::render()
 void GameObject::clean()
 {
 	//Clean all the components
-	for (Component* component : components) {
+	for (Component* component : getAllComponents()) {
 		component->clean();
+
+		delete component;
 	}
 
+	getAllComponents().clear();
+
+	for (GameObject* game_object : getChildren()) {
+		game_object->clean();
+
+		delete game_object;
+	}
+
+	getChildren().clear();
 }
 
 
@@ -84,6 +95,13 @@ std::vector<GameObject*> GameObject::getChildren()
 {
 	return game_objects;
 }
+
+std::vector<Component*> GameObject::getAllComponents()
+{
+	return components;
+}
+
+
 
 GameObject * GameObject::getRootParent()
 {

@@ -13,6 +13,7 @@ public:
 	const float dmg = 1;
 
 	void update();
+	void clean();
 
 	Collider* collider_to_check = nullptr;
 

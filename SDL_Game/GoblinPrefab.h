@@ -8,7 +8,7 @@
 class GoblinPrefab : public Enemy
 {
 public:
-	GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size);
+	GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size);
 	~GoblinPrefab();
 };
 

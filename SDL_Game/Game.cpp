@@ -80,6 +80,8 @@ void Game::update()
 
 		collider_manager->removeGameObjectColliders(game_object);
 
+		game_object->clean();
+
 		delete game_object;
 		game_object = NULL;
 	}

@@ -20,7 +20,7 @@ struct Animation {
 	int nb_sprites;
 	bool is_looping = true;
 
-	std::vector<Transition> transitions;
+	//std::vector<Transition> transitions;
 };
 
 
@@ -34,6 +34,8 @@ public:
 
 	void update();
 	void play(std::string name);
+
+	void clean();
 
 private:
 	SpriteRenderer * spriteRenderer;

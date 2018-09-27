@@ -21,6 +21,7 @@ public:
 	~TileMap();
 
 	void render();
+	void clean();
 
 	void readCSV(const char* file_path, std::vector<std::vector<Tile>>& vls);
 	

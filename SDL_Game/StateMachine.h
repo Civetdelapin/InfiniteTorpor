@@ -9,6 +9,7 @@ public:
 	~StateMachine();
 
 	void update();
+	void clean();
 
 	void setSet(State* state);
 	

@@ -12,7 +12,7 @@
 class Player : public GameObject
 {
 public:
-	Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size);
+	Player(std::string img_path, OwnMathFuncs::Vector2 sprite_size);
 	~Player();
 
 private:

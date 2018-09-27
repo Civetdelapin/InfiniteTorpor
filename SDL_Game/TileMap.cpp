@@ -53,6 +53,12 @@ void TileMap::render()
 
 }
 
+void TileMap::clean()
+{
+	SDL_DestroyTexture(texture);
+	Component::clean();
+}
+
 
 void TileMap::readCSV(const char* file_path, std::vector<std::vector<Tile>>& vls)
 {

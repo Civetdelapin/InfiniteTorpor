@@ -98,6 +98,12 @@ void PlayerAttack::update()
 	}
 }
 
+void PlayerAttack::clean()
+{
+	game_objects_touched.clear();
+	Component::clean();
+}
+
 void PlayerAttack::attackButtonPressed()
 {
 	if (state == State::ready_attack || state == State::between_attack) {

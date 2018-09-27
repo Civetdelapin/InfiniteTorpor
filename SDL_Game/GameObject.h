@@ -37,32 +37,12 @@ public:
 	void addGameObject(GameObject* game_object);
 	void setActiveChildren(bool value);
 	std::vector<GameObject*> getChildren();
+	std::vector<Component*> getAllComponents();
 
 	GameObject* parent_game_object = nullptr;
 
 	bool is_active = true;
 
-	//NOT WORKING NEED REDO
-	/*
-	template <class T>
-	void removeComponent()
-	{
-		int idFound = -1;
-		for (int i = 0; i < components.size(); i++) {
-
-			T *t = (T *)components[i];
-
-			if (t != 0) {
-				idFound = i;
-				i = components.size();
-			}
-		}
-
-		if (idFound >= 0) {
-			vec.erase(vec.begin() + idFound);
-		}
-	}
-	*/
 
 	template< class ComponentType >
 	ComponentType* getComponent() {

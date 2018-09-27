@@ -10,6 +10,7 @@ public:
 
 	void update();
 	void render();
+	void clean();
 
 	OwnMathFuncs::Vector2 size = {23, 3};
 		 

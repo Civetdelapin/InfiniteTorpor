@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  GameObject()
+Player::Player(std::string img_path, OwnMathFuncs::Vector2 sprite_size) :  GameObject()
 {
 	SpriteRenderer* spriteRenderer = new SpriteRenderer(this, img_path, sprite_size);
 	
@@ -24,6 +24,7 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2* sprite_size) :  Game
 	animator->animations.insert(std::pair <std::string, Animation>("Walking", animWalking));
 	animator->play("Idle");
 	
+
 	BoxCollider* boxCollider = new BoxCollider(this);
 	boxCollider->offset = { 1, 14};
 	boxCollider->size = { 10, 5.5 };

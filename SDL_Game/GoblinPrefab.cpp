@@ -1,13 +1,12 @@
 #include "GoblinPrefab.h"
 
-GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2* sprite_size) : Enemy(img_path, sprite_size)
+GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Enemy(img_path, sprite_size)
 {
 
 	getComponent<VelocityBody>()->drag = { 10, 10 };
 	getComponent<EnemyBasicBehavior>()->max_hp = 70;
 	getComponent<EnemyBasicBehavior>()->speed = 2000;
 	getComponent<DisplayEnemyHp>()->y_offset = 8;
-
 
 	//Creation of child
 	GameObject* game_object_child = new GameObject();

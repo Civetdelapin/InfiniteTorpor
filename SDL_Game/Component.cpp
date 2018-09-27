@@ -25,7 +25,7 @@ void Component::render()
 
 void Component::clean()
 {
-
+	game_object = NULL;
 }
 
 bool Component::getIsReallyActive()

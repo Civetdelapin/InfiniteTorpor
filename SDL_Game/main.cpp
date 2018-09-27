@@ -13,19 +13,19 @@ int main(int argc, char* args[]) {
 
 	//Add the background
 	
-	Map* map = new Map("img/dungeon_tileset.png", new OwnMathFuncs::Vector2(16,16), "levels/TileMap_5_0.csv", "levels/TileMap_5_Collider.csv");
+	Map* map = new Map("img/dungeon_tileset.png", { 16,16 }, "levels/TileMap_5_0.csv", "levels/TileMap_5_Collider.csv");
 	map->layer = -1;
 
 	Game::instance()->addGameObject(map);
 	
-	Map* map2 = new Map("img/dungeon_tileset.png", new OwnMathFuncs::Vector2(16, 16), "levels/TileMap_5_1.csv");
+	Map* map2 = new Map("img/dungeon_tileset.png", { 16, 16 }, "levels/TileMap_5_1.csv");
 	map2->layer = 10;
 
 	Game::instance()->addGameObject(map2);
 
 
 	//Add the player in the game
-	Player *player = new Player("img/player.png", new OwnMathFuncs::Vector2(32, 32));
+	Player *player = new Player("img/player.png", { 32, 32 });
 	player->layer = 5;
 
 	Game::instance()->addGameObject(player);
@@ -38,14 +38,16 @@ int main(int argc, char* args[]) {
 
 
 	//Add enemy
-	SlimPrefab *enemy = new SlimPrefab("img/slimes.png", new OwnMathFuncs::Vector2(32, 32));
-	enemy->layer = 4;
+	
+	SlimPrefab * slim = new SlimPrefab("img/slimes.png", { 32,32 });
+	slim->layer = 4;
 
-	enemy->local_position.x = 1000;
-	enemy->local_position.y = 768;
+	slim->local_position.x = 1000;
+	slim->local_position.y = 768;
 
-	Game::instance()->addGameObject(enemy);
-
+	Game::instance()->addGameObject(slim);
+	
+	/*
 	GoblinPrefab *goblin = new GoblinPrefab("img/goblin.png", new OwnMathFuncs::Vector2(32, 32));
 	goblin->layer = 4;
 
@@ -53,7 +55,7 @@ int main(int argc, char* args[]) {
 	goblin->local_position.y = 768;
 
 	Game::instance()->addGameObject(goblin);
-	
+	*/
 
 
 
@@ -64,6 +66,19 @@ int main(int argc, char* args[]) {
 
 	Game::instance()->addGameObject(ui_manager);
 
+
+	float timePassed = 0;
+	int i = 0;
+
+	SlimPrefab *enemy = new SlimPrefab("img/slimes.png", { 32,32 });
+	enemy = new SlimPrefab("img/slimes.png", { 32,32 });
+	enemy->layer = 4;
+
+	enemy->local_position.x = 1000 ;
+	enemy->local_position.y = 768;
+
+	Game::instance()->addGameObject(enemy);
+
 	//Main loop of the game
 	while (Game::instance()->getIsRunning()) {
 
@@ -71,6 +86,25 @@ int main(int argc, char* args[]) {
 		Game::instance()->update();
 		Game::instance()->render();
 
+		timePassed -= Time::deltaTime;
+		
+		if (timePassed <= 0) {
+
+			/*
+			Game::instance()->destroyGameObject(enemy->getRootParent());
+
+			enemy = new SlimPrefab("img/slimes.png", { 32,32 });
+			enemy->layer = 4;
+
+			enemy->local_position.x = 1000 + i * 10;
+			enemy->local_position.y = 768;
+
+			Game::instance()->addGameObject(enemy);
+
+			timePassed = 0.0000000000005;
+			i++;
+			*/
+		}
 	}
 
 	Game::instance()->clean();

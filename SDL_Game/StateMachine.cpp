@@ -19,6 +19,14 @@ void StateMachine::update()
 	}
 }
 
+void StateMachine::clean()
+{
+	delete cur_state;
+	cur_state = NULL;
+
+	Component::clean();
+}
+
 void StateMachine::setSet(State * state) 
 {
 	if (cur_state != nullptr) {

@@ -30,3 +30,9 @@ void EnemyAttackCollider::update()
 	}
 }
 
+void EnemyAttackCollider::clean()
+{
+	collider_to_check = NULL;
+	Component::clean();
+}
+

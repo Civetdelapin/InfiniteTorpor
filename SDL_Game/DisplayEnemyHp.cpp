@@ -61,3 +61,9 @@ void DisplayEnemyHp::render()
 	}
 
 }
+
+void DisplayEnemyHp::clean()
+{
+	enemy_stat = NULL;
+	Component::clean();
+}
