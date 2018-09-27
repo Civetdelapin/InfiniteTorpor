@@ -76,11 +76,11 @@ void PlayerAttack::update()
 		if (vect.size() > 0) {
 
 			for (Collider* collider : vect) {
-				if (std::find(game_objects_touched.begin(), game_objects_touched.end(), collider->game_object) == game_objects_touched.end()) {
+				if (std::find(game_objects_touched.begin(), game_objects_touched.end(), collider->getParentGameObject()) == game_objects_touched.end()) {
 
-					if (collider->game_object->tag == "Enemy") {
+					if (collider->getParentGameObject()->tag == "Enemy") {
 
-						EnemyBasicBehavior* enemy_stat = collider->game_object->getRootParent()->getComponent<EnemyBasicBehavior>();
+						EnemyBasicBehavior* enemy_stat = collider->getParentGameObject()->getRootParent()->getComponent<EnemyBasicBehavior>();
 						if (enemy_stat != nullptr) {	
 							enemy_stat->takeDamage(normalizeDirection, velocity_attack * 0.80, attack_dmg[nb_combo - 1], time_enemy_stun);
 						}
@@ -90,7 +90,7 @@ void PlayerAttack::update()
 					}
 
 
-					game_objects_touched.push_back(collider->game_object);	
+					game_objects_touched.push_back(collider->getParentGameObject());
 				}
 			}
 		
@@ -110,12 +110,12 @@ void PlayerAttack::attackButtonPressed()
 
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);
 		
-		if (normalizeDirection.y != 0 && normalizeDirection.y != game_object->getRootParent()->getComponent<PlayerController>()->direction.y) {
-			normalizeDirection.y = game_object->getRootParent()->getComponent<PlayerController>()->direction.y;
+		if (normalizeDirection.y != 0 && normalizeDirection.y != game_object->getRootParent()->getComponent<PlayerController>()->getDirection().y) {
+			normalizeDirection.y = game_object->getRootParent()->getComponent<PlayerController>()->getDirection().y;
 		}
 
-		if (normalizeDirection.x != 0 && normalizeDirection.x != game_object->getRootParent()->getComponent<PlayerController>()->direction.x) {
-			normalizeDirection.x = game_object->getRootParent()->getComponent<PlayerController>()->direction.x;
+		if (normalizeDirection.x != 0 && normalizeDirection.x != game_object->getRootParent()->getComponent<PlayerController>()->getDirection().x) {
+			normalizeDirection.x = game_object->getRootParent()->getComponent<PlayerController>()->getDirection().x;
 		}
 
 		activeAttackColliders();
@@ -132,16 +132,15 @@ void PlayerAttack::attackButtonPressed()
 
 		OwnMathFuncs::Vector2 vec_normalized = OwnMathFuncs::OwnMathFuncs::getNormalize(normalizeDirection);
 
-		velocity_body->velocity.x += vec_normalized.x * velocity_attack * Time::deltaTime;
-		velocity_body->velocity.y += vec_normalized.y * velocity_attack * Time::deltaTime;
+		velocity_body->AddForce(vec_normalized, velocity_attack * Time::deltaTime);
 	}
 }
 
 void PlayerAttack::cancelAttackColliders()
 {
-	box_coolider_attack_up->is_active = false;
-	box_collider_attack->is_active = false;
-	box_collider_attack_corner->is_active = false;
+	box_coolider_attack_up->setIsActive(false);
+	box_collider_attack->setIsActive(false);
+	box_collider_attack_corner->setIsActive(false);
 }
 
 void PlayerAttack::activeAttackColliders()
@@ -154,7 +153,7 @@ void PlayerAttack::activeAttackColliders()
 			box_coolider_attack_up->offset.y = -box_collider_attack_up_down_offset;
 		}
 
-		box_coolider_attack_up->is_active = true;
+		box_coolider_attack_up->setIsActive(true);
 	}
 	else if(abs(normalizeDirection.x) > 0 && abs(normalizeDirection.y) > 0)  {
 		if (normalizeDirection.y > 0) {
@@ -164,25 +163,25 @@ void PlayerAttack::activeAttackColliders()
 			box_collider_attack_corner->offset.y = -box_collider_attack_corner_offset;
 		}
 
-		box_collider_attack_corner->is_active = true;
+		box_collider_attack_corner->setIsActive(true);
 	}
 	else {
-		box_collider_attack->is_active = true;
+		box_collider_attack->setIsActive(true);
 	}
 
 }
 
 BoxCollider * PlayerAttack::getActiveCollider()
 {
-	if (box_collider_attack->is_active) {
+	if (box_collider_attack->isActive()) {
 		return box_collider_attack;
 	}
 
-	if (box_collider_attack_corner->is_active) {
+	if (box_collider_attack_corner->isActive()) {
 		return box_collider_attack_corner;
 	}
 
-	if (box_coolider_attack_up->is_active) {
+	if (box_coolider_attack_up->isActive()) {
 		return box_coolider_attack_up;
 	}
 	return nullptr;
@@ -196,7 +195,7 @@ void PlayerAttack::manageNormalizeDirection()
 	if (Game::instance()->event.type == SDL_KEYDOWN && (Game::instance()->event.key.keysym.sym == SDLK_UP || Game::instance()->event.key.keysym.sym == SDLK_DOWN || Game::instance()->event.key.keysym.sym == SDLK_LEFT || Game::instance()->event.key.keysym.sym == SDLK_RIGHT)) {
 
 		
-		normalizeDirection = game_object->getRootParent()->getComponent<PlayerController>()->direction;
+		normalizeDirection = game_object->getRootParent()->getComponent<PlayerController>()->getDirection();
 
 		//Managing the normalize direction
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);

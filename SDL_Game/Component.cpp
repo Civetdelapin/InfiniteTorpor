@@ -38,3 +38,18 @@ bool Component::getIsReallyActive()
 	}
 }
 
+void Component::setIsActive(bool value)
+{
+	is_active = value;
+}
+
+bool Component::isActive()
+{
+	return is_active;
+}
+
+GameObject * Component::getParentGameObject()
+{
+	return game_object;
+}
+

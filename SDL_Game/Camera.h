@@ -31,25 +31,22 @@ class Camera
 {
 public:
 	Camera(Game* game);
-	Camera();
 	~Camera();
-
-	static float camera_pos_x;
-	static float camera_pos_y;
-
-	GameObject* objectToFollow;
 
 	void update();
 
-	const static float scale;
-
+	OwnMathFuncs::Vector2 getCameraPos();
+	void setObjectToFollow(GameObject* game_object);
 	void startShake(float ampli, float frequency, float duration);
 
 private:
 	Game * game;
-	
-	float _amplitude = 2000;
 
+	OwnMathFuncs::Vector2 camera_pos = { 0, 0 };
+	GameObject* objectToFollow;
+
+
+	float _amplitude = 2000;
 	Shake shake_x;
 	Shake shake_y;
 };

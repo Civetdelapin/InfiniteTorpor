@@ -17,10 +17,15 @@ public:
 	virtual void render();
 	virtual void clean();
 
-	GameObject* game_object;
-
 	bool getIsReallyActive();
 
+	void setIsActive(bool value);
+	bool isActive();
+
+	GameObject * getParentGameObject();
+
+protected:
+	GameObject * game_object;
 	bool is_active = true;
 };
 

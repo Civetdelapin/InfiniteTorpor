@@ -11,9 +11,13 @@ public:
 	OwnMathFuncs::Vector2 size = { 10, 10};
 	OwnMathFuncs::Vector2 offset = { 0, 0 };
 
-	SDL_Rect rect;
+	SDL_Rect getRect();
+	
 
 	void update();
 	void render();
+
+private:
+	SDL_Rect rect;
 };
 

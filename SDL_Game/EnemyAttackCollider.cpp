@@ -21,8 +21,8 @@ void EnemyAttackCollider::update()
 
 			for (Collider* collider : vect) {
 				
-					if (collider->game_object->tag == "Player") {
-						collider->game_object->getRootParent()->getComponent<PlayerStat>()->addDamage(dmg);
+					if (collider->getParentGameObject()->tag == "Player") {
+						collider->getParentGameObject()->getRootParent()->getComponent<PlayerStat>()->addDamage(dmg);
 					}
 			}
 		}
@@ -34,5 +34,10 @@ void EnemyAttackCollider::clean()
 {
 	collider_to_check = NULL;
 	Component::clean();
+}
+
+Collider * EnemyAttackCollider::getDamageCollider()
+{
+	return collider_to_check;
 }
 

@@ -34,7 +34,7 @@ int main(int argc, char* args[]) {
 	player->local_position.y = 768;
 
 
-	Game::instance()->getCamera()->objectToFollow = player;
+	Game::instance()->getCamera()->setObjectToFollow(player);
 
 
 	//Add enemy

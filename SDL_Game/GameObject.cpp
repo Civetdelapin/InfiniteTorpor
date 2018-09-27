@@ -19,7 +19,7 @@ void GameObject::update()
 {
 	//Update all the components
 	for (Component* component : components) {
-		if (component->is_active) {
+		if (component->isActive()) {
 			component->update();
 		}
 	}
@@ -39,7 +39,7 @@ void GameObject::render()
 {
 	//Render all the components
 	for (Component* component : components) {
-		if (component->is_active) {
+		if (component->isActive()) {
 			component->render();
 		}
 	}

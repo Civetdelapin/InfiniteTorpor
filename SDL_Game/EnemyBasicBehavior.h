@@ -7,11 +7,6 @@ public:
 	EnemyBasicBehavior(GameObject* game_object);
 	~EnemyBasicBehavior();
 
-	float cur_hp;
-	float max_hp = 100;
-
-	float speed = 2300;
-
 	void update();
 
 	void addForce(OwnMathFuncs::Vector2 direction, float power);
@@ -19,9 +14,21 @@ public:
 
 	bool isStunned();
 
+	void setSpeed(float value);
+	float getSpeed();
+
+	float getCurHP();
+
+	void setMaxHP(float value);
+	float getMaxHP();
+
 private:
 
 	bool is_stunned = false;
+	float cur_hp;
+	float max_hp = 100;
+	float speed = 2300;
+
 	float time_stunned = 0;
 };
 

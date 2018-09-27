@@ -64,14 +64,14 @@ void PlayerController::update()
 
 			//std::cout << normalizeDirection.x << ", "<< normalizeDirection.y << std::endl;
 
-			velocityBody->velocity.x += normalizeDirection.x * cur_speed * Time::deltaTime;
-			velocityBody->velocity.y += normalizeDirection.y * cur_speed * Time::deltaTime;
+			velocityBody->AddForce(normalizeDirection, cur_speed * Time::deltaTime);
+			
 
 
-			if (velocityBody->velocity.x < 0 && game_object->getWorldScale().x > 0) {
+			if (velocityBody->getVelocity().x < 0 && game_object->getWorldScale().x > 0) {
 				game_object->local_scale.x *= -1;
 			}
-			else if (velocityBody->velocity.x > 0 && game_object->getWorldScale().x < 0) {
+			else if (velocityBody->getVelocity().x > 0 && game_object->getWorldScale().x < 0) {
 				game_object->local_scale.x *= -1;
 			}
 
@@ -108,15 +108,11 @@ void PlayerController::update()
 			//std::cout << normalizeDirection.x << ", " << normalizeDirection.y << std::endl;
 
 			OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
-
-			velocityBody->velocity.x += normalizeDirection.x * cur_dash_spped * Time::deltaTime;
-			velocityBody->velocity.y += normalizeDirection.y * cur_dash_spped * Time::deltaTime;
-
+			velocityBody->AddForce(normalizeDirection, cur_dash_spped * Time::deltaTime);
+			
 			time_passed -= Time::deltaTime;
-
 			if (time_passed <= 0) {
 				state = State::cant_dash;
-
 				time_passed = time_cd_dash;
 			}
 		}
@@ -125,10 +121,15 @@ void PlayerController::update()
 
 	//std::cout << "velocity x : " << velocityBody->velocity.x << ", velocity y : " << velocityBody->velocity.y << std::endl;
 
-	if (abs(velocityBody->velocity.x) > 3 || abs(velocityBody->velocity.y) > 3) {
+	if (abs(velocityBody->getVelocity().x) > 3 || abs(velocityBody->getVelocity().y) > 3) {
 		animator->play("Walking");
 	}
 	else {
 		animator->play("Idle");
 	}
+}
+
+OwnMathFuncs::Vector2 PlayerController::getDirection()
+{
+	return direction;
 }

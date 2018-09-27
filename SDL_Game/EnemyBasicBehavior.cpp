@@ -33,14 +33,14 @@ void EnemyBasicBehavior::addForce(OwnMathFuncs::Vector2 direction, float power)
 
 		VelocityBody* velocity_body = game_object->getComponent<VelocityBody>();
 		if (velocity_body != nullptr) {
-			velocity_body->velocity.x += direction.x * power * Time::deltaTime;
-			velocity_body->velocity.y += direction.y * power * Time::deltaTime;
+
+			velocity_body->AddForce(direction, power * Time::deltaTime);
 
 			//Manage the X scale according to the velocity
-			if (velocity_body->velocity.x < 0 && game_object->getWorldScale().x > 0) {
+			if (velocity_body->getVelocity().x < 0 && game_object->getWorldScale().x > 0) {
 				game_object->local_scale.x *= -1;
 			}
-			else if (velocity_body->velocity.x > 0 && game_object->getWorldScale().x < 0) {
+			else if (velocity_body->getVelocity().x > 0 && game_object->getWorldScale().x < 0) {
 				game_object->local_scale.x *= -1;
 			}
 		}
@@ -53,8 +53,7 @@ void EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power
 {
 	VelocityBody* velocity_body = game_object->getComponent<VelocityBody>();
 	if (velocity_body != nullptr) {
-		velocity_body->velocity.x += direction.x * power_knock_back * Time::deltaTime;
-		velocity_body->velocity.y += direction.y * power_knock_back * Time::deltaTime;
+		velocity_body->AddForce(direction, power_knock_back * Time::deltaTime);
 	}
 	velocity_body = NULL;
 
@@ -68,4 +67,29 @@ void EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power
 bool EnemyBasicBehavior::isStunned()
 {
 	return is_stunned;
+}
+
+void EnemyBasicBehavior::setSpeed(float value)
+{
+	speed = value;
+}
+
+float EnemyBasicBehavior::getSpeed()
+{
+	return speed;
+}
+
+float EnemyBasicBehavior::getCurHP()
+{
+	return cur_hp;
+}
+
+void EnemyBasicBehavior::setMaxHP(float value)
+{
+	max_hp = value;
+}
+
+float EnemyBasicBehavior::getMaxHP()
+{
+	return max_hp;
 }

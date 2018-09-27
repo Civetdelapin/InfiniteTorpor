@@ -10,6 +10,8 @@ public:
 	PlayerAttack(GameObject* game_object, BoxCollider* box_collider_attack, BoxCollider* box_coolider_attack_up, BoxCollider* box_collider_attack_corner,PlayerController* player_controller, VelocityBody* velocity_body);
 	~PlayerAttack();
 
+	enum State { attacking, ready_attack, between_attack, cant_attack };
+
 	void update();
 	void clean();
 
@@ -21,11 +23,9 @@ public:
 	const float attack_dmg[3] = {8, 12, 15};
 	const float time_enemy_stun = 0.5f;
 
-
-	enum State { attacking, ready_attack, between_attack, cant_attack};
-
 	const float velocity_attack = 300000;
 
+	
 private:
 	BoxCollider * box_collider_attack;
 	BoxCollider* box_coolider_attack_up;

@@ -29,13 +29,14 @@ public:
 
 	Tile* getTile(int x, int y);
 
-	OwnMathFuncs::Vector2 sprite_size;
+	OwnMathFuncs::Vector2 getSpriteSize();
 
 private:
 	SDL_Texture* texture;
-	
-	void readCSVCollider(const char* file_path);
 
 	std::vector<std::vector<Tile>> data;
+	OwnMathFuncs::Vector2 sprite_size;
+
+	void readCSVCollider(const char* file_path);
 };
 

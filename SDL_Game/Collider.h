@@ -9,13 +9,18 @@ public:
 	Collider(GameObject* game_object);
 	~Collider();
 
-	bool is_trigger = false;
-
-	int collision_layer = 0;
-
 	virtual bool isColliding(Collider* collider) = 0;
 
 	static bool AABB(SDL_Rect rectA, SDL_Rect rectB);
 
+	bool isTrigger();
+	void setIsTrigger(bool value);
+
+	int getCollisionLayer();
+	void setCollisionLayer(int value);
+
+private:
+	bool is_trigger = false;
+	int collision_layer = 0;
 };
 

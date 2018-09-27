@@ -2,17 +2,11 @@
 
 #include "Game.h"
 
-const float Camera::scale = 3;
-float Camera::camera_pos_x = 0;
-float Camera::camera_pos_y = 0;
 
 Camera::Camera(Game* game) : game(game)
 {
 }
 
-Camera::Camera()
-{
-}
 
 Camera::~Camera()
 {
@@ -22,18 +16,29 @@ void Camera::update()
 {
 	shake_x.update();
 	shake_y.update();
+
 	if (objectToFollow != nullptr) {
-		camera_pos_x = objectToFollow->getWorldPosition().x - game->getScreenWidth() / 2;
-		camera_pos_y = objectToFollow->getWorldPosition().y - game->getScreenHeight() / 2;
+		camera_pos = { objectToFollow->getWorldPosition().x - game->getScreenWidth() / 2 , objectToFollow->getWorldPosition().y - game->getScreenHeight() / 2 };
 	}
+
 	if (shake_x.is_shaking || shake_y.is_shaking) {
 
 		float s_x = shake_x.amplitude() * _amplitude;
 		float s_y = shake_y.amplitude() * _amplitude;
 
-		camera_pos_x += s_x;
-		camera_pos_y += s_y;
+		camera_pos.x += s_x;
+		camera_pos.y += s_y;
 	}
+}
+
+OwnMathFuncs::Vector2 Camera::getCameraPos()
+{
+	return camera_pos;
+}
+
+void Camera::setObjectToFollow(GameObject* game_object)
+{
+	objectToFollow = game_object;
 }
 
 void Camera::startShake(float ampli, float frequency, float duration)

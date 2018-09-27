@@ -11,7 +11,7 @@ public:
 	StateGoblinAttack(GameObject * game_object);
 	~StateGoblinAttack();
 
-	float time_attack = 0.5f;
+	const float time_attack = 0.5f;
 	const float velocity_attack = 300000;
 
 	void operation(GameObject* game_object);

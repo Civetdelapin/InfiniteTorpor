@@ -15,7 +15,9 @@ public:
 	void update();
 	void clean();
 
-	Collider* collider_to_check = nullptr;
+	Collider* getDamageCollider();
 
+private:
+	Collider * collider_to_check = nullptr;
 };
 

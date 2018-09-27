@@ -12,19 +12,17 @@ public:
 	void render();
 	void clean();
 
-	OwnMathFuncs::Vector2 size = {23, 3};
-		 
-	float y_offset = 1.75;
-
-	float time_display_when_hit = 3;
+	void setYOffset(float value);
 
 private:
 	EnemyBasicBehavior * enemy_stat;
 
+	OwnMathFuncs::Vector2 size = { 23, 3 };
+	float y_offset = 1.75;
+	float time_display_when_hit = 3;
+
 	float time_passed;
 	float last_hp;
-
-
 	float last_hp_display;
 };
 

@@ -3,10 +3,10 @@
 GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Enemy(img_path, sprite_size)
 {
 
-	getComponent<VelocityBody>()->drag = { 10, 10 };
-	getComponent<EnemyBasicBehavior>()->max_hp = 70;
-	getComponent<EnemyBasicBehavior>()->speed = 2000;
-	getComponent<DisplayEnemyHp>()->y_offset = 8;
+	getComponent<VelocityBody>()->setDrag({ 10, 10 });
+	getComponent<EnemyBasicBehavior>() -> setMaxHP(70);
+	getComponent<EnemyBasicBehavior>()->setSpeed(2000);
+	getComponent<DisplayEnemyHp>()->setYOffset(8);
 
 	//Creation of child
 	GameObject* game_object_child = new GameObject();
@@ -14,7 +14,7 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 	BoxCollider* boxColliderHitBox = new BoxCollider(game_object_child);
 	boxColliderHitBox->offset = { 0, 8 };
 	boxColliderHitBox->size = { 12, 15 };
-	boxColliderHitBox->collision_layer = 5;
+	boxColliderHitBox->setCollisionLayer(5);
 
 	
 
@@ -27,9 +27,9 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 	BoxCollider* boxColliderAttack = new BoxCollider(game_object_child2);
 	boxColliderAttack->offset = { 12, 8 };
 	boxColliderAttack->size = { 12, 15 };
-	boxColliderAttack->collision_layer = 10;
+	boxColliderAttack->setCollisionLayer(10);
 
-	boxColliderAttack->is_active = false;
+	boxColliderAttack->setIsActive(false);
 
 	EnemyAttackCollider* enemy_attack_collider = new EnemyAttackCollider(game_object_child2, boxColliderAttack);
 
@@ -43,14 +43,14 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 	animIdle.speed = 0.1f;
 	animIdle.y_index = 0;
 
-	animator->animations.insert(std::pair <std::string, Animation>("Idle", animIdle));
+	animator->addAnimation(std::pair <std::string, Animation>("Idle", animIdle));
 
 	Animation animWalking;
 	animWalking.nb_sprites = 10;
 	animWalking.speed = 0.1f;
 	animWalking.y_index = 2;
 
-	animator->animations.insert(std::pair <std::string, Animation>("Walking", animWalking));
+	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
 
 
 	Animation animBeforeAttack;
@@ -59,7 +59,7 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 	animBeforeAttack.y_index = 3;
 	animBeforeAttack.is_looping = false;
 
-	animator->animations.insert(std::pair <std::string, Animation>("BeforeAttack", animBeforeAttack));
+	animator->addAnimation(std::pair <std::string, Animation>("BeforeAttack", animBeforeAttack));
 
 	Animation animAttack;
 	animAttack.nb_sprites = 5;
@@ -68,7 +68,7 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 	animAttack.x_index = 5;
 	animAttack.is_looping = false;
 
-	animator->animations.insert(std::pair <std::string, Animation>("Attack", animAttack));
+	animator->addAnimation(std::pair <std::string, Animation>("Attack", animAttack));
 
 
 	animator->play("Idle");

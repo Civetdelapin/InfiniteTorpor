@@ -10,8 +10,14 @@ Animator::~Animator()
 {
 }
 
+void Animator::addAnimation(std::pair<std::string, Animation> animation)
+{
+	animations.insert(animation);
+}
+
 void Animator::update()
 {
+	
 	
 	if (spriteRenderer != nullptr && cur_animation != "") {
 
@@ -22,24 +28,28 @@ void Animator::update()
 			cur_sprite++;
 
 			if (!animations[cur_animation].is_looping && cur_sprite >= animations[cur_animation].nb_sprites) {
-				/*
+				
 				for (Transition transi : animations[cur_animation].transitions) {
 
 					if (transi.ready_when_animation_is_over) {
 						cur_animation = transi.next_animation;
 					}
-				}*/
+				}
 			}
 			else {
 				cur_sprite = (cur_sprite % animations[cur_animation].nb_sprites);
 
-				spriteRenderer->srcrect.x = (cur_sprite + animations[cur_animation].x_index) * spriteRenderer->sprite_size.x;
-				spriteRenderer->srcrect.y = animations[cur_animation].y_index * spriteRenderer->sprite_size.y;
+				SDL_Rect tempRect;
+				tempRect.x = (cur_sprite + animations[cur_animation].x_index) * spriteRenderer->getSpriteSize().x;
+				tempRect.y = animations[cur_animation].y_index * spriteRenderer->getSpriteSize().y;
+
+				spriteRenderer->setSourceRect(tempRect);
 			}
 		}
 
 		time_passed += Time::deltaTime;
 	}
+	
 	
 }
 
@@ -54,8 +64,6 @@ void Animator::play(std::string name)
 
 void Animator::clean()
 {
-	std::cout << "Salut" << std::endl;
-
 	animations.clear();
 	spriteRenderer = NULL;
 	Component::clean();

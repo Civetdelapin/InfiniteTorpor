@@ -11,16 +11,22 @@ class VelocityBody : public Component
 {
 public:
 	VelocityBody(GameObject* game_object);
-
-	OwnMathFuncs::Vector2 velocity = { 0, 0 };
-	OwnMathFuncs::Vector2 drag = { 15, 15};
+	~VelocityBody();
 
 	void update();
 
-	~VelocityBody();
+	void setVelocity(OwnMathFuncs::Vector2 value);
+	OwnMathFuncs::Vector2 getVelocity();
 
+	void setDrag(OwnMathFuncs::Vector2 value);
+	OwnMathFuncs::Vector2 getDrag();
+
+	void AddForce(OwnMathFuncs::Vector2 direction, float power);
 
 private:
 	Collider * collider;
+
+	OwnMathFuncs::Vector2 velocity = { 0, 0 };
+	OwnMathFuncs::Vector2 drag = { 15, 15 };
 };
 

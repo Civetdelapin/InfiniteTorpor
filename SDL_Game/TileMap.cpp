@@ -133,6 +133,11 @@ Tile* TileMap::getTile(int x, int y)
 	return nullptr;
 }
 
+OwnMathFuncs::Vector2 TileMap::getSpriteSize()
+{
+	return sprite_size;
+}
+
 
 void TileMap::readCSVCollider(const char * file_path)
 {

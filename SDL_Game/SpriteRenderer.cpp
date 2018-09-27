@@ -46,3 +46,13 @@ void SpriteRenderer::clean()
 	SDL_DestroyTexture(texture);
 	Component::clean();
 }
+
+OwnMathFuncs::Vector2 SpriteRenderer::getSpriteSize()
+{
+	return sprite_size;
+}
+
+void SpriteRenderer::setSourceRect(SDL_Rect rect)
+{
+	srcrect = rect;
+}

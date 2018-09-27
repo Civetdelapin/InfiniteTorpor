@@ -24,7 +24,7 @@ Game::Game(const char * title, int xpos, int ypos, int width, int height, bool f
 		}
 
 		collider_manager = new ColliderManager();
-		camera = new Camera();
+		camera = new Camera(this);
 
 
 		isRunning = true;
@@ -33,7 +33,6 @@ Game::Game(const char * title, int xpos, int ypos, int width, int height, bool f
 		isRunning = false;
 	}
 
-	camera = new Camera(this);
 }
 
 Game::~Game()

@@ -85,6 +85,32 @@ void VelocityBody::update()
 
 }
 
+void VelocityBody::setVelocity(OwnMathFuncs::Vector2 value)
+{
+	velocity = value;
+}
+
+OwnMathFuncs::Vector2 VelocityBody::getVelocity()
+{
+	return velocity;
+}
+
+void VelocityBody::setDrag(OwnMathFuncs::Vector2 value)
+{
+	drag = value;
+}
+
+OwnMathFuncs::Vector2 VelocityBody::getDrag()
+{
+	return drag;
+}
+
+void VelocityBody::AddForce(OwnMathFuncs::Vector2 direction, float power)
+{
+	velocity.x += direction.x * power;
+	velocity.y += direction.y * power;
+}
+
 VelocityBody::~VelocityBody()
 {
 }

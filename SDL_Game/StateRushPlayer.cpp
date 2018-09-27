@@ -26,7 +26,7 @@ void StateRushPlayer::operation(GameObject * game_object)
 			OwnMathFuncs::Vector2 dir_vect = (target->getWorldPosition() - game_object->getWorldPosition());
 			OwnMathFuncs::OwnMathFuncs::normalize(dir_vect);
 
-			enemy_basic_behavior->addForce(dir_vect, enemy_basic_behavior->speed);
+			enemy_basic_behavior->addForce(dir_vect, enemy_basic_behavior->getSpeed());
 		}
 	}
 }

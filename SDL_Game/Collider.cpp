@@ -25,3 +25,23 @@ bool Collider::AABB(SDL_Rect rectA, SDL_Rect rectB)
 
 	return false;
 }
+
+bool Collider::isTrigger()
+{
+	return is_trigger;
+}
+
+void Collider::setIsTrigger(bool value)
+{
+	is_trigger = value;
+}
+
+int Collider::getCollisionLayer()
+{
+	return collision_layer;
+}
+
+void Collider::setCollisionLayer(int value)
+{
+	collision_layer = value;
+}

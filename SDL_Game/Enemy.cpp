@@ -7,7 +7,7 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2 sprite_size) : GameObje
 	BoxCollider* boxCollider = new BoxCollider(this);
 	boxCollider->offset = { 0, 14 };
 	boxCollider->size = { 10, 6 };
-	boxCollider->is_trigger = true;
+	boxCollider->setIsTrigger(true);
 
 	tag = "Enemy";
 	local_scale = { 3, 3 };

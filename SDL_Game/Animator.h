@@ -20,7 +20,7 @@ struct Animation {
 	int nb_sprites;
 	bool is_looping = true;
 
-	//std::vector<Transition> transitions;
+	std::vector<Transition> transitions;
 };
 
 
@@ -30,7 +30,7 @@ public:
 	Animator(GameObject* game_object);
 	~Animator();
 
-	std::map <std::string, Animation> animations;
+	void addAnimation(std::pair <std::string, Animation> animation);
 
 	void update();
 	void play(std::string name);
@@ -39,7 +39,10 @@ public:
 
 private:
 	SpriteRenderer * spriteRenderer;
+
 	std::string cur_animation = "";
+	std::map <std::string, Animation> animations;
+
 	int cur_sprite = 0;
 
 	float time_passed = 0;
