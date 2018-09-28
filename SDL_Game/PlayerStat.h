@@ -9,7 +9,7 @@ public:
 	~PlayerStat();
 
 	const float max_hp = 5;
-	const float time_invicible = 2;
+	const float time_invicible = 1.5f;
 	
 	float getCurHP();
 	void addDamage(float dmg);

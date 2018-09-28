@@ -15,11 +15,6 @@ float clip(float n, float lower, float upper) {
 
 void VelocityBody::update()
 {
-	/*
-	float dragForceMagnitudeX = pow(OwnMathFuncs::OwnMathFuncs::magnitude(velocity),2) * drag.x;
-	float dragForceMagnitudeY = pow(OwnMathFuncs::OwnMathFuncs::magnitude(velocity), 2) * drag.y;
-	*/
-
 	//Make the drag
 	velocity.x = velocity.x * clip(1 - Time::deltaTime * drag.x, 0, 1);
 	if (fabs(velocity.x) < 0.1)
@@ -28,24 +23,6 @@ void VelocityBody::update()
 	velocity.y = velocity.y * clip(1 - Time::deltaTime * drag.x, 0, 1);
 	if (fabs(velocity.y) < 0.1)
 		velocity.y = 0.0f;
-
-	//std::cout << velocity.x << std::endl;
-
-
-	/*
-	// Clamp velocities
-	if (velocity.x > 500.0f)
-	velocity.x = 500.0f;
-
-	if (velocity.x < -500.0f)
-	velocity.x = -500.0f;
-
-	if (velocity.y > 500.0f)
-	velocity.y = 500.0f;
-
-	if (velocity.y < -500.0f)
-	velocity.y = -500.0f;
-	*/
 
 	//Collision detection
 	if (velocity.x != 0) {

@@ -62,6 +62,7 @@ void Game::update()
 	timeLast = timeNow;
 	timeNow = SDL_GetPerformanceCounter();
 	Time::deltaTime = (float)((timeNow - timeLast) * 1000 / (float)SDL_GetPerformanceFrequency()) * 0.001;
+	
 
 	//printInConsole("delta time : " + std::to_string(deltaTime));
 
@@ -74,6 +75,12 @@ void Game::update()
 		}
 	}
 
+	for (GameObject* game_object : game_objects_to_be_added) {
+		addGameObject(game_object);
+	}
+	game_objects_to_be_added.clear();
+
+
 	for (GameObject* game_object : game_objects_to_be_destroyed) {
 		game_objects.erase(std::remove(game_objects.begin(), game_objects.end(), game_object), game_objects.end());
 
@@ -84,7 +91,6 @@ void Game::update()
 		delete game_object;
 		game_object = NULL;
 	}
-
 	game_objects_to_be_destroyed.clear();
 }
 
@@ -120,12 +126,17 @@ void Game::clean()
 	printInConsole("Game closed!");
 }
 
-void Game::addGameObject(GameObject * game_object)
+void Game::addGameObject(GameObject* gameObject)
 {
-	game_objects.push_back(game_object);
+	game_objects.push_back(gameObject);
 	std::sort(game_objects.begin(), game_objects.end(), [](GameObject* a, GameObject* b) {
 		return a->layer < b->layer;
 	});
+}
+
+void Game::addGameObjectInGame(GameObject * gameObject, GameObject * new_parent)
+{
+	game_objects_to_be_added.push_back(gameObject);
 }
 
 void Game::destroyGameObject(GameObject * game_object)

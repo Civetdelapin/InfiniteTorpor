@@ -44,12 +44,13 @@ SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size, 
 
 	//State Machine
 	StateMachine * stateMachine = getComponent<StateMachine>();
-	stateMachine->setDefaultState("WalkRandomPos");
+	stateMachine->setDefaultState("OnlyWait");
 
 	stateMachine->addState(std::pair <std::string, State*>("WalkRandomPos", new StateWalkRandomPos(this, "OnlyWait")));
-	stateMachine->addState(std::pair <std::string, State*>("OnlyWait", new StateOnlyWait(this, 2, "WalkRandomPos")));
+	stateMachine->addState(std::pair <std::string, State*>("OnlyWait", new StateOnlyWait(this, 2, "SlimAttack")));
+	stateMachine->addState(std::pair <std::string, State*>("SlimAttack", new StateSlimAttack(this, 32, "OnlyWait")));
 
-	stateMachine->play("WalkRandomPos");
+	stateMachine->play("OnlyWait");
 }
 
 

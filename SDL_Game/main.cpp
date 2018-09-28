@@ -16,47 +16,47 @@ int main(int argc, char* args[]) {
 	Map* map = new Map("img/dungeon_tileset.png", { 16,16 }, "levels/TileMap_5_0.csv", "levels/TileMap_5_Collider.csv");
 	map->layer = -1;
 
-	Game::instance()->addGameObject(map);
+	Game::instance()->addGameObjectInGame(map);
 	
 	Map* map2 = new Map("img/dungeon_tileset.png", { 16, 16 }, "levels/TileMap_5_1.csv");
 	map2->layer = 10;
 
-	Game::instance()->addGameObject(map2);
+	Game::instance()->addGameObjectInGame(map2);
 
 
 	//Add the player in the game
 	Player *player = new Player("img/player.png", { 32, 32 }, { 1366, 768 });
 	player->layer = 5;
 
-	Game::instance()->addGameObject(player);
+	Game::instance()->addGameObjectInGame(player);
 
 
 	Game::instance()->getCamera()->setObjectToFollow(player);
 
 	//Add enemy
 	SlimPrefab * slim = new SlimPrefab("img/slimes.png", { 32,32 }, { 1000, 900 });
-	slim->layer = 4;
+	slim->layer = 3;
 
 
-	Game::instance()->addGameObject(slim);
+	Game::instance()->addGameObjectInGame(slim);
 	
-	
+	/*
 	GoblinPrefab *goblin = new GoblinPrefab("img/goblin.png", { 32,32 }, { 900, 768 });
-	goblin->layer = 4;
-
-	Game::instance()->addGameObject(goblin);
-	
+	goblin->layer = 3;
+	Game::instance()->addGameObjectInGame(goblin);
+	*/
 
 	//Add UI Manager
 	GameObject* ui_manager = new GameObject();
 	ui_manager->layer = 50;
 	DisplayPlayerHealth* display = new DisplayPlayerHealth(ui_manager, player->getComponent<PlayerStat>());
 
-	Game::instance()->addGameObject(ui_manager);
+	Game::instance()->addGameObjectInGame(ui_manager);
 
 
 	float timePassed = 0;
 	int i = 0;
+
 
 	//Main loop of the game
 	while (Game::instance()->getIsRunning()) {
@@ -78,7 +78,7 @@ int main(int argc, char* args[]) {
 			enemy->local_position.x = 1000 + i * 10;
 			enemy->local_position.y = 768;
 
-			Game::instance()->addGameObject(enemy);
+			Game::instance()->addGameObjectInGame(enemy);
 
 			timePassed = 0.0000000000005;
 			i++;

@@ -41,7 +41,7 @@ void StateGoblinAttack::operation(StateMachine* state_machine)
 		else {
 			collider_active->setIsActive(false);
 
-			state_machine->getGameObject()->getComponent<StateMachine>()->play(getNextState());
+			state_machine->play(getNextState());
 		}
 	}
 	

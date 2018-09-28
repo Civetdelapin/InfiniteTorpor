@@ -43,7 +43,8 @@ public:
 	void render();
 	void clean();
 
-	void addGameObject(GameObject* gameObject);
+	
+	void addGameObjectInGame(GameObject* gameObject, GameObject* new_parent = nullptr);
 	void destroyGameObject(GameObject* game_object);
 
 	GameObject* findGameObject(std::string tag);
@@ -69,8 +70,11 @@ private:
 
 	GameObject * findGameObjectRecursive(std::string tag, GameObject* game_object);
 
+	void addGameObject(GameObject* gameObject);
+
 	std::vector<GameObject*> game_objects;
 	std::vector<GameObject*> game_objects_to_be_destroyed;
+	std::vector<GameObject*> game_objects_to_be_added;
 
 	bool isDebugMode;
 	bool isRunning;

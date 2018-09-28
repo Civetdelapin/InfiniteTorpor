@@ -3,7 +3,7 @@
 #include "Animator.h"
 #include "StateWalkRandomPos.h"
 #include "StateOnlyWait.h"
-
+#include "StateSlimAttack.h"
 
 class SlimPrefab : public Enemy
 {

@@ -13,6 +13,7 @@ EnemyBasicBehavior::~EnemyBasicBehavior()
 
 void EnemyBasicBehavior::update()
 {
+
 	if (cur_hp > max_hp) {
 		cur_hp = max_hp;
 	}
