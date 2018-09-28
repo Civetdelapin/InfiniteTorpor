@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(std::string img_path, OwnMathFuncs::Vector2 sprite_size) :  GameObject()
+Player::Player(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_pos)
 {
 	SpriteRenderer* spriteRenderer = new SpriteRenderer(this, img_path, sprite_size);
 	

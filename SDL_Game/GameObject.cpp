@@ -2,9 +2,9 @@
 #include "Component.h"
 
 
-GameObject::GameObject()
+GameObject::GameObject(OwnMathFuncs::Vector2 init_local_pos) : local_position(init_local_pos), start_position(init_local_pos)
 {
-
+	
 }
 
 GameObject::~GameObject()
@@ -135,5 +135,10 @@ bool GameObject::getIsReallyActive()
 	else {
 		return parent_game_object->getIsReallyActive();
 	}
+}
+
+OwnMathFuncs::Vector2 GameObject::getStartPosition()
+{
+	return start_position;
 }
 

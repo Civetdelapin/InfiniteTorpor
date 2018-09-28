@@ -27,7 +27,7 @@ void StateMachine::clean()
 	Component::clean();
 }
 
-void StateMachine::setSet(State * state) 
+void StateMachine::setState(State * state) 
 {
 	if (cur_state != nullptr) {
 		cur_state->exit(game_object);

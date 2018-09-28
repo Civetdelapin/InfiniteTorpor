@@ -20,7 +20,7 @@ void StateRushPlayer::operation(GameObject * game_object)
 	if (target != nullptr && !enemy_basic_behavior->isStunned()) {
 			
 		if (OwnMathFuncs::OwnMathFuncs::distanceBetweenVect(target->getWorldPosition(), game_object->getWorldPosition()) <= 80) {
-			game_object->getComponent<StateMachine>()->setSet(new StateGoblinAttack(game_object));
+			game_object->getComponent<StateMachine>()->setState(new StateGoblinAttack(game_object));
 		}
 		else {
 			OwnMathFuncs::Vector2 dir_vect = (target->getWorldPosition() - game_object->getWorldPosition());

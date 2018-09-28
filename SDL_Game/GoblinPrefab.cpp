@@ -1,6 +1,6 @@
 #include "GoblinPrefab.h"
 
-GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Enemy(img_path, sprite_size)
+GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathFuncs::Vector2 init_local_pos) : Enemy(img_path, sprite_size, init_local_pos)
 {
 
 	getComponent<VelocityBody>()->setDrag({ 10, 10 });
@@ -74,7 +74,7 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 	animator->play("Idle");
 
 	//Set the current State
-	getComponent<StateMachine>()->setSet(new StateRushPlayer(this));
+	getComponent<StateMachine>()->setState(new StateRushPlayer(this));
 }
 
 

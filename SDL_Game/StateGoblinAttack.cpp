@@ -7,7 +7,7 @@ StateGoblinAttack::StateGoblinAttack(GameObject * game_object)
 	enemy_basic_behavior = game_object->getComponent<EnemyBasicBehavior>();
 
 	if (enemy_basic_behavior->isStunned()) {
-		game_object->getComponent<StateMachine>()->setSet(new StateRushPlayer(game_object));
+		game_object->getComponent<StateMachine>()->setState(new StateRushPlayer(game_object));
 	}
 	else {
 		
@@ -32,7 +32,7 @@ StateGoblinAttack::~StateGoblinAttack()
 void StateGoblinAttack::operation(GameObject * game_object)
 {
 	if (enemy_basic_behavior->isStunned()) {
-		game_object->getComponent<StateMachine>()->setSet(new StateRushPlayer(game_object));
+		game_object->getComponent<StateMachine>()->setState(new StateRushPlayer(game_object));
 	}
 	else {
 		time_passed -= Time::deltaTime;
@@ -50,7 +50,7 @@ void StateGoblinAttack::operation(GameObject * game_object)
 			else {
 				collider_active->setIsActive(false);
 
-				game_object->getComponent<StateMachine>()->setSet(new StateRushPlayer(game_object));
+				game_object->getComponent<StateMachine>()->setState(new StateRushPlayer(game_object));
 			}
 		}
 	}

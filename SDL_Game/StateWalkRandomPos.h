@@ -1,5 +1,9 @@
 #pragma once
 #include "State.h"
+#include "EnemyBasicBehavior.h"
+#include "StateMachine.h"
+#include "StateOnlyWait.h"
+#include "Animator.h"
 
 class StateWalkRandomPos : public State
 {
@@ -13,8 +17,9 @@ public:
 
 private:
 
-	float range = 100;
-
+	float range = 50;
 	OwnMathFuncs::Vector2 vect_to_go = { 0, 0 };
+
+	EnemyBasicBehavior* enemy_basic_behavior;
 };
 

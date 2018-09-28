@@ -25,12 +25,12 @@ public:
 
 	std::string tag = "Default";
 
-	explicit GameObject();
+	explicit GameObject(OwnMathFuncs::Vector2 init_local_pos = { 0, 0 });
 	~GameObject();
 
 	virtual void handleEvents();
-	virtual void update();
-	virtual void render();
+	void update();
+	void render();
 	void clean();
 
 	void addComponent(Component* component);
@@ -109,9 +109,13 @@ public:
 	OwnMathFuncs::Vector2 local_scale = { 1, 1 };
 	OwnMathFuncs::Vector2 parent_scale = { 1, 1 };
 
+	OwnMathFuncs::Vector2 getStartPosition();
+
 private:
 	std::vector<Component*> components;
 	std::vector<GameObject*> game_objects;
+
+	OwnMathFuncs::Vector2 start_position = { 0, 0 };
 };
 
 #endif

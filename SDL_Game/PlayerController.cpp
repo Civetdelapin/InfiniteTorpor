@@ -8,10 +8,6 @@ PlayerController::PlayerController(GameObject* game_object) : Component(game_obj
 	animator = game_object->getComponent<Animator>();
 	box_collider = game_object->getComponent<BoxCollider>();
 
-	if (velocityBody == nullptr) {
-		velocityBody = new VelocityBody(game_object);
-	}
-	
 }
 
 

@@ -2,11 +2,13 @@
 
 
 
-SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Enemy(img_path, sprite_size)
+SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathFuncs::Vector2 init_local_pos) : Enemy(img_path, sprite_size, init_local_pos)
 {
 
 	getComponent<VelocityBody>()->setDrag({ 13, 13 });
 	getComponent<EnemyBasicBehavior>()->setMaxHP(50);
+	
+	getComponent<EnemyBasicBehavior>()->setSpeed(500);
 
 
 	//Creation of child
@@ -34,11 +36,14 @@ SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size) 
 	Animation animWalking;
 	animWalking.nb_sprites = 10;
 	animWalking.speed = 0.1f;
-	animWalking.y_index = 2;
+	animWalking.y_index = 1;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
-	animator->play("Idle");
 	
+	
+	
+	animator->play("Idle");
+	getComponent<StateMachine>()->setState(new StateWalkRandomPos(this));
 }
 
 

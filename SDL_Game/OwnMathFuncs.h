@@ -1,7 +1,9 @@
+#define _USE_MATH_DEFINES
+
 #pragma once
 #include <math.h>
+#include <random>
 
-#define _USE_MATH_DEFINES
 
 namespace OwnMathFuncs
 {

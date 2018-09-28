@@ -25,25 +25,18 @@ int main(int argc, char* args[]) {
 
 
 	//Add the player in the game
-	Player *player = new Player("img/player.png", { 32, 32 });
+	Player *player = new Player("img/player.png", { 32, 32 }, { 1366, 768 });
 	player->layer = 5;
 
 	Game::instance()->addGameObject(player);
 
-	player->local_position.x = 1366;
-	player->local_position.y = 768;
-
 
 	Game::instance()->getCamera()->setObjectToFollow(player);
 
-
 	//Add enemy
-	
-	SlimPrefab * slim = new SlimPrefab("img/slimes.png", { 32,32 });
+	SlimPrefab * slim = new SlimPrefab("img/slimes.png", { 32,32 }, { 1000, 900 });
 	slim->layer = 4;
 
-	slim->local_position.x = 1000;
-	slim->local_position.y = 768;
 
 	Game::instance()->addGameObject(slim);
 	
@@ -69,15 +62,6 @@ int main(int argc, char* args[]) {
 
 	float timePassed = 0;
 	int i = 0;
-
-	SlimPrefab *enemy = new SlimPrefab("img/slimes.png", { 32,32 });
-	enemy = new SlimPrefab("img/slimes.png", { 32,32 });
-	enemy->layer = 4;
-
-	enemy->local_position.x = 1000 ;
-	enemy->local_position.y = 768;
-
-	Game::instance()->addGameObject(enemy);
 
 	//Main loop of the game
 	while (Game::instance()->getIsRunning()) {
