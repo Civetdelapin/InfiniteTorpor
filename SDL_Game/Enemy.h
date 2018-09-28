@@ -6,6 +6,8 @@
 #include "EnemyBasicBehavior.h"
 #include "DisplayEnemyHp.h"
 #include "StateMachine.h"
+#include "StateStun.h"
+
 
 class Enemy : public GameObject
 {

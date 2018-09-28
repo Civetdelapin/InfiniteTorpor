@@ -2,61 +2,52 @@
 #include "Game.h"
 
 
-StateGoblinAttack::StateGoblinAttack(GameObject * game_object)
+StateGoblinAttack::StateGoblinAttack(GameObject * game_object, std::string next_state) : State(next_state)
 {
 	enemy_basic_behavior = game_object->getComponent<EnemyBasicBehavior>();
-
-	if (enemy_basic_behavior->isStunned()) {
-		game_object->getComponent<StateMachine>()->setState(new StateRushPlayer(game_object));
-	}
-	else {
-		
-		target = Game::instance()->findGameObject("Player");
-		game_object->getComponent<Animator>()->play("BeforeAttack");
-
-		time_passed = time_attack;
-		before_attack = true;
-		normalize_dir = (target->getWorldPosition() - game_object->getWorldPosition());
-	}
-	
+	target = Game::instance()->findGameObject("Player");
 	collider_active = game_object->getRootParent()->getComponentInChild<EnemyAttackCollider>()->getDamageCollider();
-
 }
 
 
 StateGoblinAttack::~StateGoblinAttack()
 {
-
+	
 }
 
-void StateGoblinAttack::operation(GameObject * game_object)
+void StateGoblinAttack::start(StateMachine* state_machine)
 {
-	if (enemy_basic_behavior->isStunned()) {
-		game_object->getComponent<StateMachine>()->setState(new StateRushPlayer(game_object));
-	}
-	else {
-		time_passed -= Time::deltaTime;
-		if (time_passed <= 0) {
-			if (before_attack) {
-				game_object->getComponent<Animator>()->play("Attack");
-				game_object->getComponent<EnemyBasicBehavior>()->addForce(normalize_dir, velocity_attack);
+	state_machine->getGameObject()->getComponent<Animator>()->play("BeforeAttack");
 
-				before_attack = false;
+	time_passed = time_attack;
+	before_attack = true;
+	normalize_dir = (target->getWorldPosition() - state_machine->getGameObject()->getWorldPosition());
+}
 
-				time_passed = time_attack * 0.5;
+void StateGoblinAttack::operation(StateMachine* state_machine)
+{
+	time_passed -= Time::deltaTime;
+	if (time_passed <= 0) {
+		if (before_attack) {
+			state_machine->getGameObject()->getComponent<Animator>()->play("Attack");
+			state_machine->getGameObject()->getComponent<EnemyBasicBehavior>()->addForce(normalize_dir, velocity_attack);
 
-				collider_active->setIsActive(true);
-			}
-			else {
-				collider_active->setIsActive(false);
+			before_attack = false;
 
-				game_object->getComponent<StateMachine>()->setState(new StateRushPlayer(game_object));
-			}
+			time_passed = time_attack * 0.5;
+
+			collider_active->setIsActive(true);
+		}
+		else {
+			collider_active->setIsActive(false);
+
+			state_machine->getGameObject()->getComponent<StateMachine>()->play(getNextState());
 		}
 	}
+	
 }
 
-void StateGoblinAttack::exit(GameObject * game_object)
+void StateGoblinAttack::exit(StateMachine* state_machine)
 {
 	collider_active->setIsActive(false);
 }

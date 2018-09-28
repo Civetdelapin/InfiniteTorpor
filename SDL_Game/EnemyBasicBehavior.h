@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
 #include "VelocityBody.h"
+#include "StateMachine.h"
+
 class EnemyBasicBehavior : public Component
 {
 public:
@@ -13,6 +15,7 @@ public:
 	void takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float time_stunned);
 
 	bool isStunned();
+	float getTimeStun();
 
 	void setSpeed(float value);
 	float getSpeed();

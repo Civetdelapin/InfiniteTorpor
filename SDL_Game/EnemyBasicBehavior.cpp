@@ -58,15 +58,20 @@ void EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power
 	velocity_body = NULL;
 
 	this->time_stunned = time_stunned;
-
 	cur_hp -= damage;
-
 	is_stunned = true;
+
+	game_object->getComponent<StateMachine>()->play("Stun");
 }
 
 bool EnemyBasicBehavior::isStunned()
 {
 	return is_stunned;
+}
+
+float EnemyBasicBehavior::getTimeStun()
+{
+	return time_stunned;
 }
 
 void EnemyBasicBehavior::setSpeed(float value)

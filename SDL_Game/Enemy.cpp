@@ -19,6 +19,7 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathFun
 	DisplayEnemyHp* displayEnemyHp = new DisplayEnemyHp(this, enemyState);
 
 	StateMachine* stateMachine = new StateMachine(this);
+	stateMachine->addState(std::pair <std::string, State*>("Stun", new StateStun(this)));
 }
 
 

@@ -8,12 +8,12 @@
 class StateWalkRandomPos : public State
 {
 public:
-	StateWalkRandomPos(GameObject* game_object);
+	StateWalkRandomPos(GameObject* game_object, std::string next_state = "");
 	~StateWalkRandomPos();
 
-
-	void operation(GameObject* game_object);
-	void exit(GameObject* game_object);
+	void start(StateMachine* state_machine);
+	void operation(StateMachine* state_machine);
+	void exit(StateMachine* state_machine);
 
 private:
 

@@ -1,13 +1,8 @@
 #include "StateWalkRandomPos.h"
 
-
-
-StateWalkRandomPos::StateWalkRandomPos(GameObject* game_object)
+StateWalkRandomPos::StateWalkRandomPos(GameObject* game_object, std::string next_state) : State(next_state)
 {
-	vect_to_go = OwnMathFuncs::OwnMathFuncs::getRandomPointInCircle(range) + game_object->getStartPosition();
 	enemy_basic_behavior = game_object->getComponent<EnemyBasicBehavior>();
-
-	game_object->getComponent<Animator>()->play("Walking");
 }
 
 
@@ -15,20 +10,26 @@ StateWalkRandomPos::~StateWalkRandomPos()
 {
 }
 
-void StateWalkRandomPos::operation(GameObject * game_object)
+void StateWalkRandomPos::start(StateMachine* state_machine)
+{
+	vect_to_go = OwnMathFuncs::OwnMathFuncs::getRandomPointInCircle(range) + state_machine->getGameObject()->getStartPosition();
+	state_machine->getGameObject()->getComponent<Animator>()->play("Walking");
+}
+
+void StateWalkRandomPos::operation(StateMachine* state_machine)
 {
 
-	OwnMathFuncs::Vector2 dir_vect = (vect_to_go - game_object->getWorldPosition());
+	OwnMathFuncs::Vector2 dir_vect = (vect_to_go - state_machine->getGameObject()->getWorldPosition());
 	OwnMathFuncs::OwnMathFuncs::normalize(dir_vect);
 	enemy_basic_behavior->addForce(dir_vect, enemy_basic_behavior->getSpeed());
 
-	if (OwnMathFuncs::OwnMathFuncs::distanceBetweenVect(vect_to_go, game_object->getWorldPosition()) <= 20) {
-		game_object->getComponent<StateMachine>()->setState(new StateOnlyWait(game_object));
+	if (OwnMathFuncs::OwnMathFuncs::distanceBetweenVect(vect_to_go, state_machine->getGameObject()->getWorldPosition()) <= 20) {
+		state_machine->getGameObject()->getComponent<StateMachine>()->play(getNextState());
 	}
 	
 }
 
-void StateWalkRandomPos::exit(GameObject * game_object)
+void StateWalkRandomPos::exit(StateMachine* state_machine)
 {
 
 }

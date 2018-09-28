@@ -8,14 +8,15 @@
 class StateGoblinAttack : public State
 {
 public:
-	StateGoblinAttack(GameObject * game_object);
+	StateGoblinAttack(GameObject * game_object, std::string next_state = "");
 	~StateGoblinAttack();
 
 	const float time_attack = 0.5f;
 	const float velocity_attack = 300000;
 
-	void operation(GameObject* game_object);
-	void exit(GameObject* game_object);
+	void start(StateMachine* state_machine);
+	void operation(StateMachine* state_machine);
+	void exit(StateMachine* state_machine);
 
 private:
 	GameObject * target;

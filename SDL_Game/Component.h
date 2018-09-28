@@ -22,7 +22,7 @@ public:
 	void setIsActive(bool value);
 	bool isActive();
 
-	GameObject * getParentGameObject();
+	GameObject * getGameObject();
 
 protected:
 	GameObject * game_object;

@@ -76,11 +76,11 @@ void PlayerAttack::update()
 		if (vect.size() > 0) {
 
 			for (Collider* collider : vect) {
-				if (std::find(game_objects_touched.begin(), game_objects_touched.end(), collider->getParentGameObject()) == game_objects_touched.end()) {
+				if (std::find(game_objects_touched.begin(), game_objects_touched.end(), collider->getGameObject()) == game_objects_touched.end()) {
 
-					if (collider->getParentGameObject()->tag == "Enemy") {
+					if (collider->getGameObject()->tag == "Enemy") {
 
-						EnemyBasicBehavior* enemy_stat = collider->getParentGameObject()->getRootParent()->getComponent<EnemyBasicBehavior>();
+						EnemyBasicBehavior* enemy_stat = collider->getGameObject()->getRootParent()->getComponent<EnemyBasicBehavior>();
 						if (enemy_stat != nullptr) {	
 							enemy_stat->takeDamage(normalizeDirection, velocity_attack * 0.80, attack_dmg[nb_combo - 1], time_enemy_stun);
 						}
@@ -90,7 +90,7 @@ void PlayerAttack::update()
 					}
 
 
-					game_objects_touched.push_back(collider->getParentGameObject());
+					game_objects_touched.push_back(collider->getGameObject());
 				}
 			}
 		

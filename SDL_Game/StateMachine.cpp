@@ -14,25 +14,54 @@ StateMachine::~StateMachine()
 
 void StateMachine::update()
 {
-	if (cur_state != nullptr) {
-		cur_state->operation(game_object);
+	if (cur_state != "") {
+		states[cur_state]->operation(this);
 	}
 }
 
 void StateMachine::clean()
 {
-	delete cur_state;
-	cur_state = NULL;
+
+	for (std::map < std::string, State* > ::iterator it = states.begin(); it != states.end(); ++it) {
+
+		//delete the pointer to State
+		delete it->second;
+	}	
+	states.clear();
 
 	Component::clean();
 }
 
-void StateMachine::setState(State * state) 
+void StateMachine::addState(std::pair<std::string, State*> state)
 {
-	if (cur_state != nullptr) {
-		cur_state->exit(game_object);
+	states.insert(state);
+}
+
+void StateMachine::play(std::string state_name)
+{
+	if (cur_state != "") {
+		states[cur_state]->exit(this);
 	}
-	
-	delete cur_state;
-	cur_state = state;
+
+	if (states.count(state_name) > 0) {
+		cur_state = state_name;
+	}
+	else {
+		cur_state = "";
+	}
+
+
+	if (cur_state != "" ) {
+		states[cur_state]->start(this);
+	}
+}
+
+std::string StateMachine::getDefaultState()
+{
+	return default_state;
+}
+
+void StateMachine::setDefaultState(std::string value)
+{
+	default_state = value;
 }

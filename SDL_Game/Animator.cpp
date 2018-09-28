@@ -56,7 +56,14 @@ void Animator::update()
 void Animator::play(std::string name)
 {
 	if (cur_animation != name) {
-		cur_animation = name;
+
+		if (animations.count(name) > 0) {
+			cur_animation = name;
+		}
+		else {
+			cur_animation = "";
+		}
+		
 		time_passed = 0;
 		cur_sprite = 0;
 	}
@@ -66,6 +73,7 @@ void Animator::clean()
 {
 	animations.clear();
 	spriteRenderer = NULL;
+
 	Component::clean();
 }
 

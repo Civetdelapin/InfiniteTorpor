@@ -2,6 +2,8 @@
 #include "Enemy.h"
 #include "Animator.h"
 #include "StateWalkRandomPos.h"
+#include "StateOnlyWait.h"
+
 
 class SlimPrefab : public Enemy
 {

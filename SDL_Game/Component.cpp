@@ -48,7 +48,7 @@ bool Component::isActive()
 	return is_active;
 }
 
-GameObject * Component::getParentGameObject()
+GameObject * Component::getGameObject()
 {
 	return game_object;
 }

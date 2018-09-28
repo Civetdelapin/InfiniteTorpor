@@ -73,8 +73,14 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 
 	animator->play("Idle");
 
-	//Set the current State
-	getComponent<StateMachine>()->setState(new StateRushPlayer(this));
+	//State Machine
+	StateMachine * stateMachine = getComponent<StateMachine>();
+	stateMachine->setDefaultState("RushPlayer");
+
+	stateMachine->addState(std::pair <std::string, State*>("RushPlayer", new StateRushPlayer(this, "GoblinAttack")));
+	stateMachine->addState(std::pair <std::string, State*>("GoblinAttack", new StateGoblinAttack(this, "RushPlayer")));
+
+	stateMachine->play("RushPlayer");
 }
 
 

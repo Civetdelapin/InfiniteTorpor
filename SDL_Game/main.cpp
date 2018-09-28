@@ -40,17 +40,12 @@ int main(int argc, char* args[]) {
 
 	Game::instance()->addGameObject(slim);
 	
-	/*
-	GoblinPrefab *goblin = new GoblinPrefab("img/goblin.png", new OwnMathFuncs::Vector2(32, 32));
+	
+	GoblinPrefab *goblin = new GoblinPrefab("img/goblin.png", { 32,32 }, { 900, 768 });
 	goblin->layer = 4;
 
-	goblin->local_position.x = 900;
-	goblin->local_position.y = 768;
-
 	Game::instance()->addGameObject(goblin);
-	*/
-
-
+	
 
 	//Add UI Manager
 	GameObject* ui_manager = new GameObject();

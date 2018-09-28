@@ -39,11 +39,17 @@ SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size, 
 	animWalking.y_index = 1;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
-	
-	
-	
+
 	animator->play("Idle");
-	getComponent<StateMachine>()->setState(new StateWalkRandomPos(this));
+
+	//State Machine
+	StateMachine * stateMachine = getComponent<StateMachine>();
+	stateMachine->setDefaultState("WalkRandomPos");
+
+	stateMachine->addState(std::pair <std::string, State*>("WalkRandomPos", new StateWalkRandomPos(this, "OnlyWait")));
+	stateMachine->addState(std::pair <std::string, State*>("OnlyWait", new StateOnlyWait(this, 2, "WalkRandomPos")));
+
+	stateMachine->play("WalkRandomPos");
 }
 
 
