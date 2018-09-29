@@ -47,7 +47,7 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathF
 	boxColliderHitBox->setCollisionLayer(10);
 
 	game_object_child->tag = "Player";
-	addGameObject(game_object_child);
+	addGameObjectAsChild(game_object_child);
 
 	GameObject* game_object_child_2 = new GameObject();
 
@@ -71,7 +71,7 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathF
 	PlayerAttack* player_attack = new PlayerAttack(game_object_child_2, boxColliderHitBoxAttack, boxColliderHitBoxAttackUpDown, boxColliderHitBoxAttackCorner1 ,playerController, velocityBody);
 
 	game_object_child_2->tag = "Player";
-	addGameObject(game_object_child_2);
+	addGameObjectAsChild(game_object_child_2);
 }
 
 

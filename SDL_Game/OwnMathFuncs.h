@@ -59,6 +59,8 @@ public:
 	static float Lerp(float start, float end, float perc);
 
 	static Vector2 getRandomPointInCircle(float radius);
+
+	static Vector2 getRandomPointAroundCircle(float radius);
 };
 
 }

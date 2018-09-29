@@ -60,3 +60,14 @@ OwnMathFuncs::Vector2 OwnMathFuncs::OwnMathFuncs::getRandomPointInCircle(float r
 	return { r * std::cos(theta) , r * std::sin(theta) };
 }
 
+OwnMathFuncs::Vector2 OwnMathFuncs::OwnMathFuncs::getRandomPointAroundCircle(float radius)
+{
+	std::random_device rd;  //Will be used to obtain a seed for the random number engine
+	std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+	std::uniform_real_distribution<> dis(0.0, 1.0);
+
+	float theta = dis(gen) * 2 * M_PI;
+
+	return { radius * std::cos(theta) , radius * std::sin(theta) };
+}
+

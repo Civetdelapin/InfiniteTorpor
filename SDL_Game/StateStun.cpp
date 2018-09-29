@@ -22,7 +22,7 @@ void StateStun::operation(StateMachine* state_machine)
 	time_passed -= Time::deltaTime;
 
 	if (time_passed <= 0) {
-		state_machine->getGameObject()->getComponent<StateMachine>()->play(state_machine->getDefaultState());
+		state_machine->play(state_machine->getDefaultState());
 	}
 }
 

@@ -25,7 +25,8 @@ void PlayerStat::update()
 		if (time_passed <= 0) {
 			is_invicible = false;
 		}
-	}	
+	}
+
 }
 
 void PlayerStat::setInvicible(float time)
@@ -34,7 +35,7 @@ void PlayerStat::setInvicible(float time)
 	time_passed = time;
 }
 
-void PlayerStat::addDamage(float dmg)
+bool PlayerStat::addDamage(float dmg)
 {
 	if (!is_invicible) {
 		Game::instance()->getCamera()->startShake(15, 20, 0.5);
@@ -42,5 +43,9 @@ void PlayerStat::addDamage(float dmg)
 		cur_hp -= dmg;
 		
 		setInvicible(time_invicible);
+
+		return true;
 	}
+
+	return false;
 }

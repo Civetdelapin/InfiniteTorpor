@@ -35,7 +35,7 @@ void DisplayEnemyHp::update()
 void DisplayEnemyHp::render()
 {
 	
-	if (time_passed > 0) {
+	if (time_passed > 0 && last_hp > 0) {
 		SDL_Rect rect;
 		rect.x = game_object->getWorldPosition().x - ((size.x / 2) * abs(game_object->getWorldScale().x));
 		rect.y = game_object->getWorldPosition().y - (y_offset * abs(game_object->getWorldScale().y));

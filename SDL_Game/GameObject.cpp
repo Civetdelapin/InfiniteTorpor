@@ -78,7 +78,7 @@ void GameObject::addComponent(Component * component)
 	components.push_back(component);
 }
 
-void GameObject::addGameObject(GameObject * game_object)
+void GameObject::addGameObjectAsChild(GameObject * game_object)
 {
 	game_object->parent_game_object = this;
 	game_objects.push_back(game_object);

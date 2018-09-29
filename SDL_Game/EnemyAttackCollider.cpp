@@ -1,7 +1,7 @@
 #include "EnemyAttackCollider.h"
 #include "Game.h"
 
-EnemyAttackCollider::EnemyAttackCollider(GameObject* game_object, Collider* collider) : Component(game_object), collider_to_check(collider)
+EnemyAttackCollider::EnemyAttackCollider(GameObject* game_object, Collider* collider, bool isDestroyed) : Component(game_object), collider_to_check(collider), isDestroyed(isDestroyed)
 {
 
 }
@@ -22,7 +22,11 @@ void EnemyAttackCollider::update()
 			for (Collider* collider : vect) {
 				
 					if (collider->getGameObject()->tag == "Player") {
-						collider->getGameObject()->getRootParent()->getComponent<PlayerStat>()->addDamage(dmg);
+
+						if (collider->getGameObject()->getRootParent()->getComponent<PlayerStat>()->addDamage(dmg) && isDestroyed) {
+							Game::instance()->destroyGameObject(getGameObject());
+						}
+
 					}
 			}
 		}

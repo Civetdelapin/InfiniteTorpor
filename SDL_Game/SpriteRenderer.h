@@ -12,11 +12,15 @@ public:
 	OwnMathFuncs::Vector2 getSpriteSize();
 	void setSourceRect(SDL_Rect rect);
 
+	void setAlpha(float value);
+
 protected:
 	SDL_Texture * texture;
 	
 	OwnMathFuncs::Vector2 img_size = { 30, 30 };
 	OwnMathFuncs::Vector2 sprite_size = { 30, 30 };
+
+	float alpha = 255;
 
 	SDL_Rect srcrect;
 	SDL_Rect dstrect;

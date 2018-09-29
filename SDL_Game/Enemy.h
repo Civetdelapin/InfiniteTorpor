@@ -7,7 +7,7 @@
 #include "DisplayEnemyHp.h"
 #include "StateMachine.h"
 #include "StateStun.h"
-
+#include "StateDying.h"
 
 class Enemy : public GameObject
 {

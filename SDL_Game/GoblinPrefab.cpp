@@ -20,7 +20,7 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 
 	game_object_child->tag = "Enemy";
 
-	addGameObject(game_object_child);
+	addGameObjectAsChild(game_object_child);
 
 
 	GameObject* game_object_child2 = new GameObject();
@@ -33,9 +33,9 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 
 	EnemyAttackCollider* enemy_attack_collider = new EnemyAttackCollider(game_object_child2, boxColliderAttack);
 
-	addGameObject(game_object_child2);
+	addGameObjectAsChild(game_object_child2);
 
-	Animator* animator = new Animator(this);
+	Animator* animator = getComponent<Animator>();
 
 	// Creation of Animations
 	Animation animIdle;
@@ -44,6 +44,14 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 	animIdle.y_index = 0;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Idle", animIdle));
+
+	Animation animDying;
+	animDying.nb_sprites = 10;
+	animDying.speed = 0.1f;
+	animDying.y_index = 4;
+	animDying.is_looping = false;
+
+	animator->addAnimation(std::pair <std::string, Animation>("Dying", animDying));
 
 	Animation animWalking;
 	animWalking.nb_sprites = 10;
@@ -77,7 +85,7 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 	StateMachine * stateMachine = getComponent<StateMachine>();
 	stateMachine->setDefaultState("RushPlayer");
 
-	stateMachine->addState(std::pair <std::string, State*>("RushPlayer", new StateRushPlayer(this, "GoblinAttack")));
+	stateMachine->addState(std::pair <std::string, State*>("RushPlayer", new StateRushPlayer(this, 80, "GoblinAttack")));
 	stateMachine->addState(std::pair <std::string, State*>("GoblinAttack", new StateGoblinAttack(this, "RushPlayer")));
 
 	stateMachine->play("RushPlayer");

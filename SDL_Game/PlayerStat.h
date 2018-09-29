@@ -12,7 +12,7 @@ public:
 	const float time_invicible = 1.5f;
 	
 	float getCurHP();
-	void addDamage(float dmg);
+	bool addDamage(float dmg);
 
 	void update();
 

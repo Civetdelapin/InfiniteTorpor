@@ -56,3 +56,10 @@ void SpriteRenderer::setSourceRect(SDL_Rect rect)
 {
 	srcrect = rect;
 }
+
+void SpriteRenderer::setAlpha(float value)
+{
+	alpha = value;
+
+	SDL_SetTextureAlphaMod(texture, alpha);
+}

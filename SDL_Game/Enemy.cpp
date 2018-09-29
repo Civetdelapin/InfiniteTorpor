@@ -18,8 +18,11 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathFun
 
 	DisplayEnemyHp* displayEnemyHp = new DisplayEnemyHp(this, enemyState);
 
+	Animator* animation = new Animator(this);
+
 	StateMachine* stateMachine = new StateMachine(this);
 	stateMachine->addState(std::pair <std::string, State*>("Stun", new StateStun(this)));
+	stateMachine->addState(std::pair <std::string, State*>("Dying", new StateDying(this)));
 }
 
 

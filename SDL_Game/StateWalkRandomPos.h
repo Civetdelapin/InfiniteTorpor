@@ -8,7 +8,7 @@
 class StateWalkRandomPos : public State
 {
 public:
-	StateWalkRandomPos(GameObject* game_object, std::string next_state = "");
+	StateWalkRandomPos(GameObject* game_object, float range, std::string next_state = "");
 	~StateWalkRandomPos();
 
 	void start(StateMachine* state_machine);

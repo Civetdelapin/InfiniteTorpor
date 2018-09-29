@@ -34,7 +34,7 @@ public:
 	void clean();
 
 	void addComponent(Component* component);
-	void addGameObject(GameObject* game_object);
+	void addGameObjectAsChild(GameObject* game_object);
 
 	void setActiveChildren(bool value);
 

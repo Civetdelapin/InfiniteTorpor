@@ -21,8 +21,16 @@ public:
 	void operation(StateMachine* state_machine);
 	void exit(StateMachine* state_machine);
 
+	const float time_attack = 0.8f;
+	const float time_cd = 0.2f;
+
 private:
 
 	int nb_projectile;
+	float time_passed;
+
+	bool attack = false;
+
+	void createProjectiles(StateMachine* state_machine);
 };
 

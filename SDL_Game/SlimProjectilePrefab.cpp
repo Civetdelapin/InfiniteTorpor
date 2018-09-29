@@ -4,7 +4,7 @@
 
 SlimProjectilePrefab::SlimProjectilePrefab(OwnMathFuncs::Vector2 init_local_pos) : GameObject(init_local_pos)
 {
-	local_scale = { 3, 3 };
+	local_scale = { 4, 4 };
 	tag = "Enemy";
 	layer = 4;
 
@@ -22,7 +22,7 @@ SlimProjectilePrefab::SlimProjectilePrefab(OwnMathFuncs::Vector2 init_local_pos)
 	boxColliderAttack->setIsTrigger(true);
 	boxColliderAttack->setCollisionLayer(10);
 
-	EnemyAttackCollider* enemyAttackCollider = new EnemyAttackCollider(this, boxColliderAttack);
+	EnemyAttackCollider* enemyAttackCollider = new EnemyAttackCollider(this, boxColliderAttack, true);
 }
 
 

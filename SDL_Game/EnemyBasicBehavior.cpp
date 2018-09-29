@@ -17,10 +17,7 @@ void EnemyBasicBehavior::update()
 	if (cur_hp > max_hp) {
 		cur_hp = max_hp;
 	}
-	else if (cur_hp <= 0) {
-		Game::instance()->destroyGameObject(game_object->getRootParent());
-	}
-
+	
 	time_stunned -= Time::deltaTime;
 	if (time_stunned <= 0) {
 		is_stunned = false;
@@ -52,17 +49,23 @@ void EnemyBasicBehavior::addForce(OwnMathFuncs::Vector2 direction, float power)
 
 void EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float time_stunned)
 {
-	VelocityBody* velocity_body = game_object->getComponent<VelocityBody>();
-	if (velocity_body != nullptr) {
-		velocity_body->AddForce(direction, power_knock_back * Time::deltaTime);
-	}
-	velocity_body = NULL;
-
-	this->time_stunned = time_stunned;
 	cur_hp -= damage;
-	is_stunned = true;
+	if (cur_hp > 0) {
+		VelocityBody* velocity_body = game_object->getComponent<VelocityBody>();
+		if (velocity_body != nullptr) {
+			velocity_body->AddForce(direction, power_knock_back * Time::deltaTime);
+		}
+		velocity_body = NULL;
 
-	game_object->getComponent<StateMachine>()->play("Stun");
+		this->time_stunned = time_stunned;
+
+		is_stunned = true;
+
+		game_object->getComponent<StateMachine>()->play("Stun");
+	}
+	else if(!is_dying){
+		setDying();
+	}
 }
 
 bool EnemyBasicBehavior::isStunned()
@@ -98,4 +101,11 @@ void EnemyBasicBehavior::setMaxHP(float value)
 float EnemyBasicBehavior::getMaxHP()
 {
 	return max_hp;
+}
+
+void EnemyBasicBehavior::setDying()
+{
+	game_object->getRootParent()->getComponentInChild<StateMachine>()->play("Dying");
+
+	is_dying = true;
 }

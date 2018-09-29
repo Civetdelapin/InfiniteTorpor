@@ -33,5 +33,9 @@ private:
 	float speed = 2300;
 
 	float time_stunned = 0;
+
+	bool is_dying = false;
+
+	void setDying();
 };
 

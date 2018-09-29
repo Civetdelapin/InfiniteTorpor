@@ -1,6 +1,6 @@
 #include "StateWalkRandomPos.h"
 
-StateWalkRandomPos::StateWalkRandomPos(GameObject* game_object, std::string next_state) : State(next_state)
+StateWalkRandomPos::StateWalkRandomPos(GameObject* game_object, float range, std::string next_state) : State(next_state), range(range)
 {
 	enemy_basic_behavior = game_object->getComponent<EnemyBasicBehavior>();
 }
@@ -12,7 +12,7 @@ StateWalkRandomPos::~StateWalkRandomPos()
 
 void StateWalkRandomPos::start(StateMachine* state_machine)
 {
-	vect_to_go = OwnMathFuncs::OwnMathFuncs::getRandomPointInCircle(range) + state_machine->getGameObject()->getStartPosition();
+	vect_to_go = OwnMathFuncs::OwnMathFuncs::getRandomPointAroundCircle(range) + state_machine->getGameObject()->getStartPosition();
 	state_machine->getGameObject()->getComponent<Animator>()->play("Walking");
 }
 

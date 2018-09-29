@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 #include "GameObject.h"
 #include "TextureManager.h"
 #include "OwnMathFuncs.h"
@@ -44,7 +45,7 @@ public:
 	void clean();
 
 	
-	void addGameObjectInGame(GameObject* gameObject, GameObject* new_parent = nullptr);
+	void instantiateGameObject(GameObject* gameObject, GameObject* new_parent = nullptr);
 	void destroyGameObject(GameObject* game_object);
 
 	GameObject* findGameObject(std::string tag);
@@ -74,7 +75,8 @@ private:
 
 	std::vector<GameObject*> game_objects;
 	std::vector<GameObject*> game_objects_to_be_destroyed;
-	std::vector<GameObject*> game_objects_to_be_added;
+
+	std::map <GameObject*, GameObject*> game_objects_to_be_added;
 
 	bool isDebugMode;
 	bool isRunning;

@@ -75,12 +75,23 @@ void Game::update()
 		}
 	}
 
-	for (GameObject* game_object : game_objects_to_be_added) {
-		addGameObject(game_object);
+	//We add the objects that need to be add
+	for (auto const& game_object : game_objects_to_be_added) {
+
+		if (game_object.second == nullptr) {
+
+			//We add the new game object in the Game itselft
+			addGameObject(game_object.first);
+		}
+		else {
+
+			//We add the new game object as child of its new parent
+			game_object.second->addGameObjectAsChild(game_object.first);
+		}
 	}
 	game_objects_to_be_added.clear();
 
-
+	//We delete the objects that need to be deleted
 	for (GameObject* game_object : game_objects_to_be_destroyed) {
 		game_objects.erase(std::remove(game_objects.begin(), game_objects.end(), game_object), game_objects.end());
 
@@ -134,9 +145,9 @@ void Game::addGameObject(GameObject* gameObject)
 	});
 }
 
-void Game::addGameObjectInGame(GameObject * gameObject, GameObject * new_parent)
+void Game::instantiateGameObject(GameObject * game_object, GameObject * new_parent)
 {
-	game_objects_to_be_added.push_back(gameObject);
+	game_objects_to_be_added.insert(std::pair <GameObject*, GameObject*>(game_object, new_parent));
 }
 
 void Game::destroyGameObject(GameObject * game_object)
@@ -154,8 +165,6 @@ GameObject* Game::findGameObject(std::string tag)
 		if (object_found != nullptr) {
 			return object_found;
 		}
-
-		object_found = NULL;
 	}
 
 	return nullptr;
