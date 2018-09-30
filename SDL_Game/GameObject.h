@@ -72,7 +72,7 @@ public:
 	}
 
 	template< class ComponentType >
-	ComponentType*  getComponentInChild() {
+	ComponentType*  getComponentInChildren() {
 
 		ComponentType* component = getComponent<ComponentType>();
 

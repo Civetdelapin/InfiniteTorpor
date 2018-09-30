@@ -30,9 +30,9 @@ void SpriteRenderer::render()
 		srcrect.w = sprite_size.x;
 		srcrect.h = sprite_size.y;
 
-		SDL_RendererFlip flip = SDL_FLIP_NONE;
+		SDL_RendererFlip flip = is_looking_right ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 		if (game_object->getWorldScale().x < 0) {
-			flip = SDL_FLIP_HORIZONTAL;
+			flip = is_looking_right ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		}
 
 		TextureManager::DrawTexture(texture, srcrect, dstrect, flip);
@@ -62,4 +62,9 @@ void SpriteRenderer::setAlpha(float value)
 	alpha = value;
 
 	SDL_SetTextureAlphaMod(texture, alpha);
+}
+
+void SpriteRenderer::setIsLookingRight(bool value)
+{
+	is_looking_right = value;
 }

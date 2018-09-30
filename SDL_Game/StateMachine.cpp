@@ -12,6 +12,13 @@ StateMachine::~StateMachine()
 {
 }
 
+void StateMachine::start()
+{
+	if (cur_state != "") {
+		states[cur_state]->start(this);
+	}
+}
+
 void StateMachine::update()
 {
 	if (cur_state != "") {
@@ -51,7 +58,7 @@ void StateMachine::play(std::string state_name)
 	}
 
 
-	if (cur_state != "" ) {
+	if (getHasStart() && cur_state != "" ) {
 		states[cur_state]->start(this);
 	}
 }

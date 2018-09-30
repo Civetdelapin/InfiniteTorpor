@@ -13,15 +13,18 @@ Component::~Component()
 
 }
 
+void Component::start()
+{
+}
+
 void Component::update()
 {
-
 }
 
 void Component::render()
 {
-
 }
+
 
 void Component::clean()
 {
@@ -46,6 +49,16 @@ void Component::setIsActive(bool value)
 bool Component::isActive()
 {
 	return is_active;
+}
+
+void Component::setHasStart(bool value)
+{
+	has_start = value;
+}
+
+bool Component::getHasStart()
+{
+	return has_start;
 }
 
 GameObject * Component::getGameObject()

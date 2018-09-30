@@ -31,14 +31,18 @@ int main(int argc, char* args[]) {
 	Game::instance()->getCamera()->setObjectToFollow(player);
 
 	//----------- ADD ENEMY ----------------
-	/*SlimPrefab * slim = new SlimPrefab("img/slimes.png", { 32,32 }, { 1000, 900 });
+	
+	SlimPrefab * slim = new SlimPrefab("img/slimes.png", { 32,32 }, { 1000, 900 });
 	slim->layer = 3;
 	Game::instance()->instantiateGameObject(slim);
-	*/
 	
+
+	/*
 	GoblinPrefab *goblin = new GoblinPrefab("img/goblin.png", { 32,32 }, { 900, 768 });
 	goblin->layer = 3;
 	Game::instance()->instantiateGameObject(goblin);
+	*/
+
 	//--------------------------------------
 
 	//----------- Add UI Manager ----------------
@@ -50,6 +54,8 @@ int main(int argc, char* args[]) {
 
 	float timePassed = 0;
 	int i = 0;
+
+
 
 	//Main loop of the game
 	while (Game::instance()->getIsRunning()) {

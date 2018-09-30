@@ -5,8 +5,7 @@
 StateGoblinAttack::StateGoblinAttack(GameObject * game_object, std::string next_state) : State(next_state)
 {
 	enemy_basic_behavior = game_object->getComponent<EnemyBasicBehavior>();
-	target = Game::instance()->findGameObject("Player");
-	collider_active = game_object->getRootParent()->getComponentInChild<EnemyAttackCollider>()->getDamageCollider();
+	collider_active = game_object->getRootParent()->getComponentInChildren<EnemyAttackCollider>()->getDamageCollider();
 }
 
 
@@ -18,6 +17,7 @@ StateGoblinAttack::~StateGoblinAttack()
 void StateGoblinAttack::start(StateMachine* state_machine)
 {
 	state_machine->getGameObject()->getComponent<Animator>()->play("BeforeAttack");
+	target = Game::instance()->findGameObject("Player");
 
 	time_passed = time_attack;
 	before_attack = true;

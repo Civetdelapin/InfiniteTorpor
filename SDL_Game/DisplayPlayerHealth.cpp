@@ -18,6 +18,10 @@ DisplayPlayerHealth::~DisplayPlayerHealth()
 
 }
 
+void DisplayPlayerHealth::start()
+{
+}
+
 void DisplayPlayerHealth::update()
 {
 	

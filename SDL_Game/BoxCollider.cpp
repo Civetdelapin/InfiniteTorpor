@@ -35,6 +35,11 @@ SDL_Rect BoxCollider::getRect()
 	return rect;
 }
 
+void BoxCollider::start()
+{
+
+}
+
 void BoxCollider::update() {
 	rect.x = game_object->getWorldPosition().x + (offset.x * game_object->getWorldScale().x) - ((size.x / 2) * abs(game_object->getWorldScale().x));
 	rect.y = game_object->getWorldPosition().y + (offset.y * game_object->getWorldScale().y) - ((size.y / 2) * abs(game_object->getWorldScale().y));

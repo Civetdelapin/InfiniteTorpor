@@ -84,7 +84,6 @@ void Game::update()
 			addGameObject(game_object.first);
 		}
 		else {
-
 			//We add the new game object as child of its new parent
 			game_object.second->addGameObjectAsChild(game_object.first);
 		}
@@ -93,7 +92,13 @@ void Game::update()
 
 	//We delete the objects that need to be deleted
 	for (GameObject* game_object : game_objects_to_be_destroyed) {
-		game_objects.erase(std::remove(game_objects.begin(), game_objects.end(), game_object), game_objects.end());
+		if (game_object->parent_game_object == nullptr) {
+			game_objects.erase(std::remove(game_objects.begin(), game_objects.end(), game_object), game_objects.end());
+		}
+		else {
+			game_object->parent_game_object->getChildren().erase(std::remove(game_object->parent_game_object->getChildren().begin(), game_object->parent_game_object->getChildren().end(), game_object), game_object->parent_game_object->getChildren().end());
+		}
+		
 
 		collider_manager->removeGameObjectColliders(game_object);
 
@@ -109,8 +114,6 @@ void Game::render()
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
-
-	//drawLevels();
 
 	for (GameObject* game_object : game_objects) {
 
@@ -160,11 +163,15 @@ void Game::destroyGameObject(GameObject * game_object)
 
 GameObject* Game::findGameObject(std::string tag)
 {
+
 	for (GameObject* game_object : game_objects) {
 		GameObject* object_found = Game::findGameObjectRecursive(tag, game_object);
 		if (object_found != nullptr) {
+			
 			return object_found;
 		}
+
+		object_found = NULL;
 	}
 
 	return nullptr;
@@ -209,18 +216,24 @@ Camera* Game::getCamera()
 
 GameObject * Game::findGameObjectRecursive(std::string tag, GameObject* game_object)
 {
+	
+
 	if (game_object->tag == tag) {
+		
 		return game_object;
 	}
 
 	for (GameObject* game_object_child : game_object->getChildren()) {
 		GameObject* object_found = Game::findGameObjectRecursive(tag, game_object_child);
 		if (object_found != nullptr) {
+
+			
 			return object_found;
 		}
 
 		object_found = NULL;
 	}
+
 
 	return nullptr;
 }

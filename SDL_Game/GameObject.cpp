@@ -20,7 +20,15 @@ void GameObject::update()
 {
 	//Update all the components
 	for (Component* component : components) {
+
 		if (component->isActive()) {
+
+			if (!component->getHasStart()) {
+				component->start();
+
+				component->setHasStart(true);
+			}
+
 			component->update();
 		}
 	}

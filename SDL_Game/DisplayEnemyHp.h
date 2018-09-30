@@ -8,8 +8,10 @@ public:
 	DisplayEnemyHp(GameObject* game_object, EnemyBasicBehavior* enemy_stat);
 	~DisplayEnemyHp();
 
+	void start();
 	void update();
 	void render();
+
 	void clean();
 
 	void setYOffset(float value);

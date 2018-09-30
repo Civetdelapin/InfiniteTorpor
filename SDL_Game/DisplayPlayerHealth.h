@@ -8,8 +8,10 @@ public:
 	DisplayPlayerHealth(GameObject* game_object, PlayerStat* player_stat);
 	~DisplayPlayerHealth();
 
+	void start();
 	void update();
 	void render();
+
 	void clean();
 
 private:

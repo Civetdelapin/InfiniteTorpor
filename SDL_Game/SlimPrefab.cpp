@@ -7,9 +7,8 @@ SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size, 
 
 	getComponent<VelocityBody>()->setDrag({ 13, 13 });
 	getComponent<EnemyBasicBehavior>()->setMaxHP(50);
-	
 	getComponent<EnemyBasicBehavior>()->setSpeed(500);
-
+	getComponent<SpriteRenderer>()->setIsLookingRight(false);
 
 	//Creation of child
 	GameObject* game_object_child = new GameObject();

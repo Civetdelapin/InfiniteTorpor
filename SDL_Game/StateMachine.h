@@ -9,6 +9,7 @@ public:
 	StateMachine(GameObject* game_object);
 	~StateMachine();
 
+	void start();
 	void update();
 	void clean();
 

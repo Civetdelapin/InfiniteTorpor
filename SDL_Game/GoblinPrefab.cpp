@@ -10,25 +10,23 @@ GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_si
 
 	//Creation of child
 	GameObject* game_object_child = new GameObject();
+	game_object_child->tag = "Enemy";
 
 	BoxCollider* boxColliderHitBox = new BoxCollider(game_object_child);
 	boxColliderHitBox->offset = { 0, 8 };
 	boxColliderHitBox->size = { 12, 15 };
 	boxColliderHitBox->setCollisionLayer(5);
 
-	
-
-	game_object_child->tag = "Enemy";
-
 	addGameObjectAsChild(game_object_child);
 
 
 	GameObject* game_object_child2 = new GameObject();
+	game_object_child2->tag = "Enemy";
+
 	BoxCollider* boxColliderAttack = new BoxCollider(game_object_child2);
 	boxColliderAttack->offset = { 12, 8 };
 	boxColliderAttack->size = { 12, 15 };
 	boxColliderAttack->setCollisionLayer(10);
-
 	boxColliderAttack->setIsActive(false);
 
 	EnemyAttackCollider* enemy_attack_collider = new EnemyAttackCollider(game_object_child2, boxColliderAttack);

@@ -13,7 +13,7 @@ public:
 
 	SDL_Rect getRect();
 	
-
+	void start();
 	void update();
 	void render();
 

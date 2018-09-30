@@ -32,6 +32,7 @@ public:
 
 	void addAnimation(std::pair <std::string, Animation> animation);
 
+	void start();
 	void update();
 	void play(std::string name);
 

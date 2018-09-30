@@ -1,8 +1,9 @@
 #include "Animator.h"
+#include "Game.h"
 
 Animator::Animator(GameObject* game_object): Component(game_object)
 {
-	spriteRenderer = game_object->getComponent<SpriteRenderer>();
+	
 }
 
 
@@ -13,6 +14,12 @@ Animator::~Animator()
 void Animator::addAnimation(std::pair<std::string, Animation> animation)
 {
 	animations.insert(animation);
+}
+
+void Animator::start()
+{
+	spriteRenderer = game_object->getComponent<SpriteRenderer>();
+
 }
 
 void Animator::update()

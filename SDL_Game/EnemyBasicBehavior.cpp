@@ -105,7 +105,7 @@ float EnemyBasicBehavior::getMaxHP()
 
 void EnemyBasicBehavior::setDying()
 {
-	game_object->getRootParent()->getComponentInChild<StateMachine>()->play("Dying");
+	game_object->getRootParent()->getComponentInChildren<StateMachine>()->play("Dying");
 
 	is_dying = true;
 }

@@ -13,14 +13,17 @@ public:
 	void setSourceRect(SDL_Rect rect);
 
 	void setAlpha(float value);
+	void setIsLookingRight(bool value);
 
-protected:
+private:
 	SDL_Texture * texture;
 	
 	OwnMathFuncs::Vector2 img_size = { 30, 30 };
 	OwnMathFuncs::Vector2 sprite_size = { 30, 30 };
 
 	float alpha = 255;
+
+	bool is_looking_right = true;
 
 	SDL_Rect srcrect;
 	SDL_Rect dstrect;

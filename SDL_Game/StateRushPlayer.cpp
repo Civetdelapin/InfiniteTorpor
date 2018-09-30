@@ -4,7 +4,6 @@
 StateRushPlayer::StateRushPlayer(GameObject * game_object, float range, std::string next_state) : State(next_state), range(range)
 {
 	enemy_basic_behavior = game_object->getComponent<EnemyBasicBehavior>();
-
 }
 
 
@@ -20,11 +19,10 @@ void StateRushPlayer::start(StateMachine* state_machine)
 }
 
 void StateRushPlayer::operation(StateMachine* state_machine)
-{
+{	
+	
 	if (target != nullptr) {
 			
-		std::cout << "SALUT" << std::endl;
-
 		if (OwnMathFuncs::OwnMathFuncs::distanceBetweenVect(target->getWorldPosition(), state_machine->getGameObject()->getWorldPosition()) <= range) {
 
 			state_machine->getGameObject()->getComponent<StateMachine>()->play(getNextState());

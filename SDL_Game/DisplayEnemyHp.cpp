@@ -4,7 +4,7 @@
 
 DisplayEnemyHp::DisplayEnemyHp(GameObject* game_object, EnemyBasicBehavior* enemy_stat) : Component(game_object), enemy_stat(enemy_stat)
 {
-	last_hp = enemy_stat->getMaxHP();
+	
 }
 
 
@@ -12,6 +12,11 @@ DisplayEnemyHp::~DisplayEnemyHp()
 {
 
 
+}
+
+void DisplayEnemyHp::start()
+{
+	last_hp = enemy_stat->getMaxHP();
 }
 
 void DisplayEnemyHp::update()
