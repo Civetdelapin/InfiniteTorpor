@@ -13,6 +13,7 @@
 #include "Map.h"
 #include "Camera.h"
 #include "ColliderManager.h"
+#include "RendererManager.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -53,6 +54,8 @@ public:
 	bool getIsRunning();
 	bool getIsDebugMode();
 
+	RendererManager* getRendererManager();
+
 	SDL_Window* getWindow();
 	
 	SDL_Event event;
@@ -86,6 +89,8 @@ private:
 	int screen_height;
 
 	Camera* camera;
+
+	RendererManager* renderer_manager = new RendererManager();
 
 	Uint64 timeNow = SDL_GetPerformanceCounter();
 	Uint64 timeLast = 0;

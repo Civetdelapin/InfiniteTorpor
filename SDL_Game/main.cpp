@@ -15,17 +15,14 @@ int main(int argc, char* args[]) {
 	//Add the background
 	
 	Map* map = new Map("img/dungeon_tileset.png", { 16,16 }, "levels/TileMap_5_0.csv", "levels/TileMap_5_Collider.csv");
-	map->layer = -1;
 	Game::instance()->instantiateGameObject(map);
 	
 	Map* map2 = new Map("img/dungeon_tileset.png", { 16, 16 }, "levels/TileMap_5_1.csv");
-	map2->layer = 10;
 	Game::instance()->instantiateGameObject(map2);
 
 
 	//Add the player in the game
 	Player *player = new Player("img/player.png", { 32, 32 }, { 1366, 768 });
-	player->layer = 5;
 	Game::instance()->instantiateGameObject(player);
 
 
@@ -46,7 +43,6 @@ int main(int argc, char* args[]) {
 
 	
 	MinotaurPrefab *minotaur = new MinotaurPrefab("img/minotaur.png", { 48, 48}, { 900, 800 });
-	minotaur->layer = 3;
 	Game::instance()->instantiateGameObject(minotaur);
 	
 
@@ -54,8 +50,9 @@ int main(int argc, char* args[]) {
 
 	//----------- Add UI Manager ----------------
 	GameObject* ui_manager = new GameObject();
-	ui_manager->layer = 50;
 	DisplayPlayerHealth* display = new DisplayPlayerHealth(ui_manager, player->getComponent<PlayerStat>());
+	display->setLayer(10);
+
 	Game::instance()->instantiateGameObject(ui_manager);
 	//--------------------------------------
 

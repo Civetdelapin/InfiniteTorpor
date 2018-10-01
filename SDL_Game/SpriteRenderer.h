@@ -1,6 +1,7 @@
 #pragma once
-#include "Component.h"
-class SpriteRenderer : public Component
+#include "Renderer.h"
+
+class SpriteRenderer : public Renderer
 {
 public:
 	SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size);
@@ -14,6 +15,8 @@ public:
 
 	void setAlpha(float value);
 	void setIsLookingRight(bool value);
+
+	OwnMathFuncs::Vector2 getBottomPosition();
 
 private:
 	SDL_Texture * texture;

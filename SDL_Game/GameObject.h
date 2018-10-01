@@ -21,8 +21,6 @@ class GameObject
 
 public:
 	
-	int layer = 0;
-
 	std::string tag = "Default";
 
 	explicit GameObject(OwnMathFuncs::Vector2 init_local_pos = { 0, 0 });
@@ -30,7 +28,6 @@ public:
 
 	virtual void handleEvents();
 	void update();
-	void render();
 	void clean();
 
 	void addComponent(Component* component);
@@ -101,7 +98,7 @@ public:
 	OwnMathFuncs::Vector2 getWorldPosition();
 	OwnMathFuncs::Vector2 getWorldScale();
 
-	bool getIsReallyActive();
+	bool isReallyActive();
 
 	OwnMathFuncs::Vector2 local_position = { 0, 0 };
 	OwnMathFuncs::Vector2 parent_position = { 0, 0 };

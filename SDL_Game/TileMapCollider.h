@@ -11,8 +11,8 @@ public:
 
 
 	bool isColliding(Collider* collider);
-
 	void update();
+
 	void render();
 
 private:

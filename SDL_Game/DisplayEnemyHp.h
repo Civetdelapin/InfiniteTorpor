@@ -1,8 +1,8 @@
 #pragma once
-#include "Component.h"
+#include "Renderer.h"
 #include "EnemyBasicBehavior.h"
 
-class DisplayEnemyHp : public Component
+class DisplayEnemyHp : public Renderer
 {
 public:
 	DisplayEnemyHp(GameObject* game_object, EnemyBasicBehavior* enemy_stat);

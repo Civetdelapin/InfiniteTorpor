@@ -10,6 +10,7 @@ public:
 	~ColliderManager();
 
 	void addCollider(Collider* collider);
+	void removeCollider(Collider* collider);
 	void removeGameObjectColliders(GameObject* game_object);
 
 	void update();

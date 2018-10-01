@@ -44,22 +44,6 @@ void GameObject::update()
 	}
 }
 
-void GameObject::render()
-{
-	//Render all the components
-	for (Component* component : components) {
-		if (component->isActive()) {
-			component->render();
-		}
-	}
-
-	for (GameObject* game_object : game_objects) {
-		if (game_object->is_active) {
-			game_object->render();
-		}
-	}
-}
-
 void GameObject::clean()
 {
 	//Clean all the components
@@ -135,13 +119,13 @@ OwnMathFuncs::Vector2 GameObject::getWorldScale()
 	return vect;
 }
 
-bool GameObject::getIsReallyActive()
+bool GameObject::isReallyActive()
 {
 	if (parent_game_object == nullptr || is_active == false) {
 		return is_active;
 	}
 	else {
-		return parent_game_object->getIsReallyActive();
+		return parent_game_object->isReallyActive();
 	}
 }
 

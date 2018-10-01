@@ -2,9 +2,8 @@
 
 
 
-DisplayEnemyHp::DisplayEnemyHp(GameObject* game_object, EnemyBasicBehavior* enemy_stat) : Component(game_object), enemy_stat(enemy_stat)
+DisplayEnemyHp::DisplayEnemyHp(GameObject* game_object, EnemyBasicBehavior* enemy_stat) : Renderer(game_object), enemy_stat(enemy_stat)
 {
-	
 }
 
 
@@ -70,7 +69,7 @@ void DisplayEnemyHp::render()
 void DisplayEnemyHp::clean()
 {
 	enemy_stat = NULL;
-	Component::clean();
+	Renderer::clean();
 }
 
 void DisplayEnemyHp::setYOffset(float value)

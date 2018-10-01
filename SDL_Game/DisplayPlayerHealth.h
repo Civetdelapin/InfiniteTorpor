@@ -1,8 +1,8 @@
 #pragma once
-#include "Component.h"
+#include "Renderer.h"
 #include "PlayerStat.h"
 
-class DisplayPlayerHealth : public Component
+class DisplayPlayerHealth : public Renderer
 {
 public:
 	DisplayPlayerHealth(GameObject* game_object, PlayerStat* player_stat);

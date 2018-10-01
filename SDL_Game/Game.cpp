@@ -92,6 +92,7 @@ void Game::update()
 
 	//We delete the objects that need to be deleted
 	for (GameObject* game_object : game_objects_to_be_destroyed) {
+
 		if (game_object->parent_game_object == nullptr) {
 			game_objects.erase(std::remove(game_objects.begin(), game_objects.end(), game_object), game_objects.end());
 		}
@@ -100,7 +101,7 @@ void Game::update()
 		}
 		
 
-		collider_manager->removeGameObjectColliders(game_object);
+		//collider_manager->removeGameObjectColliders(game_object);
 
 		game_object->clean();
 
@@ -112,17 +113,7 @@ void Game::update()
 
 void Game::render()
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-
-	for (GameObject* game_object : game_objects) {
-
-		if (game_object->is_active) {
-			game_object->render();
-		}
-	}
-
-	SDL_RenderPresent(renderer);
+	renderer_manager->render();
 }
 
 void Game::clean()
@@ -130,6 +121,9 @@ void Game::clean()
 	for (GameObject* game_object : game_objects) {
 		game_object->clean();
 	}
+
+	delete renderer_manager;
+	delete collider_manager;
 
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
@@ -143,9 +137,6 @@ void Game::clean()
 void Game::addGameObject(GameObject* gameObject)
 {
 	game_objects.push_back(gameObject);
-	std::sort(game_objects.begin(), game_objects.end(), [](GameObject* a, GameObject* b) {
-		return a->layer < b->layer;
-	});
 }
 
 void Game::instantiateGameObject(GameObject * game_object, GameObject * new_parent)
@@ -185,6 +176,11 @@ bool Game::getIsRunning()
 bool Game::getIsDebugMode()
 {
 	return isDebugMode;
+}
+
+RendererManager * Game::getRendererManager()
+{
+	return renderer_manager;
 }
 
 SDL_Window* Game::getWindow()

@@ -15,10 +15,10 @@ public:
 
 	virtual void start();
 	virtual void update();
-	virtual void render();
+
 	virtual void clean();
 
-	bool getIsReallyActive();
+	bool isReallyActive();
 
 	void setIsActive(bool value);
 	bool isActive();

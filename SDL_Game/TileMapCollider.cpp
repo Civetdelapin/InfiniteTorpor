@@ -75,6 +75,5 @@ void TileMapCollider::update()
 
 void TileMapCollider::render()
 {
-
-
 }
+

@@ -1,9 +1,9 @@
 #pragma once
-#include "Component.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "Renderer.h"
 
 struct Tile {
 	OwnMathFuncs::Vector2 position_grid = {0, 0};
@@ -13,7 +13,7 @@ struct Tile {
 	Tile();
 };
 
-class TileMap : virtual public Component
+class TileMap : public Renderer
 {
 public:
 	TileMap(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string data_path);

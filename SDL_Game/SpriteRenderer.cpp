@@ -1,7 +1,7 @@
 #include "SpriteRenderer.h"
 
 
-SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Component(game_object), sprite_size(sprite_size)
+SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Renderer(game_object), sprite_size(sprite_size)
 {
 
 	int x, y = 0;
@@ -38,13 +38,12 @@ void SpriteRenderer::render()
 		TextureManager::DrawTexture(texture, srcrect, dstrect, flip);
 	}
 
-	Component::render();
 }
 
 void SpriteRenderer::clean()
 {
 	SDL_DestroyTexture(texture);
-	Component::clean();
+	Renderer::clean();
 }
 
 OwnMathFuncs::Vector2 SpriteRenderer::getSpriteSize()
@@ -67,4 +66,9 @@ void SpriteRenderer::setAlpha(float value)
 void SpriteRenderer::setIsLookingRight(bool value)
 {
 	is_looking_right = value;
+}
+
+OwnMathFuncs::Vector2 SpriteRenderer::getBottomPosition()
+{
+	return {getGameObject()->getWorldPosition().x, getGameObject()->getWorldPosition().y + dstrect.h / 2};
 }

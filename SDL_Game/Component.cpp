@@ -21,20 +21,16 @@ void Component::update()
 {
 }
 
-void Component::render()
-{
-}
-
 
 void Component::clean()
 {
 	game_object = NULL;
 }
 
-bool Component::getIsReallyActive()
+bool Component::isReallyActive()
 {
 	if (is_active) {
-		return game_object->getIsReallyActive();
+		return game_object->isReallyActive();
 	}
 	else {
 		return is_active;

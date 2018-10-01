@@ -1,9 +1,9 @@
 #pragma once
-#include "Component.h"
+#include "Renderer.h"
 
 class Game;
 
-class Collider : public Component
+class Collider : public Renderer
 {
 public:
 	Collider(GameObject* game_object);
@@ -15,6 +15,8 @@ public:
 
 	bool isTrigger();
 	void setIsTrigger(bool value);
+
+	void clean();
 
 	int getCollisionLayer();
 	void setCollisionLayer(int value);

@@ -16,6 +16,11 @@ void ColliderManager::addCollider(Collider* collider)
 	colliders_to_test.push_back(collider);
 }
 
+void ColliderManager::removeCollider(Collider * collider)
+{
+	colliders_to_test.erase(std::remove(colliders_to_test.begin(), colliders_to_test.end(), collider), colliders_to_test.end());
+}
+
 void ColliderManager::removeGameObjectColliders(GameObject * game_object)
 {
 	std::vector<Collider*> vect = game_object->getComponents<Collider>();
@@ -39,12 +44,12 @@ std::vector<Collider*> ColliderManager::isTrigger(Collider * collider_to_test)
 	//std::cout << "--------------------------" << std::endl;
 	std::vector<Collider*> vecTemp;
 
-	if (collider_to_test->getIsReallyActive()){
+	if (collider_to_test->isReallyActive()){
 
 		for (Collider* collider : colliders_to_test) {
 
 			//std::cout << "TESTED COLLIDER" << std::endl;
-			if (collider->getIsReallyActive() && collider->getCollisionLayer() == collider_to_test->getCollisionLayer() && collider->isActive() &&!collider->isTrigger() && collider != collider_to_test && collider->isColliding(collider_to_test)) {
+			if (collider->isReallyActive() && collider->getCollisionLayer() == collider_to_test->getCollisionLayer() && collider->isActive() &&!collider->isTrigger() && collider != collider_to_test && collider->isColliding(collider_to_test)) {
 				vecTemp.push_back(collider);
 			}
 		}

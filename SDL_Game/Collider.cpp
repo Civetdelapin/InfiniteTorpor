@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-Collider::Collider(GameObject* game_object) : Component(game_object)
+Collider::Collider(GameObject* game_object) : Renderer(game_object)
 {
 	Game::instance()->collider_manager->addCollider(this);
 }
@@ -34,6 +34,12 @@ bool Collider::isTrigger()
 void Collider::setIsTrigger(bool value)
 {
 	is_trigger = value;
+}
+
+void Collider::clean()
+{
+	Game::instance()->collider_manager->removeCollider(this);
+	Renderer::clean();
 }
 
 int Collider::getCollisionLayer()

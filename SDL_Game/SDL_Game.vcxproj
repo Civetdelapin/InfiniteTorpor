@@ -147,6 +147,8 @@
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerStat.cpp" />
     <ClCompile Include="ProjectileBehavior.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RendererManager.cpp" />
     <ClCompile Include="SlimPrefab.cpp" />
     <ClCompile Include="SlimProjectilePrefab.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -182,6 +184,8 @@
     <ClInclude Include="GoblinPrefab.h" />
     <ClInclude Include="MinotaurPrefab.h" />
     <ClInclude Include="ProjectileBehavior.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RendererManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SlimProjectilePrefab.h" />
     <ClInclude Include="State.h" />
