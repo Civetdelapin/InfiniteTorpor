@@ -106,7 +106,7 @@ void PlayerAttack::clean()
 
 void PlayerAttack::attackButtonPressed()
 {
-	if (state == State::ready_attack || state == State::between_attack) {
+	if ((state == State::ready_attack || state == State::between_attack) && player_controller->getState() != PlayerController::State::dashing) {
 
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);
 		

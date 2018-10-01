@@ -14,8 +14,6 @@ SnakePrefab::SnakePrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/snak
 	local_scale = { 3, 3 };
 
 	BoxCollider* ground_collider = getComponent<BoxCollider>();
-	//ground_collider->offset = { -2, 22 };
-	//ground_collider->size = { 18, 6 };
 	//----------------------------------------------
 
 
@@ -31,7 +29,6 @@ SnakePrefab::SnakePrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/snak
 
 	GameObject* game_object_child2 = new GameObject();
 	game_object_child2->tag = "Enemy";
-
 	// -------------------------------------------
 
 

@@ -13,6 +13,8 @@ public:
 	PlayerController(GameObject* game_object);
 	~PlayerController();
 
+	const enum State { dashing, ready_dash, cant_dash };
+
 	const float speed = 2300;
 	const float dash_speed = 3500;
 	const float time_dash = 0.30;
@@ -22,6 +24,8 @@ public:
 
 	void update();
 
+	State getState();
+
 	OwnMathFuncs::Vector2 getDirection();
 
 private:
@@ -30,7 +34,7 @@ private:
 	Animator* animator;
 	BoxCollider* box_collider;
 
-	enum State { dashing, ready_dash, cant_dash };
+	
 	State state = ready_dash;
 
 	float time_passed;

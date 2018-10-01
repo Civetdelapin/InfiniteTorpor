@@ -125,6 +125,11 @@ void PlayerController::update()
 	}
 }
 
+PlayerController::State PlayerController::getState()
+{
+	return state;
+}
+
 OwnMathFuncs::Vector2 PlayerController::getDirection()
 {
 	return direction;
