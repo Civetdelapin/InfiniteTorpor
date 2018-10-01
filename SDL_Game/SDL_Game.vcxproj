@@ -140,6 +140,7 @@
     <ClCompile Include="GoblinPrefab.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MinotaurPrefab.cpp" />
     <ClCompile Include="OwnMathFuncs.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerAttack.cpp" />
@@ -151,7 +152,7 @@
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateDying.cpp" />
-    <ClCompile Include="StateGoblinAttack.cpp" />
+    <ClCompile Include="StateMeleeAttack.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="StateOnlyWait.cpp" />
     <ClCompile Include="StateRushPlayer.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GoblinPrefab.h" />
+    <ClInclude Include="MinotaurPrefab.h" />
     <ClInclude Include="ProjectileBehavior.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SlimProjectilePrefab.h" />
@@ -192,7 +194,7 @@
     <ClInclude Include="SlimPrefab.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StateDying.h" />
-    <ClInclude Include="StateGoblinAttack.h" />
+    <ClInclude Include="StateMeleeAttack.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="StateOnlyWait.h" />
     <ClInclude Include="StateRushPlayer.h" />

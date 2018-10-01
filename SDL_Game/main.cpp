@@ -6,6 +6,7 @@
 #include "SlimPrefab.h"
 #include "DisplayPlayerHealth.h"
 #include "GoblinPrefab.h"
+#include "MinotaurPrefab.h"
 
 int main(int argc, char* args[]) {
 
@@ -31,17 +32,23 @@ int main(int argc, char* args[]) {
 	Game::instance()->getCamera()->setObjectToFollow(player);
 
 	//----------- ADD ENEMY ----------------
-	
+	/*
 	SlimPrefab * slim = new SlimPrefab("img/slimes.png", { 32,32 }, { 1000, 900 });
 	slim->layer = 3;
 	Game::instance()->instantiateGameObject(slim);
-	
+	*/
 
 	/*
 	GoblinPrefab *goblin = new GoblinPrefab("img/goblin.png", { 32,32 }, { 900, 768 });
 	goblin->layer = 3;
 	Game::instance()->instantiateGameObject(goblin);
 	*/
+
+	
+	MinotaurPrefab *minotaur = new MinotaurPrefab("img/minotaur.png", { 48, 48}, { 900, 800 });
+	minotaur->layer = 3;
+	Game::instance()->instantiateGameObject(minotaur);
+	
 
 	//--------------------------------------
 

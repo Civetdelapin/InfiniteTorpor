@@ -25,12 +25,16 @@ public:
 	void setMaxHP(float value);
 	float getMaxHP();
 
+	void setKnockBackResistance(float value);
+
 private:
 
 	bool is_stunned = false;
 	float cur_hp;
 	float max_hp = 100;
 	float speed = 2300;
+
+	float knock_back_resistance = 1;
 
 	float time_stunned = 0;
 

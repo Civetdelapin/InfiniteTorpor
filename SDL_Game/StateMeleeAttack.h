@@ -5,15 +5,12 @@
 #include "StateRushPlayer.h"
 #include "EnemyAttackCollider.h"
 
-class StateGoblinAttack : public State
+class StateMeleeAttack : public State
 {
 public:
-	StateGoblinAttack(GameObject * game_object, std::string next_state = "");
-	~StateGoblinAttack();
-
-	const float time_attack = 0.5f;
-	const float velocity_attack = 300000;
-
+	StateMeleeAttack(GameObject * game_object, std::string next_state = "", float time_attack = 0.5f, float velocity_attack = 300000);
+	~StateMeleeAttack();
+ 
 	void start(StateMachine* state_machine);
 	void operation(StateMachine* state_machine);
 	void exit(StateMachine* state_machine);
@@ -25,6 +22,9 @@ private:
 
 	float time_passed;
 	bool before_attack = true;
+
+	float time_attack;
+	float velocity_attack;
 
 	OwnMathFuncs::Vector2 normalize_dir = { 0, 0 };
 };

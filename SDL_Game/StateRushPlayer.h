@@ -3,7 +3,7 @@
 #include "VelocityBody.h"
 #include "EnemyBasicBehavior.h"
 #include "StateMachine.h"
-#include "StateGoblinAttack.h"
+#include "StateMeleeAttack.h"
 
 class StateRushPlayer : public State
 {
