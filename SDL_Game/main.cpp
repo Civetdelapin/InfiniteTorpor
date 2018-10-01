@@ -7,6 +7,7 @@
 #include "DisplayPlayerHealth.h"
 #include "GoblinPrefab.h"
 #include "MinotaurPrefab.h"
+#include "SnakePrefab.h"
 
 int main(int argc, char* args[]) {
 
@@ -30,21 +31,22 @@ int main(int argc, char* args[]) {
 
 	//----------- ADD ENEMY ----------------
 	/*
-	SlimPrefab * slim = new SlimPrefab("img/slimes.png", { 32,32 }, { 1000, 900 });
-	slim->layer = 3;
+	SlimPrefab * slim = new SlimPrefab({ 1000, 900 });
 	Game::instance()->instantiateGameObject(slim);
 	*/
 
 	/*
-	GoblinPrefab *goblin = new GoblinPrefab("img/goblin.png", { 32,32 }, { 900, 768 });
-	goblin->layer = 3;
+	GoblinPrefab *goblin = new GoblinPrefab({ 900, 768 });
 	Game::instance()->instantiateGameObject(goblin);
 	*/
 
-	
-	MinotaurPrefab *minotaur = new MinotaurPrefab("img/minotaur.png", { 48, 48}, { 900, 800 });
+	/*
+	MinotaurPrefab *minotaur = new MinotaurPrefab({ 900, 800 });
 	Game::instance()->instantiateGameObject(minotaur);
-	
+	*/
+
+	SnakePrefab* snake = new SnakePrefab({ 900, 800 });
+	Game::instance()->instantiateGameObject(snake);
 
 	//--------------------------------------
 
@@ -56,10 +58,9 @@ int main(int argc, char* args[]) {
 	Game::instance()->instantiateGameObject(ui_manager);
 	//--------------------------------------
 
+
 	float timePassed = 0;
 	int i = 0;
-
-
 
 	//Main loop of the game
 	while (Game::instance()->getIsRunning()) {

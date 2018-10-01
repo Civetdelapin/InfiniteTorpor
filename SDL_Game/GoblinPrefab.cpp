@@ -1,6 +1,6 @@
 #include "GoblinPrefab.h"
 
-GoblinPrefab::GoblinPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathFuncs::Vector2 init_local_pos) : Enemy(img_path, sprite_size, init_local_pos)
+GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/goblin.png", { 32, 32 }, init_local_pos)
 {
 
 	getComponent<VelocityBody>()->setDrag({ 10, 10 });

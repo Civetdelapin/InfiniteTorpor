@@ -151,6 +151,7 @@
     <ClCompile Include="RendererManager.cpp" />
     <ClCompile Include="SlimPrefab.cpp" />
     <ClCompile Include="SlimProjectilePrefab.cpp" />
+    <ClCompile Include="SnakePrefab.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateDying.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="RendererManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SlimProjectilePrefab.h" />
+    <ClInclude Include="SnakePrefab.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="OwnMathFuncs.h" />

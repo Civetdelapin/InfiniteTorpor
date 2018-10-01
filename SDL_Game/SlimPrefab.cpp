@@ -2,11 +2,11 @@
 
 
 
-SlimPrefab::SlimPrefab(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathFuncs::Vector2 init_local_pos) : Enemy(img_path, sprite_size, init_local_pos)
+SlimPrefab::SlimPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/slimes.png", { 32, 32 }, init_local_pos)
 {
 
 	getComponent<VelocityBody>()->setDrag({ 13, 13 });
-	getComponent<EnemyBasicBehavior>()->setMaxHP(50);
+	getComponent<EnemyBasicBehavior>()->setMaxHP(40);
 	getComponent<EnemyBasicBehavior>()->setSpeed(500);
 	getComponent<SpriteRenderer>()->setIsLookingRight(false);
 
