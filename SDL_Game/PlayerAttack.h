@@ -12,11 +12,12 @@ public:
 
 	enum State { attacking, ready_attack, between_attack, cant_attack };
 
+	void start();
 	void update();
 	void clean();
 
 	const float time_attack_up = 0.25;
-	const float time_attack_cd = 0.4;
+	const float time_attack_cd = 0.2;
 	const float time_attack_cancel_combo = 1;
 	const int nb_combo_max = 3;
 
@@ -33,6 +34,7 @@ private:
 
 	PlayerController* player_controller;
 	VelocityBody* velocity_body;
+	PlayerStat* player_stat;
 
 	std::vector<GameObject*> game_objects_touched;
 	OwnMathFuncs::Vector2 normalizeDirection = { 1, 0 };

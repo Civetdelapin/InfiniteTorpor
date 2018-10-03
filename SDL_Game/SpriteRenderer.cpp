@@ -51,6 +51,11 @@ OwnMathFuncs::Vector2 SpriteRenderer::getSpriteSize()
 	return sprite_size;
 }
 
+SDL_Rect SpriteRenderer::getDestRect()
+{
+	return dstrect;
+}
+
 void SpriteRenderer::setSourceRect(SDL_Rect rect)
 {
 	srcrect = rect;

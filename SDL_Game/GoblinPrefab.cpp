@@ -4,8 +4,12 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 {
 
 	getComponent<VelocityBody>()->setDrag({ 10, 10 });
-	getComponent<EnemyBasicBehavior>() -> setMaxHP(70);
-	getComponent<EnemyBasicBehavior>()->setSpeed(2000);
+
+	EnemyBasicBehavior* enemy_basic_behavior = getComponent<EnemyBasicBehavior>();
+	enemy_basic_behavior-> setMaxHP(70);
+	enemy_basic_behavior->setSpeed(2000);
+	enemy_basic_behavior->setScoreValue(70);
+
 	getComponent<DisplayEnemyHp>()->setYOffset(8);
 
 	//Creation of child

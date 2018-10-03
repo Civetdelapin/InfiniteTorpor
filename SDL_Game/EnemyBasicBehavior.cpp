@@ -47,7 +47,7 @@ void EnemyBasicBehavior::addForce(OwnMathFuncs::Vector2 direction, float power)
 	}
 }
 
-void EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float time_stunned)
+bool EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float time_stunned)
 {
 	cur_hp -= damage;
 	if (cur_hp > 0) {
@@ -65,7 +65,11 @@ void EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power
 	}
 	else if(!is_dying){
 		setDying();
+
+		return true;
 	}
+
+	return false;
 }
 
 bool EnemyBasicBehavior::isStunned()
@@ -91,6 +95,16 @@ float EnemyBasicBehavior::getSpeed()
 float EnemyBasicBehavior::getCurHP()
 {
 	return cur_hp;
+}
+
+void EnemyBasicBehavior::setScoreValue(int value)
+{
+	score_value = value;
+}
+
+int EnemyBasicBehavior::getScoreValue()
+{
+	return score_value;
 }
 
 void EnemyBasicBehavior::setMaxHP(float value)

@@ -12,7 +12,7 @@ public:
 	void update();
 
 	void addForce(OwnMathFuncs::Vector2 direction, float power);
-	void takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float time_stunned);
+	bool takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float time_stunned);
 
 	bool isStunned();
 	float getTimeStun();
@@ -21,6 +21,9 @@ public:
 	float getSpeed();
 
 	float getCurHP();
+
+	void setScoreValue(int value);
+	int getScoreValue();
 
 	void setMaxHP(float value);
 	float getMaxHP();
@@ -37,6 +40,8 @@ private:
 	float knock_back_resistance = 1;
 
 	float time_stunned = 0;
+
+	int score_value = 50;
 
 	bool is_dying = false;
 

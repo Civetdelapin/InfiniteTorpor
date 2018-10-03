@@ -26,6 +26,7 @@ Game::Game(const char * title, int xpos, int ypos, int width, int height, bool f
 		collider_manager = new ColliderManager();
 		camera = new Camera(this);
 
+		TTF_Init();
 
 		isRunning = true;
 	}
@@ -208,6 +209,11 @@ int Game::getScreenHeight()
 Camera* Game::getCamera()
 {
 	return camera;
+}
+
+OwnMathFuncs::Vector2 Game::getScreenSize()
+{
+	return { (float) screen_width, (float) screen_height};
 }
 
 GameObject * Game::findGameObjectRecursive(std::string tag, GameObject* game_object)

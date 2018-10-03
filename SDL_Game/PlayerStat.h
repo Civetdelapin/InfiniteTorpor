@@ -14,6 +14,10 @@ public:
 	float getCurHP();
 	bool addDamage(float dmg);
 
+	int getScore();
+	void addScore(int value);
+
+
 	void update();
 
 	void setInvicible(float time);
@@ -21,6 +25,9 @@ public:
 private:
 
 	float cur_hp = 5;
+
+	int score = 0;
+
 	bool is_invicible = false;
 
 	float time_passed;

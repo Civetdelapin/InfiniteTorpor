@@ -110,7 +110,7 @@ GameObject * GameObject::getRootParent()
 
 OwnMathFuncs::Vector2 GameObject::getWorldPosition()
 {
-	return local_position + parent_position;
+	return (local_position * parent_scale) + parent_position;
 }
 
 OwnMathFuncs::Vector2 GameObject::getWorldScale()

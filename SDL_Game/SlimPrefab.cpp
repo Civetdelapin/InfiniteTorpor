@@ -6,8 +6,12 @@ SlimPrefab::SlimPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/slimes
 {
 
 	getComponent<VelocityBody>()->setDrag({ 13, 13 });
-	getComponent<EnemyBasicBehavior>()->setMaxHP(40);
-	getComponent<EnemyBasicBehavior>()->setSpeed(500);
+
+	EnemyBasicBehavior* enemy_basic_behavior = getComponent<EnemyBasicBehavior>();
+	enemy_basic_behavior->setMaxHP(40);
+	enemy_basic_behavior->setSpeed(500);
+	enemy_basic_behavior->setScoreValue(70);
+
 	getComponent<SpriteRenderer>()->setIsLookingRight(false);
 
 	//Creation of child

@@ -73,6 +73,21 @@ Player::Player(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathF
 
 	game_object_child_2->tag = "Player";
 	addGameObjectAsChild(game_object_child_2);
+
+
+	//--------- CREATION OF SHADOW -------------
+	/*
+	GameObject* game_object_child_3 = new GameObject({ 0, spriteRenderer->getSpriteSize().y / 2});
+	SpriteRenderer* sprite_renderer_2 = new SpriteRenderer(game_object_child_3, "img/dungeon_tileset.png", { 16, 16 });
+	sprite_renderer_2->setLayer(4);
+
+	SDL_Rect tempRect;
+	tempRect.x = 0 * sprite_renderer_2->getSpriteSize().x;
+	tempRect.y = 32 * sprite_renderer_2->getSpriteSize().y;
+	sprite_renderer_2->setSourceRect(tempRect);
+	addGameObjectAsChild(game_object_child_3);
+	*/
+	//------------------------------------------
 }
 
 

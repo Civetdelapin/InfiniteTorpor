@@ -16,6 +16,7 @@ float PlayerStat::getCurHP()
 	return cur_hp;
 }
 
+
 void PlayerStat::update()
 {	
 	if (is_invicible) {
@@ -48,4 +49,14 @@ bool PlayerStat::addDamage(float dmg)
 	}
 
 	return false;
+}
+
+int PlayerStat::getScore()
+{
+	return score;
+}
+
+void PlayerStat::addScore(int value)
+{
+	score += value;
 }

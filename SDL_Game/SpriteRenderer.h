@@ -11,6 +11,9 @@ public:
 	void clean();
 
 	OwnMathFuncs::Vector2 getSpriteSize();
+
+	SDL_Rect getDestRect();
+
 	void setSourceRect(SDL_Rect rect);
 
 	void setAlpha(float value);

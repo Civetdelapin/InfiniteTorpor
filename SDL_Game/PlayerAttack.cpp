@@ -19,6 +19,11 @@ PlayerAttack::~PlayerAttack()
 
 }
 
+void PlayerAttack::start()
+{
+	player_stat = game_object->getRootParent()->getComponent<PlayerStat>();
+}
+
 void PlayerAttack::update()
 {
 	manageNormalizeDirection();
@@ -82,7 +87,13 @@ void PlayerAttack::update()
 
 						EnemyBasicBehavior* enemy_stat = collider->getGameObject()->getRootParent()->getComponent<EnemyBasicBehavior>();
 						if (enemy_stat != nullptr) {	
-							enemy_stat->takeDamage(normalizeDirection, velocity_attack * 0.80, attack_dmg[nb_combo - 1], time_enemy_stun);
+							if (enemy_stat->takeDamage(normalizeDirection, velocity_attack * 0.80, attack_dmg[nb_combo - 1], time_enemy_stun)) {
+								
+								//We have killed the enemy
+								player_stat->addScore(enemy_stat->getScoreValue());
+
+							}
+
 						}
 						enemy_stat = NULL;
 

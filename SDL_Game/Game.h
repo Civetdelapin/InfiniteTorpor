@@ -71,6 +71,8 @@ public:
 	SDL_Renderer *renderer;
 	ColliderManager *collider_manager;
 
+	OwnMathFuncs::Vector2 getScreenSize();
+
 private:
 
 	GameObject * findGameObjectRecursive(std::string tag, GameObject* game_object);

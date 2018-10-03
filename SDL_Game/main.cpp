@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "SlimPrefab.h"
 #include "DisplayPlayerHealth.h"
+#include "DisplayPlayerScore.h"
 #include "GoblinPrefab.h"
 #include "MinotaurPrefab.h"
 #include "SnakePrefab.h"
@@ -55,8 +56,14 @@ int main(int argc, char* args[]) {
 
 	//----------- Add UI Manager ----------------
 	GameObject* ui_manager = new GameObject();
+
+	//Display the player's health
 	DisplayPlayerHealth* display = new DisplayPlayerHealth(ui_manager, player->getComponent<PlayerStat>());
 	display->setLayer(10);
+
+	//Display the player's score
+	DisplayPlayerScore* display_score = new DisplayPlayerScore(ui_manager, player->getComponent<PlayerStat>());
+	display_score->setLayer(10);
 
 	Game::instance()->instantiateGameObject(ui_manager);
 	//--------------------------------------
