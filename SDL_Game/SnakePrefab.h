@@ -1,6 +1,8 @@
 #pragma once
 #include "Enemy.h"
 #include "StateOnlyWait.h"
+#include "StateLaunchProjectile.h"
+
 class SnakePrefab : public Enemy
 {
 public:

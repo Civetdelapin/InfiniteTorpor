@@ -54,11 +54,19 @@ SnakePrefab::SnakePrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/snak
 	animWalking.y_index = 2;
 	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
 
+
+	Animation animBeforeAttack;
+	animBeforeAttack.nb_sprites = 4;
+	animBeforeAttack.speed = 0.1f;
+	animBeforeAttack.y_index = 3;
+	animBeforeAttack.is_looping = false;
+	animator->addAnimation(std::pair <std::string, Animation>("BeforeAttack", animBeforeAttack));
+
 	Animation animAttack;
-	animAttack.nb_sprites = 5;
-	animAttack.speed = 0.05f;
+	animAttack.nb_sprites = 6;
+	animAttack.speed = 0.1f;
 	animAttack.y_index = 3;
-	animAttack.x_index = 5;
+	animAttack.x_index = 4;
 	animAttack.is_looping = false;
 	animator->addAnimation(std::pair <std::string, Animation>("Attack", animAttack));
 
@@ -70,8 +78,8 @@ SnakePrefab::SnakePrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/snak
 	StateMachine * stateMachine = getComponent<StateMachine>();
 	stateMachine->setDefaultState("RushPlayer");
 
-	stateMachine->addState(std::pair <std::string, State*>("RushPlayer", new StateRushPlayer(this, 100, "RushPlayer")));
-	//stateMachine->addState(std::pair <std::string, State*>("MeleeAttack", new StateMeleeAttack(this, "RushPlayer", 0.80f, 3000)));
+	stateMachine->addState(std::pair <std::string, State*>("RushPlayer", new StateRushPlayer(this, 200, "LaunchProjectile")));
+	stateMachine->addState(std::pair <std::string, State*>("LaunchProjectile", new StateLaunchProjectile(this, "RushPlayer")));
 
 	stateMachine->play("RushPlayer");
 	//-------------------------------------------

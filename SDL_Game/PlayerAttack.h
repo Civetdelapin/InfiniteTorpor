@@ -16,7 +16,7 @@ public:
 	void clean();
 
 	const float time_attack_up = 0.25;
-	const float time_attack_cd = 0.5;
+	const float time_attack_cd = 0.4;
 	const float time_attack_cancel_combo = 1;
 	const int nb_combo_max = 3;
 

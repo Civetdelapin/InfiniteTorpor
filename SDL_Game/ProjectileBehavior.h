@@ -9,6 +9,9 @@ public:
 	~ProjectileBehavior();
 
 	void setDirection(OwnMathFuncs::Vector2 value);
+	
+	void setSpeed(float value);
+	float getSpeed();
 
 	void update();
 

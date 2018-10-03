@@ -30,6 +30,7 @@ int main(int argc, char* args[]) {
 	Game::instance()->getCamera()->setObjectToFollow(player);
 
 	//----------- ADD ENEMY ----------------
+	
 	/*
 	SlimPrefab * slim = new SlimPrefab({ 1000, 900 });
 	Game::instance()->instantiateGameObject(slim);
@@ -45,8 +46,10 @@ int main(int argc, char* args[]) {
 	Game::instance()->instantiateGameObject(minotaur);
 	*/
 
+	
 	SnakePrefab* snake = new SnakePrefab({ 900, 800 });
 	Game::instance()->instantiateGameObject(snake);
+	
 
 	//--------------------------------------
 

@@ -18,6 +18,16 @@ void ProjectileBehavior::setDirection(OwnMathFuncs::Vector2 value)
 	direction = OwnMathFuncs::OwnMathFuncs::getNormalize(value);
 }
 
+void ProjectileBehavior::setSpeed(float value)
+{
+	speed = value;
+}
+
+float ProjectileBehavior::getSpeed()
+{
+	return speed;
+}
+
 void ProjectileBehavior::update()
 {
 	
