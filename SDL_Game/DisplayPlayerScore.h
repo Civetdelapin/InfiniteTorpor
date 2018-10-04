@@ -12,8 +12,11 @@ public:
 	void update();
 	void render();
 
+	void clean();
+
 private:
 	PlayerStat * player_stat;
+	TTF_Font* ttf_font;
 
 	float font_size = 40;
 };

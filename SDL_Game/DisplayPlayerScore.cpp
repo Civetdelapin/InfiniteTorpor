@@ -4,6 +4,7 @@
 
 DisplayPlayerScore::DisplayPlayerScore(GameObject* game_object, PlayerStat* player_stat) : Renderer(game_object), player_stat(player_stat)
 {
+
 }
 
 
@@ -15,7 +16,7 @@ DisplayPlayerScore::~DisplayPlayerScore()
 
 void DisplayPlayerScore::start()
 {
-
+	ttf_font = TTF_OpenFont("fonts/pixel.ttf", font_size);
 }
 
 void DisplayPlayerScore::update()
@@ -33,5 +34,12 @@ void DisplayPlayerScore::render()
 
 	std::string msg = "Score : " + std::to_string(player_stat->getScore());
 
-	TextureManager::DrawText(dest_rect, msg, font_size, 255, 255, 255, 255, false);
+	TextureManager::DrawText(ttf_font, dest_rect, msg, 255, 255, 255, 255, false);
+}
+
+void DisplayPlayerScore::clean()
+{
+	TTF_CloseFont(ttf_font);
+
+	Renderer::clean();
 }

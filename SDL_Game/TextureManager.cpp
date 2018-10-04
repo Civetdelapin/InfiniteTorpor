@@ -48,28 +48,26 @@ void TextureManager::DrawRect(SDL_Rect rect, int r, int g, int b, int a, bool is
 	}
 }
 
-void TextureManager::DrawText(SDL_Rect rect, std::string message, float size, int r, int g, int b, int a, bool is_relative_to_camera)
+void TextureManager::DrawText(TTF_Font* font, SDL_Rect rect, std::string message, int r, int g, int b, int a, bool is_relative_to_camera)
 {
 	if (is_relative_to_camera) {
 		
 		rect.x -= Game::instance()->getCamera()->getCameraPos().x;
 		rect.y -= Game::instance()->getCamera()->getCameraPos().y;
 	}
+	
+	if (font != NULL) {
+		SDL_Color newColor = { r, g, b, a };
 
-	TTF_Font* Sans = TTF_OpenFont("fonts/pixel.ttf", size);
-
-	if (Sans != NULL) {
-
-		SDL_Color newColor = { r, g, b, a };  
-
-		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, message.c_str(), newColor);
-		SDL_Texture* messageTexture = SDL_CreateTextureFromSurface(Game::instance()->renderer, surfaceMessage); 
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, message.c_str(), newColor);
+		SDL_Texture* messageTexture = SDL_CreateTextureFromSurface(Game::instance()->renderer, surfaceMessage);
 
 		rect.w = surfaceMessage->w;
 		rect.h = surfaceMessage->h;
 
-		SDL_FreeSurface(surfaceMessage);
-
 		SDL_RenderCopy(Game::instance()->renderer, messageTexture, NULL, &rect);
+
+		SDL_FreeSurface(surfaceMessage);
+		SDL_DestroyTexture(messageTexture);
 	}
 }

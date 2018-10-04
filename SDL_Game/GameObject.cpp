@@ -11,10 +11,6 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::handleEvents()
-{
-
-}
 
 void GameObject::update()
 {

@@ -24,7 +24,7 @@ int main(int argc, char* args[]) {
 
 
 	//Add the player in the game
-	Player *player = new Player("img/player.png", { 32, 32 }, { 1366, 768 });
+	Player *player = new Player({ 1366, 768 });
 	Game::instance()->instantiateGameObject(player);
 
 
@@ -47,10 +47,10 @@ int main(int argc, char* args[]) {
 	Game::instance()->instantiateGameObject(minotaur);
 	*/
 
-	
+	/*
 	SnakePrefab* snake = new SnakePrefab({ 900, 800 });
 	Game::instance()->instantiateGameObject(snake);
-	
+	*/
 
 	//--------------------------------------
 
@@ -68,7 +68,7 @@ int main(int argc, char* args[]) {
 	Game::instance()->instantiateGameObject(ui_manager);
 	//--------------------------------------
 
-
+	//GameObject* enemy = new SlimPrefab({ 32,32 });
 	float timePassed = 0;
 	int i = 0;
 
@@ -86,17 +86,16 @@ int main(int argc, char* args[]) {
 			/*
 			Game::instance()->destroyGameObject(enemy->getRootParent());
 
-			enemy = new SlimPrefab("img/slimes.png", { 32,32 });
-			enemy->layer = 4;
+			enemy = new SlimPrefab({ 32,32 });
 
 			enemy->local_position.x = 1000 + i * 10;
 			enemy->local_position.y = 768;
 
-			Game::instance()->addGameObjectInGame(enemy);
+			Game::instance()->instantiateGameObject(enemy);
+			*/
 
 			timePassed = 0.0000000000005;
 			i++;
-			*/
 		}
 	}
 
