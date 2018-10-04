@@ -26,7 +26,6 @@ public:
 	explicit GameObject(OwnMathFuncs::Vector2 init_local_pos = { 0, 0 });
 	~GameObject();
 
-	virtual void handleEvents();
 	void update();
 	void clean();
 

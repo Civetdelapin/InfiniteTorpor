@@ -130,6 +130,8 @@ void Game::clean()
 	SDL_DestroyRenderer(renderer);
 
 	IMG_Quit();
+	TTF_Quit();
+
 	SDL_Quit();
 
 	printInConsole("Game closed!");
@@ -219,7 +221,6 @@ OwnMathFuncs::Vector2 Game::getScreenSize()
 GameObject * Game::findGameObjectRecursive(std::string tag, GameObject* game_object)
 {
 	
-
 	if (game_object->tag == tag) {
 		
 		return game_object;
@@ -235,7 +236,6 @@ GameObject * Game::findGameObjectRecursive(std::string tag, GameObject* game_obj
 
 		object_found = NULL;
 	}
-
 
 	return nullptr;
 }

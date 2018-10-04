@@ -30,7 +30,6 @@ void StateMachine::clean()
 {
 
 	for (std::map < std::string, State* > ::iterator it = states.begin(); it != states.end(); ++it) {
-
 		//delete the pointer to State
 		delete it->second;
 	}	

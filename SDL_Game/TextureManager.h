@@ -17,6 +17,6 @@ public:
 
 	static void DrawRect(SDL_Rect rect, int r = 255, int g = 0, int b = 0, int a = 255, bool is_fill = false);
 
-	static void DrawText(SDL_Rect rect, std::string message, float size, int r = 255, int g = 255, int b = 255, int a = 255, bool is_relative_to_camera = true);
+	static void DrawText(TTF_Font* font, SDL_Rect rect, std::string message, int r = 255, int g = 255, int b = 255, int a = 255, bool is_relative_to_camera = true);
 };
 
