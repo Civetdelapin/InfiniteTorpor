@@ -9,6 +9,7 @@
 #include "GoblinPrefab.h"
 #include "MinotaurPrefab.h"
 #include "SnakePrefab.h"
+#include "GenerateLevel.h"
 
 int main(int argc, char* args[]) {
 
@@ -68,10 +69,19 @@ int main(int argc, char* args[]) {
 	Game::instance()->instantiateGameObject(ui_manager);
 	//--------------------------------------
 
+	//------- Add Game Managers ------------
+	GameObject* game_manager = new GameObject();
+
+	GenerateLevel* generate_level = new GenerateLevel(game_manager);
+
+
+	Game::instance()->instantiateGameObject(game_manager);
+	//--------------------------------------
+
+
 	//GameObject* enemy = new SlimPrefab({ 32,32 });
 	float timePassed = 0;
 	int i = 0;
-
 	//Main loop of the game
 	while (Game::instance()->getIsRunning()) {
 

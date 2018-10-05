@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -138,6 +138,7 @@
     <ClCompile Include="EnemyBasicBehavior.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GenerateLevel.cpp" />
     <ClCompile Include="GoblinPrefab.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="ProjectileBehavior.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RendererManager.cpp" />
+    <ClCompile Include="Room.cpp" />
     <ClCompile Include="SlimPrefab.cpp" />
     <ClCompile Include="SlimProjectilePrefab.cpp" />
     <ClCompile Include="SnakePrefab.cpp" />
@@ -185,12 +187,14 @@
     <ClInclude Include="EnemyBasicBehavior.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GenerateLevel.h" />
     <ClInclude Include="GoblinPrefab.h" />
     <ClInclude Include="MinotaurPrefab.h" />
     <ClInclude Include="ProjectileBehavior.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RendererManager.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Room.h" />
     <ClInclude Include="SlimProjectilePrefab.h" />
     <ClInclude Include="SnakePrefab.h" />
     <ClInclude Include="State.h" />
