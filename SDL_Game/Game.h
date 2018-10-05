@@ -14,7 +14,7 @@
 #include "Camera.h"
 #include "ColliderManager.h"
 #include "RendererManager.h"
-
+#include "Room.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -73,6 +73,7 @@ public:
 
 	OwnMathFuncs::Vector2 getScreenSize();
 
+
 private:
 
 	GameObject * findGameObjectRecursive(std::string tag, GameObject* game_object);
@@ -97,6 +98,8 @@ private:
 
 	Uint64 timeNow = SDL_GetPerformanceCounter();
 	Uint64 timeLast = 0;
+
+	
 };
 
 #endif

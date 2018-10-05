@@ -126,8 +126,8 @@ void Game::clean()
 	delete renderer_manager;
 	delete collider_manager;
 
-	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 
 	IMG_Quit();
 	TTF_Quit();
@@ -141,6 +141,7 @@ void Game::addGameObject(GameObject* gameObject)
 {
 	game_objects.push_back(gameObject);
 }
+
 
 void Game::instantiateGameObject(GameObject * game_object, GameObject * new_parent)
 {
