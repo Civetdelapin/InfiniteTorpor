@@ -11,7 +11,7 @@ SnakePrefab::SnakePrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/snak
 	getComponent<DisplayEnemyHp>()->setYOffset(8);
 	getComponent<SpriteRenderer>()->setIsLookingRight(false);
 
-	local_scale = { 3, 3 };
+	local_scale = { 4, 4};
 
 	BoxCollider* ground_collider = getComponent<BoxCollider>();
 	//----------------------------------------------

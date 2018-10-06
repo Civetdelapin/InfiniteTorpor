@@ -4,7 +4,7 @@
 
 SlimProjectilePrefab::SlimProjectilePrefab(OwnMathFuncs::Vector2 init_local_pos) : GameObject(init_local_pos)
 {
-	local_scale = { 3.5, 3.5 };
+	local_scale = { 4, 4};
 	tag = "Enemy";
 
 	SpriteRenderer* spriteRenderer = new SpriteRenderer(this, "img/slim_projectile.png", { 32, 32 });

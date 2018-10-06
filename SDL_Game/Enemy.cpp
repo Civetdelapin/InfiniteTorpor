@@ -11,7 +11,7 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2 sprite_size, OwnMathFun
 	boxCollider->setIsTrigger(true);
 
 	tag = "Enemy";
-	local_scale = { 3, 3 };
+	local_scale = { 4, 4};
 
 	VelocityBody* velocityBody = new VelocityBody(this);
 	

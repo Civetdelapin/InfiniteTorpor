@@ -8,7 +8,7 @@ Map::Map(std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string da
 	TileMapCollider* tile_map_collider = new TileMapCollider(this);
 	tile_map_collider->setLayer(0);
 
-	local_scale = { 3, 3 };
+	local_scale = { 4, 4};
 }
 
 Map::Map(std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string data_path, std::string collider_path)
@@ -19,7 +19,7 @@ Map::Map(std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string da
 	TileMapCollider* tile_map_collider = new TileMapCollider(this);
 	tile_map_collider->setLayer(0);
 
-	local_scale = { 3, 3 };
+	local_scale = { 4, 4};
 }
 
 Map::~Map()

@@ -10,7 +10,7 @@ public:
 
 	static const int world_grid_size_x = 10;
 	static const int world_grid_size_y = 10;
-	static const int number_of_rooms = 10;
+	static const int number_of_rooms = 12;
 	
 	void start();
 	void render();

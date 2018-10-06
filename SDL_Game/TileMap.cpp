@@ -79,10 +79,11 @@ void TileMap::readCSV(const char* file_path, std::vector<std::vector<Tile>>& vls
 		std::getline(myfile, line, '\n');
 
 		std::string buff{ "" };
-		std::vector<int> v;
+
 
 		for (auto n : line)
 		{
+			
 			if (n != ',') buff += n; else
 				if (n == ',' && buff != "") {
 
@@ -99,8 +100,23 @@ void TileMap::readCSV(const char* file_path, std::vector<std::vector<Tile>>& vls
 					x++;
 					buff = "";
 				}
+				
 		}
-		if (buff != "") v.push_back(atoi(buff.c_str()));
+		if (buff != "") {
+			std::cout << buff << ", ";
+
+			int datum = atoi(buff.c_str());
+
+			struct Tile t;
+			t.nb_img = datum;
+			t.position_grid = { (float)x, (float)y };
+
+			vec_x.push_back(t);
+
+			x++;
+			buff = "";
+		}
+		
 
 		vec_temp.push_back(vec_x);
 
@@ -174,6 +190,21 @@ void TileMap::readCSVCollider(const char * file_path)
 					x++;
 					buff = "";
 				}
+		}
+		if (buff != "") {
+			std::cout << buff << ", ";
+			int datum = atoi(buff.c_str());
+
+			if (datum != -1) {
+				Tile* t = getTile(x, y);
+
+				if (t != nullptr) {
+
+					t->is_collider = true;
+				}
+			}
+			x++;
+			buff = "";
 		}
 		
 		std::cout << "" << std::endl;

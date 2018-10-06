@@ -36,7 +36,7 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	PlayerController* playerController = new PlayerController(this);
 	PlayerStat* playerStat = new PlayerStat(this);
 
-	local_scale = { 3, 3 };
+	local_scale = { 4, 4};
 	tag = "Player";
 
 	//Creation of child
