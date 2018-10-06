@@ -11,7 +11,7 @@ class Component
 {
 public:
 	explicit Component(GameObject* game_object);
-	~Component();
+	virtual ~Component();
 
 	virtual void start();
 	virtual void update();

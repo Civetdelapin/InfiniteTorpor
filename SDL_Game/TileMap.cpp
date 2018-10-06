@@ -1,13 +1,13 @@
 #include "TileMap.h"
 
-TileMap::TileMap(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string data_path) : Renderer(game_object), sprite_size(sprite_size)
+TileMap::TileMap(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string data_path) : Renderer(game_object), Component(game_object), sprite_size(sprite_size)
 {
 	texture = TextureManager::LoadTexture(img_path.c_str());
 
 	readCSV(data_path.c_str(), data);
 }
 
-TileMap::TileMap(GameObject * game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string data_path, std::string collider_path) : Renderer(game_object), sprite_size(sprite_size)
+TileMap::TileMap(GameObject * game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string data_path, std::string collider_path) : Renderer(game_object), Component(game_object),  sprite_size(sprite_size)
 {
 	texture = TextureManager::LoadTexture(img_path.c_str());
 	readCSV(data_path.c_str(), data);
@@ -56,6 +56,8 @@ void TileMap::render()
 void TileMap::clean()
 {
 	SDL_DestroyTexture(texture);
+
+	Renderer::clean();
 	Component::clean();
 }
 

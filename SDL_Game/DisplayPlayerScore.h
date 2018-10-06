@@ -1,8 +1,9 @@
 #pragma once
 #include "Renderer.h"
 #include "PlayerStat.h"
+#include "Component.h"
 
-class DisplayPlayerScore : public Renderer
+class DisplayPlayerScore : public Renderer, public Component
 {
 public:
 	DisplayPlayerScore(GameObject* game_object, PlayerStat* player_stat);

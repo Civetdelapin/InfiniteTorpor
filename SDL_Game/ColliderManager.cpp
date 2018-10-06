@@ -63,11 +63,11 @@ std::vector<Collider*> ColliderManager::getIsTriggerColliders()
 	std::vector<Collider*> vecTemp;
 
 	for (Collider* collider : colliders_to_test) {
-
+		
 		if (collider->isTrigger()) {
 			vecTemp.push_back(collider);
 		}
-
+		
 	}
 
 	return vecTemp;
