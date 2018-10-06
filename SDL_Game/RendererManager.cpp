@@ -30,7 +30,7 @@ void RendererManager::render()
 
 	for (Renderer * my_renderer : renderers_to_render) {
 		
-		if (my_renderer->getGameObjectRenderer()->isReallyActive()) {
+		if (my_renderer->getComponent()->isReallyActive()) {
 			my_renderer->render();
 		}
 

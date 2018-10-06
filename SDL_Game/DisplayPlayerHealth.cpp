@@ -2,7 +2,7 @@
 
 
 
-DisplayPlayerHealth::DisplayPlayerHealth(GameObject* game_object, PlayerStat* player_stat) : Renderer(game_object), Component(game_object), player_stat(player_stat)
+DisplayPlayerHealth::DisplayPlayerHealth(GameObject* game_object, PlayerStat* player_stat) : Renderer(this), Component(game_object), player_stat(player_stat)
 {
 	src_rect.x = 0;
 	src_rect.y = 0;

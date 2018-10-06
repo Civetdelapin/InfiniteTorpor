@@ -1,7 +1,7 @@
 #include "Renderer.h"
 #include "Game.h"
 
-Renderer::Renderer(GameObject* game_object) : renderer_game_object(game_object)
+Renderer::Renderer(Component* component) : component(component)
 {
 	Game::instance()->getRendererManager()->addRenderer(this);
 }
@@ -26,12 +26,12 @@ int Renderer::getLayer()
 	return layer;
 }
 
-GameObject * Renderer::getGameObjectRenderer()
+Component * Renderer::getComponent()
 {
-	return renderer_game_object;
+	return component;
 }
 
 OwnMathFuncs::Vector2 Renderer::getBottomPosition()
 {
-	return renderer_game_object->getWorldPosition();
+	return component->getGameObject()->getWorldPosition();
 }

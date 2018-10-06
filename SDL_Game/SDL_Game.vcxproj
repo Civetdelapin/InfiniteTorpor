@@ -141,7 +141,6 @@
     <ClCompile Include="GenerateLevel.cpp" />
     <ClCompile Include="GoblinPrefab.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MinotaurPrefab.cpp" />
     <ClCompile Include="OwnMathFuncs.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -198,7 +197,6 @@
     <ClInclude Include="SlimProjectilePrefab.h" />
     <ClInclude Include="SnakePrefab.h" />
     <ClInclude Include="State.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="OwnMathFuncs.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAttack.h" />

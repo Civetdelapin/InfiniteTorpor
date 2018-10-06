@@ -2,7 +2,7 @@
 
 
 
-DisplayEnemyHp::DisplayEnemyHp(GameObject* game_object, EnemyBasicBehavior* enemy_stat) : Renderer(game_object), Component(game_object),enemy_stat(enemy_stat)
+DisplayEnemyHp::DisplayEnemyHp(GameObject* game_object, EnemyBasicBehavior* enemy_stat) : Renderer(this), Component(game_object),enemy_stat(enemy_stat)
 {
 }
 
