@@ -1,13 +1,14 @@
 #pragma once
+#include "Component.h"
 #include "Renderer.h"
 
 class Game;
 
-class Collider : public Renderer
+class Collider : public Renderer, public Component
 {
 public:
 	Collider(GameObject* game_object);
-	~Collider();
+	virtual ~Collider();
 
 	virtual bool isColliding(Collider* collider) = 0;
 
@@ -16,7 +17,7 @@ public:
 	bool isTrigger();
 	void setIsTrigger(bool value);
 
-	void clean();
+	virtual void clean();
 
 	int getCollisionLayer();
 	void setCollisionLayer(int value);

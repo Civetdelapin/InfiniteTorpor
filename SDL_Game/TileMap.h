@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include "Renderer.h"
+#include "Component.h"
 
 struct Tile {
 	OwnMathFuncs::Vector2 position_grid = {0, 0};
@@ -13,7 +14,7 @@ struct Tile {
 	Tile();
 };
 
-class TileMap : public Renderer
+class TileMap : public Renderer, public Component
 {
 public:
 	TileMap(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size, std::string data_path);

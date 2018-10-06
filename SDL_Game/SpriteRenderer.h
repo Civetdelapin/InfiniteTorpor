@@ -1,7 +1,8 @@
 #pragma once
+#include "Component.h"
 #include "Renderer.h"
 
-class SpriteRenderer : public Renderer
+class SpriteRenderer : public Component, public Renderer
 {
 public:
 	SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size);

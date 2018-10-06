@@ -3,11 +3,11 @@
 #include "Component.h"
 
 
-class Renderer : public Component
+class Renderer
 {
 public:
 	Renderer(GameObject* game_object);
-	~Renderer();
+	virtual ~Renderer();
 
 	virtual void render() = 0;
 	void clean();
@@ -15,9 +15,12 @@ public:
 	void setLayer(int value);
 	int getLayer();
 
+	GameObject* getGameObjectRenderer();
+
 	virtual OwnMathFuncs::Vector2 getBottomPosition();
 
 private:
 	int layer;
+	GameObject* renderer_game_object;
 };
 

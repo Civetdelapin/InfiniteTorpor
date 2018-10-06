@@ -1,7 +1,7 @@
 #include "SpriteRenderer.h"
 
 
-SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Renderer(game_object), sprite_size(sprite_size)
+SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Renderer(game_object), Component(game_object),  sprite_size(sprite_size)
 {
 
 	int x, y = 0;
@@ -43,7 +43,9 @@ void SpriteRenderer::render()
 void SpriteRenderer::clean()
 {
 	SDL_DestroyTexture(texture);
+	
 	Renderer::clean();
+	Component::clean();
 }
 
 OwnMathFuncs::Vector2 SpriteRenderer::getSpriteSize()

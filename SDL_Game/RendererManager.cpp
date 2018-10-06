@@ -14,8 +14,6 @@ RendererManager::~RendererManager()
 void RendererManager::addRenderer(Renderer * renderer)
 {
 	renderers_to_render.push_back(renderer);
-
-
 }
 
 void RendererManager::removeRenderer(Renderer * renderer)
@@ -31,8 +29,8 @@ void RendererManager::render()
 	reorderRenderers();
 
 	for (Renderer * my_renderer : renderers_to_render) {
-
-		if (my_renderer->isReallyActive()) {
+		
+		if (my_renderer->getGameObjectRenderer()->isReallyActive()) {
 			my_renderer->render();
 		}
 
@@ -43,6 +41,7 @@ void RendererManager::render()
 
 void RendererManager::reorderRenderers()
 {
+	
 	std::sort(renderers_to_render.begin(), renderers_to_render.end(), [](Renderer* a, Renderer* b) {
 		return a->getLayer() < b->getLayer();
 	});
@@ -57,4 +56,5 @@ void RendererManager::reorderRenderers()
 
 		return false;
 	});
+	
 }
