@@ -30,6 +30,8 @@ void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Re
 		destrect.y -= Game::instance()->getCamera()->getCameraPos().y;
 	}
 	SDL_RenderCopyEx(Game::instance()->renderer, texture, &srcrect, &destrect, NULL, NULL, render_flip);
+
+	
 }
 
 void TextureManager::DrawRect(SDL_Rect rect, int r, int g, int b, int a, bool is_fill, bool is_relative_to_camera)

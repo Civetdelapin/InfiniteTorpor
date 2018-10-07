@@ -36,15 +36,15 @@ public:
 	void addDoor(OwnMathFuncs::Vector2 value);
 	std::vector<OwnMathFuncs::Vector2> getDoors();
 
-	void setTileMapData(TileMapData value);
-	TileMapData getTileMapData();
+	void setTileMapData(TileMapData* value);
+	TileMapData* getTileMapData();
 
 private:
 
 	RoomType room_type = NormalRoom;
 
 	std::vector<OwnMathFuncs::Vector2> doors;
-	TileMapData tile_map_data;
+	TileMapData* tile_map_data;
 
 	OwnMathFuncs::Vector2 grid_pos = { 0 ,0 };
 };

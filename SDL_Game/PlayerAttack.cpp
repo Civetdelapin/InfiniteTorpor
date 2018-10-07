@@ -143,7 +143,7 @@ void PlayerAttack::attackButtonPressed()
 
 		OwnMathFuncs::Vector2 vec_normalized = OwnMathFuncs::OwnMathFuncs::getNormalize(normalizeDirection);
 
-		velocity_body->AddForce(vec_normalized, velocity_attack * Time::deltaTime);
+		velocity_body->AddForce(vec_normalized, velocity_attack);
 	}
 }
 

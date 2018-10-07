@@ -99,10 +99,10 @@ void GenerateLevel::clean()
 void GenerateLevel::loadRoomsFromFiles()
 {
 
-	TileMapData tile_map_data = TileMapData();
+	TileMapData* tile_map_data = new TileMapData();
 
-	readCSV("levels/default_room.csv", &tile_map_data);
-	readCSVCollider("levels/default_room_doors_collider.csv", &tile_map_data);
+	readCSV("levels/default_room.csv", tile_map_data);
+	readCSVCollider("levels/default_room_doors_collider.csv", tile_map_data);
 
 	vect_tile_map_data.push_back(tile_map_data);
 
@@ -127,7 +127,7 @@ void GenerateLevel::generateLevel()
 	for (int i = 0; i < number_of_rooms - 1; i++) {
 
 		float r = ((float) rand() / (float) RAND_MAX);
-		std::cout << r << std::endl;
+		
 		bool one_neighbour = r < random_to_compare ? true : false;
 		
 		OwnMathFuncs::Vector2 new_pos = { 0, 0 };
@@ -194,7 +194,7 @@ void GenerateLevel::generateLevel()
 
 		int random_index = rand() % vect_tile_map_data.size();
 
-		TileMapData tiledata = vect_tile_map_data[random_index];
+		TileMapData* tiledata = vect_tile_map_data[random_index];
 		room->setTileMapData(tiledata);
 
 
@@ -218,6 +218,30 @@ void GenerateLevel::generateLevel()
 
 	start_room->setRoomType(Room::StartRoom);
 	end_room->setRoomType(Room::EndRoom);
+
+	OwnMathFuncs::Vector2 player_pos = Game::instance()->findGameObject("Player")->getWorldPosition();
+	/*
+	SlimPrefab* slime = new SlimPrefab(player_pos);
+	Game::instance()->instantiateGameObject(slime);
+	
+	SlimPrefab* slime2 = new SlimPrefab({ player_pos.x + 100, player_pos.y});
+	Game::instance()->instantiateGameObject(slime2);
+	*/
+
+	/*
+	GoblinPrefab *goblin = new GoblinPrefab(player_pos);
+	Game::instance()->instantiateGameObject(goblin);
+	*/
+
+	/*
+	MinotaurPrefab *minotaur = new MinotaurPrefab(player_pos);
+	Game::instance()->instantiateGameObject(minotaur);
+	*/
+
+	/*
+	SnakePrefab* snake = new SnakePrefab(player_pos);
+	Game::instance()->instantiateGameObject(snake);
+	*/
 }
 
 int GenerateLevel::getNumberOfNeighbours(OwnMathFuncs::Vector2 room_pos)
@@ -225,7 +249,6 @@ int GenerateLevel::getNumberOfNeighbours(OwnMathFuncs::Vector2 room_pos)
 	int i = 0;
 	bool is_ok = false;
 	
-	std::cout << "zsadza" << std::endl;
 
 	Room* room = rooms[(int) room_pos.x][(int) room_pos.y];
 

@@ -35,12 +35,30 @@ std::vector<OwnMathFuncs::Vector2> Room::getDoors()
 	return doors;
 }
 
-void Room::setTileMapData(TileMapData value)
+void Room::setTileMapData(TileMapData* value)
 {
-	tile_map_data = value;
+	
+	TileMapData* newTileMapData = new TileMapData();
+	for (std::vector<TileData*> tiles_ligne : value->data) {
+		std::vector<TileData*> new_vec;
+
+		for (TileData* tile : tiles_ligne) {
+			
+			TileData* newTile = new TileData();
+			newTile->is_collider = tile->is_collider;
+			newTile->nb_img = tile->nb_img;
+			newTile->position_grid = tile->position_grid;
+
+			new_vec.push_back(newTile);
+		}
+
+		newTileMapData->data.push_back(new_vec);
+	}
+
+	tile_map_data = newTileMapData;
 }
 
-TileMapData Room::getTileMapData()
+TileMapData* Room::getTileMapData()
 {
 	return tile_map_data;
 }

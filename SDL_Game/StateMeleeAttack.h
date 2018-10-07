@@ -8,7 +8,7 @@
 class StateMeleeAttack : public State
 {
 public:
-	StateMeleeAttack(GameObject * game_object, std::string next_state = "", float time_attack = 0.5f, float velocity_attack = 300000);
+	StateMeleeAttack(GameObject * game_object, std::string next_state = "", float time_attack = 0.5f, float velocity_attack = 900);
 	~StateMeleeAttack();
  
 	void start(StateMachine* state_machine);

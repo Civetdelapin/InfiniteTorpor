@@ -94,7 +94,7 @@ MinotaurPrefab::MinotaurPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("im
 	stateMachine->setDefaultState("RushPlayer");
 
 	stateMachine->addState(std::pair <std::string, State*>("RushPlayer", new StateRushPlayer(this, 100, "MeleeAttack")));
-	stateMachine->addState(std::pair <std::string, State*>("MeleeAttack", new StateMeleeAttack(this,"RushPlayer", 0.80f, 3000)));
+	stateMachine->addState(std::pair <std::string, State*>("MeleeAttack", new StateMeleeAttack(this,"RushPlayer", 0.80f, 150)));
 
 	stateMachine->play("RushPlayer");
 	//-------------------------------------------
