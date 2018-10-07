@@ -15,19 +15,6 @@ int main(int argc, char* args[]) {
 
 	Game::setInstance(new Game("My game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, false));
 
-	//Add the background
-	/*
-	Map* map = new Map("img/dungeon_tileset.png", { 16,16 }, "levels/TileMap_5_0.csv", "levels/TileMap_5_Collider.csv");
-	map->local_position = { 50, -150 };
-	Game::instance()->instantiateGameObject(map);
-	
-	Map* map2 = new Map("img/dungeon_tileset.png", { 16, 16 }, "levels/TileMap_5_1.csv");
-	Game::instance()->instantiateGameObject(map2);
-	*/
-
-	Map* map = new Map("img/dungeon_tileset.png", { 16,16 }, "levels/default_room.csv");
-	Game::instance()->instantiateGameObject(map);
-	
 
 	//Add the player in the game
 	Player *player = new Player({ 1366, 768 });

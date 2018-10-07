@@ -1,7 +1,7 @@
 #include "SpriteRenderer.h"
 
 
-SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Renderer(game_object), Component(game_object),  sprite_size(sprite_size)
+SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Renderer(this), Component(game_object),  sprite_size(sprite_size)
 {
 
 	int x, y = 0;
@@ -9,6 +9,18 @@ SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, Ow
 
 	img_size.x = x;
 	img_size.y = y;
+}
+
+SpriteRenderer::SpriteRenderer(GameObject * game_object, SDL_Texture * texture) : Renderer(this), Component(game_object), texture(texture)
+{
+	int w, h;
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+
+	img_size.x = w;
+	img_size.y = h;
+
+	sprite_size.x = w;
+	sprite_size.y = h;
 }
 
 

@@ -1,8 +1,9 @@
 #include "GenerateLevel.h"
+#include "Game.h"
 
+OwnMathFuncs::Vector2 const GenerateLevel::tile_size = { 16, 16 };
 
-
-GenerateLevel::GenerateLevel(GameObject * game_object) : Renderer(game_object)
+GenerateLevel::GenerateLevel(GameObject * game_object) : Renderer(this), Component(game_object)
 {
 	setLayer(50);
 }
@@ -14,8 +15,13 @@ GenerateLevel::~GenerateLevel()
 
 void GenerateLevel::start()
 {
+	tile_map_texture = TextureManager::LoadTexture("img/dungeon_tileset.png");
+
 	srand(seed);
-	generateLevel();
+
+	loadRoomsFromFiles(); // We load all the rooms data 
+
+	generateLevel(); // We create the level 
 }
 
 void GenerateLevel::render()
@@ -80,7 +86,28 @@ void GenerateLevel::clean()
 		delete room;
 	}
 	rooms_vector.clear();
+
+
+	vect_tile_map_data.clear();
+
+	SDL_DestroyTexture(tile_map_texture);
+
 	Renderer::clean();
+	Component::clean();
+}
+
+void GenerateLevel::loadRoomsFromFiles()
+{
+
+	TileMapData tile_map_data = TileMapData();
+
+	readCSV("levels/default_room.csv", &tile_map_data);
+	readCSVCollider("levels/default_room_doors_collider.csv", &tile_map_data);
+
+	vect_tile_map_data.push_back(tile_map_data);
+
+	SDL_Texture* room_texture = TextureManager::LoadTexture("levels/default_room_doors.png");
+	vect_room_texture.push_back(room_texture);
 }
 
 void GenerateLevel::generateLevel()
@@ -97,7 +124,7 @@ void GenerateLevel::generateLevel()
 	//magic number
 	float random_to_compare = 0.55f;
 
-	for (int i = 0; i < number_of_rooms; i++) {
+	for (int i = 0; i < number_of_rooms - 1; i++) {
 
 		float r = ((float) rand() / (float) RAND_MAX);
 		std::cout << r << std::endl;
@@ -115,6 +142,8 @@ void GenerateLevel::generateLevel()
 		
 		Room* new_room = new Room(new_pos);
 		rooms[(int)new_pos.x][(int)new_pos.y] = new_room;
+
+	
 		rooms_vector.push_back(new_room);
 		pos_taken.push_back(new_pos);
 	}
@@ -163,6 +192,28 @@ void GenerateLevel::generateLevel()
 			room->addDoor({ 0, 1 });
 		}
 
+		int random_index = rand() % vect_tile_map_data.size();
+
+		TileMapData tiledata = vect_tile_map_data[random_index];
+		room->setTileMapData(tiledata);
+
+
+
+		GameObject* room_prefab = new GameObject();
+
+		RoomBehavior* room_behavior = new RoomBehavior(room_prefab, room);
+		
+		TileMapCollider* tile_map_collider = new TileMapCollider(room_prefab);
+
+		SpriteRenderer* sprite_renderer = new SpriteRenderer(room_prefab, vect_room_texture[random_index]);
+		sprite_renderer->setLayer(0);
+
+		room_prefab->local_scale = { 4, 4 };
+		room_prefab->local_position = {room->getGridPos().x * room_prefab->local_scale.x * room_grid_size_x * tile_size.x, room->getGridPos().y * room_prefab->local_scale.y * room_grid_size_y * tile_size.y};
+
+		Game::instance()->instantiateGameObject(room_prefab);
+
+		Game::instance()->findGameObject("Player")->local_position = { room_prefab->getWorldPosition().x + (room_grid_size_x * room_prefab->getWorldScale().x), room_prefab->getWorldPosition().y + (room_grid_size_y * room_prefab->getWorldScale().y) };
 	}
 
 	start_room->setRoomType(Room::StartRoom);
@@ -210,6 +261,131 @@ int GenerateLevel::getNumberOfNeighbours(OwnMathFuncs::Vector2 room_pos)
 	}
 
 	return i;
+}
+
+void GenerateLevel::readCSV(const char * file_path, TileMapData* tile_map_data)
+{
+	std::vector<std::vector<TileData*>> vec_temp;
+
+	std::ifstream myfile(file_path);
+
+	std::cout << "READING : " << file_path << std::endl;
+
+	int x, y = 0;
+
+	while (myfile.good()) {
+		x = 0;
+
+		std::vector<TileData*> vec_x;
+
+		std::string line;
+		std::getline(myfile, line, '\n');
+
+		std::string buff{ "" };
+
+
+		for (auto n : line)
+		{
+
+			if (n != ',') buff += n; else
+				if (n == ',' && buff != "") {
+
+					std::cout << buff << ", ";
+
+					int datum = atoi(buff.c_str());
+
+					struct TileData* t = new TileData();
+					t->nb_img = datum;
+					t->position_grid = { (float)x, (float)y };
+
+					vec_x.push_back(t);
+
+					x++;
+					buff = "";
+				}
+
+		}
+		if (buff != "") {
+			std::cout << buff << ", ";
+
+			int datum = atoi(buff.c_str());
+
+			struct TileData* t = new TileData();
+			t->nb_img = datum;
+			t->position_grid = { (float)x, (float)y };
+
+			vec_x.push_back(t);
+
+			x++;
+			buff = "";
+		}
+
+
+		vec_temp.push_back(vec_x);
+
+
+		std::cout << "" << std::endl;
+		y++;
+	}
+
+	tile_map_data->data = vec_temp;
+}
+
+void GenerateLevel::readCSVCollider(const char * file_path, TileMapData* tile_map_data)
+{
+	std::ifstream myfile(file_path);
+	std::cout << "READING : " << file_path << std::endl;
+
+	int x, y = 0;
+	while (myfile.good()) {
+		x = 0;
+
+		std::vector<TileData> vec_x;
+
+		std::string line;
+		std::getline(myfile, line, '\n');
+
+		std::string buff{ "" };
+
+		for (auto n : line)
+		{
+			if (n != ',') buff += n; else
+				if (n == ',' && buff != "") {
+
+					std::cout << buff << ", ";
+					int datum = atoi(buff.c_str());
+
+					if (datum != -1) {
+						TileData* t = tile_map_data->getTile(x, y);
+
+						if (t != nullptr) {
+
+							t->is_collider = true;
+						}
+					}
+					x++;
+					buff = "";
+				}
+		}
+		if (buff != "") {
+			std::cout << buff << ", ";
+			int datum = atoi(buff.c_str());
+
+			if (datum != -1) {
+				TileData* t = tile_map_data->getTile(x, y);
+
+				if (t != nullptr) {
+
+					t->is_collider = true;
+				}
+			}
+			x++;
+			buff = "";
+		}
+
+		std::cout << "" << std::endl;
+		y++;
+	}
 }
 
 OwnMathFuncs::Vector2 GenerateLevel::getNewPos()

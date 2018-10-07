@@ -34,3 +34,32 @@ std::vector<OwnMathFuncs::Vector2> Room::getDoors()
 {
 	return doors;
 }
+
+void Room::setTileMapData(TileMapData value)
+{
+	tile_map_data = value;
+}
+
+TileMapData Room::getTileMapData()
+{
+	return tile_map_data;
+}
+
+
+TileData::TileData() : is_collider(false) {
+}
+
+
+
+TileData* TileMapData::getTile(int x, int y)
+{
+	if (y >= 0 && y < data.size()) {
+		if (x >= 0 && x < data[y].size()) {
+			
+			return data[y][x];
+		}
+	}
+
+	return nullptr;
+}
+

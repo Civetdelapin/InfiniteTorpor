@@ -2,7 +2,7 @@
 
 
 
-DisplayPlayerScore::DisplayPlayerScore(GameObject* game_object, PlayerStat* player_stat) : Renderer(game_object), Component(game_object), player_stat(player_stat)
+DisplayPlayerScore::DisplayPlayerScore(GameObject* game_object, PlayerStat* player_stat) : Renderer(this), Component(game_object), player_stat(player_stat)
 {
 
 }

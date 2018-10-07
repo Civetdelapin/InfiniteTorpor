@@ -29,7 +29,6 @@ void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Re
 		destrect.x -= Game::instance()->getCamera()->getCameraPos().x;
 		destrect.y -= Game::instance()->getCamera()->getCameraPos().y;
 	}
-	
 	SDL_RenderCopyEx(Game::instance()->renderer, texture, &srcrect, &destrect, NULL, NULL, render_flip);
 }
 

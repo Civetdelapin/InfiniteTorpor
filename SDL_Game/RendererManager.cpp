@@ -30,7 +30,7 @@ void RendererManager::render()
 
 	for (Renderer * my_renderer : renderers_to_render) {
 		
-		if (my_renderer->getGameObjectRenderer()->isReallyActive()) {
+		if (my_renderer->getComponent()->isReallyActive()) {
 			my_renderer->render();
 		}
 
@@ -43,17 +43,19 @@ void RendererManager::reorderRenderers()
 {
 	
 	std::sort(renderers_to_render.begin(), renderers_to_render.end(), [](Renderer* a, Renderer* b) {
+		//std::cout << a->getLayer() << ", " << b->getLayer() << std::endl;  
 		return a->getLayer() < b->getLayer();
 	});
 
 	std::sort(renderers_to_render.begin(), renderers_to_render.end(), [](Renderer* a, Renderer* b) {
 
-		if (a->getLayer() == b->getLayer()) {
+		
+		if (a->getLayer() == b->getLayer() && a->getLayer() == 5 ) {
 
 			return a->getBottomPosition().y < b->getBottomPosition().y;
 
 		}
-
+	
 		return false;
 	});
 	

@@ -1,12 +1,11 @@
 #pragma once
-#include "GameObject.h"
 #include "Component.h"
 
 
 class Renderer
 {
 public:
-	Renderer(GameObject* game_object);
+	Renderer(Component* component);
 	virtual ~Renderer();
 
 	virtual void render() = 0;
@@ -15,12 +14,12 @@ public:
 	void setLayer(int value);
 	int getLayer();
 
-	GameObject* getGameObjectRenderer();
+	Component* getComponent();
 
 	virtual OwnMathFuncs::Vector2 getBottomPosition();
 
 private:
 	int layer;
-	GameObject* renderer_game_object;
+	Component* component;
 };
 
