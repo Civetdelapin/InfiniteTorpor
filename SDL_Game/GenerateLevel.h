@@ -4,6 +4,8 @@
 #include "Room.h"
 #include "TileMap.h"
 #include "TileMapCollider.h"
+#include "RoomBehavior.h"
+#include "SpriteRenderer.h"
 
 #include <iostream>
 #include <fstream>
@@ -17,8 +19,13 @@ public:
 
 	static const int world_grid_size_x = 10;
 	static const int world_grid_size_y = 10;
-	static const int number_of_rooms = 8;
+	static const int number_of_rooms = 15;
 	
+	static const int room_grid_size_x = 32;
+	static const int room_grid_size_y = 20;
+
+	static const OwnMathFuncs::Vector2 tile_size;
+
 	void start();
 	void render();
 	void clean();
@@ -26,8 +33,9 @@ public:
 private:
 
 	std::vector<TileMapData> vect_tile_map_data;
-	std::vector<OwnMathFuncs::Vector2> pos_taken;
+	std::vector<SDL_Texture*> vect_room_texture;
 
+	std::vector<OwnMathFuncs::Vector2> pos_taken;
 	Room* rooms[world_grid_size_x][world_grid_size_y];
 	std::vector<Room*> rooms_vector;
 

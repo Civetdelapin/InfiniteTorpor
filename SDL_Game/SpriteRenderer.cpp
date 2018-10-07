@@ -11,6 +11,18 @@ SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, Ow
 	img_size.y = y;
 }
 
+SpriteRenderer::SpriteRenderer(GameObject * game_object, SDL_Texture * texture) : Renderer(this), Component(game_object), texture(texture)
+{
+	int w, h;
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+
+	img_size.x = w;
+	img_size.y = h;
+
+	sprite_size.x = w;
+	sprite_size.y = h;
+}
+
 
 SpriteRenderer::~SpriteRenderer()
 {

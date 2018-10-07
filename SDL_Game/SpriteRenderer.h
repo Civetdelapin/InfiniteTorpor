@@ -6,6 +6,8 @@ class SpriteRenderer : public Component, public Renderer
 {
 public:
 	SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size);
+	SpriteRenderer(GameObject* game_object, SDL_Texture* texture);
+
 	~SpriteRenderer();
 
 	void render();

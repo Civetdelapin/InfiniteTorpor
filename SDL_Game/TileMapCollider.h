@@ -2,6 +2,7 @@
 #include "Collider.h"
 #include "TileMap.h"
 #include "BoxCollider.h"
+#include "RoomBehavior.h"
 
 class TileMapCollider : public Collider
 {
@@ -11,11 +12,13 @@ public:
 
 
 	bool isColliding(Collider* collider);
+
+	void start();
 	void update();
 
 	void render();
 
 private:
-	TileMap* tileMap;
+	RoomBehavior* room_behavior;
 };
 

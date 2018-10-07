@@ -151,6 +151,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RendererManager.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="RoomBehavior.cpp" />
     <ClCompile Include="SlimPrefab.cpp" />
     <ClCompile Include="SlimProjectilePrefab.cpp" />
     <ClCompile Include="SnakePrefab.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="RendererManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="RoomBehavior.h" />
     <ClInclude Include="SlimProjectilePrefab.h" />
     <ClInclude Include="SnakePrefab.h" />
     <ClInclude Include="State.h" />

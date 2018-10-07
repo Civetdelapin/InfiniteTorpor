@@ -2,7 +2,7 @@
 
 BoxCollider::BoxCollider(GameObject* game_object) : Collider(game_object)
 {
-
+	setLayer(20);
 }
 
 

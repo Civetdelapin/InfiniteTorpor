@@ -13,6 +13,7 @@ struct TileData {
 struct TileMapData {
 
 	std::vector<std::vector<TileData*>> data;
+	OwnMathFuncs::Vector2 sprite_size = { 16, 16 };
 
 	TileData* getTile(int x, int y);
 };

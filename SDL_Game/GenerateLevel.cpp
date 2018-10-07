@@ -1,6 +1,7 @@
 #include "GenerateLevel.h"
 #include "Game.h"
 
+OwnMathFuncs::Vector2 const GenerateLevel::tile_size = { 16, 16 };
 
 GenerateLevel::GenerateLevel(GameObject * game_object) : Renderer(this), Component(game_object)
 {
@@ -101,9 +102,12 @@ void GenerateLevel::loadRoomsFromFiles()
 	TileMapData tile_map_data = TileMapData();
 
 	readCSV("levels/default_room.csv", &tile_map_data);
-	readCSVCollider("levels/default_room_collider.csv", &tile_map_data);
+	readCSVCollider("levels/default_room_doors_collider.csv", &tile_map_data);
 
 	vect_tile_map_data.push_back(tile_map_data);
+
+	SDL_Texture* room_texture = TextureManager::LoadTexture("levels/default_room_doors.png");
+	vect_room_texture.push_back(room_texture);
 }
 
 void GenerateLevel::generateLevel()
@@ -150,8 +154,6 @@ void GenerateLevel::generateLevel()
 
 	for(Room* room : rooms_vector){
 
-		std::cout << "test" << std::endl;
-
 		//test for start room & end room
 		if (start_room == nullptr || (room->getGridPos().x + room->getGridPos().y) <= (start_room->getGridPos().x + start_room->getGridPos().y)) {
 			start_room = room;
@@ -190,24 +192,28 @@ void GenerateLevel::generateLevel()
 			room->addDoor({ 0, 1 });
 		}
 
-		TileMapData tiledata = vect_tile_map_data[rand() % vect_tile_map_data.size()];
+		int random_index = rand() % vect_tile_map_data.size();
+
+		TileMapData tiledata = vect_tile_map_data[random_index];
 		room->setTileMapData(tiledata);
 
 
 
 		GameObject* room_prefab = new GameObject();
 
-		TileMap* tile_map = new TileMap(room_prefab, { 16, 16 }, room, tile_map_texture);
-		tile_map->setLayer(0);
-
+		RoomBehavior* room_behavior = new RoomBehavior(room_prefab, room);
+		
 		TileMapCollider* tile_map_collider = new TileMapCollider(room_prefab);
 
+		SpriteRenderer* sprite_renderer = new SpriteRenderer(room_prefab, vect_room_texture[random_index]);
+		sprite_renderer->setLayer(0);
+
 		room_prefab->local_scale = { 4, 4 };
-		room_prefab->local_position = {room->getGridPos().x * room_prefab->local_scale.x * 30.5f * 16, room->getGridPos().y * room_prefab->local_scale.y * 17.5f * 16};
+		room_prefab->local_position = {room->getGridPos().x * room_prefab->local_scale.x * room_grid_size_x * tile_size.x, room->getGridPos().y * room_prefab->local_scale.y * room_grid_size_y * tile_size.y};
 
 		Game::instance()->instantiateGameObject(room_prefab);
 
-		Game::instance()->findGameObject("Player")->local_position = room_prefab->getWorldPosition();
+		Game::instance()->findGameObject("Player")->local_position = { room_prefab->getWorldPosition().x + (room_grid_size_x * room_prefab->getWorldScale().x), room_prefab->getWorldPosition().y + (room_grid_size_y * room_prefab->getWorldScale().y) };
 	}
 
 	start_room->setRoomType(Room::StartRoom);
