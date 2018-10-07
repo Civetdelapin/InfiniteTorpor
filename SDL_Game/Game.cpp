@@ -59,14 +59,7 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	//handle the deltatime
-	timeLast = timeNow;
-	timeNow = SDL_GetPerformanceCounter();
-	Time::deltaTime = (float)((timeNow - timeLast) * 1000 / (float)SDL_GetPerformanceFrequency()) * 0.001;
 	
-
-	//printInConsole("delta time : " + std::to_string(deltaTime));
-
 	collider_manager->update();
 	camera->update();
 
@@ -110,6 +103,19 @@ void Game::update()
 		game_object = NULL;
 	}
 	game_objects_to_be_destroyed.clear();
+
+
+	//handle the deltatime
+	timeLast = timeNow;
+	timeNow = SDL_GetPerformanceCounter();
+	Time::deltaTime = ((timeNow - timeLast) * 1000 / (double)SDL_GetPerformanceFrequency()) * 0.001;
+
+	if (Time::deltaTime > 0.033f) {
+		Time::deltaTime = 0.033f;
+	}
+
+	printInConsole("delta time : " + std::to_string(Time::deltaTime));
+
 }
 
 void Game::render()

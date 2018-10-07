@@ -46,7 +46,7 @@ void RendererManager::reorderRenderers()
 		//std::cout << a->getLayer() << ", " << b->getLayer() << std::endl;  
 		return a->getLayer() < b->getLayer();
 	});
-
+	/*
 	std::sort(renderers_to_render.begin(), renderers_to_render.end(), [](Renderer* a, Renderer* b) {
 
 		
@@ -58,5 +58,5 @@ void RendererManager::reorderRenderers()
 	
 		return false;
 	});
-	
+	*/
 }

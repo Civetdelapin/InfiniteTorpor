@@ -24,7 +24,7 @@ public:
 	const float attack_dmg[3] = {8, 12, 15};
 	const float time_enemy_stun = 0.5f;
 
-	const float velocity_attack = 300000;
+	const float velocity_attack = 600;
 
 	
 private:

@@ -38,7 +38,7 @@ void StateMeleeAttack::operation(StateMachine* state_machine)
 	if (time_passed <= 0) {
 		if (before_attack) {
 			state_machine->getGameObject()->getComponent<Animator>()->play("Attack");
-			state_machine->getGameObject()->getComponent<EnemyBasicBehavior>()->addForce(normalize_dir, velocity_attack);
+			state_machine->getGameObject()->getComponent<EnemyBasicBehavior>()->addForce(normalize_dir, velocity_attack, false);
 
 			before_attack = false;
 

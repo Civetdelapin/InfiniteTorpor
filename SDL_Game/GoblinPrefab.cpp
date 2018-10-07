@@ -7,7 +7,7 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 
 	EnemyBasicBehavior* enemy_basic_behavior = getComponent<EnemyBasicBehavior>();
 	enemy_basic_behavior-> setMaxHP(70);
-	enemy_basic_behavior->setSpeed(2000);
+	enemy_basic_behavior->setSpeed(3100);
 	enemy_basic_behavior->setScoreValue(70);
 
 	getComponent<DisplayEnemyHp>()->setYOffset(8);
@@ -87,7 +87,7 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 	StateMachine * stateMachine = getComponent<StateMachine>();
 	stateMachine->setDefaultState("RushPlayer");
 
-	stateMachine->addState(std::pair <std::string, State*>("RushPlayer", new StateRushPlayer(this, 80, "MeleeAttack")));
+	stateMachine->addState(std::pair <std::string, State*>("RushPlayer", new StateRushPlayer(this, 100, "MeleeAttack")));
 	stateMachine->addState(std::pair <std::string, State*>("MeleeAttack", new StateMeleeAttack(this, "RushPlayer")));
 
 	stateMachine->play("RushPlayer");

@@ -12,7 +12,7 @@ TileMap::~TileMap()
 
 void TileMap::render()
 {
-	
+	/*
 	for (std::vector<TileData*> tiles_ligne : room_data->getTileMapData().data) {
 
 		
@@ -41,11 +41,12 @@ void TileMap::render()
 			}
 		}
 	}
-
+	*/
 }
 
 void TileMap::clean()
 {
+	/*
 	for (std::vector<TileData*> tiles_ligne : room_data->getTileMapData().data) {
 
 		for (TileData* tile : tiles_ligne) {
@@ -55,6 +56,7 @@ void TileMap::clean()
 
 	Renderer::clean();
 	Component::clean();
+	*/
 }
 
 OwnMathFuncs::Vector2 TileMap::getSpriteSize()

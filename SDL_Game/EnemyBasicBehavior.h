@@ -11,7 +11,7 @@ public:
 
 	void update();
 
-	void addForce(OwnMathFuncs::Vector2 direction, float power);
+	void addForce(OwnMathFuncs::Vector2 direction, float power , bool time_frame_dependent = true);
 	bool takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float time_stunned);
 
 	bool isStunned();

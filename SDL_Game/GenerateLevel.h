@@ -6,6 +6,10 @@
 #include "TileMapCollider.h"
 #include "RoomBehavior.h"
 #include "SpriteRenderer.h"
+#include "SlimPrefab.h"
+#include "GoblinPrefab.h"
+#include "MinotaurPrefab.h"
+#include "SnakePrefab.h"
 
 #include <iostream>
 #include <fstream>
@@ -19,7 +23,7 @@ public:
 
 	static const int world_grid_size_x = 10;
 	static const int world_grid_size_y = 10;
-	static const int number_of_rooms = 15;
+	static const int number_of_rooms = 1;
 	
 	static const int room_grid_size_x = 32;
 	static const int room_grid_size_y = 20;
@@ -32,7 +36,7 @@ public:
 
 private:
 
-	std::vector<TileMapData> vect_tile_map_data;
+	std::vector<TileMapData*> vect_tile_map_data;
 	std::vector<SDL_Texture*> vect_room_texture;
 
 	std::vector<OwnMathFuncs::Vector2> pos_taken;
