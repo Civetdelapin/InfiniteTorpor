@@ -2,9 +2,11 @@
 #include "Game.h"
 
 
-Collider::Collider(GameObject* game_object) : Renderer(this), Component(game_object)
+Collider::Collider(GameObject* game_object, bool is_in_simulation) : Renderer(this), Component(game_object)
 {
-	Game::instance()->collider_manager->addCollider(this);
+	if (is_in_simulation) {
+		Game::instance()->collider_manager->addCollider(this);
+	}
 }
 
 

@@ -11,14 +11,14 @@ SlimProjectilePrefab::SlimProjectilePrefab(OwnMathFuncs::Vector2 init_local_pos)
 	SpriteRenderer* spriteRenderer = new SpriteRenderer(this, "img/slim_projectile.png", { 32, 32 });
 	spriteRenderer->setLayer(6);
 	
-	BoxCollider* boxCollider = new BoxCollider(this);
+	BoxCollider* boxCollider = new BoxCollider(this, false);
 	boxCollider->size = { 5, 5 };
 	boxCollider->setIsTrigger(true);
 	
 	ProjectileBehavior* protectileBehavior = new ProjectileBehavior(this, 500, boxCollider);
 
 
-	BoxCollider* boxColliderAttack = new BoxCollider(this);
+	BoxCollider* boxColliderAttack = new BoxCollider(this, false);
 	boxColliderAttack->size = { 5, 5 };
 	boxColliderAttack->setIsTrigger(true);
 	boxColliderAttack->setCollisionLayer(10);

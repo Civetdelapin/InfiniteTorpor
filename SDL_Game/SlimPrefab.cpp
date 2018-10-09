@@ -67,7 +67,7 @@ SlimPrefab::SlimPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/slimes
 
 	stateMachine->addState(std::pair <std::string, State*>("WalkRandomPos", new StateWalkRandomPos(this, 30, "OnlyWait")));
 	stateMachine->addState(std::pair <std::string, State*>("OnlyWait", new StateOnlyWait(this, 1.25, "SlimAttack")));
-	stateMachine->addState(std::pair <std::string, State*>("SlimAttack", new StateSlimAttack(this, 52, "WalkRandomPos")));
+	stateMachine->addState(std::pair <std::string, State*>("SlimAttack", new StateSlimAttack(this, 32, "WalkRandomPos")));
 
 	stateMachine->play("OnlyWait");
 }

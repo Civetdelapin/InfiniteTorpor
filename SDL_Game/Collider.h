@@ -7,7 +7,7 @@ class Game;
 class Collider : public Renderer, public Component
 {
 public:
-	Collider(GameObject* game_object);
+	Collider(GameObject* game_object, bool is_in_simulation = true);
 	virtual ~Collider();
 
 	virtual bool isColliding(Collider* collider) = 0;

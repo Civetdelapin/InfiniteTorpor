@@ -20,7 +20,7 @@ public:
 
 	bool isReallyActive();
 
-	void setIsActive(bool value);
+	void setActive(bool value);
 	bool isActive();
 
 	void setHasStart(bool value);

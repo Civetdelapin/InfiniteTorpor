@@ -41,7 +41,7 @@ MinotaurPrefab::MinotaurPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("im
 	boxColliderAttack->offset = { 12, 8 };
 	boxColliderAttack->size = { 24, 40 };
 	boxColliderAttack->setCollisionLayer(10);
-	boxColliderAttack->setIsActive(false);
+	boxColliderAttack->setActive(false);
 
 	EnemyAttackCollider* enemy_attack_collider = new EnemyAttackCollider(game_object_child2, boxColliderAttack);
 	addGameObjectAsChild(game_object_child2);

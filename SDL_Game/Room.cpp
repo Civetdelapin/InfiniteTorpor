@@ -25,12 +25,12 @@ Room::RoomType Room::getRoomType()
 	return room_type;
 }
 
-void Room::addDoor(OwnMathFuncs::Vector2 value)
+void Room::addDoor(Door* value)
 {
 	doors.push_back(value);
 }
 
-std::vector<OwnMathFuncs::Vector2> Room::getDoors()
+std::vector<Door*> Room::getDoors()
 {
 	return doors;
 }

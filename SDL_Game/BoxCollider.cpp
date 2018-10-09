@@ -1,6 +1,6 @@
 #include "BoxCollider.h"
 
-BoxCollider::BoxCollider(GameObject* game_object) : Collider(game_object)
+BoxCollider::BoxCollider(GameObject* game_object, bool is_in_simulation) : Collider(game_object, is_in_simulation)
 {
 	setLayer(20);
 }

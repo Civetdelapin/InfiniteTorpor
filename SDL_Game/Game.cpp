@@ -114,7 +114,7 @@ void Game::update()
 		Time::deltaTime = 0.033f;
 	}
 
-	printInConsole("delta time : " + std::to_string(Time::deltaTime));
+	//printInConsole("delta time : " + std::to_string(Time::deltaTime));
 
 }
 

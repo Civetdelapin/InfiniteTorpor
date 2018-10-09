@@ -37,7 +37,7 @@ bool Component::isReallyActive()
 	}
 }
 
-void Component::setIsActive(bool value)
+void Component::setActive(bool value)
 {
 	is_active = value;
 }

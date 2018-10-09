@@ -9,6 +9,8 @@ public:
 	RoomBehavior(GameObject* game_object, Room* room_data);
 	~RoomBehavior();
 
+	enum RoomState { NotOver, Active, Over };
+
 	void start();
 	void update();
 	void render();
@@ -19,5 +21,12 @@ public:
 
 private:
 	Room* room_data;
+
+	void playerEnterRoom();
+	void playerEndRoom();
+
+	void setDoorsCollider(bool value);
+
+	RoomState state = NotOver;
 };
 

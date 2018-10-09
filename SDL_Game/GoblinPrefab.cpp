@@ -31,7 +31,7 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 	boxColliderAttack->offset = { 12, 8 };
 	boxColliderAttack->size = { 12, 22 };
 	boxColliderAttack->setCollisionLayer(10);
-	boxColliderAttack->setIsActive(false);
+	boxColliderAttack->setActive(false);
 
 	EnemyAttackCollider* enemy_attack_collider = new EnemyAttackCollider(game_object_child2, boxColliderAttack);
 

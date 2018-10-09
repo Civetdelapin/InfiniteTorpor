@@ -15,18 +15,39 @@
 #include <fstream>
 #include <sstream>
 
+struct RoomDataStruct {
+
+	TileMapData* tile_map_data;
+	std::vector<SDL_Texture*> vect_room_texture;
+
+	std::vector<OwnMathFuncs::Vector2> doors_possible;
+};
+
 class GenerateLevel : public Renderer, public Component
 {
 public:
 	GenerateLevel(GameObject * game_object);
 	~GenerateLevel();
 
+	//---------- WORLD CONST ------------
 	static const int world_grid_size_x = 10;
 	static const int world_grid_size_y = 10;
-	static const int number_of_rooms = 1;
-	
+
+	static const int number_of_rooms = 8;
+	//-----------------------------------
+
+	//----------- ROOM CONST -------------
 	static const int room_grid_size_x = 32;
 	static const int room_grid_size_y = 20;
+
+	static const int room_nb_tile_door_x = 2;
+	static const int room_nb_tile_door_y = 2;
+
+	static const int room_no_door_offset_x = 2;
+	static const int room_no_door_offset_y = 4;
+
+	//------------------------------------
+
 
 	static const OwnMathFuncs::Vector2 tile_size;
 
@@ -36,17 +57,19 @@ public:
 
 private:
 
-	std::vector<TileMapData*> vect_tile_map_data;
-	std::vector<SDL_Texture*> vect_room_texture;
+	std::vector<RoomDataStruct*> vect_room_data_struct;
 
 	std::vector<OwnMathFuncs::Vector2> pos_taken;
 	Room* rooms[world_grid_size_x][world_grid_size_y];
 	std::vector<Room*> rooms_vector;
 
-	int seed = 500;
+	std::vector<SDL_Texture*> no_door_textures;
 
-	Room* start_room;
-	Room* end_room;
+	std::vector<SDL_Texture*> face_door_textures;
+	std::vector<SDL_Texture*> side_door_textures;
+
+
+	int seed = 500;
 
 	void loadRoomsFromFiles();
 	void generateLevel();

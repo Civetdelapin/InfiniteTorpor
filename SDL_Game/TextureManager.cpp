@@ -4,13 +4,17 @@
 SDL_Texture * TextureManager::LoadTexture(const char * fileName, int &w, int &h)
 {
 	SDL_Surface* tempSurface = IMG_Load(fileName);
+	if (tempSurface != NULL) {
+		SDL_Texture* texture = SDL_CreateTextureFromSurface(Game::instance()->renderer, tempSurface);
 
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(Game::instance()->renderer, tempSurface);
+		SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 
-	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+		SDL_FreeSurface(tempSurface);
 
-	SDL_FreeSurface(tempSurface);
-	return texture;
+		return texture;
+	}
+	
+	return nullptr;
 }
 
 SDL_Texture * TextureManager::LoadTexture(const char * fileName)

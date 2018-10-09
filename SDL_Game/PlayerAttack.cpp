@@ -149,9 +149,9 @@ void PlayerAttack::attackButtonPressed()
 
 void PlayerAttack::cancelAttackColliders()
 {
-	box_coolider_attack_up->setIsActive(false);
-	box_collider_attack->setIsActive(false);
-	box_collider_attack_corner->setIsActive(false);
+	box_coolider_attack_up->setActive(false);
+	box_collider_attack->setActive(false);
+	box_collider_attack_corner->setActive(false);
 }
 
 void PlayerAttack::activeAttackColliders()
@@ -164,7 +164,7 @@ void PlayerAttack::activeAttackColliders()
 			box_coolider_attack_up->offset.y = -box_collider_attack_up_down_offset;
 		}
 
-		box_coolider_attack_up->setIsActive(true);
+		box_coolider_attack_up->setActive(true);
 	}
 	else if(abs(normalizeDirection.x) > 0 && abs(normalizeDirection.y) > 0)  {
 		if (normalizeDirection.y > 0) {
@@ -174,10 +174,10 @@ void PlayerAttack::activeAttackColliders()
 			box_collider_attack_corner->offset.y = -box_collider_attack_corner_offset;
 		}
 
-		box_collider_attack_corner->setIsActive(true);
+		box_collider_attack_corner->setActive(true);
 	}
 	else {
-		box_collider_attack->setIsActive(true);
+		box_collider_attack->setActive(true);
 	}
 
 }

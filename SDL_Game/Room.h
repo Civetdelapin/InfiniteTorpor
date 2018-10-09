@@ -1,6 +1,8 @@
 #pragma once
 #include "OwnMathFuncs.h"
+#include <SDL.h>
 #include <iostream>
+#include "BoxCollider.h"
 
 struct TileData {
 	OwnMathFuncs::Vector2 position_grid = { 0, 0 };
@@ -18,6 +20,17 @@ struct TileMapData {
 	TileData* getTile(int x, int y);
 };
 
+struct Door {
+
+	OwnMathFuncs::Vector2 door_position = { 0, 0 };
+
+	BoxCollider* box_collider_trigger;
+	BoxCollider* box_collider;
+
+	SDL_Texture* open_door_texture;
+	SDL_Texture* close_door_texture;
+};
+
 class Room
 {
 
@@ -33,8 +46,8 @@ public:
 	void setRoomType(RoomType value);
 	RoomType getRoomType();
 
-	void addDoor(OwnMathFuncs::Vector2 value);
-	std::vector<OwnMathFuncs::Vector2> getDoors();
+	void addDoor(Door* value);
+	std::vector<Door*> getDoors();
 
 	void setTileMapData(TileMapData* value);
 	TileMapData* getTileMapData();
@@ -43,7 +56,7 @@ private:
 
 	RoomType room_type = NormalRoom;
 
-	std::vector<OwnMathFuncs::Vector2> doors;
+	std::vector<Door*> doors;
 	TileMapData* tile_map_data;
 
 	OwnMathFuncs::Vector2 grid_pos = { 0 ,0 };

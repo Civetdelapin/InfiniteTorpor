@@ -44,10 +44,10 @@ void StateMeleeAttack::operation(StateMachine* state_machine)
 
 			time_passed = time_attack * 0.5;
 
-			collider_active->setIsActive(true);
+			collider_active->setActive(true);
 		}
 		else {
-			collider_active->setIsActive(false);
+			collider_active->setActive(false);
 
 			state_machine->play(getNextState());
 		}
@@ -57,5 +57,5 @@ void StateMeleeAttack::operation(StateMachine* state_machine)
 
 void StateMeleeAttack::exit(StateMachine* state_machine)
 {
-	collider_active->setIsActive(false);
+	collider_active->setActive(false);
 }
