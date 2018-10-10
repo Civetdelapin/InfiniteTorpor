@@ -31,7 +31,7 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	boxCollider->size = { 10, 5.5 };
 
 	VelocityBody* velocityBody = new VelocityBody(this);
-	velocityBody->setDrag({ 20, 20 });
+	velocityBody->setDrag({ 10, 10 });
 
 	PlayerController* playerController = new PlayerController(this);
 	PlayerStat* playerStat = new PlayerStat(this);

@@ -27,8 +27,8 @@ struct Door {
 	BoxCollider* box_collider_trigger;
 	BoxCollider* box_collider;
 
-	SDL_Texture* open_door_texture;
-	SDL_Texture* close_door_texture;
+	GameObject* open_door;
+	GameObject* close_door;
 };
 
 class Room

@@ -2,8 +2,6 @@
 #include "GameObject.h"
 
 
-
-
 class Game;
 
 struct Shake {
@@ -45,6 +43,7 @@ private:
 	OwnMathFuncs::Vector2 camera_pos = { 0, 0 };
 	GameObject* objectToFollow;
 
+	float follow_speed = 5;
 
 	float _amplitude = 2000;
 	Shake shake_x;

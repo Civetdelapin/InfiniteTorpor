@@ -18,6 +18,14 @@ void Renderer::clean()
 
 void Renderer::setLayer(int value)
 {
+	if (value > RendererManager::MAX_LAYER) {
+		value = RendererManager::MAX_LAYER;
+	}
+	else if (value < RendererManager::MIN_LAYER) {
+		value = RendererManager::MIN_LAYER;
+	}
+
+	Game::instance()->getRendererManager()->modifyLayer(this, value);
 	layer = value;
 }
 

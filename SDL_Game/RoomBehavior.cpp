@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-RoomBehavior::RoomBehavior(GameObject * game_object, Room * room_data) : Component(game_object), Renderer(this), room_data(room_data)
+RoomBehavior::RoomBehavior(GameObject * game_object, Room * room_data) : Component(game_object), room_data(room_data)
 {
 
 }
@@ -14,6 +14,8 @@ RoomBehavior::~RoomBehavior()
 
 void RoomBehavior::start()
 {
+	player = Game::instance()->findGameObject("Player");
+
 
 	if (room_data->getRoomType() == Room::StartRoom) {
 		state = Over;
@@ -22,7 +24,7 @@ void RoomBehavior::start()
 		state = NotOver;
 	}
 
-	setDoorsCollider(false);
+	setDoors(false);
 }
 
 void RoomBehavior::update()
@@ -67,15 +69,10 @@ void RoomBehavior::update()
 
 }
 
-void RoomBehavior::render()
-{
-	
-}
 
 void RoomBehavior::clean()
 {
 
-	Renderer::clean();
 	Component::clean();
 }
 
@@ -88,21 +85,42 @@ void RoomBehavior::playerEnterRoom()
 
 {
 	if (state == NotOver) {
-		setDoorsCollider(true);
+
+		Game::instance()->getCamera()->setObjectToFollow(game_object);
+
 		state = Active;
+
+		setDoors(true);
 	}
 }
 
 void RoomBehavior::playerEndRoom()
 {
 	setDoorsCollider(false);
-
 	state = Over;
+
+	Game::instance()->getCamera()->setObjectToFollow(player);
+
+	setDoors(false);
 }
 
 void RoomBehavior::setDoorsCollider(bool value)
 {
 	for (Door* door : room_data->getDoors()) {
 		door->box_collider->setActive(value);
+	}
+}
+
+void RoomBehavior::setDoors(bool value)
+{
+	setDoorsCollider(value);
+
+	for (Door* door : room_data->getDoors()) {
+		if (door->close_door != nullptr) {
+			door->close_door->is_active = value;
+		}
+		if (door->open_door != nullptr) {
+			door->open_door->is_active = !value;
+		}
 	}
 }

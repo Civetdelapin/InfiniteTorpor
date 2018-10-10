@@ -89,5 +89,5 @@ void SpriteRenderer::setIsLookingRight(bool value)
 
 OwnMathFuncs::Vector2 SpriteRenderer::getBottomPosition()
 {
-	return {getGameObject()->getWorldPosition().x, getGameObject()->getWorldPosition().y + dstrect.h / 2};
+	return {getGameObject()->getWorldPosition().x, getGameObject()->getWorldPosition().y + sprite_size.y * fabs(game_object->getWorldScale().y) };
 }

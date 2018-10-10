@@ -39,7 +39,7 @@ void PlayerStat::setInvicible(float time)
 bool PlayerStat::addDamage(float dmg)
 {
 	if (!is_invicible) {
-		Game::instance()->getCamera()->startShake(15, 20, 0.5);
+		Game::instance()->getCamera()->startShake(25, 20, 0.75f);
 
 		cur_hp -= dmg;
 		

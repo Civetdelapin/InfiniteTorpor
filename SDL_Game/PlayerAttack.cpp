@@ -97,7 +97,7 @@ void PlayerAttack::update()
 						}
 						enemy_stat = NULL;
 
-						Game::instance()->getCamera()->startShake(10, 15, 0.25);
+						Game::instance()->getCamera()->startShake(10, 15, 0.15);
 					}
 
 

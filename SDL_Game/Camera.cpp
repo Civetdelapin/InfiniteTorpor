@@ -18,7 +18,14 @@ void Camera::update()
 	shake_y.update();
 
 	if (objectToFollow != nullptr) {
-		camera_pos = { objectToFollow->getWorldPosition().x - game->getScreenWidth() / 2 , objectToFollow->getWorldPosition().y - game->getScreenHeight() / 2 };
+		if (shake_x.is_shaking || shake_y.is_shaking) {
+			camera_pos = { objectToFollow->getWorldPosition().x - game->getScreenWidth() / 2 , objectToFollow->getWorldPosition().y - game->getScreenHeight() / 2 };
+		}
+		else {
+			camera_pos = OwnMathFuncs::OwnMathFuncs::Lerp(camera_pos,
+				{ objectToFollow->getWorldPosition().x - game->getScreenWidth() / 2 , objectToFollow->getWorldPosition().y - game->getScreenHeight() / 2 },
+				Time::deltaTime * follow_speed);
+		}
 	}
 
 	if (shake_x.is_shaking || shake_y.is_shaking) {

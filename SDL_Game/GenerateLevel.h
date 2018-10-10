@@ -45,9 +45,7 @@ public:
 
 	static const int room_no_door_offset_x = 2;
 	static const int room_no_door_offset_y = 4;
-
 	//------------------------------------
-
 
 	static const OwnMathFuncs::Vector2 tile_size;
 
@@ -65,8 +63,8 @@ private:
 
 	std::vector<SDL_Texture*> no_door_textures;
 
-	std::vector<SDL_Texture*> face_door_textures;
-	std::vector<SDL_Texture*> side_door_textures;
+	std::vector<std::vector<SDL_Texture*>> open_door_textures;
+	std::vector<std::vector<SDL_Texture*>> close_door_textures;
 
 
 	int seed = 500;
@@ -82,5 +80,7 @@ private:
 	OwnMathFuncs::Vector2 getNewPos();
 
 	SDL_Texture* tile_map_texture;
+
+	int convDoorPosToIndex(OwnMathFuncs::Vector2 pos);
 };
 

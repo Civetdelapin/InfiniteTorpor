@@ -3,7 +3,7 @@
 #include "Room.h"
 #include "Renderer.h"
 
-class RoomBehavior : public Component, public Renderer
+class RoomBehavior : public Component
 {
 public:
 	RoomBehavior(GameObject* game_object, Room* room_data);
@@ -13,7 +13,7 @@ public:
 
 	void start();
 	void update();
-	void render();
+
 
 	void clean();
 
@@ -26,7 +26,10 @@ private:
 	void playerEndRoom();
 
 	void setDoorsCollider(bool value);
+	void setDoors(bool value);
 
+
+	GameObject* player;
 	RoomState state = NotOver;
 };
 
