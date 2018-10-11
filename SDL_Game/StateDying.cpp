@@ -32,8 +32,9 @@ void StateDying::operation(StateMachine * state_machine)
 	if (time_passed <= 0) {
 		if (is_alpha_phase) {
 
-			//Destroy game_object
-			Game::instance()->destroyGameObject(state_machine->getGameObject()->getRootParent());
+			//Deactivate game_object
+			state_machine->getGameObject()->is_active = false;
+			//Game::instance()->destroyGameObject(state_machine->getGameObject()->getRootParent());
 		}
 		else {
 			is_alpha_phase = true;

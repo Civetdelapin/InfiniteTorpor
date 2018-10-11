@@ -63,6 +63,11 @@ TileMapData* Room::getTileMapData()
 	return tile_map_data;
 }
 
+std::vector<std::vector<GameObject*>> Room::getEnemiesWaves()
+{
+	return enemies_waves;
+}
+
 
 TileData::TileData() : is_collider(false) {
 }

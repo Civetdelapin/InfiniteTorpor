@@ -65,6 +65,20 @@ void RoomBehavior::update()
 
 		}
 
+		bool all_enemy_dead = true;
+		for (GameObject* enemy : room_data->getEnemiesWaves()[index_wave]) {
+			if (enemy->is_active) {
+				all_enemy_dead = false;
+			}
+		}
+
+		if (all_enemy_dead) {
+			index_wave++;
+			if (index_wave == room_data->getEnemiesWaves().size()) {
+				playerEndRoom();
+				index_wave--;
+			}
+		}
 	}
 
 }
@@ -84,6 +98,8 @@ Room * RoomBehavior::getRoomData()
 void RoomBehavior::playerEnterRoom()
 
 {
+	index_wave = 0;
+
 	if (state == NotOver) {
 
 		Game::instance()->getCamera()->setObjectToFollow(game_object);
@@ -91,6 +107,15 @@ void RoomBehavior::playerEnterRoom()
 		state = Active;
 
 		setDoors(true);
+
+		if(room_data->getEnemiesWaves().size() > 0) {
+			for (GameObject* enemy : room_data->getEnemiesWaves()[index_wave]) {
+				enemy->is_active = false;
+			}
+		}
+		else {
+			playerEndRoom();
+		}
 	}
 }
 
@@ -100,8 +125,13 @@ void RoomBehavior::playerEndRoom()
 	state = Over;
 
 	Game::instance()->getCamera()->setObjectToFollow(player);
-
 	setDoors(false);
+
+	if (room_data->getEnemiesWaves().size() > 0) {
+		for (GameObject* enemy : room_data->getEnemiesWaves()[index_wave]) {
+			enemy->is_active = false;
+		}
+	}
 }
 
 void RoomBehavior::setDoorsCollider(bool value)

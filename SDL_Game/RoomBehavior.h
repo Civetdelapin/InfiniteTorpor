@@ -28,6 +28,7 @@ private:
 	void setDoorsCollider(bool value);
 	void setDoors(bool value);
 
+	int index_wave = 0;
 
 	GameObject* player;
 	RoomState state = NotOver;

@@ -11,11 +11,21 @@ PlayerStat::~PlayerStat()
 {
 }
 
+float PlayerStat::getMaxHp()
+{
+	return max_hp;
+}
+
 float PlayerStat::getCurHP()
 {
 	return cur_hp;
 }
 
+
+void PlayerStat::start()
+{
+	time_passed_score = time_loose_score;
+}
 
 void PlayerStat::update()
 {	
@@ -28,6 +38,12 @@ void PlayerStat::update()
 		}
 	}
 
+
+	time_passed_score -= Time::deltaTime;
+	if (time_passed_score <= 0) {
+		score -= 1;
+		time_passed_score = time_loose_score;
+	}
 }
 
 void PlayerStat::setInvicible(float time)
