@@ -48,5 +48,7 @@ private:
 	float _amplitude = 2000;
 	Shake shake_x;
 	Shake shake_y;
+
+	GameObject* nextObjectToFollow = nullptr;
 };
 

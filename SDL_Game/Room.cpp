@@ -46,8 +46,14 @@ void Room::setTileMapData(TileMapData* value)
 			
 			TileData* newTile = new TileData();
 			newTile->is_collider = tile->is_collider;
+			newTile->is_spawner = tile->is_spawner;
+
 			newTile->nb_img = tile->nb_img;
 			newTile->position_grid = tile->position_grid;
+
+			if (tile->is_spawner) {
+				newTileMapData->spawners.push_back(newTile);
+			}
 
 			new_vec.push_back(newTile);
 		}

@@ -8,6 +8,7 @@ struct TileData {
 	OwnMathFuncs::Vector2 position_grid = { 0, 0 };
 	int nb_img;
 	bool is_collider = false;
+	bool is_spawner = false;
 
 	TileData();
 };
@@ -15,6 +16,8 @@ struct TileData {
 struct TileMapData {
 
 	std::vector<std::vector<TileData*>> data;
+	std::vector<TileData*> spawners;
+	
 	OwnMathFuncs::Vector2 sprite_size = { 16, 16 };
 
 	TileData* getTile(int x, int y);

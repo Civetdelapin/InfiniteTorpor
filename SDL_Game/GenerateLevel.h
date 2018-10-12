@@ -33,7 +33,7 @@ public:
 	static const int world_grid_size_x = 10;
 	static const int world_grid_size_y = 10;
 
-	static const int number_of_rooms = 3;
+	static const int number_of_rooms = 5;
 	//-----------------------------------
 
 	//----------- ROOM CONST -------------
@@ -45,6 +45,9 @@ public:
 
 	static const int room_no_door_offset_x = 2;
 	static const int room_no_door_offset_y = 4;
+
+	static const int spawn_offset_x = 10;
+	static const int spawn_offset_y = 10;
 	//------------------------------------
 
 	static const OwnMathFuncs::Vector2 tile_size;
@@ -67,7 +70,7 @@ private:
 	std::vector<std::vector<SDL_Texture*>> close_door_textures;
 
 
-	int seed = 10;
+	int seed = 500;
 
 	void loadRoomsFromFiles();
 	void generateLevel();
@@ -76,6 +79,7 @@ private:
 
 	void readCSV(const char* file_path, TileMapData* tile_map_data);
 	void readCSVCollider(const char* file_path, TileMapData* tile_map_data);
+	void readCSVSpawner(const char* file_path, TileMapData* tile_map_data);
 
 	OwnMathFuncs::Vector2 getNewPos();
 

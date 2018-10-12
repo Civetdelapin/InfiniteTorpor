@@ -174,6 +174,9 @@ void GenerateLevel::loadRoomsFromFiles()
 						std::string tile_data_collider = "levels/" + buff + "/" + buff + "_collider.csv";
 						readCSVCollider(tile_data_collider.c_str(), tile_map_data);
 
+						std::string tile_data_spawner = "levels/" + buff + "/" + buff + "_spawner.csv";
+						readCSVSpawner(tile_data_spawner.c_str(), tile_map_data);
+
 						roomDataStruct->tile_map_data = tile_map_data;
 
 						for (int i = 0; i <= 10; i++) {
@@ -531,65 +534,58 @@ void GenerateLevel::generateLevel()
 
 		// ------ CREATE ENEMIES OF THE ROOM -------------
 		
+		
 		int nb_enemies = rand() % 5 + 3;
 		for (int i = 0; i < nb_enemies; i++) {
 			
 			GameObject* new_enemy;
-
 			OwnMathFuncs::Vector2 new_pos = { room_prefab->getWorldPosition() };
-			/*
-			bool is_ok = true;
-			int iteration = 0;
-			do {
-				is_ok = true;
 			
-				TileData* tile_data = room->getTileMapData()->getTile(rand() % room_grid_size_x, rand() % room_grid_size_y);
+			OwnMathFuncs::Vector2 sprite_size = room->getTileMapData()->sprite_size;
+			OwnMathFuncs::Vector2 new_world_pos = { room_prefab->getWorldPosition().x - (GenerateLevel::room_grid_size_x * sprite_size.x * room_prefab->local_scale.x) / 2,
+				room_prefab->getWorldPosition().y - (GenerateLevel::room_grid_size_y * sprite_size.y * room_prefab->local_scale.y) / 2 };
 
-				if (tile_data != nullptr && tile_data->is_collider) {
-					OwnMathFuncs::Vector2 sprite_size = room->getTileMapData()->sprite_size;
-					OwnMathFuncs::Vector2 new_world_pos = { room_prefab->getWorldPosition().x - (GenerateLevel::room_grid_size_x * sprite_size.x * room_prefab->local_scale.x) / 2,
-						room_prefab->getWorldPosition().y - (GenerateLevel::room_grid_size_y * sprite_size.y * room_prefab->local_scale.y) / 2 };
 
-					
-					new_pos = { new_world_pos.x + tile_data->position_grid.x * sprite_size.x , new_world_pos.y + tile_data->position_grid.y * sprite_size.y };
+			if (room->getTileMapData()->spawners.size() > 0) {
+
+				int index_spawner = rand() % room->getTileMapData()->spawners.size();
+				TileData* tile_data = room->getTileMapData()->spawners[index_spawner];
+
+				new_pos = { new_world_pos.x + tile_data->position_grid.x * sprite_size.x * room_prefab->local_scale.x,
+							new_world_pos.y + tile_data->position_grid.y * sprite_size.y * room_prefab->local_scale.x };
+
+
+				int enemy = rand() % 4;
+				switch (enemy)
+				{
+
+				case 0:
+					new_enemy = new SnakePrefab(new_pos);
+					break;
+
+				case 1:
+					new_enemy = new GoblinPrefab(new_pos);
+					break;
+
+				case 2:
+					new_enemy = new MinotaurPrefab(new_pos);
+					break;
+
+				case 3:
+					new_enemy = new SlimPrefab(new_pos);
+					break;
+
+				default:
+					new_enemy = new GoblinPrefab(new_pos);
+					break;
 				}
-				else {
-					is_ok = false;
-				}
 
-				iteration++;
-			} while (!is_ok && iteration < 80);
-			*/
+				new_enemy->is_active = false;
+				room->addEnemy(new_enemy);
 
-			int enemy = rand() % 4;
-			switch (enemy)
-			{
+				Game::instance()->instantiateGameObject(new_enemy);
 
-			case 0:
-				new_enemy = new SnakePrefab(new_pos);
-				break;
-
-			case 1:
-				new_enemy = new GoblinPrefab(new_pos);
-				break;
-
-			case 2:
-				new_enemy = new MinotaurPrefab(new_pos);
-				break;
-
-			case 3:
-				new_enemy = new SlimPrefab(new_pos);
-				break;
-
-			default:
-				new_enemy = new GoblinPrefab(new_pos);
-				break;
 			}
-
-			new_enemy->is_active = false;
-			room->addEnemy(new_enemy);
-
-			Game::instance()->instantiateGameObject(new_enemy);
 		}
 		//-------------------------------------------
 
@@ -807,6 +803,76 @@ void GenerateLevel::readCSVCollider(const char * file_path, TileMapData* tile_ma
 		std::cout << "" << std::endl;
 		y++;
 	}
+}
+
+void GenerateLevel::readCSVSpawner(const char * file_path, TileMapData * tile_map_data)
+{
+	std::ifstream myfile(file_path);
+	std::cout << "READING : " << file_path << std::endl;
+
+	int x, y = 0;
+	while (myfile.good()) {
+		x = 0;
+
+		std::vector<TileData> vec_x;
+
+		std::string line;
+		std::getline(myfile, line, '\n');
+
+		std::string buff{ "" };
+
+		for (auto n : line)
+		{
+			if (n != ',') buff += n; else
+				if (n == ',' && buff != "") {
+
+					std::cout << buff << ", ";
+					int datum = atoi(buff.c_str());
+
+					if (datum != -1) {
+						TileData* t = tile_map_data->getTile(x, y);
+						
+
+						if (t != nullptr) {
+
+							t->is_spawner = true;
+							tile_map_data->spawners.push_back(t);
+						}
+					}
+					x++;
+					buff = "";
+				}
+		}
+		if (buff != "") {
+			std::cout << buff << ", ";
+			int datum = atoi(buff.c_str());
+
+			if (datum != -1) {
+				TileData* t = tile_map_data->getTile(x, y);
+
+				if (t != nullptr) {
+
+					t->is_spawner = true;
+					tile_map_data->spawners.push_back(t);
+				}
+			}
+			x++;
+			buff = "";
+		}
+
+		std::cout << "" << std::endl;
+		y++;
+	}
+
+	std::cout << "----------- SPAWNERS ---------------------" << std::endl;
+	for (TileData* tile : tile_map_data->spawners) {
+
+		if (tile != nullptr && tile->is_spawner) {
+			std::cout << tile->position_grid.x << ", " << tile->position_grid.y << std::endl;
+		}
+
+	}
+	std::cout << "-----------------------------------------" << std::endl;
 }
 
 OwnMathFuncs::Vector2 GenerateLevel::getNewPos()

@@ -36,6 +36,12 @@ void Camera::update()
 		camera_pos.x += s_x;
 		camera_pos.y += s_y;
 	}
+	else {
+		if (nextObjectToFollow != nullptr) {
+			objectToFollow = nextObjectToFollow;
+			nextObjectToFollow = nullptr;
+		}
+	}
 }
 
 OwnMathFuncs::Vector2 Camera::getCameraPos()
@@ -45,7 +51,15 @@ OwnMathFuncs::Vector2 Camera::getCameraPos()
 
 void Camera::setObjectToFollow(GameObject* game_object)
 {
-	objectToFollow = game_object;
+	if (shake_x.is_shaking || shake_y.is_shaking) {
+	
+		nextObjectToFollow = game_object;
+		
+	}
+	else {
+		objectToFollow = game_object;
+	}
+
 }
 
 void Camera::startShake(float ampli, float frequency, float duration)

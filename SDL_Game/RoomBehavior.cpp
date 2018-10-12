@@ -52,7 +52,7 @@ void RoomBehavior::update()
 	else if (state == Active) {
 
 
-		//-------- DEBUG --------------
+		//-------- DEBUG ONLY --------------
 		switch (Game::instance()->event.type) {
 		case SDL_KEYDOWN:
 			switch (Game::instance()->event.key.keysym.sym) {
@@ -139,7 +139,6 @@ void RoomBehavior::playerEndRoom()
 
 	Game::instance()->getCamera()->setObjectToFollow(player);
 	setDoors(false);
-
 }
 
 void RoomBehavior::setDoorsCollider(bool value)
