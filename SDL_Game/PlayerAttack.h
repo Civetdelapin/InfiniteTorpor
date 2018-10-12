@@ -17,14 +17,14 @@ public:
 	void clean();
 
 	const float time_attack_up = 0.15;
-	const float time_attack_cd = 0.2;
+	const float time_attack_cd = 0.5;
 	const float time_attack_cancel_combo = 1;
 	const int nb_combo_max = 3;
 
 	const float attack_dmg[3] = {8, 12, 15};
 	const float time_enemy_stun = 0.5f;
 
-	const float velocity_attack = 600;
+	const float velocity_attack = 200;
 
 	
 private:

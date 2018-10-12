@@ -71,11 +71,34 @@ void RoomBehavior::update()
 			spawnEnemy();
 		}
 
-		for (GameObject* enemy : room_data->getEnemiesWaves()) {
-			if (enemy->getComponent<EnemyBasicBehavior>()->getCurHP() <= 0) {
-				room_data->getEnemiesWaves().erase(std::remove(room_data->getEnemiesWaves().begin(), room_data->getEnemiesWaves().end(), enemy), room_data->getEnemiesWaves().end());
+		
+		//We remove every enemy dead
+		room_data->getEnemiesWaves().erase(
+			std::remove_if(
+				room_data->getEnemiesWaves().begin(),
+				room_data->getEnemiesWaves().end(),
+				[](GameObject* const & enemy) {
+						if (enemy->getComponent<EnemyBasicBehavior>()->getCurHP() <= 0) {
+							return true;
+						}
+						return false; 
+					}
+			),
+			room_data->getEnemiesWaves().end()
+		);
+		
+		//---------- MANAGE SPAWN ---------------
+		bool need_spawn = true;
+		for (int i = 0; i < room_data->getEnemiesWaves().size(); i++) {
+
+			if (room_data->getEnemiesWaves()[i]->is_active) {
+				need_spawn = false;
 			}
 		}
+		if (need_spawn) {
+			spawnEnemy();
+		}
+		//--------------------------------------
 
 		if (room_data->getEnemiesWaves().size() == 0) {
 			playerEndRoom();
@@ -101,7 +124,6 @@ void RoomBehavior::playerStartRoom()
 {
 	if (state == NotOver) {
 
-		enemy_index = 0;
 		state = Active;
 		setDoors(true);
 
@@ -143,11 +165,18 @@ void RoomBehavior::setDoors(bool value)
 
 void RoomBehavior::spawnEnemy()
 {
-	//We activate the first enemy
-	if (room_data->getEnemiesWaves().size() > 0 && enemy_index < room_data->getEnemiesWaves().size()) {
 
-		room_data->getEnemiesWaves()[enemy_index]->is_active = true;
-		time_passed = room_data->getEnemiesWaves()[enemy_index]->getComponent<EnemyBasicBehavior>()->getTimeBeforeEnemy();
-		enemy_index++;
+	if (room_data->getEnemiesWaves().size() > 0 ) {
+
+		for (int i = 0; i < room_data->getEnemiesWaves().size(); i++) {
+
+			if (!room_data->getEnemiesWaves()[i]->is_active) {
+				room_data->getEnemiesWaves()[i]->is_active = true;
+				time_passed = room_data->getEnemiesWaves()[i]->getComponent<EnemyBasicBehavior>()->getTimeBeforeEnemy();
+
+				i = room_data->getEnemiesWaves().size();
+			}
+		}
 	}
+
 }

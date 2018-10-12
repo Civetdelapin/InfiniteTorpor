@@ -52,7 +52,9 @@ public:
 	void setTileMapData(TileMapData* value);
 	TileMapData* getTileMapData();
 
-	std::vector<GameObject*> getEnemiesWaves();
+	void addEnemy(GameObject* game_object);
+	std::vector<GameObject*> & getEnemiesWaves();
+
 
 private:
 

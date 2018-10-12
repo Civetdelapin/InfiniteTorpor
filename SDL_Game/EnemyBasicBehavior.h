@@ -43,7 +43,6 @@ private:
 	float time_before_next_enemy = 5.0f;
 
 	float knock_back_resistance = 1;
-
 	float time_stunned = 0;
 
 	int score_value = 50;

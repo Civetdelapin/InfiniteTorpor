@@ -98,7 +98,7 @@ void GenerateLevel::clean()
 
 void GenerateLevel::loadRoomsFromFiles()
 {
-	//------- WE LOAD ALL THE ROOMS DATA ----------
+	//---------------- WE LOAD ALL THE ROOMS DATA ------------------
 
 
 	//------- LOAD THE NO DOOR'S TEXTURES ---------
@@ -329,8 +329,6 @@ void GenerateLevel::generateLevel()
 		room->setTileMapData(roomDataStructChoosen->tile_map_data);
 
 
-		
-	
 		//Create Sprite Renderers for each texture
 		for (int i = 0; i < roomDataStructChoosen->vect_room_texture.size(); i++) {
 			SDL_Texture* texture = roomDataStructChoosen->vect_room_texture[i];
@@ -529,16 +527,79 @@ void GenerateLevel::generateLevel()
 			sprite_renderer->setLayer(2);
 		}
 
+		
+
+		// ------ CREATE ENEMIES OF THE ROOM -------------
+		
+		int nb_enemies = rand() % 5 + 3;
+		for (int i = 0; i < nb_enemies; i++) {
+			
+			GameObject* new_enemy;
+
+			OwnMathFuncs::Vector2 new_pos = { room_prefab->getWorldPosition() };
+			/*
+			bool is_ok = true;
+			int iteration = 0;
+			do {
+				is_ok = true;
+			
+				TileData* tile_data = room->getTileMapData()->getTile(rand() % room_grid_size_x, rand() % room_grid_size_y);
+
+				if (tile_data != nullptr && tile_data->is_collider) {
+					OwnMathFuncs::Vector2 sprite_size = room->getTileMapData()->sprite_size;
+					OwnMathFuncs::Vector2 new_world_pos = { room_prefab->getWorldPosition().x - (GenerateLevel::room_grid_size_x * sprite_size.x * room_prefab->local_scale.x) / 2,
+						room_prefab->getWorldPosition().y - (GenerateLevel::room_grid_size_y * sprite_size.y * room_prefab->local_scale.y) / 2 };
+
+					
+					new_pos = { new_world_pos.x + tile_data->position_grid.x * sprite_size.x , new_world_pos.y + tile_data->position_grid.y * sprite_size.y };
+				}
+				else {
+					is_ok = false;
+				}
+
+				iteration++;
+			} while (!is_ok && iteration < 80);
+			*/
+
+			int enemy = rand() % 4;
+			switch (enemy)
+			{
+
+			case 0:
+				new_enemy = new SnakePrefab(new_pos);
+				break;
+
+			case 1:
+				new_enemy = new GoblinPrefab(new_pos);
+				break;
+
+			case 2:
+				new_enemy = new MinotaurPrefab(new_pos);
+				break;
+
+			case 3:
+				new_enemy = new SlimPrefab(new_pos);
+				break;
+
+			default:
+				new_enemy = new GoblinPrefab(new_pos);
+				break;
+			}
+
+			new_enemy->is_active = false;
+			room->addEnemy(new_enemy);
+
+			Game::instance()->instantiateGameObject(new_enemy);
+		}
+		//-------------------------------------------
 
 		RoomBehavior* room_behavior = new RoomBehavior(room_prefab, room);
 
-		
 		TileMapCollider* tile_map_collider = new TileMapCollider(room_prefab);
 		tile_map_collider->setLayer(40);
 
 		Game::instance()->instantiateGameObject(room_prefab);
 		
-
 
 		//test for start room & end room
 		if (start_room == nullptr || (room->getGridPos().x + room->getGridPos().y) <= (start_room->getComponent<RoomBehavior>()->getRoomData()->getGridPos().x + start_room->getComponent<RoomBehavior>()->getRoomData()->getGridPos().y)) {
@@ -549,23 +610,21 @@ void GenerateLevel::generateLevel()
 		}
 }
 
-	start_room->getComponent<RoomBehavior>()->getRoomData()->setRoomType(Room::StartRoom);
+
 	Game::instance()->findGameObject("Player")->local_position = { start_room->getWorldPosition().x + (room_grid_size_x * start_room->getWorldScale().x), start_room->getWorldPosition().y + (room_grid_size_y * start_room->getWorldScale().y) };
 
-
+	start_room->getComponent<RoomBehavior>()->getRoomData()->setRoomType(Room::StartRoom);
 	end_room->getComponent<RoomBehavior>()->getRoomData()->setRoomType(Room::EndRoom);
 
+
 	OwnMathFuncs::Vector2 player_pos = Game::instance()->findGameObject("Player")->getWorldPosition();
-	
-
-
-	
+	/*
 	SlimPrefab* slime = new SlimPrefab(player_pos);
 	Game::instance()->instantiateGameObject(slime);
 	
 	SlimPrefab* slime2 = new SlimPrefab({ player_pos.x + 100, player_pos.y});
 	Game::instance()->instantiateGameObject(slime2);
-	
+	*/
 
 	/*
 	GoblinPrefab *goblin = new GoblinPrefab(player_pos);

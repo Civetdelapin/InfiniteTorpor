@@ -63,7 +63,12 @@ TileMapData* Room::getTileMapData()
 	return tile_map_data;
 }
 
-std::vector<GameObject*> Room::getEnemiesWaves()
+void Room::addEnemy(GameObject * game_object)
+{
+	enemies_waves.push_back(game_object);
+}
+
+std::vector<GameObject*> & Room::getEnemiesWaves()
 {
 	return enemies_waves;
 }

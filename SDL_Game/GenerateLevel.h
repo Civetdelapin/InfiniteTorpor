@@ -33,7 +33,7 @@ public:
 	static const int world_grid_size_x = 10;
 	static const int world_grid_size_y = 10;
 
-	static const int number_of_rooms = 8;
+	static const int number_of_rooms = 3;
 	//-----------------------------------
 
 	//----------- ROOM CONST -------------
@@ -67,7 +67,7 @@ private:
 	std::vector<std::vector<SDL_Texture*>> close_door_textures;
 
 
-	int seed = 500;
+	int seed = 10;
 
 	void loadRoomsFromFiles();
 	void generateLevel();

@@ -34,7 +34,6 @@ private:
 	GameObject* player;
 	RoomState state = NotOver;
 
-	float enemy_index = 0;
 
 	float time_passed;
 };
