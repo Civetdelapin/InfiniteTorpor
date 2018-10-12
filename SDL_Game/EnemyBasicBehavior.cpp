@@ -129,6 +129,16 @@ void EnemyBasicBehavior::setKnockBackResistance(float value)
 	knock_back_resistance = value;
 }
 
+float EnemyBasicBehavior::getTimeBeforeEnemy()
+{
+	return time_before_next_enemy;
+}
+
+void EnemyBasicBehavior::setTimeBeforeEnemy(float value)
+{
+	time_before_next_enemy = value;
+}
+
 void EnemyBasicBehavior::setDying()
 {
 	game_object->getRootParent()->getComponentInChildren<StateMachine>()->play("Dying");

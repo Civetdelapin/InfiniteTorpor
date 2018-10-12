@@ -52,13 +52,13 @@ public:
 	void setTileMapData(TileMapData* value);
 	TileMapData* getTileMapData();
 
-	std::vector<std::vector<GameObject*>> getEnemiesWaves();
+	std::vector<GameObject*> getEnemiesWaves();
 
 private:
 
 	RoomType room_type = NormalRoom;
 
-	std::vector<std::vector<GameObject*>> enemies_waves;
+	std::vector<GameObject*> enemies_waves;
 
 	std::vector<Door*> doors;
 	TileMapData* tile_map_data;

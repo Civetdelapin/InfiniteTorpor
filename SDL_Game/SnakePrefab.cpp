@@ -5,8 +5,10 @@ SnakePrefab::SnakePrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/snak
 	//---- MODIFICATION OF EXISTING COMPONENTS -----
 	getComponent<VelocityBody>()->setDrag({ 13, 13 });
 
-	getComponent<EnemyBasicBehavior>()->setMaxHP(60);
-	getComponent<EnemyBasicBehavior>()->setSpeed(1500);
+	EnemyBasicBehavior* enemy_basic_behavior = getComponent<EnemyBasicBehavior>();
+	enemy_basic_behavior->setMaxHP(60);
+	enemy_basic_behavior->setSpeed(1500);
+	enemy_basic_behavior->setTimeBeforeEnemy(7.0f);
 
 	getComponent<DisplayEnemyHp>()->setYOffset(8);
 	getComponent<SpriteRenderer>()->setIsLookingRight(false);

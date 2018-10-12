@@ -2,17 +2,20 @@
 
 GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/goblin.png", { 32, 32 }, init_local_pos)
 {
-
+	//---- MODIFICATION OF EXISTING COMPONENTS -----
 	getComponent<VelocityBody>()->setDrag({ 10, 10 });
 
 	EnemyBasicBehavior* enemy_basic_behavior = getComponent<EnemyBasicBehavior>();
 	enemy_basic_behavior-> setMaxHP(70);
 	enemy_basic_behavior->setSpeed(3100);
 	enemy_basic_behavior->setScoreValue(70);
+	enemy_basic_behavior->setTimeBeforeEnemy(8.5f);
 
 	getComponent<DisplayEnemyHp>()->setYOffset(8);
+	//----------------------------------------------
 
-	//Creation of child
+
+	//Creation of children
 	GameObject* game_object_child = new GameObject();
 	game_object_child->tag = "Enemy";
 
@@ -83,7 +86,7 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 
 	animator->play("Idle");
 
-	//State Machine
+	//-----------STATES MACHINE ----------
 	StateMachine * stateMachine = getComponent<StateMachine>();
 	stateMachine->setDefaultState("RushPlayer");
 
@@ -91,6 +94,7 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 	stateMachine->addState(std::pair <std::string, State*>("MeleeAttack", new StateMeleeAttack(this, "RushPlayer")));
 
 	stateMachine->play("RushPlayer");
+	//------------------------------------
 }
 
 

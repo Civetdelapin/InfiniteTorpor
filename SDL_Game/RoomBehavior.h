@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Room.h"
 #include "Renderer.h"
+#include "EnemyBasicBehavior.h"
 
 class RoomBehavior : public Component
 {
@@ -22,15 +23,19 @@ public:
 private:
 	Room* room_data;
 
-	void playerEnterRoom();
+	void playerStartRoom();
 	void playerEndRoom();
 
 	void setDoorsCollider(bool value);
 	void setDoors(bool value);
 
-	int index_wave = 0;
+	void spawnEnemy();
 
 	GameObject* player;
 	RoomState state = NotOver;
+
+	float enemy_index = 0;
+
+	float time_passed;
 };
 

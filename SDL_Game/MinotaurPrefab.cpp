@@ -12,6 +12,7 @@ MinotaurPrefab::MinotaurPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("im
 	enemy_basic_behavior->setSpeed(1300);
 	enemy_basic_behavior->setKnockBackResistance(0);
 	enemy_basic_behavior->setScoreValue(85);
+	enemy_basic_behavior->setTimeBeforeEnemy(12.0f);
 
 	getComponent<DisplayEnemyHp>()->setYOffset(12);
 	getComponent<SpriteRenderer>()->setIsLookingRight(false);

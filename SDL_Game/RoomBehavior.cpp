@@ -41,7 +41,7 @@ void RoomBehavior::update()
 
 					if (collider->getGameObject()->tag == "Player") {
 
-						playerEnterRoom();
+						playerStartRoom();
 
 					}
 				}
@@ -52,7 +52,7 @@ void RoomBehavior::update()
 	else if (state == Active) {
 
 
-		//For debug 
+		//-------- DEBUG --------------
 		switch (Game::instance()->event.type) {
 		case SDL_KEYDOWN:
 			switch (Game::instance()->event.key.keysym.sym) {
@@ -64,20 +64,21 @@ void RoomBehavior::update()
 			break;
 
 		}
+		//--------------------------------
 
-		bool all_enemy_dead = true;
-		for (GameObject* enemy : room_data->getEnemiesWaves()[index_wave]) {
-			if (enemy->is_active) {
-				all_enemy_dead = false;
+		time_passed -= Time::deltaTime;
+		if (time_passed <= 0) {
+			spawnEnemy();
+		}
+
+		for (GameObject* enemy : room_data->getEnemiesWaves()) {
+			if (enemy->getComponent<EnemyBasicBehavior>()->getCurHP() <= 0) {
+				room_data->getEnemiesWaves().erase(std::remove(room_data->getEnemiesWaves().begin(), room_data->getEnemiesWaves().end(), enemy), room_data->getEnemiesWaves().end());
 			}
 		}
 
-		if (all_enemy_dead) {
-			index_wave++;
-			if (index_wave == room_data->getEnemiesWaves().size()) {
-				playerEndRoom();
-				index_wave--;
-			}
+		if (room_data->getEnemiesWaves().size() == 0) {
+			playerEndRoom();
 		}
 	}
 
@@ -95,27 +96,17 @@ Room * RoomBehavior::getRoomData()
 	return room_data;
 }
 
-void RoomBehavior::playerEnterRoom()
+void RoomBehavior::playerStartRoom()
 
 {
-	index_wave = 0;
-
 	if (state == NotOver) {
 
-		Game::instance()->getCamera()->setObjectToFollow(game_object);
-
+		enemy_index = 0;
 		state = Active;
-
 		setDoors(true);
 
-		if(room_data->getEnemiesWaves().size() > 0) {
-			for (GameObject* enemy : room_data->getEnemiesWaves()[index_wave]) {
-				enemy->is_active = false;
-			}
-		}
-		else {
-			playerEndRoom();
-		}
+		Game::instance()->getCamera()->setObjectToFollow(game_object);
+		spawnEnemy();
 	}
 }
 
@@ -127,11 +118,6 @@ void RoomBehavior::playerEndRoom()
 	Game::instance()->getCamera()->setObjectToFollow(player);
 	setDoors(false);
 
-	if (room_data->getEnemiesWaves().size() > 0) {
-		for (GameObject* enemy : room_data->getEnemiesWaves()[index_wave]) {
-			enemy->is_active = false;
-		}
-	}
 }
 
 void RoomBehavior::setDoorsCollider(bool value)
@@ -152,5 +138,16 @@ void RoomBehavior::setDoors(bool value)
 		if (door->open_door != nullptr) {
 			door->open_door->is_active = !value;
 		}
+	}
+}
+
+void RoomBehavior::spawnEnemy()
+{
+	//We activate the first enemy
+	if (room_data->getEnemiesWaves().size() > 0 && enemy_index < room_data->getEnemiesWaves().size()) {
+
+		room_data->getEnemiesWaves()[enemy_index]->is_active = true;
+		time_passed = room_data->getEnemiesWaves()[enemy_index]->getComponent<EnemyBasicBehavior>()->getTimeBeforeEnemy();
+		enemy_index++;
 	}
 }

@@ -30,12 +30,17 @@ public:
 
 	void setKnockBackResistance(float value);
 
+	float getTimeBeforeEnemy();
+	void setTimeBeforeEnemy(float value);
+
 private:
 
 	bool is_stunned = false;
 	float cur_hp;
 	float max_hp = 100;
 	float speed = 2300;
+
+	float time_before_next_enemy = 5.0f;
 
 	float knock_back_resistance = 1;
 
