@@ -64,6 +64,8 @@ private:
 	Room* rooms[world_grid_size_x][world_grid_size_y];
 	std::vector<Room*> rooms_vector;
 
+	RoomDataStruct* ending_room;
+
 	std::vector<SDL_Texture*> no_door_textures;
 
 	std::vector<std::vector<SDL_Texture*>> open_door_textures;
@@ -80,6 +82,7 @@ private:
 	void readCSV(const char* file_path, TileMapData* tile_map_data);
 	void readCSVCollider(const char* file_path, TileMapData* tile_map_data);
 	void readCSVSpawner(const char* file_path, TileMapData* tile_map_data);
+	void loadRoomDataStruct(std::string room_name, RoomDataStruct* roomDataStruct);
 
 	OwnMathFuncs::Vector2 getNewPos();
 

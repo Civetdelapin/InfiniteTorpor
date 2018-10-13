@@ -98,7 +98,7 @@ void GenerateLevel::clean()
 
 void GenerateLevel::loadRoomsFromFiles()
 {
-	//---------------- WE LOAD ALL THE ROOMS DATA ------------------
+	//------------------------------- WE LOAD ALL THE ROOMS DATA -------------------------------------
 
 
 	//------- LOAD THE NO DOOR'S TEXTURES ---------
@@ -135,7 +135,20 @@ void GenerateLevel::loadRoomsFromFiles()
 	//--------------------------------------------
 
 
-	//---- LOAD THE ROOM'S DATA AND TEXTURES -------
+	//------ LOAD THE ENDING AND STARTING ROOM'S DATA --------
+
+	ending_room = new RoomDataStruct();
+	loadRoomDataStruct("room_end", ending_room);
+
+	for (int i = 1; i <= 4; i++) {
+		ending_room->doors_possible.push_back(convIndexToDoorPos(i));
+	}
+
+
+
+	//--------------------------------------------------------
+
+	//---- LOAD THE OTHERS ROOM'S DATA AND TEXTURES -------
 	std::string file_path = "levels/levels_name.txt";
 	std::ifstream myfile(file_path);
 
@@ -163,37 +176,13 @@ void GenerateLevel::loadRoomsFromFiles()
 
 					if (x == 0) {
 
-						for (int i = 0; i <= 15; i++) {
-							roomDataStruct->vect_room_texture.push_back(nullptr);
-						}
-
-						TileMapData* tile_map_data = new TileMapData();
-						std::string tile_data = "levels/"+ buff +"/" + buff + ".csv";
-						readCSV(tile_data.c_str(), tile_map_data);
-
-						std::string tile_data_collider = "levels/" + buff + "/" + buff + "_collider.csv";
-						readCSVCollider(tile_data_collider.c_str(), tile_map_data);
-
-						std::string tile_data_spawner = "levels/" + buff + "/" + buff + "_spawner.csv";
-						readCSVSpawner(tile_data_spawner.c_str(), tile_map_data);
-
-						roomDataStruct->tile_map_data = tile_map_data;
-
-						int size = roomDataStruct->vect_room_texture.size();
-						for (int i = 0; i < size; i++) {
-							std::string sprite_renderer = "levels/" + buff + "/" + buff + "_" + std::to_string(i) + ".png";
-
-							
-							roomDataStruct->vect_room_texture[i] = TextureManager::LoadTexture(sprite_renderer.c_str());
-						}					
+						loadRoomDataStruct(buff, roomDataStruct);
 
 					}
 					else {
 						int door = std::atoi(buff.c_str());
 						if (door == 1) {
-
 							roomDataStruct->doors_possible.push_back(convIndexToDoorPos(x));
-
 						}
 					}
 
@@ -549,7 +538,6 @@ void GenerateLevel::generateLevel()
 		
 
 		// ------ CREATE ENEMIES OF THE ROOM -------------
-		
 		int nb_enemies = rand() % 7 + 4;
 		for (int i = 0; i < nb_enemies; i++) {
 			
@@ -622,7 +610,7 @@ void GenerateLevel::generateLevel()
 }
 
 
-	Game::instance()->findGameObject("Player")->local_position = { start_room->getWorldPosition().x + (room_grid_size_x * start_room->getWorldScale().x), start_room->getWorldPosition().y + (room_grid_size_y * start_room->getWorldScale().y) };
+	Game::instance()->findGameObject("Player")->local_position = start_room->getWorldPosition();
 
 	start_room->getComponent<RoomBehavior>()->getRoomData()->setRoomType(Room::StartRoom);
 	end_room->getComponent<RoomBehavior>()->getRoomData()->setRoomType(Room::EndRoom);
@@ -889,6 +877,34 @@ void GenerateLevel::readCSVSpawner(const char * file_path, TileMapData * tile_ma
 	}
 	std::cout << "-----------------------------------------" << std::endl;
 }
+
+void GenerateLevel::loadRoomDataStruct(std::string room_name, RoomDataStruct * roomDataStruct)
+{
+
+	for (int i = 0; i <= 15; i++) {
+		roomDataStruct->vect_room_texture.push_back(nullptr);
+	}
+
+	TileMapData* tile_map_data = new TileMapData();
+	std::string tile_data = "levels/" + room_name + "/" + room_name + ".csv";
+	readCSV(tile_data.c_str(), tile_map_data);
+
+	std::string tile_data_collider = "levels/" + room_name + "/" + room_name + "_collider.csv";
+	readCSVCollider(tile_data_collider.c_str(), tile_map_data);
+
+	std::string tile_data_spawner = "levels/" + room_name + "/" + room_name + "_spawner.csv";
+	readCSVSpawner(tile_data_spawner.c_str(), tile_map_data);
+
+	roomDataStruct->tile_map_data = tile_map_data;
+
+	int size = roomDataStruct->vect_room_texture.size();
+	for (int i = 0; i < size; i++) {
+		std::string sprite_renderer = "levels/" + room_name + "/" + room_name + "_" + std::to_string(i) + ".png";
+
+		roomDataStruct->vect_room_texture[i] = TextureManager::LoadTexture(sprite_renderer.c_str());
+	}
+}
+
 
 OwnMathFuncs::Vector2 GenerateLevel::getNewPos()
 {
