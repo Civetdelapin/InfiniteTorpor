@@ -17,7 +17,7 @@ void RoomBehavior::start()
 	player = Game::instance()->findGameObject("Player");
 
 
-	if (room_data->getRoomType() == Room::StartRoom) {
+	if (room_data->getRoomType() == Room::StartRoom || room_data->getRoomType() == Room::EndRoom || room_data->getEnemiesWaves().size() == 0) {
 		state = Over;
 	}
 	else {
@@ -167,13 +167,21 @@ void RoomBehavior::spawnEnemy()
 
 	if (room_data->getEnemiesWaves().size() > 0 ) {
 
+
+		int nb_enemy = rand() % 2 + 1;
+		std::cout << nb_enemy << std::endl;
+
 		for (int i = 0; i < room_data->getEnemiesWaves().size(); i++) {
 
 			if (!room_data->getEnemiesWaves()[i]->is_active) {
 				room_data->getEnemiesWaves()[i]->is_active = true;
 				time_passed = room_data->getEnemiesWaves()[i]->getComponent<EnemyBasicBehavior>()->getTimeBeforeEnemy();
 
-				i = room_data->getEnemiesWaves().size();
+				nb_enemy--;
+
+				if (nb_enemy == 0) {
+					i = room_data->getEnemiesWaves().size();
+				}
 			}
 		}
 	}

@@ -549,8 +549,8 @@ void GenerateLevel::generateLevel()
 		
 
 		// ------ CREATE ENEMIES OF THE ROOM -------------
-		int nb_enemies = 0;
-		//int nb_enemies = rand() % 7 + 4;
+		
+		int nb_enemies = rand() % 7 + 4;
 		for (int i = 0; i < nb_enemies; i++) {
 			
 			GameObject* new_enemy;
