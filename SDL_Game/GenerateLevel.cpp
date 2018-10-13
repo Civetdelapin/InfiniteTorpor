@@ -250,16 +250,13 @@ void GenerateLevel::generateLevel()
 		pos_taken.push_back(new_pos);
 	}
 
-	//Set the start and the end of the level
-	GameObject* start_room = nullptr;
-	GameObject* end_room = nullptr;
+	//------ FIND THE START AND END ROOM AND SET THE DOORS -------------
 
+	//Set the start and the end of the level
+	Room* start_room = nullptr;
+	Room* end_room = nullptr;
 
 	for(Room* room : rooms_vector){
-
-		GameObject* room_prefab = new GameObject();
-		room_prefab->local_scale = { 4, 4 };
-		room_prefab->local_position = { room->getGridPos().x * room_prefab->local_scale.x * room_grid_size_x * tile_size.x, room->getGridPos().y * room_prefab->local_scale.y * room_grid_size_y * tile_size.y };
 
 		//set the doors
 		int x = room->getGridPos().x - 1;
@@ -299,8 +296,37 @@ void GenerateLevel::generateLevel()
 			room->addDoor(door);
 		}
 
+		//test for start room & end room
+		if (start_room == nullptr || (room->getGridPos().x + room->getGridPos().y) <= (start_room->getGridPos().x + start_room->getGridPos().y)) {
+			start_room = room;
+		}
+		else if (end_room == nullptr || (room->getGridPos().x + room->getGridPos().y) >(end_room->getGridPos().x + end_room->getGridPos().y)) {
+			end_room = room;
+		}
+	}
+
+	start_room->setRoomType(Room::StartRoom);
+	end_room->setRoomType(Room::EndRoom);
+	//-------------------------------------------------------------------------------------
+
+
+	//---- CHOSE THE RIGHT TILE MAP DATA AND INSTANTIATE THE GAME OBJECTS -----------------
+	GameObject* start_room_object = nullptr;
+	GameObject* end_room_object = nullptr;
+
+	for (Room* room : rooms_vector) {
 		
-		
+		GameObject* room_prefab = new GameObject();
+		room_prefab->local_scale = { 4, 4 };
+		room_prefab->local_position = { room->getGridPos().x * room_prefab->local_scale.x * room_grid_size_x * tile_size.x, room->getGridPos().y * room_prefab->local_scale.y * room_grid_size_y * tile_size.y };
+
+		if (room->getRoomType() == Room::StartRoom) {
+			start_room_object = room_prefab;
+		}
+		else if (room->getRoomType() == Room::EndRoom) {
+			end_room_object = room_prefab;
+		}
+
 		//We try to find a tile map data that fit the doors
 		bool is_ok = true;
 
@@ -311,7 +337,7 @@ void GenerateLevel::generateLevel()
 
 			is_ok = true;
 			random_index = rand() % vect_room_data_struct.size();
-			
+
 			RoomDataStruct* roomDataStructChoosen = vect_room_data_struct[random_index];
 			for (Door* door : room->getDoors()) {
 
@@ -352,7 +378,7 @@ void GenerateLevel::generateLevel()
 		bool bot_door_found = false;
 
 
-		
+
 		for (Door* door : room->getDoors()) {
 
 			GameObject* open_door_prefab = new GameObject();
@@ -424,23 +450,24 @@ void GenerateLevel::generateLevel()
 
 				right_door_found = true;
 
-			}else if(door->door_position.x == 0 && door->door_position.y == -1) {
+			}
+			else if (door->door_position.x == 0 && door->door_position.y == -1) {
 
-				bot_door_found = true;	
+				bot_door_found = true;
 			}
 			else if (door->door_position.x == -1 && door->door_position.y == 0) {
 
-				left_door_found = true;		
+				left_door_found = true;
 			}
 			else if (door->door_position.x == 0 && door->door_position.y == 1) {
 
 				top_door_found = true;
 			}
 		}
-		
+
 
 		int mid_x = (room_grid_size_x / 2);
-		mid_x = room_grid_size_x % 2 == 0 ? mid_x -= 1 : mid_x ;
+		mid_x = room_grid_size_x % 2 == 0 ? mid_x -= 1 : mid_x;
 
 		int mid_y = (room_grid_size_y / 2) - 1;
 		mid_y = room_grid_size_y % 2 == 0 ? mid_y : mid_y -= 1;
@@ -513,9 +540,9 @@ void GenerateLevel::generateLevel()
 
 		if (!top_door_found) {
 
-			
+
 			for (int index = 0; index < room_nb_tile_door_x; index++) {
-				
+
 				if (index > 0) {
 					if (index % 2 == 0) {
 						room->getTileMapData()->data[room_no_door_offset_y][mid_x - index]->is_collider = true;
@@ -525,7 +552,7 @@ void GenerateLevel::generateLevel()
 					}
 				}
 				else {
-					
+
 					room->getTileMapData()->data[room_no_door_offset_y][mid_x]->is_collider = true;
 				}
 			}
@@ -535,15 +562,15 @@ void GenerateLevel::generateLevel()
 			sprite_renderer->setLayer(2);
 		}
 
-		
+
 
 		// ------ CREATE ENEMIES OF THE ROOM -------------
 		int nb_enemies = rand() % 7 + 4;
 		for (int i = 0; i < nb_enemies; i++) {
-			
+
 			GameObject* new_enemy;
 			OwnMathFuncs::Vector2 new_pos = { room_prefab->getWorldPosition() };
-			
+
 			OwnMathFuncs::Vector2 sprite_size = room->getTileMapData()->sprite_size;
 			OwnMathFuncs::Vector2 new_world_pos = { room_prefab->getWorldPosition().x - (GenerateLevel::room_grid_size_x * sprite_size.x * room_prefab->local_scale.x) / 2,
 				room_prefab->getWorldPosition().y - (GenerateLevel::room_grid_size_y * sprite_size.y * room_prefab->local_scale.y) / 2 };
@@ -555,7 +582,7 @@ void GenerateLevel::generateLevel()
 				TileData* tile_data = room->getTileMapData()->spawners[index_spawner];
 
 				new_pos = { new_world_pos.x + tile_data->position_grid.x * sprite_size.x * room_prefab->local_scale.x,
-							new_world_pos.y + tile_data->position_grid.y * sprite_size.y * room_prefab->local_scale.x };
+					new_world_pos.y + tile_data->position_grid.y * sprite_size.y * room_prefab->local_scale.x };
 
 
 				int enemy = rand() % 4;
@@ -598,25 +625,14 @@ void GenerateLevel::generateLevel()
 		tile_map_collider->setLayer(40);
 
 		Game::instance()->instantiateGameObject(room_prefab);
-		
-
-		//test for start room & end room
-		if (start_room == nullptr || (room->getGridPos().x + room->getGridPos().y) <= (start_room->getComponent<RoomBehavior>()->getRoomData()->getGridPos().x + start_room->getComponent<RoomBehavior>()->getRoomData()->getGridPos().y)) {
-			start_room = room_prefab;
-		}
-		else if (end_room == nullptr || (room->getGridPos().x + room->getGridPos().y) >(end_room->getComponent<RoomBehavior>()->getRoomData()->getGridPos().x + end_room->getComponent<RoomBehavior>()->getRoomData()->getGridPos().y)) {
-			end_room = room_prefab;
-		}
-}
+	}
 
 
-	Game::instance()->findGameObject("Player")->local_position = start_room->getWorldPosition();
-
-	start_room->getComponent<RoomBehavior>()->getRoomData()->setRoomType(Room::StartRoom);
-	end_room->getComponent<RoomBehavior>()->getRoomData()->setRoomType(Room::EndRoom);
-
+	Game::instance()->findGameObject("Player")->local_position = start_room_object->getWorldPosition();
 
 	OwnMathFuncs::Vector2 player_pos = Game::instance()->findGameObject("Player")->getWorldPosition();
+
+
 	/*
 	SlimPrefab* slime = new SlimPrefab(player_pos);
 	Game::instance()->instantiateGameObject(slime);
