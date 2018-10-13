@@ -33,7 +33,7 @@ public:
 	static const int world_grid_size_x = 10;
 	static const int world_grid_size_y = 10;
 
-	static const int number_of_rooms = 5;
+	static const int number_of_rooms = 6;
 	//-----------------------------------
 
 	//----------- ROOM CONST -------------
@@ -86,5 +86,6 @@ private:
 	SDL_Texture* tile_map_texture;
 
 	int convDoorPosToIndex(OwnMathFuncs::Vector2 pos);
+	OwnMathFuncs::Vector2 convIndexToDoorPos(int index);
 };
 

@@ -9,7 +9,7 @@ public:
 	RendererManager();
 	~RendererManager();
 
-	static const int MAX_LAYER = 12;
+	static const int MAX_LAYER = 15;
 	static const int TOP_DOWN_LAYER = 5;
 	static const int MIN_LAYER = 0;
 

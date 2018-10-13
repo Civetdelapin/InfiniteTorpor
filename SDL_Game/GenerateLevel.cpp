@@ -5,7 +5,7 @@ OwnMathFuncs::Vector2 const GenerateLevel::tile_size = { 16, 16 };
 
 GenerateLevel::GenerateLevel(GameObject * game_object) : Renderer(this), Component(game_object)
 {
-	setLayer(50);
+	setLayer(14);
 }
 
 
@@ -163,7 +163,7 @@ void GenerateLevel::loadRoomsFromFiles()
 
 					if (x == 0) {
 
-						for (int i = 0; i <= 10; i++) {
+						for (int i = 0; i <= 15; i++) {
 							roomDataStruct->vect_room_texture.push_back(nullptr);
 						}
 
@@ -179,8 +179,11 @@ void GenerateLevel::loadRoomsFromFiles()
 
 						roomDataStruct->tile_map_data = tile_map_data;
 
-						for (int i = 0; i <= 10; i++) {
+						int size = roomDataStruct->vect_room_texture.size();
+						for (int i = 0; i < size; i++) {
 							std::string sprite_renderer = "levels/" + buff + "/" + buff + "_" + std::to_string(i) + ".png";
+
+							
 							roomDataStruct->vect_room_texture[i] = TextureManager::LoadTexture(sprite_renderer.c_str());
 						}					
 
@@ -189,26 +192,7 @@ void GenerateLevel::loadRoomsFromFiles()
 						int door = std::atoi(buff.c_str());
 						if (door == 1) {
 
-							switch (x)
-							{
-								case 1:
-									roomDataStruct->doors_possible.push_back({ 1, 0 });
-									break;
-
-								case 2:
-									roomDataStruct->doors_possible.push_back({ 0, -1 });
-									break;
-
-								case 3:
-									roomDataStruct->doors_possible.push_back({ -1, 0 });
-									break;
-
-								case 4:
-									roomDataStruct->doors_possible.push_back({ 0, 1 });
-									break;
-							
-							}
-
+							roomDataStruct->doors_possible.push_back(convIndexToDoorPos(x));
 
 						}
 					}
@@ -326,11 +310,41 @@ void GenerateLevel::generateLevel()
 			room->addDoor(door);
 		}
 
-		int random_index = rand() % vect_room_data_struct.size();
 		
+		
+		//We try to find a tile map data that fit the doors
+		bool is_ok = true;
+
+		int random_index = 0;
+		int iteration = 0;
+
+		do {
+
+			is_ok = true;
+			random_index = rand() % vect_room_data_struct.size();
+			
+			RoomDataStruct* roomDataStructChoosen = vect_room_data_struct[random_index];
+			for (Door* door : room->getDoors()) {
+
+				bool door_ok = false;
+				for (OwnMathFuncs::Vector2 door_possible : roomDataStructChoosen->doors_possible) {
+
+					if (door->door_position == door_possible) {
+						door_ok = true;
+					}
+				}
+
+				if (!door_ok) {
+					is_ok = false;
+				}
+
+			}
+
+			iteration++;
+		} while (!is_ok && iteration < 150);
+
 		RoomDataStruct* roomDataStructChoosen = vect_room_data_struct[random_index];
 		room->setTileMapData(roomDataStructChoosen->tile_map_data);
-
 
 		//Create Sprite Renderers for each texture
 		for (int i = 0; i < roomDataStructChoosen->vect_room_texture.size(); i++) {
@@ -338,6 +352,8 @@ void GenerateLevel::generateLevel()
 			if (texture != nullptr) {
 				SpriteRenderer* sprite_renderer = new SpriteRenderer(room_prefab, texture);
 				sprite_renderer->setLayer(i);
+
+				std::cout << i << std::endl;
 			}
 		}
 
@@ -533,9 +549,8 @@ void GenerateLevel::generateLevel()
 		
 
 		// ------ CREATE ENEMIES OF THE ROOM -------------
-		
-		
-		int nb_enemies = rand() % 5 + 3;
+		int nb_enemies = 0;
+		//int nb_enemies = rand() % 7 + 4;
 		for (int i = 0; i < nb_enemies; i++) {
 			
 			GameObject* new_enemy;
@@ -948,4 +963,29 @@ int GenerateLevel::convDoorPosToIndex(OwnMathFuncs::Vector2 pos)
 	}
 
 	return -1;
+}
+
+OwnMathFuncs::Vector2 GenerateLevel::convIndexToDoorPos(int index)
+{
+	switch (index)
+	{
+	case 1:
+		return { 1, 0 };
+		break;
+
+	case 2:
+		return { 0, -1 };
+		break;
+
+	case 3:
+		return { -1, 0 };
+		break;
+
+	case 4:
+		return { 0, 1 };
+		break;
+	default:
+		return { 0, 0 };
+		break;
+	}
 }

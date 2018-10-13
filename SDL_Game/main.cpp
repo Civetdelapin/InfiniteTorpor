@@ -52,11 +52,11 @@ int main(int argc, char* args[]) {
 
 	//Display the player's health
 	DisplayPlayerHealth* display = new DisplayPlayerHealth(ui_manager, player->getComponent<PlayerStat>());
-	display->setLayer(25);
+	display->setLayer(15);
 
 	//Display the player's score
 	DisplayPlayerScore* display_score = new DisplayPlayerScore(ui_manager, player->getComponent<PlayerStat>());
-	display_score->setLayer(25);
+	display_score->setLayer(15);
 
 	Game::instance()->instantiateGameObject(ui_manager);
 	//--------------------------------------

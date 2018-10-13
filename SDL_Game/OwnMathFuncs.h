@@ -20,6 +20,10 @@ namespace OwnMathFuncs
 			return x == vec.x && y == vec.y;
 		}
 
+		bool operator!=(Vector2 vec) {
+			return x != vec.x || y != vec.y;
+		}
+
 		Vector2 operator+(Vector2 vec) {
 
 			Vector2 vector = { x + vec.x, y + vec.y };
