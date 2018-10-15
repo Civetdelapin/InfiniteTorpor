@@ -16,8 +16,8 @@ public:
 	const enum State { dashing, ready_dash, cant_dash };
 
 	const float speed = 1200;
-	const float dash_speed = 1700;
-	const float time_dash = 0.30;
+	const float dash_speed = 1750;
+	const float time_dash = 0.35;
 	const float time_cd_dash = 0.10;
 
 	bool can_move = true;

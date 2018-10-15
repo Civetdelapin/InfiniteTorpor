@@ -1,6 +1,6 @@
 #include "RoomBehavior.h"
 #include "Game.h"
-
+#include "GenerateLevel.h"
 
 RoomBehavior::RoomBehavior(GameObject * game_object, Room * room_data) : Component(game_object), room_data(room_data)
 {
@@ -13,12 +13,19 @@ RoomBehavior::~RoomBehavior()
 }
 
 void RoomBehavior::start()
-{
+{	
 	player = Game::instance()->findGameObject("Player");
-
+	generate_level = Game::instance()->findGameObject("Manager")->getComponent<GenerateLevel>();
 
 	if (room_data->getRoomType() == Room::StartRoom || room_data->getRoomType() == Room::EndRoom || room_data->getEnemiesWaves().size() == 0) {
 		state = Over;
+
+		if (room_data->getRoomType() == Room::EndRoom) {
+			end_hitbox = new BoxCollider(game_object);
+			end_hitbox->setCollisionLayer(10);
+
+			end_hitbox->size = room_data->getTileMapData()->sprite_size * 2;
+		}
 	}
 	else {
 		state = NotOver;
@@ -104,13 +111,24 @@ void RoomBehavior::update()
 			playerEndRoom();
 		}
 	}
+	else {
+		if (room_data->getRoomType() == Room::EndRoom) {
+			
+			//---- END OF FLOOR COLLISION -----
+			if(Game::instance()->collider_manager->isCollidingWithTag(end_hitbox, "Player")) {
+			
+				generate_level->playerEndOfFloor();
+			}
+			//---------------------------------
+		}
+	}
 
 }
 
 
 void RoomBehavior::clean()
 {
-
+	
 	Component::clean();
 }
 
@@ -167,9 +185,10 @@ void RoomBehavior::spawnEnemy()
 
 	if (room_data->getEnemiesWaves().size() > 0 ) {
 
-
-		int nb_enemy = rand() % 2 + 1;
-		std::cout << nb_enemy << std::endl;
+		int nb_enemy = 1;
+		if (rand() % 6 == 0) {
+			nb_enemy = 2;
+		}
 
 		for (int i = 0; i < room_data->getEnemiesWaves().size(); i++) {
 

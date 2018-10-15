@@ -58,6 +58,23 @@ std::vector<Collider*> ColliderManager::isTrigger(Collider * collider_to_test)
 	return vecTemp;
 }
 
+bool ColliderManager::isCollidingWithTag(Collider * collider_to_test, std::string tag)
+{
+	std::vector<Collider*> vect = isTrigger(collider_to_test);
+	if (vect.size() > 0) {
+		for (Collider* collider : vect) {
+			if (collider->getGameObject()->tag == tag) {
+
+				return true;
+
+			}
+		}
+	}
+
+
+	return false;
+}
+
 std::vector<Collider*> ColliderManager::getIsTriggerColliders()
 {
 	std::vector<Collider*> vecTemp;

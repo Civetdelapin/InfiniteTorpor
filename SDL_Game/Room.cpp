@@ -1,4 +1,5 @@
 #include "Room.h"
+#include "Game.h"
 
 Room::Room(OwnMathFuncs::Vector2 grid_pos) : grid_pos(grid_pos)
 {
@@ -7,6 +8,19 @@ Room::Room(OwnMathFuncs::Vector2 grid_pos) : grid_pos(grid_pos)
 
 Room::~Room()
 {
+	for (std::vector<TileData*> tiles_ligne : tile_map_data->data) {
+
+		for (TileData* tile : tiles_ligne) {
+			delete tile;
+		}
+	}
+
+	tile_map_data->spawners.clear();
+
+	for (GameObject* enemy : enemies_waves) {
+		Game::instance()->destroyGameObject(enemy);
+	}
+	enemies_waves.clear();
 
 }
 
@@ -81,6 +95,7 @@ std::vector<GameObject*> & Room::getEnemiesWaves()
 
 
 TileData::TileData() : is_collider(false) {
+
 }
 
 

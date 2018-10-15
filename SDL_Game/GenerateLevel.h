@@ -29,11 +29,12 @@ public:
 	GenerateLevel(GameObject * game_object);
 	~GenerateLevel();
 
+
 	//---------- WORLD CONST ------------
 	static const int world_grid_size_x = 10;
 	static const int world_grid_size_y = 10;
 
-	static const int number_of_rooms = 6;
+	static const int number_of_rooms = 5;
 	//-----------------------------------
 
 	//----------- ROOM CONST -------------
@@ -52,27 +53,48 @@ public:
 
 	static const OwnMathFuncs::Vector2 tile_size;
 
+
+	void playerEndOfFloor();
+
 	void start();
 	void render();
 	void clean();
 
 private:
 
-	std::vector<RoomDataStruct*> vect_room_data_struct;
+	
+	//------ GENERATED DATA --------
 
 	std::vector<OwnMathFuncs::Vector2> pos_taken;
 	Room* rooms[world_grid_size_x][world_grid_size_y];
 	std::vector<Room*> rooms_vector;
 
+	std::vector<GameObject*> room_prefabs;
+	//---------------------------
+
+
+	//---- LOADED DATA --------
+
+	RoomDataStruct* starting_room;
 	RoomDataStruct* ending_room;
+
+	std::vector<RoomDataStruct*> vect_room_data_struct;
 
 	std::vector<SDL_Texture*> no_door_textures;
 
 	std::vector<std::vector<SDL_Texture*>> open_door_textures;
 	std::vector<std::vector<SDL_Texture*>> close_door_textures;
 
+	//---------------------------
 
+	int cur_floor = 0;
 	int seed = 500;
+
+	int min_enemy = 3;
+	int max_enemy = 7;
+
+	float nb_enemy_multiplicator = 1.01f;
+	float time_enemy_multiplicator = 0.9f;
 
 	void loadRoomsFromFiles();
 	void generateLevel();
@@ -83,6 +105,8 @@ private:
 	void readCSVCollider(const char* file_path, TileMapData* tile_map_data);
 	void readCSVSpawner(const char* file_path, TileMapData* tile_map_data);
 	void loadRoomDataStruct(std::string room_name, RoomDataStruct* roomDataStruct);
+
+	void cleanGeneratedData();
 
 	OwnMathFuncs::Vector2 getNewPos();
 

@@ -21,8 +21,6 @@ int main(int argc, char* args[]) {
 	Game::instance()->instantiateGameObject(player);
 
 
-	Game::instance()->getCamera()->setObjectToFollow(player);
-
 	//----------- ADD ENEMY ----------------
 	
 	/*
@@ -63,6 +61,7 @@ int main(int argc, char* args[]) {
 
 	//------- Add Game Managers ------------
 	GameObject* game_manager = new GameObject();
+	game_manager->tag = "Manager";
 
 	GenerateLevel* generate_level = new GenerateLevel(game_manager);
 

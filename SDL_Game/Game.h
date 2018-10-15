@@ -35,6 +35,9 @@ public:
 	}
 
 	static void setInstance(Game* new_instance) {
+		if (s_instance != nullptr) {
+			s_instance->clean();
+		}
 		delete s_instance;
 		s_instance = new_instance;
 	}

@@ -49,6 +49,11 @@ OwnMathFuncs::Vector2 Camera::getCameraPos()
 	return camera_pos;
 }
 
+void Camera::setCameraPos(OwnMathFuncs::Vector2 pos)
+{
+	camera_pos = pos;
+}
+
 void Camera::setObjectToFollow(GameObject* game_object)
 {
 	if (shake_x.is_shaking || shake_y.is_shaking) {

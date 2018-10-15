@@ -34,7 +34,10 @@ public:
 	void update();
 
 	OwnMathFuncs::Vector2 getCameraPos();
+	void setCameraPos(OwnMathFuncs::Vector2 pos);
 	void setObjectToFollow(GameObject* game_object);
+
+
 	void startShake(float ampli, float frequency, float duration);
 
 private:

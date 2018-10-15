@@ -4,6 +4,8 @@
 #include "Renderer.h"
 #include "EnemyBasicBehavior.h"
 
+class GenerateLevel;
+
 class RoomBehavior : public Component
 {
 public:
@@ -32,8 +34,10 @@ private:
 	void spawnEnemy();
 
 	GameObject* player;
-	RoomState state = NotOver;
 
+	RoomState state = NotOver;
+	GenerateLevel* generate_level;
+	BoxCollider* end_hitbox;
 
 	float time_passed;
 };

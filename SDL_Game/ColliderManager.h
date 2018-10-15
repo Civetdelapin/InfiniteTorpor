@@ -17,6 +17,8 @@ public:
 
 	std::vector<Collider*> isTrigger(Collider* collider_to_test);
 
+	bool isCollidingWithTag(Collider* collider_to_test, std::string tag);
+
 private:
 	std::vector<Collider*> colliders_to_test;
 	std::vector<Collider*> getIsTriggerColliders();

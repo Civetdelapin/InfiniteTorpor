@@ -11,7 +11,7 @@ SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, Ow
 	img_size.y = y;
 }
 
-SpriteRenderer::SpriteRenderer(GameObject * game_object, SDL_Texture * texture) : Renderer(this), Component(game_object), texture(texture)
+SpriteRenderer::SpriteRenderer(GameObject * game_object, SDL_Texture * texture, bool must_destroy_text) : Renderer(this), Component(game_object), texture(texture), must_destroy_text(must_destroy_text)
 {
 	int w, h;
 	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
@@ -54,7 +54,9 @@ void SpriteRenderer::render()
 
 void SpriteRenderer::clean()
 {
-	SDL_DestroyTexture(texture);
+	if (must_destroy_text) {
+		SDL_DestroyTexture(texture);
+	}
 	
 	Renderer::clean();
 	Component::clean();

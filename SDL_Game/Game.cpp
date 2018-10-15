@@ -108,7 +108,7 @@ void Game::update()
 	//handle the deltatime
 	timeLast = timeNow;
 	timeNow = SDL_GetPerformanceCounter();
-	Time::deltaTime = ((timeNow - timeLast) * 1000 / (double)SDL_GetPerformanceFrequency()) * 0.001;
+	Time::deltaTime = ((timeNow - timeLast) * 1000 / (double)SDL_GetPerformanceFrequency()) * 0.001 * Time::timeScale;
 
 	if (Time::deltaTime > 0.033f) {
 		Time::deltaTime = 0.033f;
