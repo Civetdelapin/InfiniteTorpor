@@ -20,7 +20,7 @@ public:
 	const float time_dash = 0.35;
 	const float time_cd_dash = 0.10;
 
-	bool can_move = true;
+	void setCanMove(bool value);
 
 	void update();
 
@@ -34,7 +34,7 @@ private:
 	Animator* animator;
 	BoxCollider* box_collider;
 
-	
+	bool can_move = true;
 	State state = ready_dash;
 
 	float time_passed;

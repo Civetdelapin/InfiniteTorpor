@@ -54,7 +54,8 @@ public:
 	static const OwnMathFuncs::Vector2 tile_size;
 
 
-	void playerEndOfFloor();
+	void playerNextFloor();
+	void generateNewGame();
 
 	void start();
 	void render();
@@ -95,6 +96,9 @@ private:
 
 	float nb_enemy_multiplicator = 1.01f;
 	float time_enemy_multiplicator = 0.9f;
+
+	float start_nb_enemy_multiplicator;
+	float start_time_enemy_multiplicator;
 
 	void loadRoomsFromFiles();
 	void generateLevel();

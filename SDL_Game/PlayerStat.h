@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
-#include "PlayerController.h"
+
+class PlayerController;
+class DisplayScreenFadeInOut;
 
 class PlayerStat : public Component
 {
@@ -34,6 +36,10 @@ private:
 	int score = 0;
 
 	bool is_invicible = false;
+
+	bool is_dying = false;
+
+	void setDying();
 
 	float time_passed;
 	float time_passed_score;

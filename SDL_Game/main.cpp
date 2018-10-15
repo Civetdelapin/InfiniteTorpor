@@ -6,6 +6,8 @@
 #include "SlimPrefab.h"
 #include "DisplayPlayerHealth.h"
 #include "DisplayPlayerScore.h"
+#include "DisplayScreenFadeInOut.h"
+
 #include "GoblinPrefab.h"
 #include "MinotaurPrefab.h"
 #include "SnakePrefab.h"
@@ -47,15 +49,16 @@ int main(int argc, char* args[]) {
 
 	//----------- Add UI Manager ----------------
 	GameObject* ui_manager = new GameObject();
+	ui_manager->tag = "UI_Manager";
 
 	//Display the player's health
 	DisplayPlayerHealth* display = new DisplayPlayerHealth(ui_manager, player->getComponent<PlayerStat>());
-	display->setLayer(15);
-
+	
 	//Display the player's score
 	DisplayPlayerScore* display_score = new DisplayPlayerScore(ui_manager, player->getComponent<PlayerStat>());
-	display_score->setLayer(15);
 
+	DisplayScreenFadeInOut* display_screen = new DisplayScreenFadeInOut(ui_manager);
+	
 	Game::instance()->instantiateGameObject(ui_manager);
 	//--------------------------------------
 

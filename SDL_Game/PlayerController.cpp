@@ -17,6 +17,11 @@ PlayerController::~PlayerController()
 
 }
 
+void PlayerController::setCanMove(bool value)
+{
+	can_move = value;
+}
+
 void PlayerController::update()
 {
 
@@ -117,11 +122,14 @@ void PlayerController::update()
 
 	//std::cout << "velocity x : " << velocityBody->velocity.x << ", velocity y : " << velocityBody->velocity.y << std::endl;
 
-	if (abs(velocityBody->getVelocity().x) > 3 || abs(velocityBody->getVelocity().y) > 3) {
-		animator->play("Walking");
-	}
-	else {
-		animator->play("Idle");
+	if (can_move) {
+
+		if (abs(velocityBody->getVelocity().x) > 3 || abs(velocityBody->getVelocity().y) > 3) {
+			animator->play("Walking");
+		}
+		else {
+			animator->play("Idle");
+		}
 	}
 }
 

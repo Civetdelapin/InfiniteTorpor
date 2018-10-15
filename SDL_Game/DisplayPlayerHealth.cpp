@@ -1,5 +1,5 @@
 #include "DisplayPlayerHealth.h"
-
+#include "Game.h"
 
 
 DisplayPlayerHealth::DisplayPlayerHealth(GameObject* game_object, PlayerStat* player_stat) : Renderer(this), Component(game_object), player_stat(player_stat)
@@ -10,6 +10,7 @@ DisplayPlayerHealth::DisplayPlayerHealth(GameObject* game_object, PlayerStat* pl
 	full_heart_texture = TextureManager::LoadTexture("img/ui/heart_full.png", src_rect.w, src_rect.h);
 	empty_heart_texture = TextureManager::LoadTexture("img/ui/heart_empty.png");
 
+	setLayer(RendererManager::MAX_LAYER - 2);
 }
 
 

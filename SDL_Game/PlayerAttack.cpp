@@ -49,7 +49,7 @@ void PlayerAttack::update()
 
 			cancelAttackColliders();
 
-			player_controller->can_move = true;
+			player_controller->setCanMove(true);
 		}
 	}
 
@@ -131,7 +131,7 @@ void PlayerAttack::attackButtonPressed()
 
 		activeAttackColliders();
 
-		player_controller->can_move = false;
+		player_controller->setCanMove(false);
 
 		game_objects_touched.clear();
 

@@ -10,21 +10,28 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 
 	// Creation of Animations
 	Animation animIdle;
-	animIdle.nb_sprites = 5;
+	animIdle.nb_sprites = 10;
 	animIdle.speed = 0.3f;
 	animIdle.y_index = 0;
 
 	animator->addAnimation(std::pair <std::string, Animation> ("Idle", animIdle));
 	
-
 	Animation animWalking;
-	animWalking.nb_sprites = 5;
+	animWalking.nb_sprites = 10;
 	animWalking.speed = 0.1f;
 	animWalking.y_index = 2;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
 	animator->play("Idle");
 	
+	Animation animDead;
+	animDead.nb_sprites = 10;
+	animDead.speed = 0.2f;
+	animDead.y_index = 4;
+	animDead.is_looping = false;
+
+	animator->addAnimation(std::pair <std::string, Animation>("Dying", animDead));
+
 
 	BoxCollider* boxCollider = new BoxCollider(this);
 	boxCollider->offset = { 1, 14};

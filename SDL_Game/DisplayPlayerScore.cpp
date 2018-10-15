@@ -1,10 +1,11 @@
 #include "DisplayPlayerScore.h"
-
+#include "Game.h"
 
 
 DisplayPlayerScore::DisplayPlayerScore(GameObject* game_object, PlayerStat* player_stat) : Renderer(this), Component(game_object), player_stat(player_stat)
 {
 
+	setLayer(RendererManager::MAX_LAYER - 2);
 }
 
 

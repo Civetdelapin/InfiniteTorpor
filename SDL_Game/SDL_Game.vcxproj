@@ -134,6 +134,7 @@
     <ClCompile Include="DisplayEnemyHp.cpp" />
     <ClCompile Include="DisplayPlayerHealth.cpp" />
     <ClCompile Include="DisplayPlayerScore.cpp" />
+    <ClCompile Include="DisplayScreenFadeInOut.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAttackCollider.cpp" />
     <ClCompile Include="EnemyBasicBehavior.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="DisplayEnemyHp.h" />
     <ClInclude Include="DisplayPlayerHealth.h" />
     <ClInclude Include="DisplayPlayerScore.h" />
+    <ClInclude Include="DisplayScreenFadeInOut.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAttackCollider.h" />
     <ClInclude Include="EnemyBasicBehavior.h" />

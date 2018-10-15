@@ -61,13 +61,26 @@ void Game::update()
 {
 	
 	collider_manager->update();
-	camera->update();
+	
+	//We delete the objects that need to be deleted
+	for (GameObject* game_object : game_objects_to_be_destroyed) {
 
-	for (GameObject* game_object : game_objects) {
-		if (game_object->is_active) {
-			game_object->update();
+		if (game_object->parent_game_object == nullptr) {
+			game_objects.erase(std::remove(game_objects.begin(), game_objects.end(), game_object), game_objects.end());
 		}
+		else {
+			game_object->parent_game_object->getChildren().erase(std::remove(game_object->parent_game_object->getChildren().begin(), game_object->parent_game_object->getChildren().end(), game_object), game_object->parent_game_object->getChildren().end());
+		}
+
+
+		//collider_manager->removeGameObjectColliders(game_object);
+
+		game_object->clean();
+
+		delete game_object;
+		game_object = NULL;
 	}
+	game_objects_to_be_destroyed.clear();
 
 	//We add the objects that need to be add
 	for (auto const& game_object : game_objects_to_be_added) {
@@ -84,27 +97,16 @@ void Game::update()
 	}
 	game_objects_to_be_added.clear();
 
-	//We delete the objects that need to be deleted
-	for (GameObject* game_object : game_objects_to_be_destroyed) {
 
-		if (game_object->parent_game_object == nullptr) {
-			game_objects.erase(std::remove(game_objects.begin(), game_objects.end(), game_object), game_objects.end());
+	for (GameObject* game_object : game_objects) {
+		if (game_object->is_active) {
+			game_object->update();
 		}
-		else {
-			game_object->parent_game_object->getChildren().erase(std::remove(game_object->parent_game_object->getChildren().begin(), game_object->parent_game_object->getChildren().end(), game_object), game_object->parent_game_object->getChildren().end());
-		}
-		
-
-		//collider_manager->removeGameObjectColliders(game_object);
-
-		game_object->clean();
-
-		delete game_object;
-		game_object = NULL;
 	}
-	game_objects_to_be_destroyed.clear();
 
+	camera->update();
 
+	
 	//handle the deltatime
 	timeLast = timeNow;
 	timeNow = SDL_GetPerformanceCounter();

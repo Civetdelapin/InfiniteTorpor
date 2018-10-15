@@ -117,7 +117,7 @@ void RoomBehavior::update()
 			//---- END OF FLOOR COLLISION -----
 			if(Game::instance()->collider_manager->isCollidingWithTag(end_hitbox, "Player")) {
 			
-				generate_level->playerEndOfFloor();
+				generate_level->playerNextFloor();
 			}
 			//---------------------------------
 		}

@@ -51,7 +51,7 @@ OwnMathFuncs::Vector2 Camera::getCameraPos()
 
 void Camera::setCameraPos(OwnMathFuncs::Vector2 pos)
 {
-	camera_pos = pos;
+	camera_pos = { pos.x - game->getScreenWidth() / 2 , pos.y - game->getScreenHeight() / 2 };
 }
 
 void Camera::setObjectToFollow(GameObject* game_object)

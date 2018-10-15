@@ -40,6 +40,7 @@ void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Re
 
 void TextureManager::DrawRect(SDL_Rect rect, int r, int g, int b, int a, bool is_fill, bool is_relative_to_camera)
 {
+	/*
 	if (is_relative_to_camera) {
 		rect.x -= Game::instance()->getCamera()->getCameraPos().x;
 		rect.y -= Game::instance()->getCamera()->getCameraPos().y;
@@ -52,7 +53,7 @@ void TextureManager::DrawRect(SDL_Rect rect, int r, int g, int b, int a, bool is
 	}
 	else {
 		SDL_RenderDrawRect(Game::instance()->renderer, &rect);
-	}
+	}*/
 }
 
 void TextureManager::DrawText(TTF_Font* font, SDL_Rect rect, std::string message, int r, int g, int b, int a, bool is_relative_to_camera)

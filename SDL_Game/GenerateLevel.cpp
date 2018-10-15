@@ -13,19 +13,29 @@ GenerateLevel::~GenerateLevel()
 {
 }
 
-void GenerateLevel::playerEndOfFloor()
+void GenerateLevel::playerNextFloor()
 {
 	cur_floor++;
 	generateLevel();
 }
 
+void GenerateLevel::generateNewGame()
+{
+	cur_floor = 0;
+	nb_enemy_multiplicator = start_nb_enemy_multiplicator;
+	time_enemy_multiplicator = start_time_enemy_multiplicator;
+
+	generateLevel();
+}
+
 void GenerateLevel::start()
 {
-	
 	srand(seed);
 
-	loadRoomsFromFiles(); // We load all the rooms data 
+	start_nb_enemy_multiplicator = nb_enemy_multiplicator;
+	start_time_enemy_multiplicator = time_enemy_multiplicator;
 
+	loadRoomsFromFiles(); // We load all the rooms data 
 	generateLevel(); // We create the levels	
 }
 
@@ -588,8 +598,8 @@ void GenerateLevel::generateLevel()
 			// ------ CREATE ENEMIES OF THE ROOM -------------
 			//int nb_enemies = 0;
 
-			int nb_enemy_min *= nb_enemy_multiplicator;
-			int nb_enemy_max *= nb_enemy_multiplicator;
+			int nb_enemy_min = min_enemy * nb_enemy_multiplicator;
+			int nb_enemy_max = max_enemy * nb_enemy_multiplicator;
 
 			int nb_enemies = rand() % nb_enemy_max + nb_enemy_min;
 			for (int i = 0; i < nb_enemies; i++) {
