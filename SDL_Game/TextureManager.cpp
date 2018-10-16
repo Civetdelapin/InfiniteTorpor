@@ -5,7 +5,7 @@ SDL_Texture * TextureManager::LoadTexture(const char * fileName, int &w, int &h)
 {
 	SDL_Surface* tempSurface = IMG_Load(fileName);
 	if (tempSurface != NULL) {
-		SDL_Texture* texture = SDL_CreateTextureFromSurface(Game::instance()->renderer, tempSurface);
+		SDL_Texture* texture = SDL_CreateTextureFromSurface(Game::instance()->getRenderer(), tempSurface);
 
 		SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 
@@ -21,7 +21,7 @@ SDL_Texture * TextureManager::LoadTexture(const char * fileName)
 {
 	SDL_Surface* tempSurface = IMG_Load(fileName);
 
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(Game::instance()->renderer, tempSurface);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(Game::instance()->getRenderer(), tempSurface);
 
 	SDL_FreeSurface(tempSurface);
 	return texture;
@@ -33,7 +33,7 @@ void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Re
 		destrect.x -= Game::instance()->getCamera()->getCameraPos().x;
 		destrect.y -= Game::instance()->getCamera()->getCameraPos().y;
 	}
-	SDL_RenderCopyEx(Game::instance()->renderer, texture, &srcrect, &destrect, NULL, NULL, render_flip);
+	SDL_RenderCopyEx(Game::instance()->getRenderer(), texture, &srcrect, &destrect, NULL, NULL, render_flip);
 
 	
 }
@@ -68,12 +68,12 @@ void TextureManager::DrawText(TTF_Font* font, SDL_Rect rect, std::string message
 		SDL_Color newColor = { r, g, b, a };
 
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, message.c_str(), newColor);
-		SDL_Texture* messageTexture = SDL_CreateTextureFromSurface(Game::instance()->renderer, surfaceMessage);
+		SDL_Texture* messageTexture = SDL_CreateTextureFromSurface(Game::instance()->getRenderer(), surfaceMessage);
 
 		rect.w = surfaceMessage->w;
 		rect.h = surfaceMessage->h;
 
-		SDL_RenderCopy(Game::instance()->renderer, messageTexture, NULL, &rect);
+		SDL_RenderCopy(Game::instance()->getRenderer(), messageTexture, NULL, &rect);
 
 		SDL_FreeSurface(surfaceMessage);
 		SDL_DestroyTexture(messageTexture);

@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-GameManager::GameManager(GameObject * game_object) : Component(game_object)
+GameManager::GameManager(GameObject * gameObject) : Component(gameObject)
 {
 
 }
@@ -22,7 +22,7 @@ void GameManager::update()
 		timeLeft -= Time::deltaTime;
 
 		if (timeLeft <= 0) {
-			game_object->getComponent<GenerateLevel>()->playerNextFloor();
+			gameObject->getComponent<GenerateLevel>()->playerNextFloor();
 		}
 	}
 }
@@ -38,7 +38,7 @@ void GameManager::startLevel(OwnMathFuncs::Vector2 position)
 	}
 
 	if (player != nullptr) {
-		player->local_position = position;
+		player->localPosition = position;
 
 		PlayerBehavior* player_behavior = player->getComponent<PlayerBehavior>();
 		if (player_behavior != nullptr) {

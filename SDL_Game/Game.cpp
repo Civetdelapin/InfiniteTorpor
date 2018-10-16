@@ -2,7 +2,7 @@
 
 Game *Game::s_instance = 0;
 
-Game::Game(const char * title, int xpos, int ypos, int width, int height, bool fullscreen, bool isDebugMode) : isDebugMode(isDebugMode), screen_width(width), screen_height(height)
+Game::Game(const char * title, int xpos, int ypos, int width, int height, bool fullscreen, bool isDebugMode) : isDebugMode(isDebugMode), screenSize({(float) width, (float) height})
 {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
@@ -63,44 +63,44 @@ void Game::update()
 	collider_manager->update();
 	
 	//We delete the objects that need to be deleted
-	for (GameObject* game_object : game_objects_to_be_destroyed) {
+	for (GameObject* gameObject : gameObjectsToDestroy) {
 
-		if (game_object->parent_game_object == nullptr) {
-			game_objects.erase(std::remove(game_objects.begin(), game_objects.end(), game_object), game_objects.end());
+		if (gameObject->parentGameObject == nullptr) {
+			gameObjects.erase(std::remove(gameObjects.begin(), gameObjects.end(), gameObject), gameObjects.end());
 		}
 		else {
-			game_object->parent_game_object->getChildren().erase(std::remove(game_object->parent_game_object->getChildren().begin(), game_object->parent_game_object->getChildren().end(), game_object), game_object->parent_game_object->getChildren().end());
+			gameObject->parentGameObject->getChildren().erase(std::remove(gameObject->parentGameObject->getChildren().begin(), gameObject->parentGameObject->getChildren().end(), gameObject), gameObject->parentGameObject->getChildren().end());
 		}
 
 
-		//collider_manager->removeGameObjectColliders(game_object);
+		//collider_manager->removeGameObjectColliders(gameObject);
 
-		game_object->clean();
+		gameObject->clean();
 
-		delete game_object;
-		game_object = NULL;
+		delete gameObject;
+		gameObject = NULL;
 	}
-	game_objects_to_be_destroyed.clear();
+	gameObjectsToDestroy.clear();
 
 	//We add the objects that need to be add
-	for (auto const& game_object : game_objects_to_be_added) {
+	for (auto const& gameObject : gameObjectsToAdd) {
 
-		if (game_object.second == nullptr) {
+		if (gameObject.second == nullptr) {
 
 			//We add the new game object in the Game itselft
-			addGameObject(game_object.first);
+			addGameObject(gameObject.first);
 		}
 		else {
 			//We add the new game object as child of its new parent
-			game_object.second->addGameObjectAsChild(game_object.first);
+			gameObject.second->addGameObjectAsChild(gameObject.first);
 		}
 	}
-	game_objects_to_be_added.clear();
+	gameObjectsToAdd.clear();
 
 
-	for (GameObject* game_object : game_objects) {
-		if (game_object->is_active) {
-			game_object->update();
+	for (GameObject* gameObject : gameObjects) {
+		if (gameObject->active) {
+			gameObject->update();
 		}
 	}
 
@@ -127,8 +127,8 @@ void Game::render()
 
 void Game::clean()
 {
-	for (GameObject* game_object : game_objects) {
-		game_object->clean();
+	for (GameObject* gameObject : gameObjects) {
+		gameObject->clean();
 	}
 
 	delete renderer_manager;
@@ -147,28 +147,28 @@ void Game::clean()
 
 void Game::addGameObject(GameObject* gameObject)
 {
-	game_objects.push_back(gameObject);
+	gameObjects.push_back(gameObject);
 }
 
 
-void Game::instantiateGameObject(GameObject * game_object, GameObject * new_parent)
+void Game::instantiateGameObject(GameObject * gameObject, GameObject * new_parent)
 {
-	game_objects_to_be_added.insert(std::pair <GameObject*, GameObject*>(game_object, new_parent));
+	gameObjectsToAdd.insert(std::pair <GameObject*, GameObject*>(gameObject, new_parent));
 }
 
-void Game::destroyGameObject(GameObject * game_object)
+void Game::destroyGameObject(GameObject * gameObject)
 {
-	game_object->is_active = false;
-	game_object->setActiveChildren(false);
+	gameObject->active = false;
+	gameObject->setActiveChildren(false);
 
-	game_objects_to_be_destroyed.push_back(game_object);
+	gameObjectsToDestroy.push_back(gameObject);
 }
 
 GameObject* Game::findGameObject(std::string tag)
 {
 
-	for (GameObject* game_object : game_objects) {
-		GameObject* object_found = Game::findGameObjectRecursive(tag, game_object);
+	for (GameObject* gameObject : gameObjects) {
+		GameObject* object_found = Game::findGameObjectRecursive(tag, gameObject);
 		if (object_found != nullptr) {
 			
 			return object_found;
@@ -190,9 +190,19 @@ bool Game::getIsDebugMode()
 	return isDebugMode;
 }
 
+SDL_Renderer * Game::getRenderer()
+{
+	return renderer;
+}
+
 RendererManager * Game::getRendererManager()
 {
 	return renderer_manager;
+}
+
+ColliderManager * Game::getColliderManager()
+{
+	return collider_manager;
 }
 
 SDL_Window* Game::getWindow()
@@ -207,16 +217,6 @@ void Game::printInConsole(std::string str)
 	}
 }
 
-int Game::getScreenWidth()
-{
-	return screen_width;
-}
-
-int Game::getScreenHeight()
-{
-	return screen_height;
-}
-
 Camera* Game::getCamera()
 {
 	return camera;
@@ -224,18 +224,18 @@ Camera* Game::getCamera()
 
 OwnMathFuncs::Vector2 Game::getScreenSize()
 {
-	return { (float) screen_width, (float) screen_height};
+	return screenSize;
 }
 
-GameObject * Game::findGameObjectRecursive(std::string tag, GameObject* game_object)
+GameObject * Game::findGameObjectRecursive(std::string tag, GameObject* gameObject)
 {
 	
-	if (game_object->tag == tag) {
+	if (gameObject->tag == tag) {
 		
-		return game_object;
+		return gameObject;
 	}
 
-	for (GameObject* game_object_child : game_object->getChildren()) {
+	for (GameObject* game_object_child : gameObject->getChildren()) {
 		GameObject* object_found = Game::findGameObjectRecursive(tag, game_object_child);
 		if (object_found != nullptr) {
 

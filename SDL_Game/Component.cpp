@@ -2,9 +2,9 @@
 
 
 
-Component::Component(GameObject* game_object) : game_object(game_object)
+Component::Component(GameObject* gameObject) : gameObject(gameObject)
 {
-	game_object->addComponent(this);
+	gameObject->addComponent(this);
 }
 
 
@@ -24,41 +24,41 @@ void Component::update()
 
 void Component::clean()
 {
-	game_object = NULL;
+	gameObject = NULL;
 }
 
 bool Component::isReallyActive()
 {
-	if (is_active) {
-		return game_object->isReallyActive();
+	if (active) {
+		return gameObject->isReallyActive();
 	}
 	else {
-		return is_active;
+		return active;
 	}
 }
 
 void Component::setActive(bool value)
 {
-	is_active = value;
+	active = value;
 }
 
 bool Component::isActive()
 {
-	return is_active;
+	return active;
 }
 
 void Component::setHasStart(bool value)
 {
-	has_start = value;
+	hasStart = value;
 }
 
 bool Component::getHasStart()
 {
-	return has_start;
+	return hasStart;
 }
 
 GameObject * Component::getGameObject()
 {
-	return game_object;
+	return gameObject;
 }
 

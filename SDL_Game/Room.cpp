@@ -8,14 +8,14 @@ Room::Room(OwnMathFuncs::Vector2 grid_pos) : grid_pos(grid_pos)
 
 Room::~Room()
 {
-	for (std::vector<TileData*> tiles_ligne : tile_map_data->data) {
+	for (std::vector<TileData*> tiles_ligne : tileMapData->data) {
 
 		for (TileData* tile : tiles_ligne) {
 			delete tile;
 		}
 	}
 
-	tile_map_data->spawners.clear();
+	tileMapData->spawners.clear();
 
 	for (GameObject* enemy : enemies_waves) {
 		Game::instance()->destroyGameObject(enemy);
@@ -75,17 +75,17 @@ void Room::setTileMapData(TileMapData* value)
 		newTileMapData->data.push_back(new_vec);
 	}
 
-	tile_map_data = newTileMapData;
+	tileMapData = newTileMapData;
 }
 
 TileMapData* Room::getTileMapData()
 {
-	return tile_map_data;
+	return tileMapData;
 }
 
-void Room::addEnemy(GameObject * game_object)
+void Room::addEnemy(GameObject * gameObject)
 {
-	enemies_waves.push_back(game_object);
+	enemies_waves.push_back(gameObject);
 }
 
 std::vector<GameObject*> & Room::getEnemiesWaves()

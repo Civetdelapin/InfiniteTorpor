@@ -14,27 +14,27 @@ Camera::~Camera()
 
 void Camera::update()
 {
-	shake_x.update();
-	shake_y.update();
+	shakeX.update();
+	shakeY.update();
 
 	if (objectToFollow != nullptr) {
-		if (shake_x.is_shaking || shake_y.is_shaking) {
-			camera_pos = { objectToFollow->getWorldPosition().x - game->getScreenWidth() / 2 , objectToFollow->getWorldPosition().y - game->getScreenHeight() / 2 };
+		if (shakeX.shaking || shakeY.shaking) {
+			cameraPosition = { objectToFollow->getWorldPosition().x - game->getScreenSize().x / 2 , objectToFollow->getWorldPosition().y - game->getScreenSize().y / 2 };
 		}
 		else {
-			camera_pos = OwnMathFuncs::OwnMathFuncs::Lerp(camera_pos,
-				{ objectToFollow->getWorldPosition().x - game->getScreenWidth() / 2 , objectToFollow->getWorldPosition().y - game->getScreenHeight() / 2 },
-				Time::deltaTime * follow_speed);
+			cameraPosition = OwnMathFuncs::OwnMathFuncs::Lerp(cameraPosition,
+				{ objectToFollow->getWorldPosition().x - game->getScreenSize().x / 2 , objectToFollow->getWorldPosition().y - game->getScreenSize().y / 2 },
+				Time::deltaTime * followSpeed);
 		}
 	}
 
-	if (shake_x.is_shaking || shake_y.is_shaking) {
+	if (shakeX.shaking || shakeY.shaking) {
 
-		float s_x = shake_x.amplitude() * _amplitude;
-		float s_y = shake_y.amplitude() * _amplitude;
+		float s_x = shakeX.amplitude() * amplitude;
+		float s_y = shakeY.amplitude() * amplitude;
 
-		camera_pos.x += s_x;
-		camera_pos.y += s_y;
+		cameraPosition.x += s_x;
+		cameraPosition.y += s_y;
 	}
 	else {
 		if (nextObjectToFollow != nullptr) {
@@ -46,40 +46,40 @@ void Camera::update()
 
 OwnMathFuncs::Vector2 Camera::getCameraPos()
 {
-	return camera_pos;
+	return cameraPosition;
 }
 
 void Camera::setCameraPos(OwnMathFuncs::Vector2 pos)
 {
-	camera_pos = { pos.x - game->getScreenWidth() / 2 , pos.y - game->getScreenHeight() / 2 };
+	cameraPosition = { pos.x - game->getScreenSize().x / 2 , pos.y - game->getScreenSize().y / 2 };
 }
 
-void Camera::setObjectToFollow(GameObject* game_object)
+void Camera::setObjectToFollow(GameObject* gameObject)
 {
-	if (shake_x.is_shaking || shake_y.is_shaking) {
+	if (shakeX.shaking || shakeY.shaking) {
 	
-		nextObjectToFollow = game_object;
+		nextObjectToFollow = gameObject;
 		
 	}
 	else {
-		objectToFollow = game_object;
+		objectToFollow = gameObject;
 	}
 
 }
 
 void Camera::startShake(float ampli, float frequency, float duration)
 {
-	shake_x = Shake(frequency, duration);
-	shake_y = Shake(frequency, duration);
+	shakeX = Shake(frequency, duration);
+	shakeY = Shake(frequency, duration);
 
-	_amplitude = ampli;
+	amplitude = ampli;
 }
 
 
 
 float Shake::amplitude()
 {
-	float s = t * _frequency;
+	float s = t * frequency;
 	int s0 = floor(s);
 	int s1 = s0 + 1;
 
@@ -90,11 +90,11 @@ float Shake::amplitude()
 
 void Shake::update()
 {
-	if (is_shaking) {
+	if (shaking) {
 
 		t += Time::deltaTime;
-		if (t > _duration) {
-			is_shaking = false;
+		if (t > duration) {
+			shaking = false;
 		}
 	}
 }
@@ -102,11 +102,11 @@ void Shake::update()
 float Shake::decay(float time)
 {
 
-	if (time >= _duration) {
+	if (time >= duration) {
 		return 0;
 	}
 
-	return (_duration - time) / _duration;
+	return (duration - time) / duration;
 }
 
 float Shake::noise(int index)
@@ -121,12 +121,12 @@ float Shake::noise(int index)
 
 Shake::Shake(float frequency, float duration)
 {
-	_duration = duration;
-	_frequency = frequency;
+	duration = duration;
+	frequency = frequency;
 
 	t = 0;
 
-	is_shaking = true;
+	shaking = true;
 
 	int sampleCount = (duration * frequency);
 

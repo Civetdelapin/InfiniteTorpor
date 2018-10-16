@@ -13,23 +13,23 @@ ColliderManager::~ColliderManager()
 
 void ColliderManager::addCollider(Collider* collider)
 {
-	colliders_to_test.push_back(collider);
+	collidersToTest.push_back(collider);
 }
 
 void ColliderManager::removeCollider(Collider * collider)
 {
-	colliders_to_test.erase(std::remove(colliders_to_test.begin(), colliders_to_test.end(), collider), colliders_to_test.end());
+	collidersToTest.erase(std::remove(collidersToTest.begin(), collidersToTest.end(), collider), collidersToTest.end());
 }
 
-void ColliderManager::removeGameObjectColliders(GameObject * game_object)
+void ColliderManager::removeGameObjectColliders(GameObject * gameObject)
 {
-	std::vector<Collider*> vect = game_object->getComponents<Collider>();
+	std::vector<Collider*> vect = gameObject->getComponents<Collider>();
 	for(Collider* collider : vect)
 	{
-		colliders_to_test.erase(std::remove(colliders_to_test.begin(), colliders_to_test.end(), collider), colliders_to_test.end());
+		collidersToTest.erase(std::remove(collidersToTest.begin(), collidersToTest.end(), collider), collidersToTest.end());
 	}
 
-	for (GameObject* child : game_object->getChildren()) {
+	for (GameObject* child : gameObject->getChildren()) {
 		removeGameObjectColliders(child);
 	}
 }
@@ -47,7 +47,7 @@ std::vector<Collider*> ColliderManager::isTrigger(Collider * collider_to_test)
 	if (collider_to_test != nullptr) {
 		if (collider_to_test->isReallyActive()) {
 
-			for (Collider* collider : colliders_to_test) {
+			for (Collider* collider : collidersToTest) {
 
 				//std::cout << "TESTED COLLIDER" << std::endl;
 				if (collider->isReallyActive() && collider->getCollisionLayer() == collider_to_test->getCollisionLayer() && collider->isActive() && !collider->isTrigger() && collider != collider_to_test && collider->isColliding(collider_to_test)) {
@@ -81,7 +81,7 @@ std::vector<Collider*> ColliderManager::getIsTriggerColliders()
 {
 	std::vector<Collider*> vecTemp;
 
-	for (Collider* collider : colliders_to_test) {
+	for (Collider* collider : collidersToTest) {
 		
 		if (collider->isTrigger()) {
 			vecTemp.push_back(collider);

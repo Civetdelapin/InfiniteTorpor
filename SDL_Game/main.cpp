@@ -93,8 +93,8 @@ int main(int argc, char* args[]) {
 
 			enemy = new SlimPrefab({ 32,32 });
 
-			enemy->local_position.x = 1000 + i * 10;
-			enemy->local_position.y = 768;
+			enemy->localPosition.x = 1000 + i * 10;
+			enemy->localPosition.y = 768;
 
 			Game::instance()->instantiateGameObject(enemy);
 			*/

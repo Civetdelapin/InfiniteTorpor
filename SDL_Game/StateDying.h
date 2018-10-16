@@ -9,7 +9,7 @@
 class StateDying : public State
 {
 public:
-	StateDying(GameObject * game_object, std::string next_state = "");
+	StateDying(GameObject * gameObject, std::string next_state = "");
 	~StateDying();
 
 	const float time_animation = 1.75f;

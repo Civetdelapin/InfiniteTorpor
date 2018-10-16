@@ -4,7 +4,7 @@
 
 SlimProjectilePrefab::SlimProjectilePrefab(OwnMathFuncs::Vector2 init_local_pos) : GameObject(init_local_pos)
 {
-	local_scale = { 4, 4};
+	localScale = { 4, 4};
 	tag = "Enemy";
 
 	

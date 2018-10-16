@@ -2,11 +2,11 @@
 #include "Game.h"
 
 
-StateDying::StateDying(GameObject * game_object, std::string next_state) : State(next_state)
+StateDying::StateDying(GameObject * gameObject, std::string next_state) : State(next_state)
 {
-	animator = game_object->getComponent<Animator>();
+	animator = gameObject->getComponent<Animator>();
 
-	sprite_renderer = game_object->getComponent<SpriteRenderer>();
+	sprite_renderer = gameObject->getComponent<SpriteRenderer>();
 }
 
 
@@ -32,8 +32,8 @@ void StateDying::operation(StateMachine * state_machine)
 	if (timeLeft <= 0) {
 		if (is_alpha_phase) {
 
-			//Manage the game_object
-			//state_machine->getGameObject()->is_active = false;
+			//Manage the gameObject
+			//state_machine->getGameObject()->active = false;
 			Game::instance()->destroyGameObject(state_machine->getGameObject()->getRootParent());
 		}
 		else {

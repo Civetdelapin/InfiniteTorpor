@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-ProjectileBehavior::ProjectileBehavior(GameObject* game_object, float speed, Collider* hitbox_collider) : Component(game_object), hitbox_collider(hitbox_collider), speed(speed)
+ProjectileBehavior::ProjectileBehavior(GameObject* gameObject, float speed, Collider* hitbox_collider) : Component(gameObject), hitbox_collider(hitbox_collider), speed(speed)
 {
 
 }
@@ -34,39 +34,39 @@ void ProjectileBehavior::update()
 
 	//Collision detection and movement
 	if (direction.x != 0) {
-		float new_player_pos_x = game_object->local_position.x + direction.x * (speed * Time::deltaTime);
+		float new_player_pos_x = gameObject->localPosition.x + direction.x * (speed * Time::deltaTime);
 
 		//Save the old position in casse we need resolve collision
-		float old_player_pos_x = game_object->local_position.x;
+		float old_player_pos_x = gameObject->localPosition.x;
 
-		game_object->local_position.x = new_player_pos_x;
+		gameObject->localPosition.x = new_player_pos_x;
 		if (hitbox_collider != nullptr) {
 
-			std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(hitbox_collider);
+			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(hitbox_collider);
 			if (vect.size() > 0 && vect[0]->getGameObject()->tag != "Player") {
-				game_object->local_position.x = old_player_pos_x;
+				gameObject->localPosition.x = old_player_pos_x;
 				direction.x = 0;
 
-				Game::instance()->destroyGameObject(game_object);
+				Game::instance()->destroyGameObject(gameObject);
 			}
 		}
 	}
 
 	if (direction.y != 0) {
-		float new_player_pos_y = game_object->local_position.y + direction.y * (speed * Time::deltaTime);
+		float new_player_pos_y = gameObject->localPosition.y + direction.y * (speed * Time::deltaTime);
 
 		//Save the old position in casse we need resolve collision
-		float old_player_pos_y = game_object->local_position.y;
+		float old_player_pos_y = gameObject->localPosition.y;
 
-		game_object->local_position.y = new_player_pos_y;
+		gameObject->localPosition.y = new_player_pos_y;
 		if (hitbox_collider != nullptr) {
 
-			std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(hitbox_collider);
+			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(hitbox_collider);
 			if (vect.size() > 0 && vect[0]->getGameObject()->tag != "Player") {
-				game_object->local_position.y = old_player_pos_y;
+				gameObject->localPosition.y = old_player_pos_y;
 				direction.y = 0;
 
-				Game::instance()->destroyGameObject(game_object);
+				Game::instance()->destroyGameObject(gameObject);
 			}
 		}
 	}

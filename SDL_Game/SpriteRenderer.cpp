@@ -1,7 +1,7 @@
 #include "SpriteRenderer.h"
 
 
-SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Renderer(this), Component(game_object),  sprite_size(sprite_size)
+SpriteRenderer::SpriteRenderer(GameObject* gameObject, std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Renderer(this), Component(gameObject),  sprite_size(sprite_size)
 {
 
 	int x, y = 0;
@@ -11,7 +11,7 @@ SpriteRenderer::SpriteRenderer(GameObject* game_object, std::string img_path, Ow
 	img_size.y = y;
 }
 
-SpriteRenderer::SpriteRenderer(GameObject * game_object, SDL_Texture * texture, bool must_destroy_text) : Renderer(this), Component(game_object), texture(texture), must_destroy_text(must_destroy_text)
+SpriteRenderer::SpriteRenderer(GameObject * gameObject, SDL_Texture * texture, bool must_destroy_text) : Renderer(this), Component(gameObject), texture(texture), must_destroy_text(must_destroy_text)
 {
 	int w, h;
 	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
@@ -33,17 +33,17 @@ void SpriteRenderer::render()
 	
 	if (texture != nullptr) {
 
-		dstrect.x = (game_object->getWorldPosition().x - (sprite_size.x / 2) * fabs(game_object->getWorldScale().x));
-		dstrect.y = (game_object->getWorldPosition().y - (sprite_size.y / 2) * fabs(game_object->getWorldScale().y));
+		dstrect.x = (gameObject->getWorldPosition().x - (sprite_size.x / 2) * fabs(gameObject->getWorldScale().x));
+		dstrect.y = (gameObject->getWorldPosition().y - (sprite_size.y / 2) * fabs(gameObject->getWorldScale().y));
 
-		dstrect.w = sprite_size.x * fabs(game_object->getWorldScale().x);
-		dstrect.h = sprite_size.y * fabs(game_object->getWorldScale().y);
+		dstrect.w = sprite_size.x * fabs(gameObject->getWorldScale().x);
+		dstrect.h = sprite_size.y * fabs(gameObject->getWorldScale().y);
 
 		srcrect.w = sprite_size.x;
 		srcrect.h = sprite_size.y;
 
 		SDL_RendererFlip flip = is_looking_right ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
-		if (game_object->getWorldScale().x < 0) {
+		if (gameObject->getWorldScale().x < 0) {
 			flip = is_looking_right ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		}
 
@@ -91,5 +91,5 @@ void SpriteRenderer::setIsLookingRight(bool value)
 
 OwnMathFuncs::Vector2 SpriteRenderer::getBottomPosition()
 {
-	return {getGameObject()->getWorldPosition().x, getGameObject()->getWorldPosition().y + sprite_size.y * fabs(game_object->getWorldScale().y) };
+	return {getGameObject()->getWorldPosition().x, getGameObject()->getWorldPosition().y + sprite_size.y * fabs(gameObject->getWorldScale().y) };
 }

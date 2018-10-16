@@ -6,7 +6,7 @@
 class StateStun : public State
 {
 public:
-	StateStun(GameObject* game_object, std::string next_state = "");
+	StateStun(GameObject* gameObject, std::string next_state = "");
 	~StateStun();
 
 

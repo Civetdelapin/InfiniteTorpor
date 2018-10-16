@@ -7,7 +7,7 @@ class DisplayScreenFadeInOut;
 class PlayerBehavior : public Component
 {
 public:
-	PlayerBehavior(GameObject* game_object);
+	PlayerBehavior(GameObject* gameObject);
 	~PlayerBehavior();
 
 
@@ -32,23 +32,23 @@ public:
 
 private:
 
-	float cur_hp = 5;
-	float max_hp = 5;
+	float currentHealthPoint = 5;
+	float maxHealthPoint = 5;
 
-	float time_loose_score = 1.0f;
-	float time_invicible = 1.5f;
-	float time_spawn = 2.0f;
+	float timeBeforeLoosingScore = 1.0f;
+	float timeInvicible = 1.5f;
+	float timeSpawn = 2.0f;
 
 	int score = 0;
 
-	bool is_invicible = false;
-	bool is_dying = false;
+	bool invicible = false;
+	bool dying = false;
 
 	void setDying();
 
 	State state = playing;
 
 	float timeLeft;
-	float timeLeft_score;
+	float timeLeftScore;
 };
 

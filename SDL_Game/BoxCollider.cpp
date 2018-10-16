@@ -1,6 +1,6 @@
 #include "BoxCollider.h"
 
-BoxCollider::BoxCollider(GameObject* game_object, bool is_in_simulation) : Collider(game_object, is_in_simulation)
+BoxCollider::BoxCollider(GameObject* gameObject, bool is_in_simulation) : Collider(gameObject, is_in_simulation)
 {
 	setLayer(20);
 }
@@ -41,11 +41,11 @@ void BoxCollider::start()
 }
 
 void BoxCollider::update() {
-	rect.x = game_object->getWorldPosition().x + (offset.x * game_object->getWorldScale().x) - ((size.x / 2) * abs(game_object->getWorldScale().x));
-	rect.y = game_object->getWorldPosition().y + (offset.y * game_object->getWorldScale().y) - ((size.y / 2) * abs(game_object->getWorldScale().y));
+	rect.x = gameObject->getWorldPosition().x + (offset.x * gameObject->getWorldScale().x) - ((size.x / 2) * abs(gameObject->getWorldScale().x));
+	rect.y = gameObject->getWorldPosition().y + (offset.y * gameObject->getWorldScale().y) - ((size.y / 2) * abs(gameObject->getWorldScale().y));
 
-	rect.h = size.y * abs(game_object->getWorldScale().y);
-	rect.w = size.x * abs(game_object->getWorldScale().x);
+	rect.h = size.y * abs(gameObject->getWorldScale().y);
+	rect.w = size.x * abs(gameObject->getWorldScale().x);
 }
 
 void BoxCollider::render() {

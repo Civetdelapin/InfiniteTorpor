@@ -1,12 +1,12 @@
 #include "PlayerController.h"
 #include "Game.h"
 
-PlayerController::PlayerController(GameObject* game_object) : Component(game_object)
+PlayerController::PlayerController(GameObject* gameObject) : Component(gameObject)
 {
 
-	velocityBody = game_object->getComponent<VelocityBody>();
-	animator = game_object->getComponent<Animator>();
-	box_collider = game_object->getComponent<BoxCollider>();
+	velocityBody = gameObject->getComponent<VelocityBody>();
+	animator = gameObject->getComponent<Animator>();
+	box_collider = gameObject->getComponent<BoxCollider>();
 
 }
 
@@ -25,8 +25,8 @@ void PlayerController::setCanMove(bool value)
 void PlayerController::update()
 {
 
-	float cur_speed = speed * abs(game_object->getWorldScale().x);
-	float cur_dash_spped = dash_speed * abs(game_object->getWorldScale().x);
+	float cur_speed = speed * abs(gameObject->getWorldScale().x);
+	float cur_dash_spped = dash_speed * abs(gameObject->getWorldScale().x);
 
 	if (can_move && velocityBody != nullptr) {
 		
@@ -69,11 +69,11 @@ void PlayerController::update()
 			
 
 
-			if (velocityBody->getVelocity().x < 0 && game_object->getWorldScale().x > 0) {
-				game_object->local_scale.x *= -1;
+			if (velocityBody->getVelocity().x < 0 && gameObject->getWorldScale().x > 0) {
+				gameObject->localScale.x *= -1;
 			}
-			else if (velocityBody->getVelocity().x > 0 && game_object->getWorldScale().x < 0) {
-				game_object->local_scale.x *= -1;
+			else if (velocityBody->getVelocity().x > 0 && gameObject->getWorldScale().x < 0) {
+				gameObject->localScale.x *= -1;
 			}
 
 			//std::cout << velocityBody->drag.x << std::endl;
@@ -85,12 +85,12 @@ void PlayerController::update()
 					state = State::dashing;
 					timeLeft = time_dash;
 
-					game_object->getComponent<PlayerBehavior>()->setInvicible(time_invisible_dash);
+					gameObject->getComponent<PlayerBehavior>()->setInvicible(time_invisible_dash);
 
 					if (normalizeDirection.x == 0 && normalizeDirection.y == 0) {
 						
 						//We dash where the player is looking
-						normalizeDirection.x = game_object->getWorldScale().x;
+						normalizeDirection.x = gameObject->getWorldScale().x;
 						OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
 					}
 				}

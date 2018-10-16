@@ -32,32 +32,32 @@ SlimPrefab::SlimPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/slimes
 	
 	// Creation of Animations
 	Animation animIdle;
-	animIdle.nb_sprites = 10;
+	animIdle.nbSprites = 10;
 	animIdle.speed = 0.1f;
-	animIdle.y_index = 0;
+	animIdle.YIndex = 0;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Idle", animIdle));
 
 	Animation animDying;
-	animDying.nb_sprites = 10;
+	animDying.nbSprites = 10;
 	animDying.speed = 0.1f;
-	animDying.y_index = 4;
-	animDying.is_looping = false;
+	animDying.YIndex = 4;
+	animDying.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Dying", animDying));
 
 	Animation animWalking;
-	animWalking.nb_sprites = 10;
+	animWalking.nbSprites = 10;
 	animWalking.speed = 0.1f;
-	animWalking.y_index = 1;
+	animWalking.YIndex = 1;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
 
 	Animation animJump;
-	animJump.nb_sprites = 10;
+	animJump.nbSprites = 10;
 	animJump.speed = 0.1f;
-	animJump.y_index = 2;
-	animJump.is_looping = false;
+	animJump.YIndex = 2;
+	animJump.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Jump", animJump));
 

@@ -1,9 +1,9 @@
 #include "EnemyBasicBehavior.h"
 #include "Game.h"
 
-EnemyBasicBehavior::EnemyBasicBehavior(GameObject* game_object) : Component(game_object)
+EnemyBasicBehavior::EnemyBasicBehavior(GameObject* gameObject) : Component(gameObject)
 {
-	cur_hp = max_hp;
+	currentHealthPoint = maxHealthPoint;
 }
 
 
@@ -14,22 +14,22 @@ EnemyBasicBehavior::~EnemyBasicBehavior()
 void EnemyBasicBehavior::update()
 {
 
-	if (cur_hp > max_hp) {
-		cur_hp = max_hp;
+	if (currentHealthPoint > maxHealthPoint) {
+		currentHealthPoint = maxHealthPoint;
 	}
 	
-	time_stunned -= Time::deltaTime;
-	if (time_stunned <= 0) {
-		is_stunned = false;
+	timeStunned -= Time::deltaTime;
+	if (timeStunned <= 0) {
+		stunned = false;
 	}
 }
 
 void EnemyBasicBehavior::addForce(OwnMathFuncs::Vector2 direction, float power, bool time_frame_dependent)
 {
-	if (!is_stunned) {
+	if (!stunned) {
 		OwnMathFuncs::OwnMathFuncs::normalize(direction);
 
-		VelocityBody* velocity_body = game_object->getComponent<VelocityBody>();
+		VelocityBody* velocity_body = gameObject->getComponent<VelocityBody>();
 		if (velocity_body != nullptr) {
 
 			if (time_frame_dependent) {
@@ -41,11 +41,11 @@ void EnemyBasicBehavior::addForce(OwnMathFuncs::Vector2 direction, float power, 
 			
 
 			//Manage the X scale according to the velocity
-			if (velocity_body->getVelocity().x < 0 && game_object->getWorldScale().x > 0) {
-				game_object->local_scale.x *= -1;
+			if (velocity_body->getVelocity().x < 0 && gameObject->getWorldScale().x > 0) {
+				gameObject->localScale.x *= -1;
 			}
-			else if (velocity_body->getVelocity().x > 0 && game_object->getWorldScale().x < 0) {
-				game_object->local_scale.x *= -1;
+			else if (velocity_body->getVelocity().x > 0 && gameObject->getWorldScale().x < 0) {
+				gameObject->localScale.x *= -1;
 			}
 		}
 
@@ -53,23 +53,23 @@ void EnemyBasicBehavior::addForce(OwnMathFuncs::Vector2 direction, float power, 
 	}
 }
 
-bool EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float time_stunned)
+bool EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float timeStunned)
 {
-	cur_hp -= damage;
-	if (cur_hp > 0) {
-		VelocityBody* velocity_body = game_object->getComponent<VelocityBody>();
+	currentHealthPoint -= damage;
+	if (currentHealthPoint > 0) {
+		VelocityBody* velocity_body = gameObject->getComponent<VelocityBody>();
 		if (velocity_body != nullptr) {
-			velocity_body->AddForce(direction, knock_back_resistance * power_knock_back);
+			velocity_body->AddForce(direction, knockBackResistance * power_knock_back);
 		}
 		velocity_body = NULL;
 
-		if (knock_back_resistance > 0) {
-			this->time_stunned = time_stunned * knock_back_resistance;
-			is_stunned = true;
-			game_object->getComponent<StateMachine>()->play("Stun");
+		if (knockBackResistance > 0) {
+			this->timeStunned = timeStunned * knockBackResistance;
+			stunned = true;
+			gameObject->getComponent<StateMachine>()->play("Stun");
 		}
 	}
-	else if(!is_dying){
+	else if(!dying){
 		setDying();
 
 		return true;
@@ -80,12 +80,12 @@ bool EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power
 
 bool EnemyBasicBehavior::isStunned()
 {
-	return is_stunned;
+	return stunned;
 }
 
 float EnemyBasicBehavior::getTimeStun()
 {
-	return time_stunned;
+	return timeStunned;
 }
 
 void EnemyBasicBehavior::setSpeed(float value)
@@ -100,48 +100,48 @@ float EnemyBasicBehavior::getSpeed()
 
 float EnemyBasicBehavior::getCurHP()
 {
-	return cur_hp;
+	return currentHealthPoint;
 }
 
 void EnemyBasicBehavior::setScoreValue(int value)
 {
-	score_value = value;
+	scoreValue = value;
 }
 
 int EnemyBasicBehavior::getScoreValue()
 {
-	return score_value;
+	return scoreValue;
 }
 
 void EnemyBasicBehavior::setMaxHP(float value)
 {
-	cur_hp = value;
-	max_hp = value;
+	currentHealthPoint = value;
+	maxHealthPoint = value;
 }
 
 float EnemyBasicBehavior::getMaxHP()
 {
-	return max_hp;
+	return maxHealthPoint;
 }
 
 void EnemyBasicBehavior::setKnockBackResistance(float value)
 {
-	knock_back_resistance = value;
+	knockBackResistance = value;
 }
 
 float EnemyBasicBehavior::getTimeBeforeEnemy()
 {
-	return time_before_next_enemy;
+	return timeBeforeNextEnemy;
 }
 
 void EnemyBasicBehavior::setTimeBeforeEnemy(float value)
 {
-	time_before_next_enemy = value;
+	timeBeforeNextEnemy = value;
 }
 
 void EnemyBasicBehavior::setDying()
 {
-	game_object->getRootParent()->getComponentInChildren<StateMachine>()->play("Dying");
+	gameObject->getRootParent()->getComponentInChildren<StateMachine>()->play("Dying");
 
-	is_dying = true;
+	dying = true;
 }

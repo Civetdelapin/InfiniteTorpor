@@ -11,7 +11,7 @@ public:
 
 	void addCollider(Collider* collider);
 	void removeCollider(Collider* collider);
-	void removeGameObjectColliders(GameObject* game_object);
+	void removeGameObjectColliders(GameObject* gameObject);
 
 	void update();
 
@@ -20,7 +20,7 @@ public:
 	bool isCollidingWithTag(Collider* collider_to_test, std::string tag);
 
 private:
-	std::vector<Collider*> colliders_to_test;
+	std::vector<Collider*> collidersToTest;
 	std::vector<Collider*> getIsTriggerColliders();
 };
 

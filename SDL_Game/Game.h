@@ -50,14 +50,17 @@ public:
 
 	
 	void instantiateGameObject(GameObject* gameObject, GameObject* new_parent = nullptr);
-	void destroyGameObject(GameObject* game_object);
+	void destroyGameObject(GameObject* gameObject);
 
 	GameObject* findGameObject(std::string tag);
 
 	bool getIsRunning();
 	bool getIsDebugMode();
 
+	SDL_Renderer* getRenderer();
+
 	RendererManager* getRendererManager();
+	ColliderManager* getColliderManager();
 
 	SDL_Window* getWindow();
 	
@@ -65,43 +68,36 @@ public:
 	
 	void printInConsole(std::string str);
 
-	int getScreenWidth();
-	int getScreenHeight();
-
 	Camera* getCamera();
 	
-	SDL_Renderer *renderer;
-	ColliderManager *collider_manager;
 
 	OwnMathFuncs::Vector2 getScreenSize();
 
-
 private:
 
-	GameObject * findGameObjectRecursive(std::string tag, GameObject* game_object);
+	GameObject * findGameObjectRecursive(std::string tag, GameObject* gameObject);
 
 	void addGameObject(GameObject* gameObject);
 
-	std::vector<GameObject*> game_objects;
-	std::vector<GameObject*> game_objects_to_be_destroyed;
+	std::vector<GameObject*> gameObjects;
+	std::vector<GameObject*> gameObjectsToDestroy;
 
-	std::map <GameObject*, GameObject*> game_objects_to_be_added;
+	std::map <GameObject*, GameObject*> gameObjectsToAdd;
 
 	bool isDebugMode;
 	bool isRunning;
-	SDL_Window *window;
 
-	int screen_width;
-	int screen_height;
+	SDL_Window* window;
+	SDL_Renderer* renderer;
 
+	OwnMathFuncs::Vector2 screenSize;
 	Camera* camera;
 
 	RendererManager* renderer_manager = new RendererManager();
+	ColliderManager* collider_manager = new ColliderManager();
 
 	Uint64 timeNow = SDL_GetPerformanceCounter();
 	Uint64 timeLast = 0;
-
-	
 };
 
 #endif

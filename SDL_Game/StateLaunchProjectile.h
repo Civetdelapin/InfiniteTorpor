@@ -8,7 +8,7 @@
 class StateLaunchProjectile : public State
 {
 public:
-	StateLaunchProjectile(GameObject* game_object, std::string next_state = "");
+	StateLaunchProjectile(GameObject* gameObject, std::string next_state = "");
 	~StateLaunchProjectile();
 
 	void start(StateMachine* state_machine);

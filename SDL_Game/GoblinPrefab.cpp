@@ -44,42 +44,42 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 
 	// Creation of Animations
 	Animation animIdle;
-	animIdle.nb_sprites = 10;
+	animIdle.nbSprites = 10;
 	animIdle.speed = 0.1f;
-	animIdle.y_index = 0;
+	animIdle.YIndex = 0;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Idle", animIdle));
 
 	Animation animDying;
-	animDying.nb_sprites = 10;
+	animDying.nbSprites = 10;
 	animDying.speed = 0.1f;
-	animDying.y_index = 4;
-	animDying.is_looping = false;
+	animDying.YIndex = 4;
+	animDying.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Dying", animDying));
 
 	Animation animWalking;
-	animWalking.nb_sprites = 10;
+	animWalking.nbSprites = 10;
 	animWalking.speed = 0.1f;
-	animWalking.y_index = 2;
+	animWalking.YIndex = 2;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
 
 
 	Animation animBeforeAttack;
-	animBeforeAttack.nb_sprites = 5;
+	animBeforeAttack.nbSprites = 5;
 	animBeforeAttack.speed = 0.075f;
-	animBeforeAttack.y_index = 3;
-	animBeforeAttack.is_looping = false;
+	animBeforeAttack.YIndex = 3;
+	animBeforeAttack.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("BeforeAttack", animBeforeAttack));
 
 	Animation animAttack;
-	animAttack.nb_sprites = 5;
+	animAttack.nbSprites = 5;
 	animAttack.speed = 0.05f;
-	animAttack.y_index = 3;
-	animAttack.x_index = 5;
-	animAttack.is_looping = false;
+	animAttack.YIndex = 3;
+	animAttack.XIndex = 5;
+	animAttack.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Attack", animAttack));
 

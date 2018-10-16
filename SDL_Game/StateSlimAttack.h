@@ -14,7 +14,7 @@
 class StateSlimAttack : public State
 {
 public:
-	StateSlimAttack(GameObject * game_object, int nb_projectile, std::string next_state = "");
+	StateSlimAttack(GameObject * gameObject, int nb_projectile, std::string next_state = "");
 	~StateSlimAttack();
 
 	void start(StateMachine* state_machine);

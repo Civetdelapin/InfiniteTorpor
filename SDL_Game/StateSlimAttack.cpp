@@ -1,7 +1,7 @@
 #include "StateSlimAttack.h"
 #include "Game.h"
 
-StateSlimAttack::StateSlimAttack(GameObject * game_object, int nb_projectile, std::string next_state) : State(next_state), nb_projectile(nb_projectile)
+StateSlimAttack::StateSlimAttack(GameObject * gameObject, int nb_projectile, std::string next_state) : State(next_state), nb_projectile(nb_projectile)
 {
 
 }

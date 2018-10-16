@@ -2,10 +2,10 @@
 #include "Game.h"
 
 
-Collider::Collider(GameObject* game_object, bool is_in_simulation) : Renderer(this), Component(game_object)
+Collider::Collider(GameObject* gameObject, bool is_in_simulation) : Renderer(this), Component(gameObject)
 {
 	if (is_in_simulation) {
-		Game::instance()->collider_manager->addCollider(this);
+		Game::instance()->getColliderManager()->addCollider(this);
 	}
 }
 
@@ -30,17 +30,17 @@ bool Collider::AABB(SDL_Rect rectA, SDL_Rect rectB)
 
 bool Collider::isTrigger()
 {
-	return is_trigger;
+	return trigger;
 }
 
 void Collider::setIsTrigger(bool value)
 {
-	is_trigger = value;
+	trigger = value;
 }
 
 void Collider::clean()
 {
-	Game::instance()->collider_manager->removeCollider(this);
+	Game::instance()->getColliderManager()->removeCollider(this);
 
 	Renderer::clean();
 	Component::clean();
@@ -48,10 +48,10 @@ void Collider::clean()
 
 int Collider::getCollisionLayer()
 {
-	return collision_layer;
+	return collisionLayer;
 }
 
 void Collider::setCollisionLayer(int value)
 {
-	collision_layer = value;
+	collisionLayer = value;
 }

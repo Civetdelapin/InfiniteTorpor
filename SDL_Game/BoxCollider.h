@@ -3,7 +3,7 @@
 class BoxCollider : public Collider
 {
 public:
-	BoxCollider(GameObject* game_object, bool is_in_simulation = true);
+	BoxCollider(GameObject* gameObject, bool is_in_simulation = true);
 	~BoxCollider();
 
 	bool isColliding(Collider* collider);

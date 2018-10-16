@@ -6,7 +6,7 @@
 class DisplayEnemyHp : public Renderer, public Component
 {
 public:
-	DisplayEnemyHp(GameObject* game_object, EnemyBasicBehavior* enemy_stat);
+	DisplayEnemyHp(GameObject* gameObject, EnemyBasicBehavior* enemyBehavior);
 	~DisplayEnemyHp();
 
 	void start();
@@ -18,14 +18,14 @@ public:
 	void setYOffset(float value);
 
 private:
-	EnemyBasicBehavior * enemy_stat;
+	EnemyBasicBehavior * enemyBehavior;
 
 	OwnMathFuncs::Vector2 size = { 23, 3 };
-	float y_offset = 1.75;
-	float time_display_when_hit = 3;
+	float Yoffset = 1.75;
+	float timeToDisplayWhenHit = 3;
 
 	float timeLeft;
-	float last_hp;
-	float last_hp_display;
+	float lastHP;
+	float lastHpDisplay;
 };
 

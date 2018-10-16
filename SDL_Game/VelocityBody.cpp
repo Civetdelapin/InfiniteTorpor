@@ -1,10 +1,10 @@
 #include "VelocityBody.h"
 #include "Game.h"
 
-VelocityBody::VelocityBody(GameObject* game_object) : Component(game_object)
+VelocityBody::VelocityBody(GameObject* gameObject) : Component(gameObject)
 {
 
-	collider = game_object->getComponent<Collider>();
+	collider = gameObject->getComponent<Collider>();
 
 }
 
@@ -26,34 +26,34 @@ void VelocityBody::update()
 
 	//Collision detection
 	if (velocity.x != 0) {
-		float new_player_pos_x = game_object->local_position.x + (velocity.x * Time::deltaTime);
+		float new_player_pos_x = gameObject->localPosition.x + (velocity.x * Time::deltaTime);
 
 		//Save the old position in casse we need resolve collision
-		float old_player_pos_x = game_object->local_position.x;
+		float old_player_pos_x = gameObject->localPosition.x;
 
-		game_object->local_position.x = new_player_pos_x;
+		gameObject->localPosition.x = new_player_pos_x;
 		if (collider != nullptr) {
 
-			std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(collider);
+			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(collider);
 			if (vect.size() > 0) {
-				game_object->local_position.x = old_player_pos_x;
+				gameObject->localPosition.x = old_player_pos_x;
 				velocity.x = 0;
 			}
 		}
 	}
 
 	if (velocity.y != 0) {
-		float new_player_pos_y = game_object->local_position.y + (velocity.y * Time::deltaTime);
+		float new_player_pos_y = gameObject->localPosition.y + (velocity.y * Time::deltaTime);
 
 		//Save the old position in casse we need resolve collision
-		float old_player_pos_y = game_object->local_position.y;
+		float old_player_pos_y = gameObject->localPosition.y;
 
-		game_object->local_position.y = new_player_pos_y;
+		gameObject->localPosition.y = new_player_pos_y;
 		if (collider != nullptr) {
 
-			std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(collider);
+			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(collider);
 			if (vect.size() > 0) {
-				game_object->local_position.y = old_player_pos_y;
+				gameObject->localPosition.y = old_player_pos_y;
 				velocity.y = 0;
 			}
 		}

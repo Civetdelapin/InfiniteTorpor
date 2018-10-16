@@ -2,7 +2,7 @@
 
 
 
-DisplayEnemyHp::DisplayEnemyHp(GameObject* game_object, EnemyBasicBehavior* enemy_stat) : Renderer(this), Component(game_object),enemy_stat(enemy_stat)
+DisplayEnemyHp::DisplayEnemyHp(GameObject* gameObject, EnemyBasicBehavior* enemyBehavior) : Renderer(this), Component(gameObject),enemyBehavior(enemyBehavior)
 {
 }
 
@@ -15,22 +15,22 @@ DisplayEnemyHp::~DisplayEnemyHp()
 
 void DisplayEnemyHp::start()
 {
-	last_hp = enemy_stat->getMaxHP();
+	lastHP = enemyBehavior->getMaxHP();
 }
 
 void DisplayEnemyHp::update()
 {
-	if (last_hp != enemy_stat->getCurHP()) {
+	if (lastHP != enemyBehavior->getCurHP()) {
 		
-		last_hp_display = last_hp;
-		if (last_hp_display > enemy_stat->getMaxHP()) {
-			last_hp_display = enemy_stat->getMaxHP();
+		lastHpDisplay = lastHP;
+		if (lastHpDisplay > enemyBehavior->getMaxHP()) {
+			lastHpDisplay = enemyBehavior->getMaxHP();
 		}
 		else {
-			timeLeft = time_display_when_hit;
+			timeLeft = timeToDisplayWhenHit;
 		}
 
-		last_hp = enemy_stat->getCurHP();
+		lastHP = enemyBehavior->getCurHP();
 	}
 
 	timeLeft -= Time::deltaTime;
@@ -39,27 +39,27 @@ void DisplayEnemyHp::update()
 void DisplayEnemyHp::render()
 {
 	
-	if (timeLeft > 0 && last_hp > 0) {
+	if (timeLeft > 0 && lastHP > 0) {
 		SDL_Rect rect;
-		rect.x = game_object->getWorldPosition().x - ((size.x / 2) * abs(game_object->getWorldScale().x));
-		rect.y = game_object->getWorldPosition().y - (y_offset * abs(game_object->getWorldScale().y));
+		rect.x = gameObject->getWorldPosition().x - ((size.x / 2) * abs(gameObject->getWorldScale().x));
+		rect.y = gameObject->getWorldPosition().y - (Yoffset * abs(gameObject->getWorldScale().y));
 
 
 		//Draw the background
-		rect.w = size.x * abs(game_object->getWorldScale().x);
-		rect.h = size.y * abs(game_object->getWorldScale().y);
+		rect.w = size.x * abs(gameObject->getWorldScale().x);
+		rect.h = size.y * abs(gameObject->getWorldScale().y);
 
 		TextureManager::DrawRect(rect, 255, 255, 255, 255, true);
 
 		//Draw the damage taken
-		float pourc_damage = last_hp_display * 100 / enemy_stat->getMaxHP();
-		rect.w = pourc_damage / 100 * (size.x * abs(game_object->getWorldScale().x));
+		float pourc_damage = lastHpDisplay * 100 / enemyBehavior->getMaxHP();
+		rect.w = pourc_damage / 100 * (size.x * abs(gameObject->getWorldScale().x));
 
 		TextureManager::DrawRect(rect, 255, 255, 0, 255, true);
 
 		//Draw the health bar
-		float pourc = enemy_stat->getCurHP() * 100 / enemy_stat->getMaxHP();
-		rect.w = pourc / 100 * (size.x * abs(game_object->getWorldScale().x));
+		float pourc = enemyBehavior->getCurHP() * 100 / enemyBehavior->getMaxHP();
+		rect.w = pourc / 100 * (size.x * abs(gameObject->getWorldScale().x));
 
 		TextureManager::DrawRect(rect, 255, 0, 0, 255, true);
 	}
@@ -68,12 +68,12 @@ void DisplayEnemyHp::render()
 
 void DisplayEnemyHp::clean()
 {
-	enemy_stat = NULL;
+	enemyBehavior = NULL;
 	Renderer::clean();
 	Component::clean();
 }
 
 void DisplayEnemyHp::setYOffset(float value)
 {
-	y_offset = value;
+	Yoffset = value;
 }

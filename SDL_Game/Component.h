@@ -10,7 +10,7 @@
 class Component
 {
 public:
-	explicit Component(GameObject* game_object);
+	explicit Component(GameObject* gameObject);
 	virtual ~Component();
 
 	virtual void start();
@@ -30,8 +30,8 @@ public:
 	GameObject * getGameObject();
 
 protected:
-	GameObject * game_object;
-	bool is_active = true;
-	bool has_start = false;
+	GameObject * gameObject;
+	bool active = true;
+	bool hasStart = false;
 };
 

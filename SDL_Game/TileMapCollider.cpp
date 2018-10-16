@@ -2,7 +2,7 @@
 #include "GenerateLevel.h"
 
 
-TileMapCollider::TileMapCollider(GameObject* game_object) : Collider(game_object)
+TileMapCollider::TileMapCollider(GameObject* gameObject) : Collider(gameObject)
 {
 	
 }
@@ -24,11 +24,11 @@ bool TileMapCollider::isColliding(Collider * collider)
 			int x;
 			int y;
 
-			OwnMathFuncs::Vector2 new_world_pos = { game_object->getWorldPosition().x - (GenerateLevel::room_grid_size_x * room_behavior->getRoomData()->getTileMapData()->sprite_size.x * game_object->local_scale.x) / 2,
-													game_object->getWorldPosition().y - (GenerateLevel::room_grid_size_y * room_behavior->getRoomData()->getTileMapData()->sprite_size.y * game_object->local_scale.y) / 2 };
+			OwnMathFuncs::Vector2 new_world_pos = { gameObject->getWorldPosition().x - (GenerateLevel::ROOM_GRID_SIZE_X * room_behavior->getRoomData()->getTileMapData()->sprite_size.x * gameObject->localScale.x) / 2,
+													gameObject->getWorldPosition().y - (GenerateLevel::ROOM_GRID_SIZE_Y * room_behavior->getRoomData()->getTileMapData()->sprite_size.y * gameObject->localScale.y) / 2 };
 
-			float div_x = (game_object->getWorldScale().x * room_behavior->getRoomData()->getTileMapData()->sprite_size.x);
-			float div_y = (game_object->getWorldScale().y * room_behavior->getRoomData()->getTileMapData()->sprite_size.y);
+			float div_x = (gameObject->getWorldScale().x * room_behavior->getRoomData()->getTileMapData()->sprite_size.x);
+			float div_y = (gameObject->getWorldScale().y * room_behavior->getRoomData()->getTileMapData()->sprite_size.y);
 
 			TileMapData* tileMapData = room_behavior->getRoomData()->getTileMapData();
 
@@ -88,7 +88,7 @@ bool TileMapCollider::isColliding(Collider * collider)
 
 void TileMapCollider::start()
 {
-	room_behavior = game_object->getComponent<RoomBehavior>();
+	room_behavior = gameObject->getComponent<RoomBehavior>();
 }
 
 void TileMapCollider::update()
@@ -103,8 +103,8 @@ void TileMapCollider::render()
 	if (room_behavior != nullptr) {
 
 		OwnMathFuncs::Vector2 sprite_size = room_behavior->getRoomData()->getTileMapData()->sprite_size;
-		OwnMathFuncs::Vector2 new_world_pos = { game_object->getWorldPosition().x - (GenerateLevel::room_grid_size_x * room_behavior->getRoomData()->getTileMapData()->sprite_size.x * game_object->local_scale.x) / 2,
-			game_object->getWorldPosition().y - (GenerateLevel::room_grid_size_y * room_behavior->getRoomData()->getTileMapData()->sprite_size.y * game_object->local_scale.y) / 2 };
+		OwnMathFuncs::Vector2 new_world_pos = { gameObject->getWorldPosition().x - (GenerateLevel::ROOM_GRID_SIZE_X * room_behavior->getRoomData()->getTileMapData()->sprite_size.x * gameObject->localScale.x) / 2,
+			gameObject->getWorldPosition().y - (GenerateLevel::ROOM_GRID_SIZE_Y * room_behavior->getRoomData()->getTileMapData()->sprite_size.y * gameObject->localScale.y) / 2 };
 
 
 		for (std::vector<TileData*> tiles_ligne : room_behavior->getRoomData()->getTileMapData()->data) {
@@ -121,11 +121,11 @@ void TileMapCollider::render()
 					srcrect.h = sprite_size.x;
 					srcrect.w = sprite_size.y;
 
-					dstrect.x = new_world_pos.x + (tile->position_grid.x * sprite_size.x * game_object->getWorldScale().x);
-					dstrect.y = new_world_pos.y + (tile->position_grid.y * sprite_size.y * game_object->getWorldScale().y);
+					dstrect.x = new_world_pos.x + (tile->position_grid.x * sprite_size.x * gameObject->getWorldScale().x);
+					dstrect.y = new_world_pos.y + (tile->position_grid.y * sprite_size.y * gameObject->getWorldScale().y);
 
-					dstrect.h = sprite_size.x * game_object->getWorldScale().x;
-					dstrect.w = sprite_size.y * game_object->getWorldScale().y;
+					dstrect.h = sprite_size.x * gameObject->getWorldScale().x;
+					dstrect.w = sprite_size.y * gameObject->getWorldScale().y;
 
 					//TextureManager::DrawTexture(texture, srcrect, dstrect);
 

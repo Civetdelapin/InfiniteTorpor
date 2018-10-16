@@ -10,7 +10,7 @@
 class VelocityBody : public Component
 {
 public:
-	VelocityBody(GameObject* game_object);
+	VelocityBody(GameObject* gameObject);
 	~VelocityBody();
 
 	void update();

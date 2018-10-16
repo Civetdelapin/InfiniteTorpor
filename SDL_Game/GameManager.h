@@ -8,7 +8,7 @@
 class GameManager : public Component
 {
 public:
-	GameManager(GameObject* game_object);
+	GameManager(GameObject* gameObject);
 	~GameManager();
 
 	void start();

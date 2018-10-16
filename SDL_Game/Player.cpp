@@ -10,34 +10,34 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 
 	// Creation of Animations
 	Animation animIdle;
-	animIdle.nb_sprites = 10;
+	animIdle.nbSprites = 10;
 	animIdle.speed = 0.3f;
-	animIdle.y_index = 0;
+	animIdle.YIndex = 0;
 
 	animator->addAnimation(std::pair <std::string, Animation> ("Idle", animIdle));
 	
 	Animation animWalking;
-	animWalking.nb_sprites = 10;
+	animWalking.nbSprites = 10;
 	animWalking.speed = 0.1f;
-	animWalking.y_index = 2;
+	animWalking.YIndex = 2;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
 	animator->play("Idle");
 	
 	Animation animDead;
-	animDead.nb_sprites = 10;
+	animDead.nbSprites = 10;
 	animDead.speed = 0.2f;
-	animDead.y_index = 4;
-	animDead.is_looping = false;
+	animDead.YIndex = 4;
+	animDead.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Dying", animDead));
 
 	Animation animWakeUp;
-	animWakeUp.nb_sprites = 10;
+	animWakeUp.nbSprites = 10;
 	animWakeUp.speed = 0.2f;
-	animWakeUp.y_index = 4;
-	animWakeUp.is_looping = false;
-	animWakeUp.is_reverse = true;
+	animWakeUp.YIndex = 4;
+	animWakeUp.looping = false;
+	animWakeUp.reverse = true;
 
 	animator->addAnimation(std::pair <std::string, Animation>("WakingUp", animWakeUp));
 
@@ -51,7 +51,7 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	PlayerController* playerController = new PlayerController(this);
 	PlayerBehavior* playerBehavior = new PlayerBehavior(this);
 
-	local_scale = { 4, 4};
+	localScale = { 4, 4};
 	tag = "Player";
 
 	//Creation of child

@@ -2,7 +2,7 @@
 
 
 
-StateStun::StateStun(GameObject* game_object, std::string next_state) : State(next_state), time_to_wait(time_to_wait)
+StateStun::StateStun(GameObject* gameObject, std::string next_state) : State(next_state), time_to_wait(time_to_wait)
 {
 }
 

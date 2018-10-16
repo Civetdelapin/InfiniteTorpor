@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "EnemyBasicBehavior.h"
 
-PlayerAttack::PlayerAttack(GameObject* game_object, BoxCollider* box_collider_attack, BoxCollider* box_coolider_attack_up, BoxCollider* box_collider_attack_corner, PlayerController* player_controller, VelocityBody* velocity_body) : Component(game_object), box_collider_attack(box_collider_attack), player_controller(player_controller), velocity_body(velocity_body), box_coolider_attack_up(box_coolider_attack_up), box_collider_attack_corner(box_collider_attack_corner)
+PlayerAttack::PlayerAttack(GameObject* gameObject, BoxCollider* box_collider_attack, BoxCollider* box_coolider_attack_up, BoxCollider* box_collider_attack_corner, PlayerController* player_controller, VelocityBody* velocity_body) : Component(gameObject), box_collider_attack(box_collider_attack), player_controller(player_controller), velocity_body(velocity_body), box_coolider_attack_up(box_coolider_attack_up), box_collider_attack_corner(box_collider_attack_corner)
 {
 	cancelAttackColliders();
 
@@ -21,7 +21,7 @@ PlayerAttack::~PlayerAttack()
 
 void PlayerAttack::start()
 {
-	player_stat = game_object->getRootParent()->getComponent<PlayerBehavior>();
+	playerBehavior = gameObject->getRootParent()->getComponent<PlayerBehavior>();
 }
 
 void PlayerAttack::update()
@@ -77,7 +77,7 @@ void PlayerAttack::update()
 
 		
 		//We tried to find if we hit someone
-		std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(getActiveCollider());
+		std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(getActiveCollider());
 		if (vect.size() > 0) {
 
 			for (Collider* collider : vect) {
@@ -85,17 +85,17 @@ void PlayerAttack::update()
 
 					if (collider->getGameObject()->tag == "Enemy") {
 
-						EnemyBasicBehavior* enemy_stat = collider->getGameObject()->getRootParent()->getComponent<EnemyBasicBehavior>();
-						if (enemy_stat != nullptr) {	
-							if (enemy_stat->takeDamage(normalizeDirection, velocity_attack * 0.80, attack_dmg[nb_combo - 1], time_enemy_stun)) {
+						EnemyBasicBehavior* enemyBehavior = collider->getGameObject()->getRootParent()->getComponent<EnemyBasicBehavior>();
+						if (enemyBehavior != nullptr) {	
+							if (enemyBehavior->takeDamage(normalizeDirection, velocity_attack * 0.80, attack_dmg[nb_combo - 1], time_enemy_stun)) {
 								
 								//We have killed the enemy
-								player_stat->addScore(enemy_stat->getScoreValue());
+								playerBehavior->addScore(enemyBehavior->getScoreValue());
 
 							}
 
 						}
-						enemy_stat = NULL;
+						enemyBehavior = NULL;
 
 						Game::instance()->getCamera()->startShake(10, 15, 0.15);
 					}
@@ -121,12 +121,12 @@ void PlayerAttack::attackButtonPressed()
 
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);
 		
-		if (normalizeDirection.y != 0 && normalizeDirection.y != game_object->getRootParent()->getComponent<PlayerController>()->getDirection().y) {
-			normalizeDirection.y = game_object->getRootParent()->getComponent<PlayerController>()->getDirection().y;
+		if (normalizeDirection.y != 0 && normalizeDirection.y != gameObject->getRootParent()->getComponent<PlayerController>()->getDirection().y) {
+			normalizeDirection.y = gameObject->getRootParent()->getComponent<PlayerController>()->getDirection().y;
 		}
 
-		if (normalizeDirection.x != 0 && normalizeDirection.x != game_object->getRootParent()->getComponent<PlayerController>()->getDirection().x) {
-			normalizeDirection.x = game_object->getRootParent()->getComponent<PlayerController>()->getDirection().x;
+		if (normalizeDirection.x != 0 && normalizeDirection.x != gameObject->getRootParent()->getComponent<PlayerController>()->getDirection().x) {
+			normalizeDirection.x = gameObject->getRootParent()->getComponent<PlayerController>()->getDirection().x;
 		}
 
 		activeAttackColliders();
@@ -206,7 +206,7 @@ void PlayerAttack::manageNormalizeDirection()
 	if (Game::instance()->event.type == SDL_KEYDOWN && (Game::instance()->event.key.keysym.sym == SDLK_UP || Game::instance()->event.key.keysym.sym == SDLK_DOWN || Game::instance()->event.key.keysym.sym == SDLK_LEFT || Game::instance()->event.key.keysym.sym == SDLK_RIGHT)) {
 
 		
-		normalizeDirection = game_object->getRootParent()->getComponent<PlayerController>()->getDirection();
+		normalizeDirection = gameObject->getRootParent()->getComponent<PlayerController>()->getDirection();
 
 		//Managing the normalize direction
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);

@@ -13,7 +13,7 @@ public:
 	static const float TIME_FADE_DEAD;
 	static const float TIME_FADE_TRANSITION;
 
-	DisplayScreenFadeInOut(GameObject* game_object);
+	DisplayScreenFadeInOut(GameObject* gameObject);
 	~DisplayScreenFadeInOut();
 	
 	void start();
@@ -31,13 +31,13 @@ private:
 	float timeLeft;
 	float timeToFade;
 
-	State state_fading = Over;
+	State stateFading = Over;
 
-	SDL_Texture* black_texture;
+	SDL_Texture* blackTexture;
 
 	float alpha = 255;
 
-	SDL_Rect src_rect;
-	SDL_Rect dest_rect;
+	SDL_Rect sourceRect;
+	SDL_Rect destRect;
 };
 

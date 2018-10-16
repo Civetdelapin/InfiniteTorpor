@@ -16,9 +16,9 @@ public:
 
 private:
 	
-	int world_collider_up_offset = 6;
-	int world_collider_bottom_offset = 1;
-	int world_collider_left_offset = 12;
-	int world_collider_right_offset = 12;
+	int worldColliderUpOffset = 6;
+	int worldColliderBottomOffset = 1;
+	int worldColliderLeftOffset = 12;
+	int worldColliderRightOffset = 12;
 };
 

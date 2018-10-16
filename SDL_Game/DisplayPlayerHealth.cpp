@@ -2,13 +2,13 @@
 #include "Game.h"
 
 
-DisplayPlayerHealth::DisplayPlayerHealth(GameObject* game_object) : Renderer(this), Component(game_object)
+DisplayPlayerHealth::DisplayPlayerHealth(GameObject* gameObject) : Renderer(this), Component(gameObject)
 {
-	src_rect.x = 0;
-	src_rect.y = 0;
+	sourceRect.x = 0;
+	sourceRect.y = 0;
 
-	full_heart_texture = TextureManager::LoadTexture("img/ui/heart_full.png", src_rect.w, src_rect.h);
-	empty_heart_texture = TextureManager::LoadTexture("img/ui/heart_empty.png");
+	fullHeartTexture = TextureManager::LoadTexture("img/ui/heart_full.png", sourceRect.w, sourceRect.h);
+	emptyHeartTexture = TextureManager::LoadTexture("img/ui/heart_empty.png");
 
 	setLayer(RendererManager::MAX_LAYER - 2);
 }
@@ -23,7 +23,7 @@ void DisplayPlayerHealth::start()
 {
 	GameObject* player = Game::instance()->findGameObject("Player");
 	if (player != nullptr) {
-		player_stat = player->getComponent<PlayerBehavior>();
+		playerBehavior = player->getComponent<PlayerBehavior>();
 	}
 }
 
@@ -34,39 +34,39 @@ void DisplayPlayerHealth::update()
 
 void DisplayPlayerHealth::render()
 {
-	if (player_stat != nullptr) {
+	if (playerBehavior != nullptr) {
 
-		SDL_Rect dest_rect;
-		dest_rect.w = src_rect.w * 0.25;
-		dest_rect.h = src_rect.h * 0.25;
-		dest_rect.y = 15;
-		dest_rect.x = 15;
+		SDL_Rect destRect;
+		destRect.w = sourceRect.w * 0.25;
+		destRect.h = sourceRect.h * 0.25;
+		destRect.y = 15;
+		destRect.x = 15;
 
-		//std::cout << player_stat->cur_hp << std::endl;
-		int max_hp = player_stat->getMaxHp();
-		for (int i = 1; i <= max_hp; i++) {
+		//std::cout << playerBehavior->currentHealthPoint << std::endl;
+		int maxHealthPoint = playerBehavior->getMaxHp();
+		for (int i = 1; i <= maxHealthPoint; i++) {
 
-			if (i <= player_stat->getCurHP()) {
-				TextureManager::DrawTexture(full_heart_texture, src_rect, dest_rect, SDL_FLIP_NONE, false);
+			if (i <= playerBehavior->getCurHP()) {
+				TextureManager::DrawTexture(fullHeartTexture, sourceRect, destRect, SDL_FLIP_NONE, false);
 			}
 			else {
-				TextureManager::DrawTexture(empty_heart_texture, src_rect, dest_rect, SDL_FLIP_NONE, false);
+				TextureManager::DrawTexture(emptyHeartTexture, sourceRect, destRect, SDL_FLIP_NONE, false);
 			}
 
-			dest_rect.x += (dest_rect.w + 15);
+			destRect.x += (destRect.w + 15);
 		}
 	}
 }
 
 void DisplayPlayerHealth::clean()
 {
-	SDL_DestroyTexture(full_heart_texture);
-	full_heart_texture = NULL;
+	SDL_DestroyTexture(fullHeartTexture);
+	fullHeartTexture = NULL;
 
-	SDL_DestroyTexture(empty_heart_texture);
-	empty_heart_texture = NULL;
+	SDL_DestroyTexture(emptyHeartTexture);
+	emptyHeartTexture = NULL;
 
-	player_stat = NULL;
+	playerBehavior = NULL;
 
 	Renderer::clean();
 	Component::clean();

@@ -7,7 +7,7 @@
 class TileMapCollider : public Collider
 {
 public:
-	TileMapCollider(GameObject* game_object);
+	TileMapCollider(GameObject* gameObject);
 	~TileMapCollider();
 
 

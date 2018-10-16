@@ -2,10 +2,10 @@
 #include "Game.h"
 
 
-StateMeleeAttack::StateMeleeAttack(GameObject * game_object, std::string next_state, float time_attack, float velocity_attack) : State(next_state), time_attack(time_attack), velocity_attack(velocity_attack)
+StateMeleeAttack::StateMeleeAttack(GameObject * gameObject, std::string next_state, float time_attack, float velocity_attack) : State(next_state), time_attack(time_attack), velocity_attack(velocity_attack)
 {
-	enemy_basic_behavior = game_object->getComponent<EnemyBasicBehavior>();
-	collider_active = game_object->getRootParent()->getComponentInChildren<EnemyAttackCollider>()->getDamageCollider();
+	enemy_basic_behavior = gameObject->getComponent<EnemyBasicBehavior>();
+	collider_active = gameObject->getRootParent()->getComponentInChildren<EnemyAttackCollider>()->getDamageCollider();
 }
 
 
@@ -25,10 +25,10 @@ void StateMeleeAttack::start(StateMachine* state_machine)
 	OwnMathFuncs::OwnMathFuncs::normalize(normalize_dir);
 
 	if (normalize_dir.x < 0 && state_machine->getGameObject()->getWorldScale().x > 0) {
-		state_machine->getGameObject()->local_scale.x *= -1;
+		state_machine->getGameObject()->localScale.x *= -1;
 	}
 	else if (normalize_dir.x > 0 && state_machine->getGameObject()->getWorldScale().x < 0) {
-		state_machine->getGameObject()->local_scale.x *= -1;
+		state_machine->getGameObject()->localScale.x *= -1;
 	}
 }
 

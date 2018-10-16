@@ -55,7 +55,7 @@ public:
 	void setTileMapData(TileMapData* value);
 	TileMapData* getTileMapData();
 
-	void addEnemy(GameObject* game_object);
+	void addEnemy(GameObject* gameObject);
 	std::vector<GameObject*> & getEnemiesWaves();
 
 
@@ -66,7 +66,7 @@ private:
 	std::vector<GameObject*> enemies_waves;
 
 	std::vector<Door*> doors;
-	TileMapData* tile_map_data;
+	TileMapData* tileMapData;
 
 	OwnMathFuncs::Vector2 grid_pos = { 0 ,0 };
 };

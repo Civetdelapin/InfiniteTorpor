@@ -5,8 +5,8 @@
 class SpriteRenderer : public Component, public Renderer
 {
 public:
-	SpriteRenderer(GameObject* game_object, std::string img_path, OwnMathFuncs::Vector2 sprite_size);
-	SpriteRenderer(GameObject* game_object, SDL_Texture* texture, bool must_destroy_text);
+	SpriteRenderer(GameObject* gameObject, std::string img_path, OwnMathFuncs::Vector2 sprite_size);
+	SpriteRenderer(GameObject* gameObject, SDL_Texture* texture, bool must_destroy_text);
 
 	~SpriteRenderer();
 

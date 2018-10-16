@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "GameManager.h"
 
-RoomBehavior::RoomBehavior(GameObject * game_object, Room * room_data) : Component(game_object), room_data(room_data)
+RoomBehavior::RoomBehavior(GameObject * gameObject, Room * room_data) : Component(gameObject), room_data(room_data)
 {
 
 }
@@ -21,7 +21,7 @@ void RoomBehavior::start()
 		state = Over;
 
 		if (room_data->getRoomType() == Room::EndRoom) {
-			end_hitbox = new BoxCollider(game_object);
+			end_hitbox = new BoxCollider(gameObject);
 			end_hitbox->setCollisionLayer(10);
 
 			end_hitbox->size = room_data->getTileMapData()->sprite_size * 2;
@@ -41,7 +41,7 @@ void RoomBehavior::update()
 
 		for (Door* door : room_data->getDoors()) {
 
-			std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(door->box_collider_trigger);
+			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(door->box_collider_trigger);
 			if (vect.size() > 0) {
 
 				for (Collider* collider : vect) {
@@ -98,7 +98,7 @@ void RoomBehavior::update()
 		bool need_spawn = true;
 		for (int i = 0; i < room_data->getEnemiesWaves().size(); i++) {
 
-			if (room_data->getEnemiesWaves()[i]->is_active) {
+			if (room_data->getEnemiesWaves()[i]->active) {
 				need_spawn = false;
 			}
 		}
@@ -115,7 +115,7 @@ void RoomBehavior::update()
 		if (room_data->getRoomType() == Room::EndRoom) {
 			
 			//---- END OF FLOOR COLLISION -----
-			if(Game::instance()->collider_manager->isCollidingWithTag(end_hitbox, "Player")) {
+			if(Game::instance()->getColliderManager()->isCollidingWithTag(end_hitbox, "Player")) {
 			
 				game_manager->endLevel();
 
@@ -147,7 +147,7 @@ void RoomBehavior::playerStartRoom()
 		state = Active;
 		setDoors(true);
 
-		Game::instance()->getCamera()->setObjectToFollow(game_object);
+		Game::instance()->getCamera()->setObjectToFollow(gameObject);
 		spawnEnemy();
 	}
 }
@@ -174,10 +174,10 @@ void RoomBehavior::setDoors(bool value)
 
 	for (Door* door : room_data->getDoors()) {
 		if (door->close_door != nullptr) {
-			door->close_door->is_active = value;
+			door->close_door->active = value;
 		}
 		if (door->open_door != nullptr) {
-			door->open_door->is_active = !value;
+			door->open_door->active = !value;
 		}
 	}
 }
@@ -194,8 +194,8 @@ void RoomBehavior::spawnEnemy()
 
 		for (int i = 0; i < room_data->getEnemiesWaves().size(); i++) {
 
-			if (!room_data->getEnemiesWaves()[i]->is_active) {
-				room_data->getEnemiesWaves()[i]->is_active = true;
+			if (!room_data->getEnemiesWaves()[i]->active) {
+				room_data->getEnemiesWaves()[i]->active = true;
 				timeLeft = room_data->getEnemiesWaves()[i]->getComponent<EnemyBasicBehavior>()->getTimeBeforeEnemy();
 
 				nb_enemy--;

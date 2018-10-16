@@ -7,7 +7,7 @@
 class PlayerAttack : public Component
 {
 public:
-	PlayerAttack(GameObject* game_object, BoxCollider* box_collider_attack, BoxCollider* box_coolider_attack_up, BoxCollider* box_collider_attack_corner,PlayerController* player_controller, VelocityBody* velocity_body);
+	PlayerAttack(GameObject* gameObject, BoxCollider* box_collider_attack, BoxCollider* box_coolider_attack_up, BoxCollider* box_collider_attack_corner,PlayerController* player_controller, VelocityBody* velocity_body);
 	~PlayerAttack();
 
 	enum State { attacking, ready_attack, between_attack, cant_attack };
@@ -34,7 +34,7 @@ private:
 
 	PlayerController* player_controller;
 	VelocityBody* velocity_body;
-	PlayerBehavior* player_stat;
+	PlayerBehavior* playerBehavior;
 
 	std::vector<GameObject*> game_objects_touched;
 	OwnMathFuncs::Vector2 normalizeDirection = { 1, 0 };

@@ -1,7 +1,7 @@
 #include "Animator.h"
 #include "Game.h"
 
-Animator::Animator(GameObject* game_object): Component(game_object)
+Animator::Animator(GameObject* gameObject): Component(gameObject)
 {
 	
 }
@@ -18,27 +18,27 @@ void Animator::addAnimation(std::pair<std::string, Animation> animation)
 
 void Animator::start()
 {
-	spriteRenderer = game_object->getComponent<SpriteRenderer>();
+	spriteRenderer = gameObject->getComponent<SpriteRenderer>();
 
 }
 
 void Animator::update()
 {
 
-	if (spriteRenderer != nullptr && cur_animation != "") {
+	if (spriteRenderer != nullptr && currentAnimation != "") {
 
-		if (timeLeft >= animations[cur_animation].speed) {
+		if (timeLeft >= animations[currentAnimation].speed) {
 
 			timeLeft = 0;
 
-			cur_sprite++;
+			currentSprite++;
 
-			if (!animations[cur_animation].is_looping && cur_sprite >= animations[cur_animation].nb_sprites) {
+			if (!animations[currentAnimation].looping && currentSprite >= animations[currentAnimation].nbSprites) {
 				
-				for (Transition transi : animations[cur_animation].transitions) {
+				for (Transition transi : animations[currentAnimation].transitions) {
 
 					if (transi.ready_when_animation_is_over) {
-						cur_animation = transi.next_animation;
+						currentAnimation = transi.next_animation;
 					}
 				}
 			}
@@ -55,18 +55,18 @@ void Animator::update()
 
 void Animator::play(std::string name)
 {
-	if (cur_animation != name) {
+	if (currentAnimation != name) {
 
 		timeLeft = 0;
-		cur_sprite = 0;
+		currentSprite = 0;
 
 		if (animations.count(name) > 0) {
-			cur_animation = name;
+			currentAnimation = name;
 
-			timeLeft = animations[cur_animation].speed;
+			timeLeft = animations[currentAnimation].speed;
 		}
 		else {
-			cur_animation = "";
+			currentAnimation = "";
 			
 		}
 	}
@@ -82,17 +82,17 @@ void Animator::clean()
 
 void Animator::setRectRenderer()
 {
-	cur_sprite = (cur_sprite % animations[cur_animation].nb_sprites);
+	currentSprite = (currentSprite % animations[currentAnimation].nbSprites);
 	SDL_Rect tempRect;
 
-	if (animations[cur_animation].is_reverse) {
-		tempRect.x = (animations[cur_animation].nb_sprites - cur_sprite + animations[cur_animation].x_index) * spriteRenderer->getSpriteSize().x;
+	if (animations[currentAnimation].reverse) {
+		tempRect.x = (animations[currentAnimation].nbSprites - currentSprite + animations[currentAnimation].XIndex) * spriteRenderer->getSpriteSize().x;
 	}
 	else {
-		tempRect.x = (cur_sprite + animations[cur_animation].x_index) * spriteRenderer->getSpriteSize().x;
+		tempRect.x = (currentSprite + animations[currentAnimation].XIndex) * spriteRenderer->getSpriteSize().x;
 	}
 
-	tempRect.y = animations[cur_animation].y_index * spriteRenderer->getSpriteSize().y;
+	tempRect.y = animations[currentAnimation].YIndex * spriteRenderer->getSpriteSize().y;
 	spriteRenderer->setSourceRect(tempRect);
 }
 

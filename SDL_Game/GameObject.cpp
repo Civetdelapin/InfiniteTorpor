@@ -2,7 +2,7 @@
 #include "Component.h"
 
 
-GameObject::GameObject(OwnMathFuncs::Vector2 init_local_pos) : local_position(init_local_pos), start_position(init_local_pos)
+GameObject::GameObject(OwnMathFuncs::Vector2 init_local_pos) : localPosition(init_local_pos), startPosition(init_local_pos)
 {
 	
 }
@@ -30,12 +30,12 @@ void GameObject::update()
 	}
 
 
-	for (GameObject* game_object : game_objects) {
-		game_object->parent_position = getWorldPosition();
-		game_object->parent_scale = getWorldScale();
+	for (GameObject* gameObject : gameObjects) {
+		gameObject->parentPosition = getWorldPosition();
+		gameObject->parentScale = getWorldScale();
 
-		if (game_object->is_active) {
-			game_object->update();
+		if (gameObject->active) {
+			gameObject->update();
 		}
 	}
 }
@@ -51,10 +51,10 @@ void GameObject::clean()
 
 	getAllComponents().clear();
 
-	for (GameObject* game_object : getChildren()) {
-		game_object->clean();
+	for (GameObject* gameObject : getChildren()) {
+		gameObject->clean();
 
-		delete game_object;
+		delete gameObject;
 	}
 
 	getChildren().clear();
@@ -66,23 +66,23 @@ void GameObject::addComponent(Component * component)
 	components.push_back(component);
 }
 
-void GameObject::addGameObjectAsChild(GameObject * game_object)
+void GameObject::addGameObjectAsChild(GameObject * gameObject)
 {
-	game_object->parent_game_object = this;
-	game_objects.push_back(game_object);
+	gameObject->parentGameObject = this;
+	gameObjects.push_back(gameObject);
 }
 
 void GameObject::setActiveChildren(bool value)
 {
-	for (GameObject* game_object : game_objects) {
-		game_object->is_active = value;
-		game_object->setActiveChildren(value);
+	for (GameObject* gameObject : gameObjects) {
+		gameObject->active = value;
+		gameObject->setActiveChildren(value);
 	}
 }
 
 std::vector<GameObject*> GameObject::getChildren()
 {
-	return game_objects;
+	return gameObjects;
 }
 
 std::vector<Component*> GameObject::getAllComponents()
@@ -95,38 +95,38 @@ std::vector<Component*> GameObject::getAllComponents()
 GameObject * GameObject::getRootParent()
 {
 	
-	if (parent_game_object == nullptr) {
+	if (parentGameObject == nullptr) {
 		return this;
 	}
 	else {
-		return parent_game_object->getRootParent();
+		return parentGameObject->getRootParent();
 	}
 
 }
 
 OwnMathFuncs::Vector2 GameObject::getWorldPosition()
 {
-	return (local_position * parent_scale) + parent_position;
+	return (localPosition * parentScale) + parentPosition;
 }
 
 OwnMathFuncs::Vector2 GameObject::getWorldScale()
 {
-	OwnMathFuncs::Vector2 vect = { local_scale.x * parent_scale.x, local_scale.y * parent_scale.y };
+	OwnMathFuncs::Vector2 vect = { localScale.x * parentScale.x, localScale.y * parentScale.y };
 	return vect;
 }
 
 bool GameObject::isReallyActive()
 {
-	if (parent_game_object == nullptr || is_active == false) {
-		return is_active;
+	if (parentGameObject == nullptr || active == false) {
+		return active;
 	}
 	else {
-		return parent_game_object->isReallyActive();
+		return parentGameObject->isReallyActive();
 	}
 }
 
 OwnMathFuncs::Vector2 GameObject::getStartPosition()
 {
-	return start_position;
+	return startPosition;
 }
 

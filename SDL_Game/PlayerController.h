@@ -10,7 +10,7 @@
 class PlayerController : public virtual Component
 {
 public:
-	PlayerController(GameObject* game_object);
+	PlayerController(GameObject* gameObject);
 	~PlayerController();
 
 	const enum State { dashing, ready_dash, cant_dash };

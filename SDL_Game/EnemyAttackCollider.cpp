@@ -1,7 +1,7 @@
 #include "EnemyAttackCollider.h"
 #include "Game.h"
 
-EnemyAttackCollider::EnemyAttackCollider(GameObject* game_object, Collider* collider, bool isDestroyed) : Component(game_object), collider_to_check(collider), isDestroyed(isDestroyed)
+EnemyAttackCollider::EnemyAttackCollider(GameObject* gameObject, Collider* collider, bool isDestroyed) : Component(gameObject), colliderToCheck(collider), isDestroyed(isDestroyed)
 {
 
 }
@@ -14,9 +14,9 @@ EnemyAttackCollider::~EnemyAttackCollider()
 void EnemyAttackCollider::update()
 {
 
-	if (collider_to_check != nullptr) {
+	if (colliderToCheck != nullptr) {
 
-		std::vector<Collider*> vect = Game::instance()->collider_manager->isTrigger(collider_to_check);
+		std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(colliderToCheck);
 		if (vect.size() > 0) {
 
 			for (Collider* collider : vect) {
@@ -36,12 +36,12 @@ void EnemyAttackCollider::update()
 
 void EnemyAttackCollider::clean()
 {
-	collider_to_check = NULL;
+	colliderToCheck = NULL;
 	Component::clean();
 }
 
 Collider * EnemyAttackCollider::getDamageCollider()
 {
-	return collider_to_check;
+	return colliderToCheck;
 }
 

@@ -5,7 +5,7 @@
 class ProjectileBehavior : public Component
 {
 public:
-	ProjectileBehavior(GameObject* game_object, float speed , Collider* hitbox_collider = nullptr);
+	ProjectileBehavior(GameObject* gameObject, float speed , Collider* hitbox_collider = nullptr);
 	~ProjectileBehavior();
 
 	void setDirection(OwnMathFuncs::Vector2 value);

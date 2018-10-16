@@ -6,7 +6,7 @@
 class DisplayPlayerScore : public Renderer, public Component
 {
 public:
-	DisplayPlayerScore(GameObject* game_object);
+	DisplayPlayerScore(GameObject* gameObject);
 	~DisplayPlayerScore();
 
 	void start();
@@ -16,9 +16,9 @@ public:
 	void clean();
 
 private:
-	PlayerBehavior * player_stat;
-	TTF_Font* ttf_font;
+	PlayerBehavior * playerBehavior;
+	TTF_Font* ttf_Font;
 
-	float font_size = 40;
+	float fontSize = 40;
 };
 

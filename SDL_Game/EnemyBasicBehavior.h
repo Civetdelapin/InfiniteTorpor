@@ -6,13 +6,13 @@
 class EnemyBasicBehavior : public Component
 {
 public:
-	EnemyBasicBehavior(GameObject* game_object);
+	EnemyBasicBehavior(GameObject* gameObject);
 	~EnemyBasicBehavior();
 
 	void update();
 
 	void addForce(OwnMathFuncs::Vector2 direction, float power , bool time_frame_dependent = true);
-	bool takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float time_stunned);
+	bool takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float timeStunned);
 
 	bool isStunned();
 	float getTimeStun();
@@ -35,19 +35,19 @@ public:
 
 private:
 
-	bool is_stunned = false;
-	float cur_hp;
-	float max_hp = 100;
+	bool stunned = false;
+	float currentHealthPoint;
+	float maxHealthPoint = 100;
 	float speed = 2300;
 
-	float time_before_next_enemy = 5.0f;
+	float timeBeforeNextEnemy = 5.0f;
 
-	float knock_back_resistance = 1;
-	float time_stunned = 0;
+	float knockBackResistance = 1;
+	float timeStunned = 0;
 
-	int score_value = 50;
+	int scoreValue = 50;
 
-	bool is_dying = false;
+	bool dying = false;
 
 	void setDying();
 };

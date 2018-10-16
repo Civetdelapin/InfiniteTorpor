@@ -6,7 +6,7 @@
 class StateOnlyWait : public State
 {
 public:
-	StateOnlyWait(GameObject * game_object, float time_to_wait, std::string next_state = "");
+	StateOnlyWait(GameObject * gameObject, float time_to_wait, std::string next_state = "");
 	~StateOnlyWait();
 
 	void start(StateMachine* state_machine);

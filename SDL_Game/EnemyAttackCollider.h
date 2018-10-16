@@ -7,7 +7,7 @@ class EnemyAttackCollider : public Component
 {
 
 public:
-	EnemyAttackCollider(GameObject* game_object, Collider* collider, bool isDestroyed = false);
+	EnemyAttackCollider(GameObject* gameObject, Collider* collider, bool isDestroyed = false);
 	~EnemyAttackCollider();
 
 	const float dmg = 1;
@@ -18,7 +18,7 @@ public:
 	Collider* getDamageCollider();
 
 private:
-	Collider * collider_to_check = nullptr;
+	Collider * colliderToCheck = nullptr;
 
 	bool isDestroyed = false;
 };

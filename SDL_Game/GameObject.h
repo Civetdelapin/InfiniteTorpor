@@ -30,16 +30,16 @@ public:
 	void clean();
 
 	void addComponent(Component* component);
-	void addGameObjectAsChild(GameObject* game_object);
+	void addGameObjectAsChild(GameObject* gameObject);
 
 	void setActiveChildren(bool value);
 
 	std::vector<GameObject*> getChildren();
 	std::vector<Component*> getAllComponents();
 
-	GameObject* parent_game_object = nullptr;
+	GameObject* parentGameObject = nullptr;
 
-	bool is_active = true;
+	bool active = true;
 
 
 	template< class ComponentType >
@@ -77,8 +77,8 @@ public:
 		}
 		else {
 
-			for (GameObject* game_object : game_objects) {
-				component = game_object->getComponent<ComponentType>();
+			for (GameObject* gameObject : gameObjects) {
+				component = gameObject->getComponent<ComponentType>();
 				if (component != nullptr) {
 					return component;
 				}
@@ -99,19 +99,19 @@ public:
 
 	bool isReallyActive();
 
-	OwnMathFuncs::Vector2 local_position = { 0, 0 };
-	OwnMathFuncs::Vector2 parent_position = { 0, 0 };
+	OwnMathFuncs::Vector2 localPosition = { 0, 0 };
+	OwnMathFuncs::Vector2 parentPosition = { 0, 0 };
 
-	OwnMathFuncs::Vector2 local_scale = { 1, 1 };
-	OwnMathFuncs::Vector2 parent_scale = { 1, 1 };
+	OwnMathFuncs::Vector2 localScale = { 1, 1 };
+	OwnMathFuncs::Vector2 parentScale = { 1, 1 };
 
 	OwnMathFuncs::Vector2 getStartPosition();
 
 private:
 	std::vector<Component*> components;
-	std::vector<GameObject*> game_objects;
+	std::vector<GameObject*> gameObjects;
 
-	OwnMathFuncs::Vector2 start_position = { 0, 0 };
+	OwnMathFuncs::Vector2 startPosition = { 0, 0 };
 };
 
 #endif

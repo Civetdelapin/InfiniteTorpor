@@ -1,9 +1,9 @@
 #include "StateRushPlayer.h"
 #include "Game.h"
 
-StateRushPlayer::StateRushPlayer(GameObject * game_object, float range, std::string next_state) : State(next_state), range(range)
+StateRushPlayer::StateRushPlayer(GameObject * gameObject, float range, std::string next_state) : State(next_state), range(range)
 {
-	enemy_basic_behavior = game_object->getComponent<EnemyBasicBehavior>();
+	enemy_basic_behavior = gameObject->getComponent<EnemyBasicBehavior>();
 }
 
 

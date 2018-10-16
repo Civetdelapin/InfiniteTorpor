@@ -4,17 +4,17 @@
 const float DisplayScreenFadeInOut::TIME_FADE_DEAD = 0.5f;
 const float DisplayScreenFadeInOut::TIME_FADE_TRANSITION = 1.0f;
 
-DisplayScreenFadeInOut::DisplayScreenFadeInOut(GameObject * game_object) : Component(game_object), Renderer(this)
+DisplayScreenFadeInOut::DisplayScreenFadeInOut(GameObject * gameObject) : Component(gameObject), Renderer(this)
 {
-	black_texture = TextureManager::LoadTexture("img/ui/black_square.png", src_rect.w, src_rect.h);
+	blackTexture = TextureManager::LoadTexture("img/ui/black_square.png", sourceRect.w, sourceRect.h);
 
-	src_rect.x = 0;
-	src_rect.y = 0;
+	sourceRect.x = 0;
+	sourceRect.y = 0;
 
-	dest_rect.x = 0;
-	dest_rect.y = 0;
-	dest_rect.w = Game::instance()->getScreenSize().x;
-	dest_rect.h = Game::instance()->getScreenSize().y;
+	destRect.x = 0;
+	destRect.y = 0;
+	destRect.w = Game::instance()->getScreenSize().x;
+	destRect.h = Game::instance()->getScreenSize().y;
 
 	setLayer(RendererManager::MAX_LAYER - 1);
 
@@ -33,7 +33,7 @@ void DisplayScreenFadeInOut::start()
 
 void DisplayScreenFadeInOut::update()
 {
-	if (state_fading == FadingIn) {
+	if (stateFading == FadingIn) {
 		float alpha_value = SDL_ALPHA_OPAQUE - ( (timeLeft / timeToFade) * SDL_ALPHA_OPAQUE) ;
 		setAlpha(alpha_value);
 
@@ -43,7 +43,7 @@ void DisplayScreenFadeInOut::update()
 			setState(Over);
 		}
 	}
-	else if (state_fading == FadingOut) {
+	else if (stateFading == FadingOut) {
 		float alpha_value = (timeLeft / timeToFade) * SDL_ALPHA_OPAQUE;
 		setAlpha(alpha_value);
 
@@ -59,15 +59,15 @@ void DisplayScreenFadeInOut::update()
 
 void DisplayScreenFadeInOut::render()
 {
-	dest_rect.w = Game::instance()->getScreenSize().x;
-	dest_rect.h = Game::instance()->getScreenSize().y;
+	destRect.w = Game::instance()->getScreenSize().x;
+	destRect.h = Game::instance()->getScreenSize().y;
 
-	TextureManager::DrawTexture(black_texture, src_rect, dest_rect, SDL_FLIP_NONE, false);
+	TextureManager::DrawTexture(blackTexture, sourceRect, destRect, SDL_FLIP_NONE, false);
 }
 
 void DisplayScreenFadeInOut::clean()
 {
-	SDL_DestroyTexture(black_texture);
+	SDL_DestroyTexture(blackTexture);
 
 	Renderer::clean();
 	Component::clean();
@@ -75,7 +75,7 @@ void DisplayScreenFadeInOut::clean()
 
 void DisplayScreenFadeInOut::setState(State value, float time)
 {
-	state_fading = value;
+	stateFading = value;
 
 	timeLeft = time;
 	timeToFade = time;
@@ -85,5 +85,5 @@ void DisplayScreenFadeInOut::setAlpha(float value)
 {
 	alpha = value;
 
-	SDL_SetTextureAlphaMod(black_texture, alpha);
+	SDL_SetTextureAlphaMod(blackTexture, alpha);
 }

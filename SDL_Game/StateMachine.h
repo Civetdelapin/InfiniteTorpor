@@ -6,7 +6,7 @@
 class StateMachine : public Component
 {
 public:
-	StateMachine(GameObject* game_object);
+	StateMachine(GameObject* gameObject);
 	~StateMachine();
 
 	void start();

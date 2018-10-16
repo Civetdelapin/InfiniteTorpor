@@ -6,7 +6,7 @@ class Game;
 
 struct Shake {
 
-	bool is_shaking = false;
+	bool shaking = false;
 
 	std::vector<float> samples;
 
@@ -18,9 +18,9 @@ struct Shake {
 	float decay(float time);
 	float noise(int index);
 	float t = 0;
-	float _frequency = 20;
+	float frequency = 20;
 
-	float _duration = 0;
+	float duration = 0;
 
 	void update();
 };
@@ -35,7 +35,7 @@ public:
 
 	OwnMathFuncs::Vector2 getCameraPos();
 	void setCameraPos(OwnMathFuncs::Vector2 pos);
-	void setObjectToFollow(GameObject* game_object);
+	void setObjectToFollow(GameObject* gameObject);
 
 
 	void startShake(float ampli, float frequency, float duration);
@@ -43,14 +43,14 @@ public:
 private:
 	Game * game;
 
-	OwnMathFuncs::Vector2 camera_pos = { 0, 0 };
+	OwnMathFuncs::Vector2 cameraPosition = { 0, 0 };
 	GameObject* objectToFollow;
 
-	float follow_speed = 5;
+	float followSpeed = 5;
 
-	float _amplitude = 2000;
-	Shake shake_x;
-	Shake shake_y;
+	float amplitude = 2000;
+	Shake shakeX;
+	Shake shakeY;
 
 	GameObject* nextObjectToFollow = nullptr;
 };

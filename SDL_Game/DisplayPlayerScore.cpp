@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-DisplayPlayerScore::DisplayPlayerScore(GameObject* game_object) : Renderer(this), Component(game_object)
+DisplayPlayerScore::DisplayPlayerScore(GameObject* gameObject) : Renderer(this), Component(gameObject)
 {
 
 	setLayer(RendererManager::MAX_LAYER - 2);
@@ -17,11 +17,11 @@ DisplayPlayerScore::~DisplayPlayerScore()
 
 void DisplayPlayerScore::start()
 {
-	ttf_font = TTF_OpenFont("fonts/pixel.ttf", font_size);
+	ttf_Font = TTF_OpenFont("fonts/pixel.ttf", fontSize);
 
 	GameObject* player = Game::instance()->findGameObject("Player");
 	if (player != nullptr) {
-		player_stat = player->getComponent<PlayerBehavior>();
+		playerBehavior = player->getComponent<PlayerBehavior>();
 	}
 }
 
@@ -34,21 +34,21 @@ void DisplayPlayerScore::update()
 
 void DisplayPlayerScore::render()
 {
-	if (player_stat != nullptr) {
+	if (playerBehavior != nullptr) {
 
-		SDL_Rect dest_rect;
-		dest_rect.y = 70;
-		dest_rect.x = 20;
+		SDL_Rect destRect;
+		destRect.y = 70;
+		destRect.x = 20;
 
-		std::string msg = "Score : " + std::to_string(player_stat->getScore());
+		std::string msg = "Score : " + std::to_string(playerBehavior->getScore());
 
-		TextureManager::DrawText(ttf_font, dest_rect, msg, 255, 255, 255, 255, false);
+		TextureManager::DrawText(ttf_Font, destRect, msg, 255, 255, 255, 255, false);
 	}
 }
 
 void DisplayPlayerScore::clean()
 {
-	TTF_CloseFont(ttf_font);
+	TTF_CloseFont(ttf_Font);
 
 	Renderer::clean();
 	Component::clean();

@@ -35,8 +35,8 @@ void RendererManager::modifyLayer(Renderer * renderer, int new_layer)
 
 void RendererManager::render()
 {
-	SDL_SetRenderDrawColor(Game::instance()->renderer, 0, 0, 0, 255);
-	SDL_RenderClear(Game::instance()->renderer);
+	SDL_SetRenderDrawColor(Game::instance()->getRenderer(), 0, 0, 0, 255);
+	SDL_RenderClear(Game::instance()->getRenderer());
 
 	int i = 0;
 	for (std::vector<Renderer*> renderer_vect : renderers_to_render) {
@@ -56,7 +56,7 @@ void RendererManager::render()
 		i++;
 	}
 	
-	SDL_RenderPresent(Game::instance()->renderer);
+	SDL_RenderPresent(Game::instance()->getRenderer());
 }
 
 void RendererManager::reorderRenderers(int index)

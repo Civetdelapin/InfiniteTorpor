@@ -5,7 +5,7 @@
 #include "DisplayScreenFadeInOut.h"
 #include "PlayerController.h"
 
-PlayerBehavior::PlayerBehavior(GameObject* game_object) : Component(game_object)
+PlayerBehavior::PlayerBehavior(GameObject* gameObject) : Component(gameObject)
 {
 }
 
@@ -16,18 +16,18 @@ PlayerBehavior::~PlayerBehavior()
 
 float PlayerBehavior::getMaxHp()
 {
-	return max_hp;
+	return maxHealthPoint;
 }
 
 float PlayerBehavior::getCurHP()
 {
-	return cur_hp;
+	return currentHealthPoint;
 }
 
 
 void PlayerBehavior::start()
 {
-	timeLeft_score = time_loose_score;
+	timeLeftScore = timeBeforeLoosingScore;
 
 }
 
@@ -35,24 +35,24 @@ void PlayerBehavior::update()
 {
 	if (state == playing) {
 
-		if (is_invicible) {
+		if (invicible) {
 
 			timeLeft -= Time::deltaTime;
 
 			if (timeLeft <= 0) {
-				is_invicible = false;
+				invicible = false;
 			}
 		}
 
-		if (is_dying) {
+		if (dying) {
 
 		}
 
 
-		timeLeft_score -= Time::deltaTime;
-		if (timeLeft_score <= 0) {
+		timeLeftScore -= Time::deltaTime;
+		if (timeLeftScore <= 0) {
 			score -= 1;
-			timeLeft_score = time_loose_score;
+			timeLeftScore = timeBeforeLoosingScore;
 		}
 	}
 	else if (state == spawning) {
@@ -61,57 +61,57 @@ void PlayerBehavior::update()
 		if (timeLeft <= 0) {
 			state = playing;
 
-			game_object->getComponent<PlayerController>()->setCanMove(true);
+			gameObject->getComponent<PlayerController>()->setCanMove(true);
 		}
 	}
 }
 
 void PlayerBehavior::setInvicible(float time)
 {
-	is_invicible = true;
+	invicible = true;
 	timeLeft = time;
 }
 
 void PlayerBehavior::startLevel()
 {
-	game_object->getComponent<SpriteRenderer>()->setLayer(PlayerBehavior::PLAYER_LAYER);
+	gameObject->getComponent<SpriteRenderer>()->setLayer(PlayerBehavior::PLAYER_LAYER);
 	
-	game_object->getComponent<Animator>()->play("WakingUp");
-	game_object->getComponent<PlayerController>()->setCanMove(false);
+	gameObject->getComponent<Animator>()->play("WakingUp");
+	gameObject->getComponent<PlayerController>()->setCanMove(false);
 
-	timeLeft = time_spawn;
+	timeLeft = timeSpawn;
 	state = spawning;
 }
 
 void PlayerBehavior::endLevel()
 {
-	game_object->getComponent<PlayerController>()->setCanMove(false);
+	gameObject->getComponent<PlayerController>()->setCanMove(false);
 
-	game_object->getComponent<Animator>()->play("Dying");
+	gameObject->getComponent<Animator>()->play("Dying");
 }
 
 void PlayerBehavior::setDying()
 {
-	is_dying = true;
+	dying = true;
 
 	Game::instance()->findGameObject("UI_Manager")->getComponent<DisplayScreenFadeInOut>()->setState(DisplayScreenFadeInOut::FadingIn, DisplayScreenFadeInOut::TIME_FADE_DEAD);
-	game_object->getComponent<SpriteRenderer>()->setLayer(RendererManager::MAX_LAYER);
+	gameObject->getComponent<SpriteRenderer>()->setLayer(RendererManager::MAX_LAYER);
 
-	game_object->getComponent<PlayerController>()->setCanMove(false);
-	game_object->getComponent<Animator>()->play("Dying");
+	gameObject->getComponent<PlayerController>()->setCanMove(false);
+	gameObject->getComponent<Animator>()->play("Dying");
 
-	Game::instance()->getCamera()->setObjectToFollow(game_object);
+	Game::instance()->getCamera()->setObjectToFollow(gameObject);
 }
 
 bool PlayerBehavior::addDamage(float dmg)
 {
-	if (!is_invicible) {
+	if (!invicible) {
 		
-		cur_hp -= dmg;
+		currentHealthPoint -= dmg;
 		
-		if (cur_hp <= 0) {
+		if (currentHealthPoint <= 0) {
 
-			if (!is_dying) {
+			if (!dying) {
 				setDying();
 			}
 
@@ -120,7 +120,7 @@ bool PlayerBehavior::addDamage(float dmg)
 			Game::instance()->getCamera()->startShake(25, 20, 0.75f);
 		}
 
-		setInvicible(time_invicible);
+		setInvicible(timeInvicible);
 
 		return true;
 	}

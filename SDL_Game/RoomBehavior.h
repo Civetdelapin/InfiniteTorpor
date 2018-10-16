@@ -9,7 +9,7 @@ class GameManager;
 class RoomBehavior : public Component
 {
 public:
-	RoomBehavior(GameObject* game_object, Room* room_data);
+	RoomBehavior(GameObject* gameObject, Room* room_data);
 	~RoomBehavior();
 
 	enum RoomState { NotOver, Active, Over };

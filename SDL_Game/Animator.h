@@ -14,13 +14,13 @@ struct Transition {
 struct Animation {
 	float speed;
 
-	int y_index = 0;
-	int x_index = 0;
+	int YIndex = 0;
+	int XIndex = 0;
 
-	int nb_sprites;
-	bool is_looping = true;
+	int nbSprites;
+	bool looping = true;
 
-	bool is_reverse = false;
+	bool reverse = false;
 
 	std::vector<Transition> transitions;
 };
@@ -29,7 +29,7 @@ struct Animation {
 class Animator : public Component
 {
 public:
-	Animator(GameObject* game_object);
+	Animator(GameObject* gameObject);
 	~Animator();
 
 	void addAnimation(std::pair <std::string, Animation> animation);
@@ -43,10 +43,10 @@ public:
 private:
 	SpriteRenderer * spriteRenderer;
 
-	std::string cur_animation = "";
+	std::string currentAnimation = "";
 	std::map <std::string, Animation> animations;
 
-	int cur_sprite = 0;
+	int currentSprite = 0;
 
 	float timeLeft = 0;
 

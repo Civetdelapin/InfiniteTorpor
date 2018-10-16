@@ -1,6 +1,6 @@
 #include "StateOnlyWait.h"
 
-StateOnlyWait::StateOnlyWait(GameObject * game_object, float time_to_wait, std::string next_state) : State(next_state), time_to_wait(time_to_wait)
+StateOnlyWait::StateOnlyWait(GameObject * gameObject, float time_to_wait, std::string next_state) : State(next_state), time_to_wait(time_to_wait)
 {
 	
 }

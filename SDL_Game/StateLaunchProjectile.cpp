@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-StateLaunchProjectile::StateLaunchProjectile(GameObject* game_object, std::string next_state) : State(next_state)
+StateLaunchProjectile::StateLaunchProjectile(GameObject* gameObject, std::string next_state) : State(next_state)
 {
 
 }
@@ -28,10 +28,10 @@ void StateLaunchProjectile::start(StateMachine * state_machine)
 	OwnMathFuncs::OwnMathFuncs::normalize(dir_vect);
 
 	if (dir_vect.x < 0 && state_machine->getGameObject()->getWorldScale().x > 0) {
-		state_machine->getGameObject()->local_scale.x *= -1;
+		state_machine->getGameObject()->localScale.x *= -1;
 	}
 	else if (dir_vect.x > 0 && state_machine->getGameObject()->getWorldScale().x < 0) {
-		state_machine->getGameObject()->local_scale.x *= -1;
+		state_machine->getGameObject()->localScale.x *= -1;
 	}
 }
 
@@ -47,7 +47,7 @@ void StateLaunchProjectile::operation(StateMachine * state_machine)
 			time_left = time_cd;
 
 
-			SlimProjectilePrefab* project = new SlimProjectilePrefab({ state_machine->getGameObject()->getWorldPosition().x + (4 * state_machine->getGameObject()->local_scale.x), state_machine->getGameObject()->getWorldPosition().y + 12 });
+			SlimProjectilePrefab* project = new SlimProjectilePrefab({ state_machine->getGameObject()->getWorldPosition().x + (4 * state_machine->getGameObject()->localScale.x), state_machine->getGameObject()->getWorldPosition().y + 12 });
 			project->getComponent<ProjectileBehavior>()->setDirection(dir_vect);
 			project->getComponent<ProjectileBehavior>()->setSpeed(400);
 

@@ -6,7 +6,7 @@
 class DisplayPlayerHealth : public Renderer, public Component
 {
 public:
-	DisplayPlayerHealth(GameObject* game_object);
+	DisplayPlayerHealth(GameObject* gameObject);
 	~DisplayPlayerHealth();
 
 	void start();
@@ -16,11 +16,11 @@ public:
 	void clean();
 
 private:
-	SDL_Texture* full_heart_texture;
-	SDL_Texture* empty_heart_texture;
+	SDL_Texture* fullHeartTexture;
+	SDL_Texture* emptyHeartTexture;
 
-	SDL_Rect src_rect;
+	SDL_Rect sourceRect;
 	
-	PlayerBehavior* player_stat;
+	PlayerBehavior* playerBehavior;
 };
 

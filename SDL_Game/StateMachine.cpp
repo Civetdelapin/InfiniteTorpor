@@ -2,7 +2,7 @@
 
 
 
-StateMachine::StateMachine(GameObject* game_object) : Component(game_object)
+StateMachine::StateMachine(GameObject* gameObject) : Component(gameObject)
 {
 
 }
