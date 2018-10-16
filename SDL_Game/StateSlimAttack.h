@@ -27,7 +27,7 @@ public:
 private:
 
 	int nb_projectile;
-	float time_passed;
+	float timeLeft;
 
 	bool attack = false;
 

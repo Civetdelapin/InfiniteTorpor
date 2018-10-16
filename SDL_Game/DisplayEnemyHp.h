@@ -24,7 +24,7 @@ private:
 	float y_offset = 1.75;
 	float time_display_when_hit = 3;
 
-	float time_passed;
+	float timeLeft;
 	float last_hp;
 	float last_hp_display;
 };

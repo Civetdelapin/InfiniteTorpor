@@ -27,19 +27,19 @@ void DisplayEnemyHp::update()
 			last_hp_display = enemy_stat->getMaxHP();
 		}
 		else {
-			time_passed = time_display_when_hit;
+			timeLeft = time_display_when_hit;
 		}
 
 		last_hp = enemy_stat->getCurHP();
 	}
 
-	time_passed -= Time::deltaTime;
+	timeLeft -= Time::deltaTime;
 }
 
 void DisplayEnemyHp::render()
 {
 	
-	if (time_passed > 0 && last_hp > 0) {
+	if (timeLeft > 0 && last_hp > 0) {
 		SDL_Rect rect;
 		rect.x = game_object->getWorldPosition().x - ((size.x / 2) * abs(game_object->getWorldScale().x));
 		rect.y = game_object->getWorldPosition().y - (y_offset * abs(game_object->getWorldScale().y));

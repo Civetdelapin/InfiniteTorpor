@@ -1,6 +1,6 @@
 #include "RoomBehavior.h"
 #include "Game.h"
-#include "GenerateLevel.h"
+#include "GameManager.h"
 
 RoomBehavior::RoomBehavior(GameObject * game_object, Room * room_data) : Component(game_object), room_data(room_data)
 {
@@ -15,7 +15,7 @@ RoomBehavior::~RoomBehavior()
 void RoomBehavior::start()
 {	
 	player = Game::instance()->findGameObject("Player");
-	generate_level = Game::instance()->findGameObject("Manager")->getComponent<GenerateLevel>();
+	game_manager = Game::instance()->findGameObject("Manager")->getComponent<GameManager>();
 
 	if (room_data->getRoomType() == Room::StartRoom || room_data->getRoomType() == Room::EndRoom || room_data->getEnemiesWaves().size() == 0) {
 		state = Over;
@@ -73,8 +73,8 @@ void RoomBehavior::update()
 		}
 		//--------------------------------
 
-		time_passed -= Time::deltaTime;
-		if (time_passed <= 0) {
+		timeLeft -= Time::deltaTime;
+		if (timeLeft <= 0) {
 			spawnEnemy();
 		}
 
@@ -117,7 +117,9 @@ void RoomBehavior::update()
 			//---- END OF FLOOR COLLISION -----
 			if(Game::instance()->collider_manager->isCollidingWithTag(end_hitbox, "Player")) {
 			
-				generate_level->playerNextFloor();
+				game_manager->endLevel();
+
+				end_hitbox = nullptr;
 			}
 			//---------------------------------
 		}
@@ -194,7 +196,7 @@ void RoomBehavior::spawnEnemy()
 
 			if (!room_data->getEnemiesWaves()[i]->is_active) {
 				room_data->getEnemiesWaves()[i]->is_active = true;
-				time_passed = room_data->getEnemiesWaves()[i]->getComponent<EnemyBasicBehavior>()->getTimeBeforeEnemy();
+				timeLeft = room_data->getEnemiesWaves()[i]->getComponent<EnemyBasicBehavior>()->getTimeBeforeEnemy();
 
 				nb_enemy--;
 

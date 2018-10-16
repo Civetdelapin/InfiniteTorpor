@@ -83,9 +83,9 @@ void PlayerController::update()
 				if (keystates[SDL_SCANCODE_LCTRL]) {
 
 					state = State::dashing;
-					time_passed = time_dash;
+					timeLeft = time_dash;
 
-					game_object->getComponent<PlayerStat>()->setInvicible(time_dash);
+					game_object->getComponent<PlayerBehavior>()->setInvicible(time_invisible_dash);
 
 					if (normalizeDirection.x == 0 && normalizeDirection.y == 0) {
 						
@@ -96,9 +96,9 @@ void PlayerController::update()
 				}
 			}
 			else {
-				time_passed -= Time::deltaTime;
+				timeLeft -= Time::deltaTime;
 
-				if (time_passed <= 0) {
+				if (timeLeft <= 0) {
 					state = State::ready_dash;
 				}
 			}
@@ -111,10 +111,10 @@ void PlayerController::update()
 			OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
 			velocityBody->AddForce(normalizeDirection, cur_dash_spped * Time::deltaTime);
 			
-			time_passed -= Time::deltaTime;
-			if (time_passed <= 0) {
+			timeLeft -= Time::deltaTime;
+			if (timeLeft <= 0) {
 				state = State::cant_dash;
-				time_passed = time_cd_dash;
+				timeLeft = time_cd_dash;
 			}
 		}
 

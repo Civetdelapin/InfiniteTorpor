@@ -12,14 +12,14 @@ StateOnlyWait::~StateOnlyWait()
 void StateOnlyWait::start(StateMachine* state_machine)
 {
 	state_machine->getGameObject()->getComponent<Animator>()->play("Idle");
-	time_passed = time_to_wait;
+	timeLeft = time_to_wait;
 }
 
 void StateOnlyWait::operation(StateMachine* state_machine)
 {
-	time_passed -= Time::deltaTime;
+	timeLeft -= Time::deltaTime;
 
-	if (time_passed <= 0) {
+	if (timeLeft <= 0) {
 	
 		state_machine->getGameObject()->getComponent<StateMachine>()->play(getNextState());
 		

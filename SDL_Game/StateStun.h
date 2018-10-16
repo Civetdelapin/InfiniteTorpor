@@ -17,6 +17,6 @@ public:
 private:
 
 	float time_to_wait;
-	float time_passed;
+	float timeLeft;
 };
 

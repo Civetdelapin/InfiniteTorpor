@@ -32,6 +32,14 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 
 	animator->addAnimation(std::pair <std::string, Animation>("Dying", animDead));
 
+	Animation animWakeUp;
+	animWakeUp.nb_sprites = 10;
+	animWakeUp.speed = 0.2f;
+	animWakeUp.y_index = 4;
+	animWakeUp.is_looping = false;
+	animWakeUp.is_reverse = true;
+
+	animator->addAnimation(std::pair <std::string, Animation>("WakingUp", animWakeUp));
 
 	BoxCollider* boxCollider = new BoxCollider(this);
 	boxCollider->offset = { 1, 14};
@@ -41,7 +49,7 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	velocityBody->setDrag({ 10, 10 });
 
 	PlayerController* playerController = new PlayerController(this);
-	PlayerStat* playerStat = new PlayerStat(this);
+	PlayerBehavior* playerBehavior = new PlayerBehavior(this);
 
 	local_scale = { 4, 4};
 	tag = "Player";

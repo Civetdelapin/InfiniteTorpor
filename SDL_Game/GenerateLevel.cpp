@@ -601,7 +601,11 @@ void GenerateLevel::generateLevel()
 			int nb_enemy_min = min_enemy * nb_enemy_multiplicator;
 			int nb_enemy_max = max_enemy * nb_enemy_multiplicator;
 
-			int nb_enemies = rand() % nb_enemy_max + nb_enemy_min;
+			int nb_enemies = 0;
+			if (nb_enemy_min != 0 && nb_enemy_max != 0) {
+				int nb_enemies = rand() % nb_enemy_max + nb_enemy_min;
+			}
+			
 			for (int i = 0; i < nb_enemies; i++) {
 
 				GameObject* new_enemy;
@@ -669,13 +673,7 @@ void GenerateLevel::generateLevel()
 		room_prefabs.push_back(room_prefab);
 	}
 
-
-	GameObject* player = Game::instance()->findGameObject("Player");
-	player->local_position = start_room_object->getWorldPosition();
-
-	Game::instance()->getCamera()->setCameraPos(start_room_object->getWorldPosition());
-	Game::instance()->getCamera()->setObjectToFollow(player);
-	
+	Game::instance()->findGameObject("Manager")->getComponent<GameManager>()->startLevel(start_room_object->getWorldPosition());
 
 
 	/*

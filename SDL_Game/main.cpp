@@ -7,6 +7,7 @@
 #include "DisplayPlayerHealth.h"
 #include "DisplayPlayerScore.h"
 #include "DisplayScreenFadeInOut.h"
+#include "GameManager.h"
 
 #include "GoblinPrefab.h"
 #include "MinotaurPrefab.h"
@@ -48,18 +49,18 @@ int main(int argc, char* args[]) {
 	//--------------------------------------
 
 	//----------- Add UI Manager ----------------
-	GameObject* ui_manager = new GameObject();
-	ui_manager->tag = "UI_Manager";
+	GameObject* uiManager = new GameObject();
+	uiManager->tag = "UI_Manager";
 
 	//Display the player's health
-	DisplayPlayerHealth* display = new DisplayPlayerHealth(ui_manager, player->getComponent<PlayerStat>());
+	DisplayPlayerHealth* display = new DisplayPlayerHealth(uiManager);
 	
 	//Display the player's score
-	DisplayPlayerScore* display_score = new DisplayPlayerScore(ui_manager, player->getComponent<PlayerStat>());
+	DisplayPlayerScore* display_score = new DisplayPlayerScore(uiManager);
 
-	DisplayScreenFadeInOut* display_screen = new DisplayScreenFadeInOut(ui_manager);
+	DisplayScreenFadeInOut* display_screen = new DisplayScreenFadeInOut(uiManager);
 	
-	Game::instance()->instantiateGameObject(ui_manager);
+	Game::instance()->instantiateGameObject(uiManager);
 	//--------------------------------------
 
 	//------- Add Game Managers ------------
@@ -67,7 +68,7 @@ int main(int argc, char* args[]) {
 	game_manager->tag = "Manager";
 
 	GenerateLevel* generate_level = new GenerateLevel(game_manager);
-
+	GameManager* game_manager_component = new GameManager(game_manager);
 
 	Game::instance()->instantiateGameObject(game_manager);
 	//--------------------------------------

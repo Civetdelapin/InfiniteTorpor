@@ -5,7 +5,7 @@
 #include "OwnMathFuncs.h"
 #include "Animator.h"
 #include "BoxCollider.h"
-#include "PlayerStat.h"
+#include "PlayerBehavior.h"
 
 class PlayerController : public virtual Component
 {
@@ -14,11 +14,6 @@ public:
 	~PlayerController();
 
 	const enum State { dashing, ready_dash, cant_dash };
-
-	const float speed = 1200;
-	const float dash_speed = 1750;
-	const float time_dash = 0.35;
-	const float time_cd_dash = 0.10;
 
 	void setCanMove(bool value);
 
@@ -37,7 +32,13 @@ private:
 	bool can_move = true;
 	State state = ready_dash;
 
-	float time_passed;
+	float speed = 1200;
+	float dash_speed = 1750;
+	float time_dash = 0.35;
+	float time_invisible_dash = 0.5;
+	float time_cd_dash = 0.10;
+
+	float timeLeft;
 	
 	OwnMathFuncs::Vector2 normalizeDirection = { 0, 0 };
 	OwnMathFuncs::Vector2 direction = { 1, 0 };

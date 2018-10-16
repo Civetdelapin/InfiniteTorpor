@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Collider.h"
-#include "PlayerStat.h"
+#include "PlayerBehavior.h"
 
 class EnemyAttackCollider : public Component
 {

@@ -10,6 +10,9 @@ public:
 
 	const enum State { FadingOut, FadingIn, Over };
 
+	static const float TIME_FADE_DEAD;
+	static const float TIME_FADE_TRANSITION;
+
 	DisplayScreenFadeInOut(GameObject* game_object);
 	~DisplayScreenFadeInOut();
 	
@@ -19,22 +22,20 @@ public:
 
 	void clean();
 
-	void setState(State value);
+	void setState(State value, float time = 0);
 
 	void setAlpha(float value);
 
 private:
 
-	float time_passed;
+	float timeLeft;
+	float timeToFade;
 
 	State state_fading = Over;
 
 	SDL_Texture* black_texture;
 
 	float alpha = 255;
-
-	float time_alpha_out = 1.0f;
-	float time_alpha_in = 0.5f;
 
 	SDL_Rect src_rect;
 	SDL_Rect dest_rect;

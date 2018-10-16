@@ -34,15 +34,15 @@ private:
 
 	PlayerController* player_controller;
 	VelocityBody* velocity_body;
-	PlayerStat* player_stat;
+	PlayerBehavior* player_stat;
 
 	std::vector<GameObject*> game_objects_touched;
 	OwnMathFuncs::Vector2 normalizeDirection = { 1, 0 };
 
 	State state = ready_attack;
 
-	float time_passed;
-	float time_passed_cancel_combo;
+	float timeLeft;
+	float timeLeft_cancel_combo;
 
 	bool button_pressed = false;
 

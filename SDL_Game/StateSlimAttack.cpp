@@ -15,22 +15,22 @@ StateSlimAttack::~StateSlimAttack()
 void StateSlimAttack::start(StateMachine* state_machine)
 {
 	attack = false;
-	time_passed = time_attack;
+	timeLeft = time_attack;
 
 	state_machine->getGameObject()->getComponent<Animator>()->play("Jump");
 }
 
 void StateSlimAttack::operation(StateMachine* state_machine)
 {
-	time_passed -= Time::deltaTime;
+	timeLeft -= Time::deltaTime;
 
-	if (time_passed <= 0) {
+	if (timeLeft <= 0) {
 
 		if (!attack) {
 			createProjectiles(state_machine);
 
 			attack = true;
-			time_passed = time_cd;
+			timeLeft = time_cd;
 		}
 		else {
 			state_machine->play(getNextState());

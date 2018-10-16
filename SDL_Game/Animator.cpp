@@ -24,13 +24,12 @@ void Animator::start()
 
 void Animator::update()
 {
-	
-	
+
 	if (spriteRenderer != nullptr && cur_animation != "") {
 
-		if (time_passed > animations[cur_animation].speed) {
+		if (timeLeft >= animations[cur_animation].speed) {
 
-			time_passed = 0;
+			timeLeft = 0;
 
 			cur_sprite++;
 
@@ -44,35 +43,32 @@ void Animator::update()
 				}
 			}
 			else {
-				cur_sprite = (cur_sprite % animations[cur_animation].nb_sprites);
 
-				SDL_Rect tempRect;
-				tempRect.x = (cur_sprite + animations[cur_animation].x_index) * spriteRenderer->getSpriteSize().x;
-				tempRect.y = animations[cur_animation].y_index * spriteRenderer->getSpriteSize().y;
-
-				spriteRenderer->setSourceRect(tempRect);
+				setRectRenderer();
 			}
 		}
 
-		time_passed += Time::deltaTime;
+		timeLeft += Time::deltaTime;
 	}
-	
-	
+
 }
 
 void Animator::play(std::string name)
 {
 	if (cur_animation != name) {
 
+		timeLeft = 0;
+		cur_sprite = 0;
+
 		if (animations.count(name) > 0) {
 			cur_animation = name;
+
+			timeLeft = animations[cur_animation].speed;
 		}
 		else {
 			cur_animation = "";
+			
 		}
-		
-		time_passed = 0;
-		cur_sprite = 0;
 	}
 }
 
@@ -82,5 +78,21 @@ void Animator::clean()
 	spriteRenderer = NULL;
 
 	Component::clean();
+}
+
+void Animator::setRectRenderer()
+{
+	cur_sprite = (cur_sprite % animations[cur_animation].nb_sprites);
+	SDL_Rect tempRect;
+
+	if (animations[cur_animation].is_reverse) {
+		tempRect.x = (animations[cur_animation].nb_sprites - cur_sprite + animations[cur_animation].x_index) * spriteRenderer->getSpriteSize().x;
+	}
+	else {
+		tempRect.x = (cur_sprite + animations[cur_animation].x_index) * spriteRenderer->getSpriteSize().x;
+	}
+
+	tempRect.y = animations[cur_animation].y_index * spriteRenderer->getSpriteSize().y;
+	spriteRenderer->setSourceRect(tempRect);
 }
 

@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-DisplayPlayerHealth::DisplayPlayerHealth(GameObject* game_object, PlayerStat* player_stat) : Renderer(this), Component(game_object), player_stat(player_stat)
+DisplayPlayerHealth::DisplayPlayerHealth(GameObject* game_object) : Renderer(this), Component(game_object)
 {
 	src_rect.x = 0;
 	src_rect.y = 0;
@@ -21,6 +21,10 @@ DisplayPlayerHealth::~DisplayPlayerHealth()
 
 void DisplayPlayerHealth::start()
 {
+	GameObject* player = Game::instance()->findGameObject("Player");
+	if (player != nullptr) {
+		player_stat = player->getComponent<PlayerBehavior>();
+	}
 }
 
 void DisplayPlayerHealth::update()
@@ -30,26 +34,28 @@ void DisplayPlayerHealth::update()
 
 void DisplayPlayerHealth::render()
 {
-	SDL_Rect dest_rect;
-	dest_rect.w = src_rect.w * 0.25;
-	dest_rect.h = src_rect.h * 0.25;
-	dest_rect.y = 15;
-	dest_rect.x = 15;
+	if (player_stat != nullptr) {
 
-	//std::cout << player_stat->cur_hp << std::endl;
-	int max_hp = player_stat->getMaxHp();
-	for (int i = 1; i <= max_hp; i++) {
-		
-		if (i <= player_stat->getCurHP()) {
-			TextureManager::DrawTexture(full_heart_texture, src_rect, dest_rect, SDL_FLIP_NONE, false);
-		}
-		else {
-			TextureManager::DrawTexture(empty_heart_texture, src_rect, dest_rect, SDL_FLIP_NONE, false);
-		}
+		SDL_Rect dest_rect;
+		dest_rect.w = src_rect.w * 0.25;
+		dest_rect.h = src_rect.h * 0.25;
+		dest_rect.y = 15;
+		dest_rect.x = 15;
 
-		dest_rect.x += (dest_rect.w + 15);
+		//std::cout << player_stat->cur_hp << std::endl;
+		int max_hp = player_stat->getMaxHp();
+		for (int i = 1; i <= max_hp; i++) {
+
+			if (i <= player_stat->getCurHP()) {
+				TextureManager::DrawTexture(full_heart_texture, src_rect, dest_rect, SDL_FLIP_NONE, false);
+			}
+			else {
+				TextureManager::DrawTexture(empty_heart_texture, src_rect, dest_rect, SDL_FLIP_NONE, false);
+			}
+
+			dest_rect.x += (dest_rect.w + 15);
+		}
 	}
-	
 }
 
 void DisplayPlayerHealth::clean()

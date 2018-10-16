@@ -5,7 +5,7 @@
 #include "SpriteRenderer.h"
 #include "VelocityBody.h"
 #include "Animator.h"
-#include "PlayerStat.h"
+#include "PlayerBehavior.h"
 #include "PlayerAttack.h"
 
 class Player : public GameObject

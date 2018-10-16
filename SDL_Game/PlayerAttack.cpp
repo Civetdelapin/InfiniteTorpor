@@ -21,7 +21,7 @@ PlayerAttack::~PlayerAttack()
 
 void PlayerAttack::start()
 {
-	player_stat = game_object->getRootParent()->getComponent<PlayerStat>();
+	player_stat = game_object->getRootParent()->getComponent<PlayerBehavior>();
 }
 
 void PlayerAttack::update()
@@ -31,19 +31,19 @@ void PlayerAttack::update()
 	
 	if (state == State::attacking) {
 
-		time_passed -= Time::deltaTime;
+		timeLeft -= Time::deltaTime;
 
-		if (time_passed <= 0) {
+		if (timeLeft <= 0) {
 
 			if (nb_combo >= nb_combo_max) {
 				nb_combo = 0;
 				state = State::cant_attack;
-				time_passed = time_attack_cd;
+				timeLeft = time_attack_cd;
 			}
 			else {
 				state = State::between_attack;
 
-				time_passed_cancel_combo = time_attack_cancel_combo;
+				timeLeft_cancel_combo = time_attack_cancel_combo;
 				
 			}
 
@@ -55,9 +55,9 @@ void PlayerAttack::update()
 
 	if (state == State::between_attack) {
 
-		time_passed_cancel_combo -= Time::deltaTime;
+		timeLeft_cancel_combo -= Time::deltaTime;
 
-		if (time_passed_cancel_combo <= 0) {
+		if (timeLeft_cancel_combo <= 0) {
 
 			nb_combo = 0;
 			state = State::ready_attack;
@@ -66,9 +66,9 @@ void PlayerAttack::update()
 
 	if (state == State::cant_attack) {
 
-		time_passed -= Time::deltaTime;
+		timeLeft -= Time::deltaTime;
 
-		if (time_passed <= 0) {
+		if (timeLeft <= 0) {
 			state = State::ready_attack;
 		}
 	}
@@ -137,7 +137,7 @@ void PlayerAttack::attackButtonPressed()
 
 		state = State::attacking;
 
-		time_passed = time_attack_up;
+		timeLeft = time_attack_up;
 
 		nb_combo++;
 

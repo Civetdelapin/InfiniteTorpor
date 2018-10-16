@@ -20,6 +20,8 @@ struct Animation {
 	int nb_sprites;
 	bool is_looping = true;
 
+	bool is_reverse = false;
+
 	std::vector<Transition> transitions;
 };
 
@@ -46,6 +48,8 @@ private:
 
 	int cur_sprite = 0;
 
-	float time_passed = 0;
+	float timeLeft = 0;
+
+	void setRectRenderer();
 };
 

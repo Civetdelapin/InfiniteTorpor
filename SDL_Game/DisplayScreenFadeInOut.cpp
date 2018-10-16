@@ -1,6 +1,9 @@
 #include "DisplayScreenFadeInOut.h"
 #include "Game.h"
 
+const float DisplayScreenFadeInOut::TIME_FADE_DEAD = 0.5f;
+const float DisplayScreenFadeInOut::TIME_FADE_TRANSITION = 1.0f;
+
 DisplayScreenFadeInOut::DisplayScreenFadeInOut(GameObject * game_object) : Component(game_object), Renderer(this)
 {
 	black_texture = TextureManager::LoadTexture("img/ui/black_square.png", src_rect.w, src_rect.h);
@@ -15,7 +18,7 @@ DisplayScreenFadeInOut::DisplayScreenFadeInOut(GameObject * game_object) : Compo
 
 	setLayer(RendererManager::MAX_LAYER - 1);
 
-	setAlpha(0);
+	setAlpha(SDL_ALPHA_OPAQUE);
 }
 
 DisplayScreenFadeInOut::~DisplayScreenFadeInOut()
@@ -25,31 +28,32 @@ DisplayScreenFadeInOut::~DisplayScreenFadeInOut()
 
 void DisplayScreenFadeInOut::start()
 {
-	setState(FadingOut);
+
 }
 
 void DisplayScreenFadeInOut::update()
 {
 	if (state_fading == FadingIn) {
-		float alpha_value = SDL_ALPHA_OPAQUE - ( (time_passed / time_alpha_in) * SDL_ALPHA_OPAQUE) ;
+		float alpha_value = SDL_ALPHA_OPAQUE - ( (timeLeft / timeToFade) * SDL_ALPHA_OPAQUE) ;
 		setAlpha(alpha_value);
 
 		std::cout << alpha_value << std::endl;
 
-		if (time_passed <= 0) {
+		if (timeLeft <= 0) {
 			setState(Over);
 		}
 	}
 	else if (state_fading == FadingOut) {
-		float alpha_value = (time_passed / time_alpha_out) * SDL_ALPHA_OPAQUE;
+		float alpha_value = (timeLeft / timeToFade) * SDL_ALPHA_OPAQUE;
 		setAlpha(alpha_value);
 
-		if (time_passed <= 0) {
+		if (timeLeft <= 0) {
 			setState(Over);
 		}
 	}
+	std::cout << timeLeft << std::endl;
 
-	time_passed -= Time::deltaTime;
+	timeLeft -= Time::deltaTime;
 }
 
 
@@ -69,16 +73,12 @@ void DisplayScreenFadeInOut::clean()
 	Component::clean();
 }
 
-void DisplayScreenFadeInOut::setState(State value)
+void DisplayScreenFadeInOut::setState(State value, float time)
 {
 	state_fading = value;
 
-	if (state_fading == FadingIn) {
-		time_passed = time_alpha_in;
-	}
-	else if (state_fading == FadingOut) {
-		time_passed = time_alpha_out;
-	}
+	timeLeft = time;
+	timeToFade = time;
 }
 
 void DisplayScreenFadeInOut::setAlpha(float value)

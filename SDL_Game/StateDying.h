@@ -22,7 +22,7 @@ public:
 private:
 
 	bool is_alpha_phase = false;
-	float time_passed;
+	float timeLeft;
 
 	Animator* animator;
 	SpriteRenderer* sprite_renderer;

@@ -20,7 +20,7 @@ private:
 	EnemyBasicBehavior* enemy_basic_behavior;
 	Collider* collider_active;
 
-	float time_passed;
+	float timeLeft;
 	bool before_attack = true;
 
 	float time_attack;

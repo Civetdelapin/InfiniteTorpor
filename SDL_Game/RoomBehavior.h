@@ -4,7 +4,7 @@
 #include "Renderer.h"
 #include "EnemyBasicBehavior.h"
 
-class GenerateLevel;
+class GameManager;
 
 class RoomBehavior : public Component
 {
@@ -36,9 +36,10 @@ private:
 	GameObject* player;
 
 	RoomState state = NotOver;
-	GenerateLevel* generate_level;
 	BoxCollider* end_hitbox;
 
-	float time_passed;
+	GameManager* game_manager;
+
+	float timeLeft;
 };
 

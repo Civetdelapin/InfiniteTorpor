@@ -16,7 +16,7 @@ StateDying::~StateDying()
 
 void StateDying::start(StateMachine * state_machine)
 {
-	time_passed = time_animation;
+	timeLeft = time_animation;
 
 	animator->play("Dying");
 }
@@ -24,12 +24,12 @@ void StateDying::start(StateMachine * state_machine)
 void StateDying::operation(StateMachine * state_machine)
 {
 	if (is_alpha_phase) {
-		float alpha_value = (time_passed / time_alpha_0) * SDL_ALPHA_OPAQUE;
+		float alpha_value = (timeLeft / time_alpha_0) * SDL_ALPHA_OPAQUE;
 		state_machine->getGameObject()->getComponent<SpriteRenderer>()->setAlpha(alpha_value);
 	}
 
-	time_passed -= Time::deltaTime;
-	if (time_passed <= 0) {
+	timeLeft -= Time::deltaTime;
+	if (timeLeft <= 0) {
 		if (is_alpha_phase) {
 
 			//Manage the game_object
@@ -39,7 +39,7 @@ void StateDying::operation(StateMachine * state_machine)
 		else {
 			is_alpha_phase = true;
 
-			time_passed = time_alpha_0;
+			timeLeft = time_alpha_0;
 		}
 	}
 }

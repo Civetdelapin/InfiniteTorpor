@@ -10,6 +10,7 @@
 #include "GoblinPrefab.h"
 #include "MinotaurPrefab.h"
 #include "SnakePrefab.h"
+#include "GameManager.h"
 
 #include <iostream>
 #include <fstream>
@@ -91,8 +92,8 @@ private:
 	int cur_floor = 0;
 	int seed = 500;
 
-	int min_enemy = 3;
-	int max_enemy = 7;
+	int min_enemy = 0;
+	int max_enemy = 0;
 
 	float nb_enemy_multiplicator = 1.01f;
 	float time_enemy_multiplicator = 0.9f;

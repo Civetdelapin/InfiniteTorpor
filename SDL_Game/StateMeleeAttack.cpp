@@ -19,7 +19,7 @@ void StateMeleeAttack::start(StateMachine* state_machine)
 	state_machine->getGameObject()->getComponent<Animator>()->play("BeforeAttack");
 	target = Game::instance()->findGameObject("Player");
 
-	time_passed = time_attack;
+	timeLeft = time_attack;
 	before_attack = true;
 	normalize_dir = (target->getWorldPosition() - state_machine->getGameObject()->getWorldPosition());
 	OwnMathFuncs::OwnMathFuncs::normalize(normalize_dir);
@@ -34,15 +34,15 @@ void StateMeleeAttack::start(StateMachine* state_machine)
 
 void StateMeleeAttack::operation(StateMachine* state_machine)
 {
-	time_passed -= Time::deltaTime;
-	if (time_passed <= 0) {
+	timeLeft -= Time::deltaTime;
+	if (timeLeft <= 0) {
 		if (before_attack) {
 			state_machine->getGameObject()->getComponent<Animator>()->play("Attack");
 			state_machine->getGameObject()->getComponent<EnemyBasicBehavior>()->addForce(normalize_dir, velocity_attack, false);
 
 			before_attack = false;
 
-			time_passed = time_attack * 0.5;
+			timeLeft = time_attack * 0.5;
 
 			collider_active->setActive(true);
 		}

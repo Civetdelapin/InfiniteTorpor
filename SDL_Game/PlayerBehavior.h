@@ -4,12 +4,15 @@
 class PlayerController;
 class DisplayScreenFadeInOut;
 
-class PlayerStat : public Component
+class PlayerBehavior : public Component
 {
 public:
-	PlayerStat(GameObject* game_object);
-	~PlayerStat();
+	PlayerBehavior(GameObject* game_object);
+	~PlayerBehavior();
 
+
+	const enum State {spawning, playing};
+	const int PLAYER_LAYER = 5;
 
 	float getMaxHp();
 
@@ -24,24 +27,28 @@ public:
 
 	void setInvicible(float time);
 
+	void startLevel();
+	void endLevel();
+
 private:
 
 	float cur_hp = 5;
 	float max_hp = 5;
 
 	float time_loose_score = 1.0f;
-
 	float time_invicible = 1.5f;
+	float time_spawn = 2.0f;
 
 	int score = 0;
 
 	bool is_invicible = false;
-
 	bool is_dying = false;
 
 	void setDying();
 
-	float time_passed;
-	float time_passed_score;
+	State state = playing;
+
+	float timeLeft;
+	float timeLeft_score;
 };
 
