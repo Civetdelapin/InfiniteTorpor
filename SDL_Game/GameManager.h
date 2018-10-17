@@ -4,6 +4,7 @@
 #include "PlayerBehavior.h"
 #include "DisplayScreenFadeInOut.h"
 #include "GenerateLevel.h"
+#include "TransitionManager.h"
 
 class GameManager : public Component
 {
@@ -19,7 +20,12 @@ public:
 	void startLevel(OwnMathFuncs::Vector2 position);
 	void endLevel();
 
+	void nextFloor();
+
 private:
+
+	float timeBeforeTransition = 2;
+
 	GameObject* player;
 	GameObject* uiManager;
 

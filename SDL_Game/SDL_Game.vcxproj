@@ -131,10 +131,12 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderManager.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DisplayBetweenFloor.cpp" />
     <ClCompile Include="DisplayEnemyHp.cpp" />
     <ClCompile Include="DisplayPlayerHealth.cpp" />
     <ClCompile Include="DisplayPlayerScore.cpp" />
     <ClCompile Include="DisplayScreenFadeInOut.cpp" />
+    <ClCompile Include="TransitionManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAttackCollider.cpp" />
     <ClCompile Include="EnemyBasicBehavior.cpp" />
@@ -182,10 +184,12 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderManager.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DisplayBetweenFloor.h" />
     <ClInclude Include="DisplayEnemyHp.h" />
     <ClInclude Include="DisplayPlayerHealth.h" />
     <ClInclude Include="DisplayPlayerScore.h" />
     <ClInclude Include="DisplayScreenFadeInOut.h" />
+    <ClInclude Include="TransitionManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAttackCollider.h" />
     <ClInclude Include="EnemyBasicBehavior.h" />

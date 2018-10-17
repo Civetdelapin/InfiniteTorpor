@@ -24,7 +24,7 @@ void RoomBehavior::start()
 			endHitbox = new BoxCollider(gameObject);
 			endHitbox->setCollisionLayer(10);
 
-			endHitbox->size = roomData->getTileMapData()->spriteSize * 2;
+			endHitbox->size = roomData->getTileMapData()->spriteSize * 1;
 		}
 	}
 	else {
@@ -41,7 +41,7 @@ void RoomBehavior::update()
 
 		for (Door* door : roomData->getDoors()) {
 
-			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(door->box_collider_trigger);
+			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(door->boxColliderTrigger);
 			if (vect.size() > 0) {
 
 				for (Collider* collider : vect) {
@@ -173,11 +173,11 @@ void RoomBehavior::setDoors(bool value)
 	setDoorsCollider(value);
 
 	for (Door* door : roomData->getDoors()) {
-		if (door->close_door != nullptr) {
-			door->close_door->active = value;
+		if (door->closeDoor != nullptr) {
+			door->closeDoor->active = value;
 		}
-		if (door->open_door != nullptr) {
-			door->open_door->active = !value;
+		if (door->openDoor != nullptr) {
+			door->openDoor->active = !value;
 		}
 	}
 }

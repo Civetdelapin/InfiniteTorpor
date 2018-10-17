@@ -34,14 +34,14 @@ SlimPrefab::SlimPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/slimes
 	Animation animIdle;
 	animIdle.nbSprites = 10;
 	animIdle.speed = 0.1f;
-	animIdle.YIndex = 0;
+	animIdle.indexY = 0;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Idle", animIdle));
 
 	Animation animDying;
 	animDying.nbSprites = 10;
 	animDying.speed = 0.1f;
-	animDying.YIndex = 4;
+	animDying.indexY = 4;
 	animDying.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Dying", animDying));
@@ -49,14 +49,14 @@ SlimPrefab::SlimPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/slimes
 	Animation animWalking;
 	animWalking.nbSprites = 10;
 	animWalking.speed = 0.1f;
-	animWalking.YIndex = 1;
+	animWalking.indexY = 1;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
 
 	Animation animJump;
 	animJump.nbSprites = 10;
 	animJump.speed = 0.1f;
-	animJump.YIndex = 2;
+	animJump.indexY = 2;
 	animJump.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Jump", animJump));
@@ -77,4 +77,5 @@ SlimPrefab::SlimPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/slimes
 
 SlimPrefab::~SlimPrefab()
 {
+
 }

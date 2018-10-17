@@ -5,10 +5,10 @@
 #include "BoxCollider.h"
 
 struct TileData {
-	OwnMathFuncs::Vector2 position_grid = { 0, 0 };
-	int nb_img;
-	bool is_collider = false;
-	bool is_spawner = false;
+	OwnMathFuncs::Vector2 positionGrid = { 0, 0 };
+	int nbImg;
+	bool collider = false;
+	bool spawner = false;
 
 	TileData();
 };
@@ -25,13 +25,13 @@ struct TileMapData {
 
 struct Door {
 
-	OwnMathFuncs::Vector2 door_position = { 0, 0 };
+	OwnMathFuncs::Vector2 doorPosition = { 0, 0 };
 
-	BoxCollider* box_collider_trigger;
+	BoxCollider* boxColliderTrigger;
 	BoxCollider* boxCollider;
 
-	GameObject* open_door;
-	GameObject* close_door;
+	GameObject* openDoor;
+	GameObject* closeDoor;
 };
 
 class Room

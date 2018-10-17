@@ -40,7 +40,7 @@ bool TileMapCollider::isColliding(Collider * collider)
 
 			
 			TileData* tileData = tileMapData->getTile(x, y);
-			if (tileData != nullptr && tileData->is_collider) {
+			if (tileData != nullptr && tileData->collider) {
 				
 				return true;
 			}
@@ -51,7 +51,7 @@ bool TileMapCollider::isColliding(Collider * collider)
 			y = ((boxCollider->getRect().y + boxCollider->getRect().h) - new_world_pos.y) / div_y;
 			
 			tileData = tileMapData->getTile(x, y);
-			if (tileData != nullptr && tileData->is_collider) {
+			if (tileData != nullptr && tileData->collider) {
 			
 				return true;
 			}
@@ -63,7 +63,7 @@ bool TileMapCollider::isColliding(Collider * collider)
 
 			
 			tileData = tileMapData->getTile(x, y);
-			if (tileData != nullptr && tileData->is_collider) {
+			if (tileData != nullptr && tileData->collider) {
 				
 				return true;
 			}
@@ -74,7 +74,7 @@ bool TileMapCollider::isColliding(Collider * collider)
 			y = ((boxCollider->getRect().y + boxCollider->getRect().h) - new_world_pos.y) / div_y;
 			
 			tileData = tileMapData->getTile(x, y);
-			if (tileData != nullptr && tileData->is_collider) {
+			if (tileData != nullptr && tileData->collider) {
 	 			
 				return true;
 			}
@@ -116,20 +116,20 @@ void TileMapCollider::render()
 					SDL_Rect srcrect;
 					SDL_Rect dstrect;
 
-					srcrect.x = (tile->nb_img % 30) * spriteSize.x;
-					srcrect.y = (tile->nb_img / 30) * spriteSize.y;
+					srcrect.x = (tile->nbImg % 30) * spriteSize.x;
+					srcrect.y = (tile->nbImg / 30) * spriteSize.y;
 					srcrect.h = spriteSize.x;
 					srcrect.w = spriteSize.y;
 
-					dstrect.x = new_world_pos.x + (tile->position_grid.x * spriteSize.x * gameObject->getWorldScale().x);
-					dstrect.y = new_world_pos.y + (tile->position_grid.y * spriteSize.y * gameObject->getWorldScale().y);
+					dstrect.x = new_world_pos.x + (tile->positionGrid.x * spriteSize.x * gameObject->getWorldScale().x);
+					dstrect.y = new_world_pos.y + (tile->positionGrid.y * spriteSize.y * gameObject->getWorldScale().y);
 
 					dstrect.h = spriteSize.x * gameObject->getWorldScale().x;
 					dstrect.w = spriteSize.y * gameObject->getWorldScale().y;
 
 					//TextureManager::DrawTexture(texture, srcrect, dstrect);
 
-					if (tile->is_collider) {
+					if (tile->collider) {
 						TextureManager::DrawRect(dstrect);
 					}
 				}

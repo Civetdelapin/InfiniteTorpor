@@ -10,8 +10,8 @@ public:
 	PlayerBehavior(GameObject* gameObject);
 	~PlayerBehavior();
 
-
 	const enum State {spawning, playing};
+
 	const int PLAYER_LAYER = 5;
 
 	float getMaxHp();

@@ -18,13 +18,17 @@ void GameManager::start()
 
 void GameManager::update()
 {
+	
 	if (timeLeft > 0) {
 		timeLeft -= Time::deltaTime;
 
 		if (timeLeft <= 0) {
-			gameObject->getComponent<GenerateLevel>()->playerNextFloor();
+			if (uiManager != nullptr) {
+				uiManager->getComponent<TransitionManager>()->transitionBetweenFloors(gameObject->getComponent<GenerateLevel>()->getCurrentFloor() + 1);
+			}
 		}
 	}
+
 }
 
 void GameManager::clean()
@@ -73,5 +77,10 @@ void GameManager::endLevel()
 		}
 	}
 
-	timeLeft = 1.0f;
+	timeLeft = timeBeforeTransition;
+}
+
+void GameManager::nextFloor()
+{
+	gameObject->getComponent<GenerateLevel>()->playerNextFloor();
 }

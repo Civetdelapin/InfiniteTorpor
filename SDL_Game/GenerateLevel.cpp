@@ -1,7 +1,7 @@
 #include "GenerateLevel.h"
 #include "Game.h"
 
-OwnMathFuncs::Vector2 const GenerateLevel::tile_size = { 16, 16 };
+OwnMathFuncs::Vector2 const GenerateLevel::tileSize = { 16, 16 };
 
 GenerateLevel::GenerateLevel(GameObject * gameObject) : Renderer(this), Component(gameObject)
 {
@@ -11,6 +11,11 @@ GenerateLevel::GenerateLevel(GameObject * gameObject) : Renderer(this), Componen
 
 GenerateLevel::~GenerateLevel()
 {
+}
+
+int GenerateLevel::getCurrentFloor()
+{
+	return curFloor;
 }
 
 void GenerateLevel::playerNextFloor()
@@ -83,8 +88,8 @@ void GenerateLevel::render()
 			door_rect.y = rect.y + rect.h / 2;
 			
 			
-			door_rect.x += door->door_position.x * (rect.w / 2);
-			door_rect.y -= door->door_position.y * (rect.h / 2);
+			door_rect.x += door->doorPosition.x * (rect.w / 2);
+			door_rect.y -= door->doorPosition.y * (rect.h / 2);
 
 			TextureManager::DrawRect(door_rect, 255, 255, 255, 255, true, false);
 		}
@@ -125,19 +130,19 @@ void GenerateLevel::loadRoomsFromFiles()
 		std::vector<SDL_Texture*> close_door_vect;
 
 		if (i % 2 == 0) {
-			std::string open_door = "levels/doors/door_"+ std::to_string(i) +"/open_door_" + std::to_string(i) + "_1.png";
-			open_door_vect.push_back(TextureManager::LoadTexture(open_door.c_str()));
+			std::string openDoor = "levels/doors/door_"+ std::to_string(i) +"/open_door_" + std::to_string(i) + "_1.png";
+			open_door_vect.push_back(TextureManager::LoadTexture(openDoor.c_str()));
 
-			open_door = "levels/doors/door_" + std::to_string(i) + "/open_door_" + std::to_string(i) + "_2.png";
-			open_door_vect.push_back(TextureManager::LoadTexture(open_door.c_str()));
+			openDoor = "levels/doors/door_" + std::to_string(i) + "/open_door_" + std::to_string(i) + "_2.png";
+			open_door_vect.push_back(TextureManager::LoadTexture(openDoor.c_str()));
 		}
 		else {
-			std::string open_door = "levels/doors/door_" + std::to_string(i) + "/open_door_" + std::to_string(i) + ".png";
-			open_door_vect.push_back(TextureManager::LoadTexture(open_door.c_str()));
+			std::string openDoor = "levels/doors/door_" + std::to_string(i) + "/open_door_" + std::to_string(i) + ".png";
+			open_door_vect.push_back(TextureManager::LoadTexture(openDoor.c_str()));
 		}
 
-		std::string close_door = "levels/doors/door_" + std::to_string(i) + "/close_door_" + std::to_string(i) + ".png";
-		close_door_vect.push_back(TextureManager::LoadTexture(close_door.c_str()));
+		std::string closeDoor = "levels/doors/door_" + std::to_string(i) + "/close_door_" + std::to_string(i) + ".png";
+		close_door_vect.push_back(TextureManager::LoadTexture(closeDoor.c_str()));
 
 		openDoorTextures.push_back(open_door_vect);
 		closeDoorTextures.push_back(close_door_vect);
@@ -236,13 +241,13 @@ void GenerateLevel::generateLevel()
 	timeEnemyMultiplicator *= timeEnemyMultiplicator;
 
 	//init the first room at center
-	OwnMathFuncs::Vector2 first_pos = {(float) WORLD_GRID_SIZE_X / 2, (float) WORLD_GRID_SIZE_Y / 2 };
+	OwnMathFuncs::Vector2 firstPos = {(float) WORLD_GRID_SIZE_X / 2, (float) WORLD_GRID_SIZE_Y / 2 };
 
-	posTaken.push_back(first_pos);
+	posTaken.push_back(firstPos);
 
-	Room* first_room = new Room(first_pos);
-	rooms[(int) first_pos.x][(int) first_pos.y] = first_room;
-	roomsVector.push_back(first_room);
+	Room* firstRoom = new Room(firstPos);
+	rooms[(int) firstPos.x][(int) firstPos.y] = firstRoom;
+	roomsVector.push_back(firstRoom);
 
 	//magic number
 	float random_to_compare = 0.55f;
@@ -253,22 +258,22 @@ void GenerateLevel::generateLevel()
 		
 		bool one_neighbour = r < random_to_compare ? true : false;
 		
-		OwnMathFuncs::Vector2 new_pos = { 0, 0 };
+		OwnMathFuncs::Vector2 newPos = { 0, 0 };
 		int iteration = 0;
 
 		do {
 
-			new_pos = getNewPos();
+			newPos = getNewPos();
 			iteration++;
 
-		} while ((one_neighbour && getNumberOfNeighbours(new_pos) > 1) && iteration < 500);
+		} while ((one_neighbour && getNumberOfNeighbours(newPos) > 1) && iteration < 500);
 		
-		Room* new_room = new Room(new_pos);
-		rooms[(int)new_pos.x][(int)new_pos.y] = new_room;
+		Room* newRoom = new Room(newPos);
+		rooms[(int)newPos.x][(int)newPos.y] = newRoom;
 
 	
-		roomsVector.push_back(new_room);
-		posTaken.push_back(new_pos);
+		roomsVector.push_back(newRoom);
+		posTaken.push_back(newPos);
 	}
 
 	//------ FIND THE START AND END ROOM AND SET THE DOORS -------------
@@ -285,7 +290,7 @@ void GenerateLevel::generateLevel()
 
 		if (x > 0 && x < GenerateLevel::WORLD_GRID_SIZE_X && y > 0 && y < GenerateLevel::WORLD_GRID_SIZE_Y && rooms[x][y] != nullptr) {
 			Door* door = new Door();
-			door->door_position = { -1, 0 };
+			door->doorPosition = { -1, 0 };
 			room->addDoor(door);
 
 		}
@@ -295,7 +300,7 @@ void GenerateLevel::generateLevel()
 
 		if (x > 0 && x < GenerateLevel::WORLD_GRID_SIZE_X && y > 0 && y < GenerateLevel::WORLD_GRID_SIZE_Y && rooms[x][y] != nullptr) {
 			Door* door = new Door();
-			door->door_position = { 1, 0 };
+			door->doorPosition = { 1, 0 };
 			room->addDoor(door);
 		}
 
@@ -304,7 +309,7 @@ void GenerateLevel::generateLevel()
 
 		if (x > 0 && x < GenerateLevel::WORLD_GRID_SIZE_X && y > 0 && y < GenerateLevel::WORLD_GRID_SIZE_Y && rooms[x][y] != nullptr) {
 			Door* door = new Door();
-			door->door_position = { 0, -1 };
+			door->doorPosition = { 0, -1 };
 			room->addDoor(door);
 		}
 
@@ -313,7 +318,7 @@ void GenerateLevel::generateLevel()
 
 		if (x > 0 && x < GenerateLevel::WORLD_GRID_SIZE_X && y > 0 && y < GenerateLevel::WORLD_GRID_SIZE_Y && rooms[x][y] != nullptr) {
 			Door* door = new Door();
-			door->door_position = { 0, 1 };
+			door->doorPosition = { 0, 1 };
 			room->addDoor(door);
 		}
 
@@ -332,14 +337,14 @@ void GenerateLevel::generateLevel()
 
 
 	//---- CHOSE THE RIGHT TILE MAP DATA AND INSTANTIATE THE GAME OBJECTS -----------------
-	GameObject* start_room_object = nullptr;
-	GameObject* end_room_object = nullptr;
+	GameObject* startRoomObject = nullptr;
+	GameObject* endRoomObject = nullptr;
 
 	for (Room* room : roomsVector) {
 		
-		GameObject* room_prefab = new GameObject();
-		room_prefab->localScale = { 4, 4 };
-		room_prefab->localPosition = { room->getGridPos().x * room_prefab->localScale.x * ROOM_GRID_SIZE_X * tile_size.x, room->getGridPos().y * room_prefab->localScale.y * ROOM_GRID_SIZE_Y * tile_size.y };
+		GameObject* roomPrefab = new GameObject();
+		roomPrefab->localScale = { 4, 4 };
+		roomPrefab->localPosition = { room->getGridPos().x * roomPrefab->localScale.x * ROOM_GRID_SIZE_X * tileSize.x, room->getGridPos().y * roomPrefab->localScale.y * ROOM_GRID_SIZE_Y * tileSize.y };
 
 
 		RoomDataStruct* roomDataStructChoosen;
@@ -347,12 +352,12 @@ void GenerateLevel::generateLevel()
 		if (room->getRoomType() == Room::StartRoom) {
 			
 			roomDataStructChoosen = startingRoom;
-			start_room_object = room_prefab;
+			startRoomObject = roomPrefab;
 		}
 		else if (room->getRoomType() == Room::EndRoom) {
 
 			roomDataStructChoosen = endingRoom;
-			end_room_object = room_prefab;
+			endRoomObject = roomPrefab;
 		}
 		else {
 
@@ -373,7 +378,7 @@ void GenerateLevel::generateLevel()
 					bool door_ok = false;
 					for (OwnMathFuncs::Vector2 door_possible : roomDataStructChoosen->doorsPossible) {
 
-						if (door->door_position == door_possible) {
+						if (door->doorPosition == door_possible) {
 							door_ok = true;
 						}
 					}
@@ -395,7 +400,7 @@ void GenerateLevel::generateLevel()
 		for (int i = 0; i < roomDataStructChoosen->roomTextures.size(); i++) {
 			SDL_Texture* texture = roomDataStructChoosen->roomTextures[i];
 			if (texture != nullptr) {
-				SpriteRenderer* spriteRenderer = new SpriteRenderer(room_prefab, texture, false);
+				SpriteRenderer* spriteRenderer = new SpriteRenderer(roomPrefab, texture, false);
 				spriteRenderer->setLayer(i);
 
 				std::cout << i << std::endl;
@@ -411,44 +416,44 @@ void GenerateLevel::generateLevel()
 
 		for (Door* door : room->getDoors()) {
 
-			GameObject* open_door_prefab = new GameObject();
-			GameObject* close_door_prefab = new GameObject();
+			GameObject* openDoorPrefab = new GameObject();
+			GameObject* closeDoorPrefab = new GameObject();
 
 			//--------------- ADD COLLIDERS ---------------
-			BoxCollider* door_collider_trigger = new BoxCollider(room_prefab);
-			door_collider_trigger->setCollisionLayer(10);
+			BoxCollider* doorColliderTrigger = new BoxCollider(roomPrefab);
+			doorColliderTrigger->setCollisionLayer(10);
 
-			door_collider_trigger->size.y = door->door_position.y == 0 ? tile_size.y * 2 : tile_size.y;
-			door_collider_trigger->size.x = door->door_position.x == 0 ? tile_size.x * 2 : tile_size.x;
+			doorColliderTrigger->size.y = door->doorPosition.y == 0 ? tileSize.y * 2 : tileSize.y;
+			doorColliderTrigger->size.x = door->doorPosition.x == 0 ? tileSize.x * 2 : tileSize.x;
 
-			int nb_tile = (ROOM_GRID_SIZE_X / 2) - ROOM_NO_DOOR_OFFSET_X - 1;
-			door_collider_trigger->offset.x = door->door_position.x * ((nb_tile * tile_size.x) - door_collider_trigger->size.x / 2);
+			int nbTile = (ROOM_GRID_SIZE_X / 2) - ROOM_NO_DOOR_OFFSET_X - 1;
+			doorColliderTrigger->offset.x = door->doorPosition.x * ((nbTile * tileSize.x) - doorColliderTrigger->size.x / 2);
 
-			nb_tile = door->door_position.y == -1 ? (ROOM_GRID_SIZE_Y / 2) - ROOM_NO_DOOR_OFFSET_Y : (ROOM_GRID_SIZE_Y / 2) - ROOM_NO_DOOR_OFFSET_Y - 1;
-			door_collider_trigger->offset.y = -1 * door->door_position.y * ((nb_tile * tile_size.y) - door_collider_trigger->size.y / 2);
+			nbTile = door->doorPosition.y == -1 ? (ROOM_GRID_SIZE_Y / 2) - ROOM_NO_DOOR_OFFSET_Y : (ROOM_GRID_SIZE_Y / 2) - ROOM_NO_DOOR_OFFSET_Y - 1;
+			doorColliderTrigger->offset.y = -1 * door->doorPosition.y * ((nbTile * tileSize.y) - doorColliderTrigger->size.y / 2);
 
-			door->box_collider_trigger = door_collider_trigger;
+			door->boxColliderTrigger = doorColliderTrigger;
 
 
-			BoxCollider* door_collider = new BoxCollider(room_prefab);
+			BoxCollider* door_collider = new BoxCollider(roomPrefab);
 
-			door_collider->size.y = door->door_position.y == 0 ? tile_size.y * 2 : tile_size.y;
-			door_collider->size.x = door->door_position.x == 0 ? tile_size.x * 2 : tile_size.x;
+			door_collider->size.y = door->doorPosition.y == 0 ? tileSize.y * 2 : tileSize.y;
+			door_collider->size.x = door->doorPosition.x == 0 ? tileSize.x * 2 : tileSize.x;
 
-			nb_tile = (ROOM_GRID_SIZE_X / 2) - ROOM_NO_DOOR_OFFSET_X + 1;
-			door_collider->offset.x = door->door_position.x * ((nb_tile * tile_size.x) - door_collider_trigger->size.x / 2);
+			nbTile = (ROOM_GRID_SIZE_X / 2) - ROOM_NO_DOOR_OFFSET_X + 1;
+			door_collider->offset.x = door->doorPosition.x * ((nbTile * tileSize.x) - doorColliderTrigger->size.x / 2);
 
-			nb_tile = door->door_position.y == -1 ? (ROOM_GRID_SIZE_Y / 2) - ROOM_NO_DOOR_OFFSET_Y + 3 : (ROOM_GRID_SIZE_Y / 2) - ROOM_NO_DOOR_OFFSET_Y + 1;
-			door_collider->offset.y = -1 * door->door_position.y * ((nb_tile * tile_size.y) - door_collider_trigger->size.y / 2);
+			nbTile = door->doorPosition.y == -1 ? (ROOM_GRID_SIZE_Y / 2) - ROOM_NO_DOOR_OFFSET_Y + 3 : (ROOM_GRID_SIZE_Y / 2) - ROOM_NO_DOOR_OFFSET_Y + 1;
+			door_collider->offset.y = -1 * door->doorPosition.y * ((nbTile * tileSize.y) - doorColliderTrigger->size.y / 2);
 
 			door->boxCollider = door_collider;
 			//--------------------------------------------
 
 			//-------- ADD DOORS TEXTURES ----------------
 
-			for (SDL_Texture* texture : openDoorTextures[convDoorPosToIndex(door->door_position)]) {
-				SpriteRenderer* spriteRenderer = new SpriteRenderer(open_door_prefab, texture, false);
-				if (convDoorPosToIndex(door->door_position) != 1) {
+			for (SDL_Texture* texture : openDoorTextures[convDoorPosToIndex(door->doorPosition)]) {
+				SpriteRenderer* spriteRenderer = new SpriteRenderer(openDoorPrefab, texture, false);
+				if (convDoorPosToIndex(door->doorPosition) != 1 && convDoorPosToIndex(door->doorPosition) < 3) {
 					spriteRenderer->setLayer(4);
 				}
 				else {
@@ -456,10 +461,10 @@ void GenerateLevel::generateLevel()
 				}
 			}
 
-			for (SDL_Texture* texture : closeDoorTextures[convDoorPosToIndex(door->door_position)]) {
-				SpriteRenderer* spriteRenderer = new SpriteRenderer(close_door_prefab, texture, false);
+			for (SDL_Texture* texture : closeDoorTextures[convDoorPosToIndex(door->doorPosition)]) {
+				SpriteRenderer* spriteRenderer = new SpriteRenderer(closeDoorPrefab, texture, false);
 
-				if (convDoorPosToIndex(door->door_position) != 1) {
+				if (convDoorPosToIndex(door->doorPosition) != 1) {
 					spriteRenderer->setLayer(4);
 				}
 				else {
@@ -468,28 +473,28 @@ void GenerateLevel::generateLevel()
 			}
 			//-------------------------------------------
 
-			close_door_prefab->localPosition = door_collider->offset;
-			door->close_door = close_door_prefab;
-			room_prefab->addGameObjectAsChild(open_door_prefab);
+			closeDoorPrefab->localPosition = door_collider->offset;
+			door->closeDoor = closeDoorPrefab;
+			roomPrefab->addGameObjectAsChild(openDoorPrefab);
 
-			open_door_prefab->localPosition = door_collider->offset;
-			door->open_door = open_door_prefab;
-			room_prefab->addGameObjectAsChild(close_door_prefab);
+			openDoorPrefab->localPosition = door_collider->offset;
+			door->openDoor = openDoorPrefab;
+			roomPrefab->addGameObjectAsChild(closeDoorPrefab);
 
-			if (door->door_position.x == 1 && door->door_position.y == 0) {
+			if (door->doorPosition.x == 1 && door->doorPosition.y == 0) {
 
 				right_door_found = true;
 
 			}
-			else if (door->door_position.x == 0 && door->door_position.y == -1) {
+			else if (door->doorPosition.x == 0 && door->doorPosition.y == -1) {
 
 				bot_door_found = true;
 			}
-			else if (door->door_position.x == -1 && door->door_position.y == 0) {
+			else if (door->doorPosition.x == -1 && door->doorPosition.y == 0) {
 
 				left_door_found = true;
 			}
-			else if (door->door_position.x == 0 && door->door_position.y == 1) {
+			else if (door->doorPosition.x == 0 && door->doorPosition.y == 1) {
 
 				top_door_found = true;
 			}
@@ -509,19 +514,19 @@ void GenerateLevel::generateLevel()
 
 				if (index > 0) {
 					if (index % 2 == 0) {
-						room->getTileMapData()->data[mid_y - index][ROOM_GRID_SIZE_X - ROOM_NO_DOOR_OFFSET_X - 1]->is_collider = true;
+						room->getTileMapData()->data[mid_y - index][ROOM_GRID_SIZE_X - ROOM_NO_DOOR_OFFSET_X - 1]->collider = true;
 					}
 					else {
-						room->getTileMapData()->data[mid_y + index][ROOM_GRID_SIZE_X - ROOM_NO_DOOR_OFFSET_X - 1]->is_collider = true;
+						room->getTileMapData()->data[mid_y + index][ROOM_GRID_SIZE_X - ROOM_NO_DOOR_OFFSET_X - 1]->collider = true;
 					}
 				}
 				else {
 
-					room->getTileMapData()->data[mid_y][ROOM_GRID_SIZE_X - ROOM_NO_DOOR_OFFSET_X - 1]->is_collider = true;
+					room->getTileMapData()->data[mid_y][ROOM_GRID_SIZE_X - ROOM_NO_DOOR_OFFSET_X - 1]->collider = true;
 				}
 			}
 
-			SpriteRenderer* spriteRenderer = new SpriteRenderer(room_prefab, noDoorTextures[0], false);
+			SpriteRenderer* spriteRenderer = new SpriteRenderer(roomPrefab, noDoorTextures[0], false);
 			spriteRenderer->setLayer(11);
 		}
 
@@ -530,20 +535,20 @@ void GenerateLevel::generateLevel()
 
 				if (index > 0) {
 					if (index % 2 == 0) {
-						room->getTileMapData()->data[ROOM_GRID_SIZE_Y - ROOM_NO_DOOR_OFFSET_Y + 1][mid_x - index]->is_collider = true;
+						room->getTileMapData()->data[ROOM_GRID_SIZE_Y - ROOM_NO_DOOR_OFFSET_Y + 1][mid_x - index]->collider = true;
 					}
 					else {
-						room->getTileMapData()->data[ROOM_GRID_SIZE_Y - ROOM_NO_DOOR_OFFSET_Y + 1][mid_x + index]->is_collider = true;
+						room->getTileMapData()->data[ROOM_GRID_SIZE_Y - ROOM_NO_DOOR_OFFSET_Y + 1][mid_x + index]->collider = true;
 					}
 				}
 				else {
 
-					room->getTileMapData()->data[ROOM_GRID_SIZE_Y - ROOM_NO_DOOR_OFFSET_Y + 1][mid_x]->is_collider = true;
+					room->getTileMapData()->data[ROOM_GRID_SIZE_Y - ROOM_NO_DOOR_OFFSET_Y + 1][mid_x]->collider = true;
 				}
 			}
 
 
-			SpriteRenderer* spriteRenderer = new SpriteRenderer(room_prefab, noDoorTextures[1], false);
+			SpriteRenderer* spriteRenderer = new SpriteRenderer(roomPrefab, noDoorTextures[1], false);
 			spriteRenderer->setLayer(11);
 		}
 
@@ -552,19 +557,19 @@ void GenerateLevel::generateLevel()
 
 				if (index > 0) {
 					if (index % 2 == 0) {
-						room->getTileMapData()->data[mid_y - index][ROOM_NO_DOOR_OFFSET_X]->is_collider = true;
+						room->getTileMapData()->data[mid_y - index][ROOM_NO_DOOR_OFFSET_X]->collider = true;
 					}
 					else {
-						room->getTileMapData()->data[mid_y + index][ROOM_NO_DOOR_OFFSET_X]->is_collider = true;
+						room->getTileMapData()->data[mid_y + index][ROOM_NO_DOOR_OFFSET_X]->collider = true;
 					}
 				}
 				else {
 
-					room->getTileMapData()->data[mid_y][ROOM_NO_DOOR_OFFSET_X]->is_collider = true;
+					room->getTileMapData()->data[mid_y][ROOM_NO_DOOR_OFFSET_X]->collider = true;
 				}
 			}
 
-			SpriteRenderer* spriteRenderer = new SpriteRenderer(room_prefab, noDoorTextures[2], false);
+			SpriteRenderer* spriteRenderer = new SpriteRenderer(roomPrefab, noDoorTextures[2], false);
 			spriteRenderer->setLayer(11);
 		}
 
@@ -575,20 +580,20 @@ void GenerateLevel::generateLevel()
 
 				if (index > 0) {
 					if (index % 2 == 0) {
-						room->getTileMapData()->data[ROOM_NO_DOOR_OFFSET_Y][mid_x - index]->is_collider = true;
+						room->getTileMapData()->data[ROOM_NO_DOOR_OFFSET_Y][mid_x - index]->collider = true;
 					}
 					else {
-						room->getTileMapData()->data[ROOM_NO_DOOR_OFFSET_Y][mid_x + index]->is_collider = true;
+						room->getTileMapData()->data[ROOM_NO_DOOR_OFFSET_Y][mid_x + index]->collider = true;
 					}
 				}
 				else {
 
-					room->getTileMapData()->data[ROOM_NO_DOOR_OFFSET_Y][mid_x]->is_collider = true;
+					room->getTileMapData()->data[ROOM_NO_DOOR_OFFSET_Y][mid_x]->collider = true;
 				}
 			}
 
 
-			SpriteRenderer* spriteRenderer = new SpriteRenderer(room_prefab, noDoorTextures[3], false);
+			SpriteRenderer* spriteRenderer = new SpriteRenderer(roomPrefab, noDoorTextures[3], false);
 			spriteRenderer->setLayer(2);
 		}
 
@@ -609,11 +614,11 @@ void GenerateLevel::generateLevel()
 			for (int i = 0; i < nb_enemies; i++) {
 
 				GameObject* new_enemy;
-				OwnMathFuncs::Vector2 new_pos = { room_prefab->getWorldPosition() };
+				OwnMathFuncs::Vector2 newPos = { roomPrefab->getWorldPosition() };
 
 				OwnMathFuncs::Vector2 spriteSize = room->getTileMapData()->spriteSize;
-				OwnMathFuncs::Vector2 new_world_pos = { room_prefab->getWorldPosition().x - (GenerateLevel::ROOM_GRID_SIZE_X * spriteSize.x * room_prefab->localScale.x) / 2,
-					room_prefab->getWorldPosition().y - (GenerateLevel::ROOM_GRID_SIZE_Y * spriteSize.y * room_prefab->localScale.y) / 2 };
+				OwnMathFuncs::Vector2 new_world_pos = { roomPrefab->getWorldPosition().x - (GenerateLevel::ROOM_GRID_SIZE_X * spriteSize.x * roomPrefab->localScale.x) / 2,
+					roomPrefab->getWorldPosition().y - (GenerateLevel::ROOM_GRID_SIZE_Y * spriteSize.y * roomPrefab->localScale.y) / 2 };
 
 
 				if (room->getTileMapData()->spawners.size() > 0) {
@@ -621,8 +626,8 @@ void GenerateLevel::generateLevel()
 					int index_spawner = rand() % room->getTileMapData()->spawners.size();
 					TileData* tile_data = room->getTileMapData()->spawners[index_spawner];
 
-					new_pos = { new_world_pos.x + tile_data->position_grid.x * spriteSize.x * room_prefab->localScale.x,
-						new_world_pos.y + tile_data->position_grid.y * spriteSize.y * room_prefab->localScale.x };
+					newPos = { new_world_pos.x + tile_data->positionGrid.x * spriteSize.x * roomPrefab->localScale.x,
+						new_world_pos.y + tile_data->positionGrid.y * spriteSize.y * roomPrefab->localScale.x };
 
 
 					int enemy = rand() % 4;
@@ -630,23 +635,23 @@ void GenerateLevel::generateLevel()
 					{
 
 					case 0:
-						new_enemy = new SnakePrefab(new_pos);
+						new_enemy = new SnakePrefab(newPos);
 						break;
 
 					case 1:
-						new_enemy = new GoblinPrefab(new_pos);
+						new_enemy = new GoblinPrefab(newPos);
 						break;
 
 					case 2:
-						new_enemy = new MinotaurPrefab(new_pos);
+						new_enemy = new MinotaurPrefab(newPos);
 						break;
 
 					case 3:
-						new_enemy = new SlimPrefab(new_pos);
+						new_enemy = new SlimPrefab(newPos);
 						break;
 
 					default:
-						new_enemy = new GoblinPrefab(new_pos);
+						new_enemy = new GoblinPrefab(newPos);
 						break;
 					}
 
@@ -663,17 +668,17 @@ void GenerateLevel::generateLevel()
 		}
 		//-------------------------------------------
 
-		RoomBehavior* roomBehavior = new RoomBehavior(room_prefab, room);
+		RoomBehavior* roomBehavior = new RoomBehavior(roomPrefab, room);
 
-		TileMapCollider* tile_map_collider = new TileMapCollider(room_prefab);
+		TileMapCollider* tile_map_collider = new TileMapCollider(roomPrefab);
 		tile_map_collider->setLayer(40);
 
-		Game::instance()->instantiateGameObject(room_prefab);
+		Game::instance()->instantiateGameObject(roomPrefab);
 
-		roomPrefabs.push_back(room_prefab);
+		roomPrefabs.push_back(roomPrefab);
 	}
 
-	Game::instance()->findGameObject("Manager")->getComponent<GameManager>()->startLevel(start_room_object->getWorldPosition());
+	Game::instance()->findGameObject("Manager")->getComponent<GameManager>()->startLevel(startRoomObject->getWorldPosition());
 
 
 	/*
@@ -774,8 +779,8 @@ void GenerateLevel::readCSV(const char * file_path, TileMapData* tileMapData)
 					int datum = atoi(buff.c_str());
 
 					struct TileData* t = new TileData();
-					t->nb_img = datum;
-					t->position_grid = { (float)x, (float)y };
+					t->nbImg = datum;
+					t->positionGrid = { (float)x, (float)y };
 
 					vec_x.push_back(t);
 
@@ -790,8 +795,8 @@ void GenerateLevel::readCSV(const char * file_path, TileMapData* tileMapData)
 			int datum = atoi(buff.c_str());
 
 			struct TileData* t = new TileData();
-			t->nb_img = datum;
-			t->position_grid = { (float)x, (float)y };
+			t->nbImg = datum;
+			t->positionGrid = { (float)x, (float)y };
 
 			vec_x.push_back(t);
 
@@ -839,7 +844,7 @@ void GenerateLevel::readCSVCollider(const char * file_path, TileMapData* tileMap
 
 						if (t != nullptr) {
 
-							t->is_collider = true;
+							t->collider = true;
 						}
 					}
 					x++;
@@ -855,7 +860,7 @@ void GenerateLevel::readCSVCollider(const char * file_path, TileMapData* tileMap
 
 				if (t != nullptr) {
 
-					t->is_collider = true;
+					t->collider = true;
 				}
 			}
 			x++;
@@ -897,7 +902,7 @@ void GenerateLevel::readCSVSpawner(const char * file_path, TileMapData * tileMap
 
 						if (t != nullptr) {
 
-							t->is_spawner = true;
+							t->spawner = true;
 							tileMapData->spawners.push_back(t);
 						}
 					}
@@ -914,7 +919,7 @@ void GenerateLevel::readCSVSpawner(const char * file_path, TileMapData * tileMap
 
 				if (t != nullptr) {
 
-					t->is_spawner = true;
+					t->spawner = true;
 					tileMapData->spawners.push_back(t);
 				}
 			}
@@ -929,8 +934,8 @@ void GenerateLevel::readCSVSpawner(const char * file_path, TileMapData * tileMap
 	std::cout << "----------- SPAWNERS ---------------------" << std::endl;
 	for (TileData* tile : tileMapData->spawners) {
 
-		if (tile != nullptr && tile->is_spawner) {
-			std::cout << tile->position_grid.x << ", " << tile->position_grid.y << std::endl;
+		if (tile != nullptr && tile->spawner) {
+			std::cout << tile->positionGrid.x << ", " << tile->positionGrid.y << std::endl;
 		}
 
 	}
@@ -982,9 +987,9 @@ void GenerateLevel::cleanGeneratedData()
 	}
 
 
-	for (GameObject* room_prefab : roomPrefabs) {
+	for (GameObject* roomPrefab : roomPrefabs) {
 
-		Game::instance()->destroyGameObject(room_prefab);
+		Game::instance()->destroyGameObject(roomPrefab);
 	}
 	roomPrefabs.clear();
 
@@ -993,54 +998,54 @@ void GenerateLevel::cleanGeneratedData()
 
 OwnMathFuncs::Vector2 GenerateLevel::getNewPos()
 {
-	bool pos_ok = true;
+	bool posOk = true;
 	int x, y;
-	OwnMathFuncs::Vector2 checking_pos = { 0, 0 };
+	OwnMathFuncs::Vector2 checkingPos = { 0, 0 };
 
 	do {
 		//------- GETTING A POS ---------
 
 		//Get a random existing pos
-		OwnMathFuncs::Vector2 random_existing_pos = posTaken.at((int)rand() % (posTaken.size()));
+		OwnMathFuncs::Vector2 randomExistingPos = posTaken.at((int)rand() % (posTaken.size()));
 
-		x = random_existing_pos.x;
-		y = random_existing_pos.y;
+		x = randomExistingPos.x;
+		y = randomExistingPos.y;
 
-		int random_x_or_y = rand() % 2;
+		int randomXOrY = rand() % 2;
 
-		if (random_x_or_y == 0) {
-			int random_x = rand() % 2;
-			if (random_x == 0) {
-				x = random_existing_pos.x + 1;
+		if (randomXOrY == 0) {
+			int randomX = rand() % 2;
+			if (randomX == 0) {
+				x = randomExistingPos.x + 1;
 			}
 			else {
-				x = random_existing_pos.x - 1;
+				x = randomExistingPos.x - 1;
 			}
 		}
 		else {
-			int random_y = rand() % 2;
-			if (random_y == 0) {
-				y = random_existing_pos.y + 1;
+			int randomY = rand() % 2;
+			if (randomY == 0) {
+				y = randomExistingPos.y + 1;
 			}
 			else {
-				y = random_existing_pos.y - 1;
+				y = randomExistingPos.y - 1;
 			}
 		}
-		checking_pos = { (float)x , (float)y };
+		checkingPos = { (float)x , (float)y };
 
 
 		//We check if the pos is not already taken
-		pos_ok = true;
+		posOk = true;
 		for (OwnMathFuncs::Vector2 pos : posTaken) {
-			if (pos == checking_pos) {
-				pos_ok = false;
+			if (pos == checkingPos) {
+				posOk = false;
 			}
 		}
 
-	} while (!pos_ok || x < 0 || x > WORLD_GRID_SIZE_X || y < 0 || y > WORLD_GRID_SIZE_Y);
+	} while (!posOk || x < 0 || x > WORLD_GRID_SIZE_X || y < 0 || y > WORLD_GRID_SIZE_Y);
 
 
-	return checking_pos;
+	return checkingPos;
 }
 
 int GenerateLevel::convDoorPosToIndex(OwnMathFuncs::Vector2 pos)

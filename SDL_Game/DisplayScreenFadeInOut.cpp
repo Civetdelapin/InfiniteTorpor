@@ -16,7 +16,7 @@ DisplayScreenFadeInOut::DisplayScreenFadeInOut(GameObject * gameObject) : Compon
 	destRect.w = Game::instance()->getScreenSize().x;
 	destRect.h = Game::instance()->getScreenSize().y;
 
-	setLayer(RendererManager::MAX_LAYER - 1);
+	setLayer(RendererManager::MAX_LAYER - 2);
 
 	setAlpha(SDL_ALPHA_OPAQUE);
 }

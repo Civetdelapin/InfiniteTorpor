@@ -3,12 +3,16 @@
 #include "OwnMathFuncs.h"
 #include "SDL.h"
 #include "Enemy.h"
-#include "SlimPrefab.h"
+#include "GameManager.h"
+
 #include "DisplayPlayerHealth.h"
 #include "DisplayPlayerScore.h"
 #include "DisplayScreenFadeInOut.h"
-#include "GameManager.h"
+#include "DisplayBetweenFloor.h"
 
+#include "TransitionManager.h"
+
+#include "SlimPrefab.h"
 #include "GoblinPrefab.h"
 #include "MinotaurPrefab.h"
 #include "SnakePrefab.h"
@@ -58,8 +62,21 @@ int main(int argc, char* args[]) {
 	//Display the player's score
 	DisplayPlayerScore* display_score = new DisplayPlayerScore(uiManager);
 
+	//Display the black screen
 	DisplayScreenFadeInOut* display_screen = new DisplayScreenFadeInOut(uiManager);
 	
+		//----- TRANSITION MANAGER -----
+		TransitionManager* transitionManager = new TransitionManager(uiManager);
+
+		GameObject* betweenFloorGameObject = new GameObject();
+		betweenFloorGameObject->active = false;
+
+		DisplayBetweenFloor* displayBetweenFloor = new DisplayBetweenFloor(betweenFloorGameObject);
+		transitionManager->transitionBetweenFloor = displayBetweenFloor;
+
+		uiManager->addGameObjectAsChild(betweenFloorGameObject);
+		//------------------------------
+
 	Game::instance()->instantiateGameObject(uiManager);
 	//--------------------------------------
 

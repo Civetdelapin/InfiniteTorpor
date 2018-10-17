@@ -14,8 +14,8 @@ struct Transition {
 struct Animation {
 	float speed;
 
-	int YIndex = 0;
-	int XIndex = 0;
+	int indexY = 0;
+	int indexX = 0;
 
 	int nbSprites;
 	bool looping = true;

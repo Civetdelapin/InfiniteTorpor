@@ -82,6 +82,9 @@ public:
 				if (component != nullptr) {
 					return component;
 				}
+				else {
+					return gameObject->getComponentInChildren<ComponentType>();
+				}
 
 				component = NULL;
 			}
@@ -89,6 +92,17 @@ public:
 		}
 
 		return nullptr;
+	}
+
+
+	template< class ComponentType >
+	ComponentType*  getComponentInParent() {
+
+		if (parentGameObject == nullptr) {
+			return getComponent<ComponentType>();
+		}
+
+		return parentGameObject->getComponentInParent<ComponentType>();
 	}
 
 

@@ -46,14 +46,14 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 	Animation animIdle;
 	animIdle.nbSprites = 10;
 	animIdle.speed = 0.1f;
-	animIdle.YIndex = 0;
+	animIdle.indexY = 0;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Idle", animIdle));
 
 	Animation animDying;
 	animDying.nbSprites = 10;
 	animDying.speed = 0.1f;
-	animDying.YIndex = 4;
+	animDying.indexY = 4;
 	animDying.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Dying", animDying));
@@ -61,7 +61,7 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 	Animation animWalking;
 	animWalking.nbSprites = 10;
 	animWalking.speed = 0.1f;
-	animWalking.YIndex = 2;
+	animWalking.indexY = 2;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
 
@@ -69,7 +69,7 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 	Animation animBeforeAttack;
 	animBeforeAttack.nbSprites = 5;
 	animBeforeAttack.speed = 0.075f;
-	animBeforeAttack.YIndex = 3;
+	animBeforeAttack.indexY = 3;
 	animBeforeAttack.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("BeforeAttack", animBeforeAttack));
@@ -77,8 +77,8 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 	Animation animAttack;
 	animAttack.nbSprites = 5;
 	animAttack.speed = 0.05f;
-	animAttack.YIndex = 3;
-	animAttack.XIndex = 5;
+	animAttack.indexY = 3;
+	animAttack.indexX = 5;
 	animAttack.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Attack", animAttack));

@@ -86,13 +86,13 @@ void Animator::setRectRenderer()
 	SDL_Rect tempRect;
 
 	if (animations[currentAnimation].reverse) {
-		tempRect.x = (animations[currentAnimation].nbSprites - currentSprite + animations[currentAnimation].XIndex) * spriteRenderer->getSpriteSize().x;
+		tempRect.x = (animations[currentAnimation].nbSprites - currentSprite + animations[currentAnimation].indexX) * spriteRenderer->getSpriteSize().x;
 	}
 	else {
-		tempRect.x = (currentSprite + animations[currentAnimation].XIndex) * spriteRenderer->getSpriteSize().x;
+		tempRect.x = (currentSprite + animations[currentAnimation].indexX) * spriteRenderer->getSpriteSize().x;
 	}
 
-	tempRect.y = animations[currentAnimation].YIndex * spriteRenderer->getSpriteSize().y;
+	tempRect.y = animations[currentAnimation].indexY * spriteRenderer->getSpriteSize().y;
 	spriteRenderer->setSourceRect(tempRect);
 }
 

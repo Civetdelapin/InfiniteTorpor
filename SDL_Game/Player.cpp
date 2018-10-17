@@ -12,14 +12,14 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	Animation animIdle;
 	animIdle.nbSprites = 10;
 	animIdle.speed = 0.3f;
-	animIdle.YIndex = 0;
+	animIdle.indexY = 0;
 
 	animator->addAnimation(std::pair <std::string, Animation> ("Idle", animIdle));
 	
 	Animation animWalking;
 	animWalking.nbSprites = 10;
 	animWalking.speed = 0.1f;
-	animWalking.YIndex = 2;
+	animWalking.indexY = 2;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Walking", animWalking));
 	animator->play("Idle");
@@ -27,7 +27,7 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	Animation animDead;
 	animDead.nbSprites = 10;
 	animDead.speed = 0.2f;
-	animDead.YIndex = 4;
+	animDead.indexY = 4;
 	animDead.looping = false;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Dying", animDead));
@@ -35,7 +35,7 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	Animation animWakeUp;
 	animWakeUp.nbSprites = 10;
 	animWakeUp.speed = 0.2f;
-	animWakeUp.YIndex = 4;
+	animWakeUp.indexY = 4;
 	animWakeUp.looping = false;
 	animWakeUp.reverse = true;
 

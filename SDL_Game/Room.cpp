@@ -59,13 +59,13 @@ void Room::setTileMapData(TileMapData* value)
 		for (TileData* tile : tiles_ligne) {
 			
 			TileData* newTile = new TileData();
-			newTile->is_collider = tile->is_collider;
-			newTile->is_spawner = tile->is_spawner;
+			newTile->collider = tile->collider;
+			newTile->spawner = tile->spawner;
 
-			newTile->nb_img = tile->nb_img;
-			newTile->position_grid = tile->position_grid;
+			newTile->nbImg = tile->nbImg;
+			newTile->positionGrid = tile->positionGrid;
 
-			if (tile->is_spawner) {
+			if (tile->spawner) {
 				newTileMapData->spawners.push_back(newTile);
 			}
 
@@ -94,7 +94,7 @@ std::vector<GameObject*> & Room::getEnemiesWaves()
 }
 
 
-TileData::TileData() : is_collider(false) {
+TileData::TileData() : collider(false) {
 
 }
 

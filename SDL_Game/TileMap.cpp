@@ -18,24 +18,24 @@ void TileMap::render()
 		
 		for (TileData* tile : tiles_ligne) {
 
-			if (tile->nb_img != -1) {
+			if (tile->nbImg != -1) {
 				SDL_Rect srcrect;
 				SDL_Rect dstrect;
 
-				srcrect.x = (tile->nb_img % 30) * spriteSize.x;
-				srcrect.y = (tile->nb_img / 30) * spriteSize.y;
+				srcrect.x = (tile->nbImg % 30) * spriteSize.x;
+				srcrect.y = (tile->nbImg / 30) * spriteSize.y;
 				srcrect.h = spriteSize.x;
 				srcrect.w = spriteSize.y;
 
-				dstrect.x = gameObject->getWorldPosition().x + (tile->position_grid.x * spriteSize.x * gameObject->getWorldScale().x);
-				dstrect.y = gameObject->getWorldPosition().y + (tile->position_grid.y * spriteSize.y * gameObject->getWorldScale().y);
+				dstrect.x = gameObject->getWorldPosition().x + (tile->positionGrid.x * spriteSize.x * gameObject->getWorldScale().x);
+				dstrect.y = gameObject->getWorldPosition().y + (tile->positionGrid.y * spriteSize.y * gameObject->getWorldScale().y);
 
 				dstrect.h = spriteSize.x * gameObject->getWorldScale().x;
 				dstrect.w = spriteSize.y * gameObject->getWorldScale().y;
 
 				TextureManager::DrawTexture(texture, srcrect, dstrect);
 
-				if (tile->is_collider) {
+				if (tile->collider) {
 					TextureManager::DrawRect(dstrect);
 				}
 			}

@@ -52,8 +52,9 @@ public:
 	static const int SPAWN_OFFSET_Y = 10;
 	//------------------------------------
 
-	static const OwnMathFuncs::Vector2 tile_size;
+	static const OwnMathFuncs::Vector2 tileSize;
 
+	int getCurrentFloor();
 
 	void playerNextFloor();
 	void generateNewGame();
