@@ -9,11 +9,11 @@
 class StateDying : public State
 {
 public:
-	StateDying(GameObject * gameObject, std::string next_state = "");
+	StateDying(GameObject * gameObject, std::string nextState = "");
 	~StateDying();
 
-	const float time_animation = 1.75f;
-	const float time_alpha_0 = 0.25f;
+	const float timeAnimation = 1.75f;
+	const float timeAlphaToZero = 0.25f;
 
 	void start(StateMachine* state_machine);
 	void operation(StateMachine* state_machine);
@@ -21,10 +21,10 @@ public:
 
 private:
 
-	bool is_alpha_phase = false;
+	bool alphaPhase = false;
 	float timeLeft;
 
 	Animator* animator;
-	SpriteRenderer* sprite_renderer;
+	SpriteRenderer* spriteRenderer;
 };
 

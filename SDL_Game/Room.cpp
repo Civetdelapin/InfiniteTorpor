@@ -1,7 +1,7 @@
 #include "Room.h"
 #include "Game.h"
 
-Room::Room(OwnMathFuncs::Vector2 grid_pos) : grid_pos(grid_pos)
+Room::Room(OwnMathFuncs::Vector2 gridPosition) : gridPosition(gridPosition)
 {
 
 }
@@ -17,26 +17,26 @@ Room::~Room()
 
 	tileMapData->spawners.clear();
 
-	for (GameObject* enemy : enemies_waves) {
+	for (GameObject* enemy : enemiesWaves) {
 		Game::instance()->destroyGameObject(enemy);
 	}
-	enemies_waves.clear();
+	enemiesWaves.clear();
 
 }
 
 OwnMathFuncs::Vector2 Room::getGridPos()
 {
-	return grid_pos;
+	return gridPosition;
 }
 
 void Room::setRoomType(RoomType value)
 {
-	room_type = value;
+	roomType = value;
 }
 
 Room::RoomType Room::getRoomType()
 {
-	return room_type;
+	return roomType;
 }
 
 void Room::addDoor(Door* value)
@@ -85,12 +85,12 @@ TileMapData* Room::getTileMapData()
 
 void Room::addEnemy(GameObject * gameObject)
 {
-	enemies_waves.push_back(gameObject);
+	enemiesWaves.push_back(gameObject);
 }
 
 std::vector<GameObject*> & Room::getEnemiesWaves()
 {
-	return enemies_waves;
+	return enemiesWaves;
 }
 
 

@@ -1,26 +1,26 @@
 #include "SpriteRenderer.h"
 
 
-SpriteRenderer::SpriteRenderer(GameObject* gameObject, std::string img_path, OwnMathFuncs::Vector2 sprite_size) : Renderer(this), Component(gameObject),  sprite_size(sprite_size)
+SpriteRenderer::SpriteRenderer(GameObject* gameObject, std::string img_path, OwnMathFuncs::Vector2 spriteSize) : Renderer(this), Component(gameObject),  spriteSize(spriteSize)
 {
 
 	int x, y = 0;
 	texture = TextureManager::LoadTexture(img_path.c_str(), x, y);
 
-	img_size.x = x;
-	img_size.y = y;
+	imgSize.x = x;
+	imgSize.y = y;
 }
 
-SpriteRenderer::SpriteRenderer(GameObject * gameObject, SDL_Texture * texture, bool must_destroy_text) : Renderer(this), Component(gameObject), texture(texture), must_destroy_text(must_destroy_text)
+SpriteRenderer::SpriteRenderer(GameObject * gameObject, SDL_Texture * texture, bool mustDestroyTexture) : Renderer(this), Component(gameObject), texture(texture), mustDestroyTexture(mustDestroyTexture)
 {
 	int w, h;
 	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 
-	img_size.x = w;
-	img_size.y = h;
+	imgSize.x = w;
+	imgSize.y = h;
 
-	sprite_size.x = w;
-	sprite_size.y = h;
+	spriteSize.x = w;
+	spriteSize.y = h;
 }
 
 
@@ -33,18 +33,18 @@ void SpriteRenderer::render()
 	
 	if (texture != nullptr) {
 
-		dstrect.x = (gameObject->getWorldPosition().x - (sprite_size.x / 2) * fabs(gameObject->getWorldScale().x));
-		dstrect.y = (gameObject->getWorldPosition().y - (sprite_size.y / 2) * fabs(gameObject->getWorldScale().y));
+		dstrect.x = (gameObject->getWorldPosition().x - (spriteSize.x / 2) * fabs(gameObject->getWorldScale().x));
+		dstrect.y = (gameObject->getWorldPosition().y - (spriteSize.y / 2) * fabs(gameObject->getWorldScale().y));
 
-		dstrect.w = sprite_size.x * fabs(gameObject->getWorldScale().x);
-		dstrect.h = sprite_size.y * fabs(gameObject->getWorldScale().y);
+		dstrect.w = spriteSize.x * fabs(gameObject->getWorldScale().x);
+		dstrect.h = spriteSize.y * fabs(gameObject->getWorldScale().y);
 
-		srcrect.w = sprite_size.x;
-		srcrect.h = sprite_size.y;
+		srcrect.w = spriteSize.x;
+		srcrect.h = spriteSize.y;
 
-		SDL_RendererFlip flip = is_looking_right ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+		SDL_RendererFlip flip = lookingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 		if (gameObject->getWorldScale().x < 0) {
-			flip = is_looking_right ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+			flip = lookingRight ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		}
 
 		TextureManager::DrawTexture(texture, srcrect, dstrect, flip);
@@ -54,7 +54,7 @@ void SpriteRenderer::render()
 
 void SpriteRenderer::clean()
 {
-	if (must_destroy_text) {
+	if (mustDestroyTexture) {
 		SDL_DestroyTexture(texture);
 	}
 	
@@ -64,7 +64,7 @@ void SpriteRenderer::clean()
 
 OwnMathFuncs::Vector2 SpriteRenderer::getSpriteSize()
 {
-	return sprite_size;
+	return spriteSize;
 }
 
 SDL_Rect SpriteRenderer::getDestRect()
@@ -86,10 +86,10 @@ void SpriteRenderer::setAlpha(float value)
 
 void SpriteRenderer::setIsLookingRight(bool value)
 {
-	is_looking_right = value;
+	lookingRight = value;
 }
 
 OwnMathFuncs::Vector2 SpriteRenderer::getBottomPosition()
 {
-	return {getGameObject()->getWorldPosition().x, getGameObject()->getWorldPosition().y + sprite_size.y * fabs(gameObject->getWorldScale().y) };
+	return {getGameObject()->getWorldPosition().x, getGameObject()->getWorldPosition().y + spriteSize.y * fabs(gameObject->getWorldScale().y) };
 }

@@ -6,7 +6,7 @@ PlayerController::PlayerController(GameObject* gameObject) : Component(gameObjec
 
 	velocityBody = gameObject->getComponent<VelocityBody>();
 	animator = gameObject->getComponent<Animator>();
-	box_collider = gameObject->getComponent<BoxCollider>();
+	boxCollider = gameObject->getComponent<BoxCollider>();
 
 }
 
@@ -19,16 +19,16 @@ PlayerController::~PlayerController()
 
 void PlayerController::setCanMove(bool value)
 {
-	can_move = value;
+	canMove = value;
 }
 
 void PlayerController::update()
 {
 
 	float cur_speed = speed * abs(gameObject->getWorldScale().x);
-	float cur_dash_spped = dash_speed * abs(gameObject->getWorldScale().x);
+	float cur_dash_spped = dashSpeed * abs(gameObject->getWorldScale().x);
 
-	if (can_move && velocityBody != nullptr) {
+	if (canMove && velocityBody != nullptr) {
 		
 		if (state != State::dashing) {
 
@@ -83,9 +83,9 @@ void PlayerController::update()
 				if (keystates[SDL_SCANCODE_LCTRL]) {
 
 					state = State::dashing;
-					timeLeft = time_dash;
+					timeLeft = timeDash;
 
-					gameObject->getComponent<PlayerBehavior>()->setInvicible(time_invisible_dash);
+					gameObject->getComponent<PlayerBehavior>()->setInvicible(timeInvisibleDash);
 
 					if (normalizeDirection.x == 0 && normalizeDirection.y == 0) {
 						
@@ -114,7 +114,7 @@ void PlayerController::update()
 			timeLeft -= Time::deltaTime;
 			if (timeLeft <= 0) {
 				state = State::cant_dash;
-				timeLeft = time_cd_dash;
+				timeLeft = timeCDDash;
 			}
 		}
 
@@ -122,7 +122,7 @@ void PlayerController::update()
 
 	//std::cout << "velocity x : " << velocityBody->velocity.x << ", velocity y : " << velocityBody->velocity.y << std::endl;
 
-	if (can_move) {
+	if (canMove) {
 
 		if (abs(velocityBody->getVelocity().x) > 3 || abs(velocityBody->getVelocity().y) > 3) {
 			animator->play("Walking");

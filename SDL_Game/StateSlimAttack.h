@@ -14,19 +14,19 @@
 class StateSlimAttack : public State
 {
 public:
-	StateSlimAttack(GameObject * gameObject, int nb_projectile, std::string next_state = "");
+	StateSlimAttack(GameObject * gameObject, int nbProjectile, std::string nextState = "");
 	~StateSlimAttack();
 
 	void start(StateMachine* state_machine);
 	void operation(StateMachine* state_machine);
 	void exit(StateMachine* state_machine);
 
-	const float time_attack = 0.8f;
-	const float time_cd = 0.2f;
+	const float timeAttack = 0.8f;
+	const float timeCd = 0.2f;
 
 private:
 
-	int nb_projectile;
+	int nbProjectile;
 	float timeLeft;
 
 	bool attack = false;

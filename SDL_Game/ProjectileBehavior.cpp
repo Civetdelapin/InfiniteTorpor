@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-ProjectileBehavior::ProjectileBehavior(GameObject* gameObject, float speed, Collider* hitbox_collider) : Component(gameObject), hitbox_collider(hitbox_collider), speed(speed)
+ProjectileBehavior::ProjectileBehavior(GameObject* gameObject, float speed, Collider* hitboxCollider) : Component(gameObject), hitboxCollider(hitboxCollider), speed(speed)
 {
 
 }
@@ -40,9 +40,9 @@ void ProjectileBehavior::update()
 		float old_player_pos_x = gameObject->localPosition.x;
 
 		gameObject->localPosition.x = new_player_pos_x;
-		if (hitbox_collider != nullptr) {
+		if (hitboxCollider != nullptr) {
 
-			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(hitbox_collider);
+			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(hitboxCollider);
 			if (vect.size() > 0 && vect[0]->getGameObject()->tag != "Player") {
 				gameObject->localPosition.x = old_player_pos_x;
 				direction.x = 0;
@@ -59,9 +59,9 @@ void ProjectileBehavior::update()
 		float old_player_pos_y = gameObject->localPosition.y;
 
 		gameObject->localPosition.y = new_player_pos_y;
-		if (hitbox_collider != nullptr) {
+		if (hitboxCollider != nullptr) {
 
-			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(hitbox_collider);
+			std::vector<Collider*> vect = Game::instance()->getColliderManager()->isTrigger(hitboxCollider);
 			if (vect.size() > 0 && vect[0]->getGameObject()->tag != "Player") {
 				gameObject->localPosition.y = old_player_pos_y;
 				direction.y = 0;

@@ -8,7 +8,7 @@ class State {
 
 public:
 
-	State(std::string next_state = "");
+	State(std::string nextState = "");
 	~State();
 
 	virtual void start(StateMachine* state_machine) = 0;
@@ -18,5 +18,5 @@ public:
 	std::string getNextState();
 
 private:
-	std::string next_state = "";
+	std::string nextState = "";
 };

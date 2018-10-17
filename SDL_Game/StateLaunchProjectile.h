@@ -8,7 +8,7 @@
 class StateLaunchProjectile : public State
 {
 public:
-	StateLaunchProjectile(GameObject* gameObject, std::string next_state = "");
+	StateLaunchProjectile(GameObject* gameObject, std::string nextState = "");
 	~StateLaunchProjectile();
 
 	void start(StateMachine* state_machine);
@@ -16,14 +16,14 @@ public:
 	void exit(StateMachine* state_machine);
 
 private:
-	float time_attack = 0.8f;
-	float time_cd = 0.6f;
+	float timeAttack = 0.8f;
+	float timeCd = 0.6f;
 
-	float time_left;
+	float timeLeft;
 
-	bool before_attack = false;
+	bool beforeAttack = false;
 
-	OwnMathFuncs::Vector2 dir_vect = { 0, 0 };
+	OwnMathFuncs::Vector2 directionVector = { 0, 0 };
 
 	GameObject* target = nullptr;
 };

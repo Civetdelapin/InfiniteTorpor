@@ -23,7 +23,7 @@ public:
 
 
 private:
-	std::vector<std::vector<Renderer*>> renderers_to_render;
+	std::vector<std::vector<Renderer*>> renderersToRender;
 
 	void reorderRenderers(int index);
 };

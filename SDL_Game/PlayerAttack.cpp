@@ -2,13 +2,13 @@
 #include "Game.h"
 #include "EnemyBasicBehavior.h"
 
-PlayerAttack::PlayerAttack(GameObject* gameObject, BoxCollider* box_collider_attack, BoxCollider* box_coolider_attack_up, BoxCollider* box_collider_attack_corner, PlayerController* player_controller, VelocityBody* velocity_body) : Component(gameObject), box_collider_attack(box_collider_attack), player_controller(player_controller), velocity_body(velocity_body), box_coolider_attack_up(box_coolider_attack_up), box_collider_attack_corner(box_collider_attack_corner)
+PlayerAttack::PlayerAttack(GameObject* gameObject, BoxCollider* boxColliderAttack, BoxCollider* boxColliderAttackUp, BoxCollider* boxColliderAttackCorner, PlayerController* playerController, VelocityBody* velocityBody) : Component(gameObject), boxColliderAttack(boxColliderAttack), playerController(playerController), velocityBody(velocityBody), boxColliderAttackUp(boxColliderAttackUp), boxColliderAttackCorner(boxColliderAttackCorner)
 {
 	cancelAttackColliders();
 
-	box_collider_attack_up_down_offset = abs(box_coolider_attack_up->offset.y);
+	boxColliderAttackUpDownOffset = abs(boxColliderAttackUp->offset.y);
 
-	box_collider_attack_corner_offset = abs(box_collider_attack_corner->offset.y);
+	boxColliderAttackCornerOffset = abs(boxColliderAttackCorner->offset.y);
 }
 
 
@@ -35,29 +35,29 @@ void PlayerAttack::update()
 
 		if (timeLeft <= 0) {
 
-			if (nb_combo >= nb_combo_max) {
+			if (nb_combo >= nbComboMax) {
 				nb_combo = 0;
 				state = State::cant_attack;
-				timeLeft = time_attack_cd;
+				timeLeft = timeAttackCd;
 			}
 			else {
 				state = State::between_attack;
 
-				timeLeft_cancel_combo = time_attack_cancel_combo;
+				timeLeftCancelCombo = timeAttackCancelCombo;
 				
 			}
 
 			cancelAttackColliders();
 
-			player_controller->setCanMove(true);
+			playerController->setCanMove(true);
 		}
 	}
 
 	if (state == State::between_attack) {
 
-		timeLeft_cancel_combo -= Time::deltaTime;
+		timeLeftCancelCombo -= Time::deltaTime;
 
-		if (timeLeft_cancel_combo <= 0) {
+		if (timeLeftCancelCombo <= 0) {
 
 			nb_combo = 0;
 			state = State::ready_attack;
@@ -81,13 +81,13 @@ void PlayerAttack::update()
 		if (vect.size() > 0) {
 
 			for (Collider* collider : vect) {
-				if (std::find(game_objects_touched.begin(), game_objects_touched.end(), collider->getGameObject()) == game_objects_touched.end()) {
+				if (std::find(gameObjectsTouched.begin(), gameObjectsTouched.end(), collider->getGameObject()) == gameObjectsTouched.end()) {
 
 					if (collider->getGameObject()->tag == "Enemy") {
 
 						EnemyBasicBehavior* enemyBehavior = collider->getGameObject()->getRootParent()->getComponent<EnemyBasicBehavior>();
 						if (enemyBehavior != nullptr) {	
-							if (enemyBehavior->takeDamage(normalizeDirection, velocity_attack * 0.80, attack_dmg[nb_combo - 1], time_enemy_stun)) {
+							if (enemyBehavior->takeDamage(normalizeDirection, velocityAttack * 0.80, attackDamage[nb_combo - 1], timeEnemyStun)) {
 								
 								//We have killed the enemy
 								playerBehavior->addScore(enemyBehavior->getScoreValue());
@@ -101,7 +101,7 @@ void PlayerAttack::update()
 					}
 
 
-					game_objects_touched.push_back(collider->getGameObject());
+					gameObjectsTouched.push_back(collider->getGameObject());
 				}
 			}
 		
@@ -111,13 +111,13 @@ void PlayerAttack::update()
 
 void PlayerAttack::clean()
 {
-	game_objects_touched.clear();
+	gameObjectsTouched.clear();
 	Component::clean();
 }
 
 void PlayerAttack::attackButtonPressed()
 {
-	if ((state == State::ready_attack || state == State::between_attack) && player_controller->getState() != PlayerController::State::dashing) {
+	if ((state == State::ready_attack || state == State::between_attack) && playerController->getState() != PlayerController::State::dashing) {
 
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);
 		
@@ -131,69 +131,69 @@ void PlayerAttack::attackButtonPressed()
 
 		activeAttackColliders();
 
-		player_controller->setCanMove(false);
+		playerController->setCanMove(false);
 
-		game_objects_touched.clear();
+		gameObjectsTouched.clear();
 
 		state = State::attacking;
 
-		timeLeft = time_attack_up;
+		timeLeft = timeAttackUp;
 
 		nb_combo++;
 
 		OwnMathFuncs::Vector2 vec_normalized = OwnMathFuncs::OwnMathFuncs::getNormalize(normalizeDirection);
 
-		velocity_body->AddForce(vec_normalized, velocity_attack);
+		velocityBody->AddForce(vec_normalized, velocityAttack);
 	}
 }
 
 void PlayerAttack::cancelAttackColliders()
 {
-	box_coolider_attack_up->setActive(false);
-	box_collider_attack->setActive(false);
-	box_collider_attack_corner->setActive(false);
+	boxColliderAttackUp->setActive(false);
+	boxColliderAttack->setActive(false);
+	boxColliderAttackCorner->setActive(false);
 }
 
 void PlayerAttack::activeAttackColliders()
 {
 	if (normalizeDirection.x == 0) {
 		if (normalizeDirection.y > 0) {
-			box_coolider_attack_up->offset.y = box_collider_attack_up_down_offset;
+			boxColliderAttackUp->offset.y = boxColliderAttackUpDownOffset;
 		}
 		else {
-			box_coolider_attack_up->offset.y = -box_collider_attack_up_down_offset;
+			boxColliderAttackUp->offset.y = -boxColliderAttackUpDownOffset;
 		}
 
-		box_coolider_attack_up->setActive(true);
+		boxColliderAttackUp->setActive(true);
 	}
 	else if(abs(normalizeDirection.x) > 0 && abs(normalizeDirection.y) > 0)  {
 		if (normalizeDirection.y > 0) {
-			box_collider_attack_corner->offset.y = box_collider_attack_corner_offset;
+			boxColliderAttackCorner->offset.y = boxColliderAttackCornerOffset;
 		}
 		else {
-			box_collider_attack_corner->offset.y = -box_collider_attack_corner_offset;
+			boxColliderAttackCorner->offset.y = -boxColliderAttackCornerOffset;
 		}
 
-		box_collider_attack_corner->setActive(true);
+		boxColliderAttackCorner->setActive(true);
 	}
 	else {
-		box_collider_attack->setActive(true);
+		boxColliderAttack->setActive(true);
 	}
 
 }
 
 BoxCollider * PlayerAttack::getActiveCollider()
 {
-	if (box_collider_attack->isActive()) {
-		return box_collider_attack;
+	if (boxColliderAttack->isActive()) {
+		return boxColliderAttack;
 	}
 
-	if (box_collider_attack_corner->isActive()) {
-		return box_collider_attack_corner;
+	if (boxColliderAttackCorner->isActive()) {
+		return boxColliderAttackCorner;
 	}
 
-	if (box_coolider_attack_up->isActive()) {
-		return box_coolider_attack_up;
+	if (boxColliderAttackUp->isActive()) {
+		return boxColliderAttackUp;
 	}
 	return nullptr;
 }

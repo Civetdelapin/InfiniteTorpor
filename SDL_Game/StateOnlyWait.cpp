@@ -1,6 +1,6 @@
 #include "StateOnlyWait.h"
 
-StateOnlyWait::StateOnlyWait(GameObject * gameObject, float time_to_wait, std::string next_state) : State(next_state), time_to_wait(time_to_wait)
+StateOnlyWait::StateOnlyWait(GameObject * gameObject, float timeToWait, std::string nextState) : State(nextState), timeToWait(timeToWait)
 {
 	
 }
@@ -12,7 +12,7 @@ StateOnlyWait::~StateOnlyWait()
 void StateOnlyWait::start(StateMachine* state_machine)
 {
 	state_machine->getGameObject()->getComponent<Animator>()->play("Idle");
-	timeLeft = time_to_wait;
+	timeLeft = timeToWait;
 }
 
 void StateOnlyWait::operation(StateMachine* state_machine)

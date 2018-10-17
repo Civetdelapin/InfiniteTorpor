@@ -2,10 +2,10 @@
 #include "Game.h"
 
 
-StateMeleeAttack::StateMeleeAttack(GameObject * gameObject, std::string next_state, float time_attack, float velocity_attack) : State(next_state), time_attack(time_attack), velocity_attack(velocity_attack)
+StateMeleeAttack::StateMeleeAttack(GameObject * gameObject, std::string nextState, float timeAttack, float velocityAttack) : State(nextState), timeAttack(timeAttack), velocityAttack(velocityAttack)
 {
-	enemy_basic_behavior = gameObject->getComponent<EnemyBasicBehavior>();
-	collider_active = gameObject->getRootParent()->getComponentInChildren<EnemyAttackCollider>()->getDamageCollider();
+	enemyBasicBehavior = gameObject->getComponent<EnemyBasicBehavior>();
+	colliderActive = gameObject->getRootParent()->getComponentInChildren<EnemyAttackCollider>()->getDamageCollider();
 }
 
 
@@ -19,15 +19,15 @@ void StateMeleeAttack::start(StateMachine* state_machine)
 	state_machine->getGameObject()->getComponent<Animator>()->play("BeforeAttack");
 	target = Game::instance()->findGameObject("Player");
 
-	timeLeft = time_attack;
-	before_attack = true;
-	normalize_dir = (target->getWorldPosition() - state_machine->getGameObject()->getWorldPosition());
-	OwnMathFuncs::OwnMathFuncs::normalize(normalize_dir);
+	timeLeft = timeAttack;
+	beforeAttack = true;
+	normalizeDirection = (target->getWorldPosition() - state_machine->getGameObject()->getWorldPosition());
+	OwnMathFuncs::OwnMathFuncs::normalize(normalizeDirection);
 
-	if (normalize_dir.x < 0 && state_machine->getGameObject()->getWorldScale().x > 0) {
+	if (normalizeDirection.x < 0 && state_machine->getGameObject()->getWorldScale().x > 0) {
 		state_machine->getGameObject()->localScale.x *= -1;
 	}
-	else if (normalize_dir.x > 0 && state_machine->getGameObject()->getWorldScale().x < 0) {
+	else if (normalizeDirection.x > 0 && state_machine->getGameObject()->getWorldScale().x < 0) {
 		state_machine->getGameObject()->localScale.x *= -1;
 	}
 }
@@ -36,18 +36,18 @@ void StateMeleeAttack::operation(StateMachine* state_machine)
 {
 	timeLeft -= Time::deltaTime;
 	if (timeLeft <= 0) {
-		if (before_attack) {
+		if (beforeAttack) {
 			state_machine->getGameObject()->getComponent<Animator>()->play("Attack");
-			state_machine->getGameObject()->getComponent<EnemyBasicBehavior>()->addForce(normalize_dir, velocity_attack, false);
+			state_machine->getGameObject()->getComponent<EnemyBasicBehavior>()->addForce(normalizeDirection, velocityAttack, false);
 
-			before_attack = false;
+			beforeAttack = false;
 
-			timeLeft = time_attack * 0.5;
+			timeLeft = timeAttack * 0.5;
 
-			collider_active->setActive(true);
+			colliderActive->setActive(true);
 		}
 		else {
-			collider_active->setActive(false);
+			colliderActive->setActive(false);
 
 			state_machine->play(getNextState());
 		}
@@ -57,5 +57,5 @@ void StateMeleeAttack::operation(StateMachine* state_machine)
 
 void StateMeleeAttack::exit(StateMachine* state_machine)
 {
-	collider_active->setActive(false);
+	colliderActive->setActive(false);
 }

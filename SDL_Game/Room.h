@@ -18,7 +18,7 @@ struct TileMapData {
 	std::vector<std::vector<TileData*>> data;
 	std::vector<TileData*> spawners;
 	
-	OwnMathFuncs::Vector2 sprite_size = { 16, 16 };
+	OwnMathFuncs::Vector2 spriteSize = { 16, 16 };
 
 	TileData* getTile(int x, int y);
 };
@@ -28,7 +28,7 @@ struct Door {
 	OwnMathFuncs::Vector2 door_position = { 0, 0 };
 
 	BoxCollider* box_collider_trigger;
-	BoxCollider* box_collider;
+	BoxCollider* boxCollider;
 
 	GameObject* open_door;
 	GameObject* close_door;
@@ -41,7 +41,7 @@ public:
 
 	enum RoomType { StartRoom, NormalRoom, EndRoom};
 
-	Room(OwnMathFuncs::Vector2 grid_pos);
+	Room(OwnMathFuncs::Vector2 gridPosition);
 	~Room();
 
 	OwnMathFuncs::Vector2 getGridPos();
@@ -61,13 +61,13 @@ public:
 
 private:
 
-	RoomType room_type = NormalRoom;
+	RoomType roomType = NormalRoom;
 
-	std::vector<GameObject*> enemies_waves;
+	std::vector<GameObject*> enemiesWaves;
 
 	std::vector<Door*> doors;
 	TileMapData* tileMapData;
 
-	OwnMathFuncs::Vector2 grid_pos = { 0 ,0 };
+	OwnMathFuncs::Vector2 gridPosition = { 0 ,0 };
 };
 

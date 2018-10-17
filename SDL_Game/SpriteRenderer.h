@@ -5,8 +5,8 @@
 class SpriteRenderer : public Component, public Renderer
 {
 public:
-	SpriteRenderer(GameObject* gameObject, std::string img_path, OwnMathFuncs::Vector2 sprite_size);
-	SpriteRenderer(GameObject* gameObject, SDL_Texture* texture, bool must_destroy_text);
+	SpriteRenderer(GameObject* gameObject, std::string img_path, OwnMathFuncs::Vector2 spriteSize);
+	SpriteRenderer(GameObject* gameObject, SDL_Texture* texture, bool mustDestroyTexture);
 
 	~SpriteRenderer();
 
@@ -27,14 +27,14 @@ public:
 private:
 	SDL_Texture * texture;
 	
-	OwnMathFuncs::Vector2 img_size = { 30, 30 };
-	OwnMathFuncs::Vector2 sprite_size = { 30, 30 };
+	OwnMathFuncs::Vector2 imgSize = { 30, 30 };
+	OwnMathFuncs::Vector2 spriteSize = { 30, 30 };
 
 	float alpha = 255;
 
-	bool is_looking_right = true;
+	bool lookingRight = true;
 
-	bool must_destroy_text = true;
+	bool mustDestroyTexture = true;
 
 	SDL_Rect srcrect;
 	SDL_Rect dstrect;

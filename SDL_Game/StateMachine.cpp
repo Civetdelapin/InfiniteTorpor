@@ -14,15 +14,15 @@ StateMachine::~StateMachine()
 
 void StateMachine::start()
 {
-	if (cur_state != "") {
-		states[cur_state]->start(this);
+	if (currentState != "") {
+		states[currentState]->start(this);
 	}
 }
 
 void StateMachine::update()
 {
-	if (cur_state != "") {
-		states[cur_state]->operation(this);
+	if (currentState != "") {
+		states[currentState]->operation(this);
 	}
 }
 
@@ -43,31 +43,31 @@ void StateMachine::addState(std::pair<std::string, State*> state)
 	states.insert(state);
 }
 
-void StateMachine::play(std::string state_name)
+void StateMachine::play(std::string stateName)
 {
-	if (cur_state != "") {
-		states[cur_state]->exit(this);
+	if (currentState != "") {
+		states[currentState]->exit(this);
 	}
 
-	if (states.count(state_name) > 0) {
-		cur_state = state_name;
+	if (states.count(stateName) > 0) {
+		currentState = stateName;
 	}
 	else {
-		cur_state = "";
+		currentState = "";
 	}
 
 
-	if (getHasStart() && cur_state != "" ) {
-		states[cur_state]->start(this);
+	if (getHasStart() && currentState != "" ) {
+		states[currentState]->start(this);
 	}
 }
 
 std::string StateMachine::getDefaultState()
 {
-	return default_state;
+	return defaultState;
 }
 
 void StateMachine::setDefaultState(std::string value)
 {
-	default_state = value;
+	defaultState = value;
 }

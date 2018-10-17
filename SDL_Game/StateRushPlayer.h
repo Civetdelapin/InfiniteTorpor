@@ -8,7 +8,7 @@
 class StateRushPlayer : public State
 {
 public:
-	StateRushPlayer(GameObject * gameObject, float range, std::string next_state = "");
+	StateRushPlayer(GameObject * gameObject, float range, std::string nextState = "");
 	~StateRushPlayer();
 
 	void start(StateMachine* state_machine);
@@ -17,7 +17,7 @@ public:
 
 private:
 	GameObject * target;
-	EnemyBasicBehavior* enemy_basic_behavior;
+	EnemyBasicBehavior* enemyBasicBehavior;
 
 	float range = 50;
 };

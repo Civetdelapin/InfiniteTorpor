@@ -7,11 +7,11 @@ SlimPrefab::SlimPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/slimes
 	//---- MODIFICATION OF EXISTING COMPONENTS -----
 	getComponent<VelocityBody>()->setDrag({ 13, 13 });
 
-	EnemyBasicBehavior* enemy_basic_behavior = getComponent<EnemyBasicBehavior>();
-	enemy_basic_behavior->setMaxHP(40);
-	enemy_basic_behavior->setSpeed(500);
-	enemy_basic_behavior->setScoreValue(70);
-	enemy_basic_behavior->setTimeBeforeEnemy(6.0f);
+	EnemyBasicBehavior* enemyBasicBehavior = getComponent<EnemyBasicBehavior>();
+	enemyBasicBehavior->setMaxHP(40);
+	enemyBasicBehavior->setSpeed(500);
+	enemyBasicBehavior->setScoreValue(70);
+	enemyBasicBehavior->setTimeBeforeEnemy(6.0f);
 
 	getComponent<SpriteRenderer>()->setIsLookingRight(false);
 	//----------------------------------------------

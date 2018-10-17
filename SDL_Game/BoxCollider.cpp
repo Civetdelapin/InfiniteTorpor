@@ -13,12 +13,12 @@ BoxCollider::~BoxCollider()
 bool BoxCollider::isColliding(Collider * collider)
 {
 
-	if (BoxCollider* box_collider = dynamic_cast<BoxCollider*>(collider)) {
+	if (BoxCollider* boxCollider = dynamic_cast<BoxCollider*>(collider)) {
 
 		update();
 		collider->update();
 
-		if (Collider::AABB(rect, box_collider->rect)) {
+		if (Collider::AABB(rect, boxCollider->rect)) {
 			return true;
 		}
 		else {

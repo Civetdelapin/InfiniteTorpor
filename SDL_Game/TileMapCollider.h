@@ -19,6 +19,6 @@ public:
 	void render();
 
 private:
-	RoomBehavior* room_behavior;
+	RoomBehavior* roomBehavior;
 };
 

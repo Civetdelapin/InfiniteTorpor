@@ -29,27 +29,27 @@ void EnemyBasicBehavior::addForce(OwnMathFuncs::Vector2 direction, float power, 
 	if (!stunned) {
 		OwnMathFuncs::OwnMathFuncs::normalize(direction);
 
-		VelocityBody* velocity_body = gameObject->getComponent<VelocityBody>();
-		if (velocity_body != nullptr) {
+		VelocityBody* velocityBody = gameObject->getComponent<VelocityBody>();
+		if (velocityBody != nullptr) {
 
 			if (time_frame_dependent) {
-				velocity_body->AddForce(direction, power * Time::deltaTime);
+				velocityBody->AddForce(direction, power * Time::deltaTime);
 			}
 			else {
-				velocity_body->AddForce(direction, power);
+				velocityBody->AddForce(direction, power);
 			}
 			
 
 			//Manage the X scale according to the velocity
-			if (velocity_body->getVelocity().x < 0 && gameObject->getWorldScale().x > 0) {
+			if (velocityBody->getVelocity().x < 0 && gameObject->getWorldScale().x > 0) {
 				gameObject->localScale.x *= -1;
 			}
-			else if (velocity_body->getVelocity().x > 0 && gameObject->getWorldScale().x < 0) {
+			else if (velocityBody->getVelocity().x > 0 && gameObject->getWorldScale().x < 0) {
 				gameObject->localScale.x *= -1;
 			}
 		}
 
-		velocity_body = NULL;
+		velocityBody = NULL;
 	}
 }
 
@@ -57,11 +57,11 @@ bool EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power
 {
 	currentHealthPoint -= damage;
 	if (currentHealthPoint > 0) {
-		VelocityBody* velocity_body = gameObject->getComponent<VelocityBody>();
-		if (velocity_body != nullptr) {
-			velocity_body->AddForce(direction, knockBackResistance * power_knock_back);
+		VelocityBody* velocityBody = gameObject->getComponent<VelocityBody>();
+		if (velocityBody != nullptr) {
+			velocityBody->AddForce(direction, knockBackResistance * power_knock_back);
 		}
-		velocity_body = NULL;
+		velocityBody = NULL;
 
 		if (knockBackResistance > 0) {
 			this->timeStunned = timeStunned * knockBackResistance;

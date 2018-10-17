@@ -9,7 +9,7 @@ class GameManager;
 class RoomBehavior : public Component
 {
 public:
-	RoomBehavior(GameObject* gameObject, Room* room_data);
+	RoomBehavior(GameObject* gameObject, Room* roomData);
 	~RoomBehavior();
 
 	enum RoomState { NotOver, Active, Over };
@@ -23,7 +23,7 @@ public:
 	Room* getRoomData();
 
 private:
-	Room* room_data;
+	Room* roomData;
 
 	void playerStartRoom();
 	void playerEndRoom();
@@ -36,9 +36,9 @@ private:
 	GameObject* player;
 
 	RoomState state = NotOver;
-	BoxCollider* end_hitbox;
+	BoxCollider* endHitbox;
 
-	GameManager* game_manager;
+	GameManager* gameManager;
 
 	float timeLeft;
 };

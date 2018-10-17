@@ -7,12 +7,12 @@ MinotaurPrefab::MinotaurPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("im
 	//---- MODIFICATION OF EXISTING COMPONENTS -----
 	getComponent<VelocityBody>()->setDrag({ 10, 10 });
 
-	EnemyBasicBehavior* enemy_basic_behavior = getComponent<EnemyBasicBehavior>();
-	enemy_basic_behavior->setMaxHP(120);
-	enemy_basic_behavior->setSpeed(1300);
-	enemy_basic_behavior->setKnockBackResistance(0);
-	enemy_basic_behavior->setScoreValue(85);
-	enemy_basic_behavior->setTimeBeforeEnemy(12.0f);
+	EnemyBasicBehavior* enemyBasicBehavior = getComponent<EnemyBasicBehavior>();
+	enemyBasicBehavior->setMaxHP(120);
+	enemyBasicBehavior->setSpeed(1300);
+	enemyBasicBehavior->setKnockBackResistance(0);
+	enemyBasicBehavior->setScoreValue(85);
+	enemyBasicBehavior->setTimeBeforeEnemy(12.0f);
 
 	getComponent<DisplayEnemyHp>()->setYOffset(12);
 	getComponent<SpriteRenderer>()->setIsLookingRight(false);

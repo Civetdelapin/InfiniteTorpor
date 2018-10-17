@@ -27,9 +27,9 @@ SDL_Texture * TextureManager::LoadTexture(const char * fileName)
 	return texture;
 }
 
-void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Rect destrect, SDL_RendererFlip render_flip, bool is_relative_to_camera)
+void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Rect destrect, SDL_RendererFlip render_flip, bool relativeToCamera)
 {
-	if (is_relative_to_camera) {
+	if (relativeToCamera) {
 		destrect.x -= Game::instance()->getCamera()->getCameraPos().x;
 		destrect.y -= Game::instance()->getCamera()->getCameraPos().y;
 	}
@@ -38,17 +38,17 @@ void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Re
 	
 }
 
-void TextureManager::DrawRect(SDL_Rect rect, int r, int g, int b, int a, bool is_fill, bool is_relative_to_camera)
+void TextureManager::DrawRect(SDL_Rect rect, int r, int g, int b, int a, bool fill, bool relativeToCamera)
 {
 	/*
-	if (is_relative_to_camera) {
+	if (relativeToCamera) {
 		rect.x -= Game::instance()->getCamera()->getCameraPos().x;
 		rect.y -= Game::instance()->getCamera()->getCameraPos().y;
 	}
 
 	SDL_SetRenderDrawColor(Game::instance()->renderer, r, g, b, a);
 
-	if (is_fill) {
+	if (fill) {
 		SDL_RenderFillRect(Game::instance()->renderer, &rect);
 	}
 	else {
@@ -56,9 +56,9 @@ void TextureManager::DrawRect(SDL_Rect rect, int r, int g, int b, int a, bool is
 	}*/
 }
 
-void TextureManager::DrawText(TTF_Font* font, SDL_Rect rect, std::string message, int r, int g, int b, int a, bool is_relative_to_camera)
+void TextureManager::DrawText(TTF_Font* font, SDL_Rect rect, std::string message, int r, int g, int b, int a, bool relativeToCamera)
 {
-	if (is_relative_to_camera) {
+	if (relativeToCamera) {
 		
 		rect.x -= Game::instance()->getCamera()->getCameraPos().x;
 		rect.y -= Game::instance()->getCamera()->getCameraPos().y;

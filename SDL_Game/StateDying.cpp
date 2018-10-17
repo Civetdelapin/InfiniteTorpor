@@ -2,11 +2,11 @@
 #include "Game.h"
 
 
-StateDying::StateDying(GameObject * gameObject, std::string next_state) : State(next_state)
+StateDying::StateDying(GameObject * gameObject, std::string nextState) : State(nextState)
 {
 	animator = gameObject->getComponent<Animator>();
 
-	sprite_renderer = gameObject->getComponent<SpriteRenderer>();
+	spriteRenderer = gameObject->getComponent<SpriteRenderer>();
 }
 
 
@@ -16,30 +16,30 @@ StateDying::~StateDying()
 
 void StateDying::start(StateMachine * state_machine)
 {
-	timeLeft = time_animation;
+	timeLeft = timeAnimation;
 
 	animator->play("Dying");
 }
 
 void StateDying::operation(StateMachine * state_machine)
 {
-	if (is_alpha_phase) {
-		float alpha_value = (timeLeft / time_alpha_0) * SDL_ALPHA_OPAQUE;
+	if (alphaPhase) {
+		float alpha_value = (timeLeft / timeAlphaToZero) * SDL_ALPHA_OPAQUE;
 		state_machine->getGameObject()->getComponent<SpriteRenderer>()->setAlpha(alpha_value);
 	}
 
 	timeLeft -= Time::deltaTime;
 	if (timeLeft <= 0) {
-		if (is_alpha_phase) {
+		if (alphaPhase) {
 
 			//Manage the gameObject
 			//state_machine->getGameObject()->active = false;
 			Game::instance()->destroyGameObject(state_machine->getGameObject()->getRootParent());
 		}
 		else {
-			is_alpha_phase = true;
+			alphaPhase = true;
 
-			timeLeft = time_alpha_0;
+			timeLeft = timeAlphaToZero;
 		}
 	}
 }

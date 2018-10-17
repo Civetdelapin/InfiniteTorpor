@@ -64,13 +64,13 @@ int main(int argc, char* args[]) {
 	//--------------------------------------
 
 	//------- Add Game Managers ------------
-	GameObject* game_manager = new GameObject();
-	game_manager->tag = "Manager";
+	GameObject* gameManager = new GameObject();
+	gameManager->tag = "Manager";
 
-	GenerateLevel* generate_level = new GenerateLevel(game_manager);
-	GameManager* game_manager_component = new GameManager(game_manager);
+	GenerateLevel* generate_level = new GenerateLevel(gameManager);
+	GameManager* game_manager_component = new GameManager(gameManager);
 
-	Game::instance()->instantiateGameObject(game_manager);
+	Game::instance()->instantiateGameObject(gameManager);
 	//--------------------------------------
 
 

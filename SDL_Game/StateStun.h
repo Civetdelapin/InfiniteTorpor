@@ -6,7 +6,7 @@
 class StateStun : public State
 {
 public:
-	StateStun(GameObject* gameObject, std::string next_state = "");
+	StateStun(GameObject* gameObject, std::string nextState = "");
 	~StateStun();
 
 
@@ -16,7 +16,7 @@ public:
 
 private:
 
-	float time_to_wait;
+	float timeToWait;
 	float timeLeft;
 };
 

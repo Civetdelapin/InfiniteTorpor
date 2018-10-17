@@ -8,7 +8,7 @@
 class StateMeleeAttack : public State
 {
 public:
-	StateMeleeAttack(GameObject * gameObject, std::string next_state = "", float time_attack = 0.5f, float velocity_attack = 900);
+	StateMeleeAttack(GameObject * gameObject, std::string nextState = "", float timeAttack = 0.5f, float velocityAttack = 900);
 	~StateMeleeAttack();
  
 	void start(StateMachine* state_machine);
@@ -17,15 +17,15 @@ public:
 
 private:
 	GameObject * target;
-	EnemyBasicBehavior* enemy_basic_behavior;
-	Collider* collider_active;
+	EnemyBasicBehavior* enemyBasicBehavior;
+	Collider* colliderActive;
 
 	float timeLeft;
-	bool before_attack = true;
+	bool beforeAttack = true;
 
-	float time_attack;
-	float velocity_attack;
+	float timeAttack;
+	float velocityAttack;
 
-	OwnMathFuncs::Vector2 normalize_dir = { 0, 0 };
+	OwnMathFuncs::Vector2 normalizeDirection = { 0, 0 };
 };
 

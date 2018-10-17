@@ -1,7 +1,7 @@
 #include "StateSlimAttack.h"
 #include "Game.h"
 
-StateSlimAttack::StateSlimAttack(GameObject * gameObject, int nb_projectile, std::string next_state) : State(next_state), nb_projectile(nb_projectile)
+StateSlimAttack::StateSlimAttack(GameObject * gameObject, int nbProjectile, std::string nextState) : State(nextState), nbProjectile(nbProjectile)
 {
 
 }
@@ -15,7 +15,7 @@ StateSlimAttack::~StateSlimAttack()
 void StateSlimAttack::start(StateMachine* state_machine)
 {
 	attack = false;
-	timeLeft = time_attack;
+	timeLeft = timeAttack;
 
 	state_machine->getGameObject()->getComponent<Animator>()->play("Jump");
 }
@@ -30,7 +30,7 @@ void StateSlimAttack::operation(StateMachine* state_machine)
 			createProjectiles(state_machine);
 
 			attack = true;
-			timeLeft = time_cd;
+			timeLeft = timeCd;
 		}
 		else {
 			state_machine->play(getNextState());
@@ -47,9 +47,9 @@ void StateSlimAttack::exit(StateMachine* state_machine)
 
 void StateSlimAttack::createProjectiles(StateMachine* state_machine)
 {
-	float incr_degree = 360.0f / nb_projectile;
+	float incr_degree = 360.0f / nbProjectile;
 
-	for (int i = 0; i < nb_projectile; i++) {
+	for (int i = 0; i < nbProjectile; i++) {
 		float cur_degree = (incr_degree * i);
 
 		double incr_rad = cur_degree * (M_PI / 180);

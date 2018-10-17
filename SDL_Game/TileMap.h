@@ -6,7 +6,7 @@
 class TileMap : public Renderer, public Component
 {
 public:
-	TileMap(GameObject* gameObject, OwnMathFuncs::Vector2 sprite_size, Room* room_data, SDL_Texture* texture);
+	TileMap(GameObject* gameObject, OwnMathFuncs::Vector2 spriteSize, Room* roomData, SDL_Texture* texture);
 	~TileMap();
 
 	void render();
@@ -18,8 +18,8 @@ public:
 
 private:
 	SDL_Texture* texture;
-	Room* room_data;
+	Room* roomData;
 
-	OwnMathFuncs::Vector2 sprite_size;
+	OwnMathFuncs::Vector2 spriteSize;
 };
 

@@ -1,9 +1,9 @@
 #include "StateRushPlayer.h"
 #include "Game.h"
 
-StateRushPlayer::StateRushPlayer(GameObject * gameObject, float range, std::string next_state) : State(next_state), range(range)
+StateRushPlayer::StateRushPlayer(GameObject * gameObject, float range, std::string nextState) : State(nextState), range(range)
 {
-	enemy_basic_behavior = gameObject->getComponent<EnemyBasicBehavior>();
+	enemyBasicBehavior = gameObject->getComponent<EnemyBasicBehavior>();
 }
 
 
@@ -28,10 +28,10 @@ void StateRushPlayer::operation(StateMachine* state_machine)
 			state_machine->getGameObject()->getComponent<StateMachine>()->play(getNextState());
 		}
 		else {
-			OwnMathFuncs::Vector2 dir_vect = (target->getWorldPosition() - state_machine->getGameObject()->getWorldPosition());
-			OwnMathFuncs::OwnMathFuncs::normalize(dir_vect);
+			OwnMathFuncs::Vector2 directionVector = (target->getWorldPosition() - state_machine->getGameObject()->getWorldPosition());
+			OwnMathFuncs::OwnMathFuncs::normalize(directionVector);
 
-			enemy_basic_behavior->addForce(dir_vect, enemy_basic_behavior->getSpeed());
+			enemyBasicBehavior->addForce(directionVector, enemyBasicBehavior->getSpeed());
 		}
 	}
 	else {

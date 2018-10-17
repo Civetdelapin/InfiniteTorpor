@@ -8,7 +8,7 @@
 class StateWalkRandomPos : public State
 {
 public:
-	StateWalkRandomPos(GameObject* gameObject, float range, std::string next_state = "");
+	StateWalkRandomPos(GameObject* gameObject, float range, std::string nextState = "");
 	~StateWalkRandomPos();
 
 	void start(StateMachine* state_machine);
@@ -18,8 +18,8 @@ public:
 private:
 
 	float range = 50;
-	OwnMathFuncs::Vector2 vect_to_go = { 0, 0 };
+	OwnMathFuncs::Vector2 vectToGo = { 0, 0 };
 
-	EnemyBasicBehavior* enemy_basic_behavior;
+	EnemyBasicBehavior* enemyBasicBehavior;
 };
 

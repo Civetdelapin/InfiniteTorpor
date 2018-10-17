@@ -5,11 +5,11 @@ GoblinPrefab::GoblinPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/go
 	//---- MODIFICATION OF EXISTING COMPONENTS -----
 	getComponent<VelocityBody>()->setDrag({ 10, 10 });
 
-	EnemyBasicBehavior* enemy_basic_behavior = getComponent<EnemyBasicBehavior>();
-	enemy_basic_behavior-> setMaxHP(70);
-	enemy_basic_behavior->setSpeed(3100);
-	enemy_basic_behavior->setScoreValue(70);
-	enemy_basic_behavior->setTimeBeforeEnemy(8.5f);
+	EnemyBasicBehavior* enemyBasicBehavior = getComponent<EnemyBasicBehavior>();
+	enemyBasicBehavior-> setMaxHP(70);
+	enemyBasicBehavior->setSpeed(3100);
+	enemyBasicBehavior->setScoreValue(70);
+	enemyBasicBehavior->setTimeBeforeEnemy(8.5f);
 
 	getComponent<DisplayEnemyHp>()->setYOffset(8);
 	//----------------------------------------------

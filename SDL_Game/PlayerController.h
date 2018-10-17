@@ -27,16 +27,16 @@ private:
 
 	VelocityBody* velocityBody;
 	Animator* animator;
-	BoxCollider* box_collider;
+	BoxCollider* boxCollider;
 
-	bool can_move = true;
+	bool canMove = true;
 	State state = ready_dash;
 
 	float speed = 1200;
-	float dash_speed = 1750;
-	float time_dash = 0.35;
-	float time_invisible_dash = 0.5;
-	float time_cd_dash = 0.10;
+	float dashSpeed = 1750;
+	float timeDash = 0.35;
+	float timeInvisibleDash = 0.5;
+	float timeCDDash = 0.10;
 
 	float timeLeft;
 	

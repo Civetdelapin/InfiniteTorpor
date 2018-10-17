@@ -15,15 +15,15 @@ public:
 
 	void addState(std::pair <std::string, State*> state);
 
-	void play(std::string state_name);
+	void play(std::string stateName);
 
 	std::string getDefaultState();
 	void setDefaultState(std::string value);
 
 private:
 	std::map <std::string, State*> states;
-	std::string cur_state = "";
+	std::string currentState = "";
 
-	std::string default_state = "";
+	std::string defaultState = "";
 };
 
