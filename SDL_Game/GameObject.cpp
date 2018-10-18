@@ -17,14 +17,13 @@ void GameObject::update()
 	//Update all the components
 	for (Component* component : components) {
 
-		if (component->isActive()) {
+		if (!component->getHasStart()) {
+			component->start();
 
-			if (!component->getHasStart()) {
-				component->start();
+			component->setHasStart(true);
+		}
 
-				component->setHasStart(true);
-			}
-
+		if (component->isReallyActive()) {
 			component->update();
 		}
 	}
@@ -34,9 +33,7 @@ void GameObject::update()
 		gameObject->parentPosition = getWorldPosition();
 		gameObject->parentScale = getWorldScale();
 
-		if (gameObject->active) {
-			gameObject->update();
-		}
+		gameObject->update();
 	}
 }
 

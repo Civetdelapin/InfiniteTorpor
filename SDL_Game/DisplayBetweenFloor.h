@@ -1,9 +1,10 @@
 #pragma once
 #include "Component.h"
-#include "Renderer.h"
+#include "Text.h"
+
 #include <random>
 
-class DisplayBetweenFloor : public Component, Renderer
+class DisplayBetweenFloor : public Component
 {
 public:
 	DisplayBetweenFloor(GameObject * gameObject);
@@ -12,23 +13,20 @@ public:
 	void start();
 	void update();
 
-	void render();
 
 	void transitionBetweenFloor(int floor);
 
 private:
 
-	TTF_Font * font;
-	int fontSize = 40;
+	Text * floorText;
+	int floorTextfontSize = 40;
 
-	TTF_Font * font2;
-	int font2Size = 35;
+	Text * sentenceText;
+	int sentencefontSize = 35;
 
 	bool displayNextText = false;
 
 	int nextFloor;
-
-	std::string currentSentence;
 
 	std::vector<std::string> transitionSentences;
 

@@ -56,7 +56,7 @@ void TextureManager::DrawRect(SDL_Rect rect, int r, int g, int b, int a, bool fi
 	}*/
 }
 
-void TextureManager::DrawText(TTF_Font* font, SDL_Rect rect, std::string message, int r, int g, int b, int a, bool relativeToCamera)
+void TextureManager::DrawText(TTF_Font* font, SDL_Rect rect, std::string message, int r, int g, int b, int a, bool relativeToCamera, bool centerX, bool centerY)
 {
 	if (relativeToCamera) {
 		
@@ -64,26 +64,7 @@ void TextureManager::DrawText(TTF_Font* font, SDL_Rect rect, std::string message
 		rect.y -= Game::instance()->getCamera()->getCameraPos().y;
 	}
 	
-	if (font != NULL) {
-		SDL_Color newColor = { r, g, b, a };
-
-		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, message.c_str(), newColor);
-		SDL_Texture* messageTexture = SDL_CreateTextureFromSurface(Game::instance()->getRenderer(), surfaceMessage);
-
-		rect.w = surfaceMessage->w;
-		rect.h = surfaceMessage->h;
-
-		SDL_RenderCopy(Game::instance()->getRenderer(), messageTexture, NULL, &rect);
-
-		SDL_FreeSurface(surfaceMessage);
-		SDL_DestroyTexture(messageTexture);
-	}
-}
-
-void TextureManager::DrawTextCenterScreen(TTF_Font * font, SDL_Rect rect, std::string message, int r, int g, int b, int a, bool centerX, bool centerY)
-{
-
-	if (font != NULL) {
+	if (font != NULL && font != nullptr && message != "") {
 		SDL_Color newColor = { r, g, b, a };
 
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, message.c_str(), newColor);
@@ -93,18 +74,16 @@ void TextureManager::DrawTextCenterScreen(TTF_Font * font, SDL_Rect rect, std::s
 		rect.h = surfaceMessage->h;
 
 		if (centerX) {
-			rect.x = Game::instance()->getScreenSize().x / 2 - rect.w / 2;
+			rect.x -= rect.w / 2;
 		}
-		
+
 		if (centerY) {
-			rect.x = Game::instance()->getScreenSize().y / 2 - rect.y / 2;
+			rect.y -= rect.y / 2;
 		}
-		
-		
+
 		SDL_RenderCopy(Game::instance()->getRenderer(), messageTexture, NULL, &rect);
 
 		SDL_FreeSurface(surfaceMessage);
 		SDL_DestroyTexture(messageTexture);
 	}
-
 }

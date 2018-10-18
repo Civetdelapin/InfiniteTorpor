@@ -32,9 +32,8 @@ bool Component::isReallyActive()
 	if (active) {
 		return gameObject->isReallyActive();
 	}
-	else {
-		return active;
-	}
+
+	return false;
 }
 
 void Component::setActive(bool value)

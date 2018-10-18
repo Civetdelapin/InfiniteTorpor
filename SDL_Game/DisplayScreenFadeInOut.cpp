@@ -37,8 +37,6 @@ void DisplayScreenFadeInOut::update()
 		float alpha_value = SDL_ALPHA_OPAQUE - ( (timeLeft / timeToFade) * SDL_ALPHA_OPAQUE) ;
 		setAlpha(alpha_value);
 
-		std::cout << alpha_value << std::endl;
-
 		if (timeLeft <= 0) {
 			setState(Over);
 		}
@@ -51,7 +49,6 @@ void DisplayScreenFadeInOut::update()
 			setState(Over);
 		}
 	}
-	std::cout << timeLeft << std::endl;
 
 	timeLeft -= Time::deltaTime;
 }

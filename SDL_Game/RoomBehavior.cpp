@@ -22,7 +22,7 @@ void RoomBehavior::start()
 
 		if (roomData->getRoomType() == Room::EndRoom) {
 			endHitbox = new BoxCollider(gameObject);
-			endHitbox->setCollisionLayer(10);
+			endHitbox->setIsTrigger(true);
 
 			endHitbox->size = roomData->getTileMapData()->spriteSize * 1;
 		}

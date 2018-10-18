@@ -60,7 +60,7 @@ int main(int argc, char* args[]) {
 	DisplayPlayerHealth* display = new DisplayPlayerHealth(uiManager);
 	
 	//Display the player's score
-	DisplayPlayerScore* display_score = new DisplayPlayerScore(uiManager);
+	//DisplayPlayerScore* display_score = new DisplayPlayerScore(uiManager);
 
 	//Display the black screen
 	DisplayScreenFadeInOut* display_screen = new DisplayScreenFadeInOut(uiManager);

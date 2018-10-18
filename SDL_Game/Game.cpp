@@ -99,9 +99,9 @@ void Game::update()
 
 
 	for (GameObject* gameObject : gameObjects) {
-		if (gameObject->active) {
-			gameObject->update();
-		}
+		
+		gameObject->update();
+		
 	}
 
 	camera->update();
