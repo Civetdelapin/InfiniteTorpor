@@ -3,7 +3,7 @@
 #pragma once
 #include <math.h>
 #include <random>
-
+#include "SDL.h"
 
 namespace OwnMathFuncs
 {
@@ -68,6 +68,8 @@ public:
 	static Vector2 getRandomPointInCircle(float radius);
 
 	static Vector2 getRandomPointAroundCircle(float radius);
+
+	static bool AABB(SDL_Rect rectA, SDL_Rect rectB);
 };
 
 }

@@ -8,6 +8,7 @@
 #include "StateMachine.h"
 #include "StateStun.h"
 #include "StateDying.h"
+#include "RendererManager.h"
 
 class Enemy : public GameObject
 {

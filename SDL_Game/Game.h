@@ -14,6 +14,8 @@
 #include "ColliderManager.h"
 #include "RendererManager.h"
 #include "Room.h"
+#include "ButtonManager.h"
+#include "Color.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -61,6 +63,7 @@ public:
 
 	RendererManager* getRendererManager();
 	ColliderManager* getColliderManager();
+	ButtonManager* getButtonManager();
 
 	SDL_Window* getWindow();
 	
@@ -93,8 +96,9 @@ private:
 	OwnMathFuncs::Vector2 screenSize;
 	Camera* camera;
 
-	RendererManager* renderer_manager = new RendererManager();
-	ColliderManager* collider_manager = new ColliderManager();
+	RendererManager* rendererManager = new RendererManager();
+	ColliderManager* colliderManager = new ColliderManager();
+	ButtonManager* buttonManager = new ButtonManager();
 
 	Uint64 timeNow = SDL_GetPerformanceCounter();
 	Uint64 timeLast = 0;

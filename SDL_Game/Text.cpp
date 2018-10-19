@@ -38,7 +38,7 @@ void Text::render()
 {
 	if (font != nullptr) {
 		
-		TextureManager::DrawText(font, destRect, text, r, g, b, a, relativeToCamera, centerX, centerY);
+		TextureManager::DrawText(font, destRect, text, color.r, color.g, color.b, color.a, relativeToCamera, centerX, centerY);
 	}
 }
 
@@ -69,10 +69,15 @@ void Text::setCenter(bool valueX, bool valueY)
 
 void Text::setColor(int _r, int _g, int _b, int _a)
 {
-	r = _r;
-	g = _g;
-	b = _b;
-	a = _a;
+	color.r = _r;
+	color.g = _g;
+	color.b = _b;
+	color.a = _a;
+}
+
+void Text::setColor(Color value)
+{
+	color = value;
 }
 
 void Text::setRelativeToCamera(bool value)

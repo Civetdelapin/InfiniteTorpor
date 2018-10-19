@@ -4,6 +4,7 @@
 #include "Animator.h";
 #include "DisplayScreenFadeInOut.h"
 #include "PlayerController.h"
+#include "GameManager.h"
 
 PlayerBehavior::PlayerBehavior(GameObject* gameObject) : Component(gameObject)
 {
@@ -44,13 +45,8 @@ void PlayerBehavior::update()
 			}
 		}
 
-		if (dying) {
-
-		}
-
-
 		timeLeftScore -= Time::deltaTime;
-		if (timeLeftScore <= 0) {
+		if (timeLeftScore <= 0 && score > 0) {
 			score -= 1;
 			timeLeftScore = timeBeforeLoosingScore;
 		}
@@ -86,21 +82,30 @@ void PlayerBehavior::startLevel()
 void PlayerBehavior::endLevel()
 {
 	gameObject->getComponent<PlayerController>()->setCanMove(false);
-
 	gameObject->getComponent<Animator>()->play("Dying");
+
+	state = endingLevel;
+}
+
+void PlayerBehavior::restartGame()
+{
+	currentHealthPoint = maxHealthPoint;
+	score = 0;
+
+	dying = false;
 }
 
 void PlayerBehavior::setDying()
 {
 	dying = true;
-
-	Game::instance()->findGameObject("UI_Manager")->getComponent<DisplayScreenFadeInOut>()->setState(DisplayScreenFadeInOut::FadingIn, DisplayScreenFadeInOut::TIME_FADE_DEAD);
 	gameObject->getComponent<SpriteRenderer>()->setLayer(RendererManager::MAX_LAYER);
-
 	gameObject->getComponent<PlayerController>()->setCanMove(false);
+
 	gameObject->getComponent<Animator>()->play("Dying");
 
-	Game::instance()->getCamera()->setObjectToFollow(gameObject);
+	state = endingLevel;
+
+	Game::instance()->findGameObject("Manager")->getComponent<GameManager>()->gameOver(getScore());
 }
 
 bool PlayerBehavior::addDamage(float dmg)

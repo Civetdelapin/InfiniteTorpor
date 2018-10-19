@@ -127,12 +127,16 @@
   <ItemGroup>
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderManager.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DisplayBetweenFloor.cpp" />
     <ClCompile Include="DisplayEnemyHp.cpp" />
+    <ClCompile Include="DisplayGameOver.cpp" />
     <ClCompile Include="DisplayPlayerHealth.cpp" />
     <ClCompile Include="DisplayPlayerScore.cpp" />
     <ClCompile Include="DisplayScreenFadeInOut.cpp" />
@@ -181,12 +185,16 @@
   <ItemGroup>
     <ClInclude Include="Animator.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderManager.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DisplayBetweenFloor.h" />
     <ClInclude Include="DisplayEnemyHp.h" />
+    <ClInclude Include="DisplayGameOver.h" />
     <ClInclude Include="DisplayPlayerHealth.h" />
     <ClInclude Include="DisplayPlayerScore.h" />
     <ClInclude Include="DisplayScreenFadeInOut.h" />

@@ -18,7 +18,7 @@ bool BoxCollider::isColliding(Collider * collider)
 		update();
 		collider->update();
 
-		if (Collider::AABB(rect, boxCollider->rect)) {
+		if (OwnMathFuncs::OwnMathFuncs::AABB(rect, boxCollider->rect)) {
 			return true;
 		}
 		else {
@@ -49,5 +49,5 @@ void BoxCollider::update() {
 }
 
 void BoxCollider::render() {
-	TextureManager::DrawRect(rect);
+	//TextureManager::DrawRect(rect);
 }

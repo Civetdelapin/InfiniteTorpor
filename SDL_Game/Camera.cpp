@@ -33,6 +33,7 @@ void Camera::update()
 		float s_x = shakeX.amplitude() * amplitude;
 		float s_y = shakeY.amplitude() * amplitude;
 
+		
 		cameraPosition.x += s_x;
 		cameraPosition.y += s_y;
 	}
@@ -51,7 +52,8 @@ OwnMathFuncs::Vector2 Camera::getCameraPos()
 
 void Camera::setCameraPos(OwnMathFuncs::Vector2 pos)
 {
-	cameraPosition = { pos.x - game->getScreenSize().x / 2 , pos.y - game->getScreenSize().y / 2 };
+	cameraPosition = { pos.x - game->getScreenSize().x / 2 , 
+						pos.y - game->getScreenSize().y / 2 };
 }
 
 void Camera::setObjectToFollow(GameObject* gameObject)
@@ -90,9 +92,11 @@ float Shake::amplitude()
 
 void Shake::update()
 {
+
 	if (shaking) {
 
 		t += Time::deltaTime;
+		
 		if (t > duration) {
 			shaking = false;
 		}
@@ -119,10 +123,10 @@ float Shake::noise(int index)
 	}	
 }
 
-Shake::Shake(float frequency, float duration)
+Shake::Shake(float _frequency, float _duration)
 {
-	duration = duration;
-	frequency = frequency;
+	duration = _duration;
+	frequency = _frequency;
 
 	t = 0;
 

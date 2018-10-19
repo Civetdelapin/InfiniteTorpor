@@ -18,7 +18,7 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2 spriteSize, OwnMathFunc
 	EnemyBasicBehavior* enemyState = new EnemyBasicBehavior(this);
 
 	DisplayEnemyHp* displayEnemyHp = new DisplayEnemyHp(this, enemyState);
-	displayEnemyHp->setLayer(10);
+	displayEnemyHp->setLayer(RendererManager::MAX_LAYER);
 
 	Animator* animation = new Animator(this);
 

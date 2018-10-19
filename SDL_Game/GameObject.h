@@ -78,15 +78,12 @@ public:
 		else {
 
 			for (GameObject* gameObject : gameObjects) {
-				component = gameObject->getComponent<ComponentType>();
+
+				ComponentType* component = gameObject->getComponentInChildren<ComponentType>();
+
 				if (component != nullptr) {
 					return component;
 				}
-				else {
-					return gameObject->getComponentInChildren<ComponentType>();
-				}
-
-				component = NULL;
 			}
 
 		}

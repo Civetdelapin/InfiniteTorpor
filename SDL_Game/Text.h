@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Renderer.h"
+#include "Color.h"
 
 class Text : public Component, public Renderer
 {
@@ -21,6 +22,7 @@ public:
 	void setPosition(OwnMathFuncs::Vector2 vect);
 	void setCenter(bool valueX, bool valueY);
 	void setColor(int _r, int _g, int _b, int _a);
+	void setColor(Color color);
 	void setRelativeToCamera(bool value);
 
 private:
@@ -34,8 +36,7 @@ private:
 
 	bool relativeToCamera = false;
 
-	int r = 255, g = 255, b = 255, a = 255;
-
+	Color color;
 	SDL_Rect destRect;
 };
 

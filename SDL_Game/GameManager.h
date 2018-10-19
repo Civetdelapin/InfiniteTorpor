@@ -19,16 +19,15 @@ public:
 
 	void startLevel(OwnMathFuncs::Vector2 position);
 	void endLevel();
+	void restartGame();
 
+
+	void gameOver(int playerScore);
 	void nextFloor();
 
 private:
 
-	float timeBeforeTransition = 2;
-
 	GameObject* player;
 	GameObject* uiManager;
-
-	float timeLeft;
 };
 

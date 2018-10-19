@@ -9,6 +9,7 @@
 #include "DisplayPlayerScore.h"
 #include "DisplayScreenFadeInOut.h"
 #include "DisplayBetweenFloor.h"
+#include "DisplayGameOver.h"
 
 #include "TransitionManager.h"
 
@@ -55,12 +56,13 @@ int main(int argc, char* args[]) {
 	//----------- Add UI Manager ----------------
 	GameObject* uiManager = new GameObject();
 	uiManager->tag = "UI_Manager";
+	uiManager->localScale = { 4, 4 };
 
 	//Display the player's health
 	DisplayPlayerHealth* display = new DisplayPlayerHealth(uiManager);
 	
 	//Display the player's score
-	//DisplayPlayerScore* display_score = new DisplayPlayerScore(uiManager);
+	DisplayPlayerScore* display_score = new DisplayPlayerScore(uiManager);
 
 	//Display the black screen
 	DisplayScreenFadeInOut* display_screen = new DisplayScreenFadeInOut(uiManager);
@@ -73,8 +75,15 @@ int main(int argc, char* args[]) {
 
 		DisplayBetweenFloor* displayBetweenFloor = new DisplayBetweenFloor(betweenFloorGameObject);
 		transitionManager->transitionBetweenFloor = displayBetweenFloor;
+		
+		GameObject* gameOverGameObject = new GameObject();
+		gameOverGameObject->active = false;
+
+		DisplayGameOver* displayGameOver = new DisplayGameOver(gameOverGameObject);
+		transitionManager->_transitionGameOver = displayGameOver;
 
 		uiManager->addGameObjectAsChild(betweenFloorGameObject);
+		uiManager->addGameObjectAsChild(gameOverGameObject);
 		//------------------------------
 
 	Game::instance()->instantiateGameObject(uiManager);

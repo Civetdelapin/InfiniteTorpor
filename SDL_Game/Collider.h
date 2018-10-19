@@ -12,8 +12,6 @@ public:
 
 	virtual bool isColliding(Collider* collider) = 0;
 
-	static bool AABB(SDL_Rect rectA, SDL_Rect rectB);
-
 	bool isTrigger();
 	void setIsTrigger(bool value);
 

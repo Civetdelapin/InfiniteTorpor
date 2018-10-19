@@ -40,20 +40,20 @@ void TextureManager::DrawTexture(SDL_Texture * texture, SDL_Rect srcrect, SDL_Re
 
 void TextureManager::DrawRect(SDL_Rect rect, int r, int g, int b, int a, bool fill, bool relativeToCamera)
 {
-	/*
+	
 	if (relativeToCamera) {
 		rect.x -= Game::instance()->getCamera()->getCameraPos().x;
 		rect.y -= Game::instance()->getCamera()->getCameraPos().y;
 	}
 
-	SDL_SetRenderDrawColor(Game::instance()->renderer, r, g, b, a);
+	SDL_SetRenderDrawColor(Game::instance()->getRenderer(), r, g, b, a);
 
 	if (fill) {
-		SDL_RenderFillRect(Game::instance()->renderer, &rect);
+		SDL_RenderFillRect(Game::instance()->getRenderer(), &rect);
 	}
 	else {
-		SDL_RenderDrawRect(Game::instance()->renderer, &rect);
-	}*/
+		SDL_RenderDrawRect(Game::instance()->getRenderer(), &rect);
+	}
 }
 
 void TextureManager::DrawText(TTF_Font* font, SDL_Rect rect, std::string message, int r, int g, int b, int a, bool relativeToCamera, bool centerX, bool centerY)
@@ -78,7 +78,7 @@ void TextureManager::DrawText(TTF_Font* font, SDL_Rect rect, std::string message
 		}
 
 		if (centerY) {
-			rect.y -= rect.y / 2;
+			rect.y -= rect.h / 2;
 		}
 
 		SDL_RenderCopy(Game::instance()->getRenderer(), messageTexture, NULL, &rect);

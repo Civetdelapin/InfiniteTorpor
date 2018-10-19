@@ -6,28 +6,19 @@
 DisplayBetweenFloor::DisplayBetweenFloor(GameObject* gameObject) : Component(gameObject)
 {
 	
-	transitionSentences.push_back("The curse is still going strong...");
-	transitionSentences.push_back("The drums in your head are louder and louder...");
-	transitionSentences.push_back("Your thirst for blood is increasing...");
-	transitionSentences.push_back("The end is near...");
-	transitionSentences.push_back("Nothing can stop you now...");
-	transitionSentences.push_back("The rooms are all the same...");
-	transitionSentences.push_back("There is no escape...");
-	transitionSentences.push_back("You must kill everything...");
-	transitionSentences.push_back("Why are you here ?...");
-	transitionSentences.push_back("Dying is the only way out...");
-	transitionSentences.push_back("You'd better give up...");
-	transitionSentences.push_back("There is no point in fighting back...");
-}
-
-
-DisplayBetweenFloor::~DisplayBetweenFloor()
-{
-
-}
-
-void DisplayBetweenFloor::start()
-{
+	transitionSentences.push_back("THE CURSE IS STILL GOING STRONG...");
+	transitionSentences.push_back("THE DRUMS IN YOUR HEAD ARE LOUDER AND LOUDER...");
+	transitionSentences.push_back("YOUR THIRST FOR BLOOD IS INCREASING...");
+	transitionSentences.push_back("THE END IS NEAR...");
+	transitionSentences.push_back("NOTHING CAN STOP YOU NOW...");
+	transitionSentences.push_back("THE ROOMS ARE ALL THE SAME...");
+	transitionSentences.push_back("THERE IS NO ESPACE...");
+	transitionSentences.push_back("YOU MUST KILL EVERYTHING...");
+	transitionSentences.push_back("WHY ARE YOU HERE ?...");
+	transitionSentences.push_back("DYING IS THE ONLY WAY OUT...");
+	transitionSentences.push_back("YOU'D BETTER GIVE UP...");
+	transitionSentences.push_back("THERE IS NO POINT IN FIGHTING BACK...");
+	
 
 	SDL_Rect destRect;
 	destRect.y = Game::instance()->getScreenSize().y / 2 - 125;
@@ -46,6 +37,17 @@ void DisplayBetweenFloor::start()
 	sentenceText->setLayer(RendererManager::MAX_LAYER);
 	destRect.y += 100;
 	sentenceText->setDestRect(destRect);
+}
+
+
+DisplayBetweenFloor::~DisplayBetweenFloor()
+{
+
+}
+
+void DisplayBetweenFloor::start()
+{
+
 }
 
 void DisplayBetweenFloor::update()
@@ -88,6 +90,6 @@ void DisplayBetweenFloor::transitionBetweenFloor(int floor)
 	sentenceText->setActive(false);
 	//---------------
 
-	std::string floorMsg = "Floor n° -" + std::to_string(nextFloor) + "";
+	std::string floorMsg = "FLOOR n° -" + std::to_string(nextFloor) + "";
 	floorText->setText(floorMsg);
 }

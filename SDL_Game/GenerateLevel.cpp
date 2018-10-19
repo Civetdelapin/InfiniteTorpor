@@ -608,9 +608,10 @@ void GenerateLevel::generateLevel()
 
 			int nb_enemies = 0;
 			if (nb_enemy_min != 0 && nb_enemy_max != 0) {
-				int nb_enemies = rand() % nb_enemy_max + nb_enemy_min;
+				nb_enemies = rand() % nb_enemy_max + nb_enemy_min;
 			}
 			
+
 			for (int i = 0; i < nb_enemies; i++) {
 
 				GameObject* new_enemy;

@@ -19,15 +19,6 @@ void GameManager::start()
 void GameManager::update()
 {
 	
-	if (timeLeft > 0) {
-		timeLeft -= Time::deltaTime;
-
-		if (timeLeft <= 0) {
-			if (uiManager != nullptr) {
-				uiManager->getComponent<TransitionManager>()->transitionBetweenFloors(gameObject->getComponent<GenerateLevel>()->getCurrentFloor() + 1);
-			}
-		}
-	}
 
 }
 
@@ -77,7 +68,32 @@ void GameManager::endLevel()
 		}
 	}
 
-	timeLeft = timeBeforeTransition;
+	uiManager->getComponent<TransitionManager>()->transitionBetweenFloors(gameObject->getComponent<GenerateLevel>()->getCurrentFloor() + 1);
+}
+
+void GameManager::restartGame()
+{
+	gameObject->getComponent<GenerateLevel>()->generateNewGame();
+
+	if (player != nullptr) {
+
+		PlayerBehavior* player_behavior = player->getComponent<PlayerBehavior>();
+		if (player_behavior != nullptr) {
+			player_behavior->restartGame();
+		}
+	}
+}
+
+void GameManager::gameOver(int playerScore)
+{
+	if (uiManager != nullptr) {
+		uiManager->getComponent<DisplayScreenFadeInOut>()->setState(DisplayScreenFadeInOut::FadingIn,
+																		DisplayScreenFadeInOut::TIME_FADE_DEAD);
+	}
+
+	Game::instance()->getCamera()->setObjectToFollow(player);
+
+	uiManager->getComponent<TransitionManager>()->transitionGameOver(playerScore);
 }
 
 void GameManager::nextFloor()

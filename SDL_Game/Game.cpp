@@ -23,7 +23,9 @@ Game::Game(const char * title, int xpos, int ypos, int width, int height, bool f
 			printInConsole("renderer created!");
 		}
 
-		collider_manager = new ColliderManager();
+		colliderManager = new ColliderManager();
+		buttonManager = new ButtonManager();
+
 		camera = new Camera(this);
 
 		TTF_Init();
@@ -59,8 +61,9 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	
-	collider_manager->update();
+	camera->update();
+	buttonManager->update();
+	colliderManager->update();
 	
 	//We delete the objects that need to be deleted
 	for (GameObject* gameObject : gameObjectsToDestroy) {
@@ -71,9 +74,6 @@ void Game::update()
 		else {
 			gameObject->parentGameObject->getChildren().erase(std::remove(gameObject->parentGameObject->getChildren().begin(), gameObject->parentGameObject->getChildren().end(), gameObject), gameObject->parentGameObject->getChildren().end());
 		}
-
-
-		//collider_manager->removeGameObjectColliders(gameObject);
 
 		gameObject->clean();
 
@@ -104,8 +104,6 @@ void Game::update()
 		
 	}
 
-	camera->update();
-
 	
 	//handle the deltatime
 	timeLast = timeNow;
@@ -122,7 +120,7 @@ void Game::update()
 
 void Game::render()
 {
-	renderer_manager->render();
+	rendererManager->render();
 }
 
 void Game::clean()
@@ -131,8 +129,8 @@ void Game::clean()
 		gameObject->clean();
 	}
 
-	delete renderer_manager;
-	delete collider_manager;
+	delete rendererManager;
+	delete colliderManager;
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -197,12 +195,17 @@ SDL_Renderer * Game::getRenderer()
 
 RendererManager * Game::getRendererManager()
 {
-	return renderer_manager;
+	return rendererManager;
 }
 
 ColliderManager * Game::getColliderManager()
 {
-	return collider_manager;
+	return colliderManager;
+}
+
+ButtonManager * Game::getButtonManager()
+{
+	return buttonManager;
 }
 
 SDL_Window* Game::getWindow()

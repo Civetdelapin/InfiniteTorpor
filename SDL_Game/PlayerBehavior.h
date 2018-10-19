@@ -10,7 +10,7 @@ public:
 	PlayerBehavior(GameObject* gameObject);
 	~PlayerBehavior();
 
-	const enum State {spawning, playing};
+	const enum State {spawning, playing, endingLevel};
 
 	const int PLAYER_LAYER = 5;
 
@@ -29,6 +29,7 @@ public:
 
 	void startLevel();
 	void endLevel();
+	void restartGame();
 
 private:
 

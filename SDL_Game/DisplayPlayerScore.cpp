@@ -40,7 +40,7 @@ void DisplayPlayerScore::render()
 		destRect.y = 70;
 		destRect.x = 20;
 
-		std::string msg = "Score : " + std::to_string(playerBehavior->getScore());
+		std::string msg = "SOULS : " + std::to_string(playerBehavior->getScore());
 
 		TextureManager::DrawText(ttf_Font, destRect, msg, 255, 255, 255, 255, false);
 	}

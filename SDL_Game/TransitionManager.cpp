@@ -18,7 +18,25 @@ void TransitionManager::start()
 
 void TransitionManager::update()
 {
+	if (timeLeft > 0) {
+		timeLeft -= Time::deltaTime;
 
+		if (timeLeft <= 0) {
+			
+			switch (state)
+			{
+
+			case TransitionManager::BetweenFloor:
+				transitionBetweenFloor->transitionBetweenFloor(nextFloor);
+				break;
+			case TransitionManager::GameOver:
+				_transitionGameOver->transitionBetweenFloor(playerScore);
+				break;
+
+			}
+
+		}
+	}
 }
 
 void TransitionManager::clean()
@@ -28,5 +46,16 @@ void TransitionManager::clean()
 
 void TransitionManager::transitionBetweenFloors(int nextFloor)
 {
-	transitionBetweenFloor->transitionBetweenFloor(nextFloor);
+	this->nextFloor = nextFloor;
+
+	state = BetweenFloor;
+	timeLeft = timeBeforeTransition;
+}
+
+void TransitionManager::transitionGameOver(int playerGameScore)
+{
+	this->playerScore = playerScore;
+
+	state = GameOver;
+	timeLeft = timeBeforeTransition;
 }

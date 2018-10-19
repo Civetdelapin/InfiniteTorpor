@@ -20,6 +20,7 @@ void DisplayEnemyHp::start()
 
 void DisplayEnemyHp::update()
 {
+	
 	if (lastHP != enemyBehavior->getCurHP()) {
 		
 		lastHpDisplay = lastHP;
