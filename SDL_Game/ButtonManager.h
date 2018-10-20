@@ -14,6 +14,8 @@ public:
 
 	void update();
 
+	void setButtonSelected(Button* button);
+
 private:
 
 	int currentIndex = 0;

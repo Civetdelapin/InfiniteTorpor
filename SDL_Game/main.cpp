@@ -72,16 +72,19 @@ int main(int argc, char* args[]) {
 
 		GameObject* betweenFloorGameObject = new GameObject();
 		betweenFloorGameObject->active = false;
-
 		DisplayBetweenFloor* displayBetweenFloor = new DisplayBetweenFloor(betweenFloorGameObject);
 		transitionManager->transitionBetweenFloor = displayBetweenFloor;
 		
 		GameObject* gameOverGameObject = new GameObject();
 		gameOverGameObject->active = false;
-
 		DisplayGameOver* displayGameOver = new DisplayGameOver(gameOverGameObject);
 		transitionManager->_transitionGameOver = displayGameOver;
 
+		GameObject* gamePauseGameObject = new GameObject();
+		gamePauseGameObject->active = false;
+		DisplayGamePause* displayGamePause = new DisplayGamePause(gamePauseGameObject);
+
+		uiManager->addGameObjectAsChild(gamePauseGameObject);
 		uiManager->addGameObjectAsChild(betweenFloorGameObject);
 		uiManager->addGameObjectAsChild(gameOverGameObject);
 		//------------------------------

@@ -93,8 +93,8 @@ private:
 	int curFloor = 0;
 	int seed = 500;
 
-	int minEnemy = 4;
-	int maxEnemy = 6;
+	int minEnemy = 2;
+	int maxEnemy = 3;
 
 	float nbEnemyMultiplicator = 1.01f;
 	float timeEnemyMultiplicator = 0.9f;

@@ -12,7 +12,6 @@ DisplayGameOver::DisplayGameOver(GameObject * gameObject) : Component(gameObject
 	titleGameOver->setFontSize(titleGameOverFontSize);
 	titleGameOver->setLayer(RendererManager::MAX_LAYER);
 
-
 	titleScore = new Text(gameObject);
 	titleScore->setCenter(true, true);
 	titleScore->setPosition({ Game::instance()->getScreenSize().x / 2,

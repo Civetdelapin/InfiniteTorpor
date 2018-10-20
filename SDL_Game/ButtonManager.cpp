@@ -77,6 +77,18 @@ void ButtonManager::update()
 	}
 }
 
+void ButtonManager::setButtonSelected(Button * button)
+{
+	ptrdiff_t pos = std::find(buttons.begin(), buttons.end(), button) - buttons.begin();
+	if (pos < buttons.size()) {
+
+		buttons[currentIndex]->setBasic();
+		buttons[pos]->setFocus();
+
+		currentIndex = pos;
+	}
+}
+
 void ButtonManager::navigateButtons(bool goDown)
 {
 	if (buttonOK) {
@@ -93,8 +105,8 @@ void ButtonManager::navigateButtons(bool goDown)
 
 		} while (!newButtonFound);
 
-		buttons[index]->setFocus();
 		buttons[currentIndex]->setBasic();
+		buttons[index]->setFocus();
 
 		currentIndex = index;
 

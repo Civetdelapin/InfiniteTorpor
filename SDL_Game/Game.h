@@ -16,6 +16,7 @@
 #include "Room.h"
 #include "ButtonManager.h"
 #include "Color.h"
+#include "DisplayGamePause.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -73,7 +74,6 @@ public:
 
 	Camera* getCamera();
 	
-
 	OwnMathFuncs::Vector2 getScreenSize();
 
 private:
@@ -83,6 +83,7 @@ private:
 	void addGameObject(GameObject* gameObject);
 
 	std::vector<GameObject*> gameObjects;
+
 	std::vector<GameObject*> gameObjectsToDestroy;
 
 	std::map <GameObject*, GameObject*> gameObjectsToAdd;

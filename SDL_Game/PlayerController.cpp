@@ -24,7 +24,6 @@ void PlayerController::setCanMove(bool value)
 
 void PlayerController::update()
 {
-
 	float cur_speed = speed * abs(gameObject->getWorldScale().x);
 	float cur_dash_spped = dashSpeed * abs(gameObject->getWorldScale().x);
 
@@ -50,8 +49,6 @@ void PlayerController::update()
 				normalizeDirection.x += 1;
 			}
 
-
-			
 			if (normalizeDirection.x != 0) {
 				direction.x = normalizeDirection.x;
 			}

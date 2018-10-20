@@ -137,9 +137,12 @@
     <ClCompile Include="DisplayBetweenFloor.cpp" />
     <ClCompile Include="DisplayEnemyHp.cpp" />
     <ClCompile Include="DisplayGameOver.cpp" />
+    <ClCompile Include="DisplayGamePause.cpp" />
     <ClCompile Include="DisplayPlayerHealth.cpp" />
     <ClCompile Include="DisplayPlayerScore.cpp" />
     <ClCompile Include="DisplayScreenFadeInOut.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TransitionManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -195,9 +198,12 @@
     <ClInclude Include="DisplayBetweenFloor.h" />
     <ClInclude Include="DisplayEnemyHp.h" />
     <ClInclude Include="DisplayGameOver.h" />
+    <ClInclude Include="DisplayGamePause.h" />
     <ClInclude Include="DisplayPlayerHealth.h" />
     <ClInclude Include="DisplayPlayerScore.h" />
     <ClInclude Include="DisplayScreenFadeInOut.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="TransitionManager.h" />
     <ClInclude Include="Enemy.h" />

@@ -51,5 +51,7 @@ private:
 
 	float timeLeft;
 	float timeLeftScore;
+
+	bool inputUp = true;
 };
 

@@ -50,6 +50,24 @@ void PlayerBehavior::update()
 			score -= 1;
 			timeLeftScore = timeBeforeLoosingScore;
 		}
+
+		
+		switch (Game::instance()->event.type) {
+			case SDL_KEYUP:
+				inputUp = true;
+				break;
+			case SDL_KEYDOWN:
+				switch (Game::instance()->event.key.keysym.sym) {
+					case SDLK_ESCAPE:
+						
+						if (inputUp) {
+							inputUp = false;
+							Game::instance()->findGameObject("UI_Manager")->getComponentInChildren<DisplayGamePause>()->pause();
+						}
+						break;
+					}
+				break;
+		}
 	}
 	else if (state == spawning) {
 		timeLeft -= Time::deltaTime;
