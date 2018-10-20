@@ -80,6 +80,8 @@ void DisplayGameOver::transitionBetweenFloor(int playerGameScore)
 	restartButton->setActive(false);
 	mainMenuButton->setActive(false);
 
+	Game::instance()->getButtonManager()->setButtonSelected(restartButton);
+
 	timeLeft = timeBeforeNextText;
 }
 

@@ -21,7 +21,7 @@ PlayerAttack::~PlayerAttack()
 
 void PlayerAttack::start()
 {
-	playerBehavior = gameObject->getRootParent()->getComponent<PlayerBehavior>();
+	playerBehavior = gameObject->getRootParent()->getComponentInChildren<PlayerBehavior>();
 }
 
 void PlayerAttack::update()
@@ -85,7 +85,7 @@ void PlayerAttack::update()
 
 					if (collider->getGameObject()->tag == "Enemy") {
 
-						EnemyBasicBehavior* enemyBehavior = collider->getGameObject()->getRootParent()->getComponent<EnemyBasicBehavior>();
+						EnemyBasicBehavior* enemyBehavior = collider->getGameObject()->getRootParent()->getComponentInChildren<EnemyBasicBehavior>();
 						if (enemyBehavior != nullptr) {	
 							if (enemyBehavior->takeDamage(normalizeDirection, velocityAttack * 0.80, attackDamage[nb_combo - 1], timeEnemyStun)) {
 								
@@ -121,12 +121,12 @@ void PlayerAttack::attackButtonPressed()
 
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);
 		
-		if (normalizeDirection.y != 0 && normalizeDirection.y != gameObject->getRootParent()->getComponent<PlayerController>()->getDirection().y) {
-			normalizeDirection.y = gameObject->getRootParent()->getComponent<PlayerController>()->getDirection().y;
+		if (normalizeDirection.y != 0 && normalizeDirection.y != gameObject->getRootParent()->getComponentInChildren<PlayerController>()->getDirection().y) {
+			normalizeDirection.y = gameObject->getRootParent()->getComponentInChildren<PlayerController>()->getDirection().y;
 		}
 
-		if (normalizeDirection.x != 0 && normalizeDirection.x != gameObject->getRootParent()->getComponent<PlayerController>()->getDirection().x) {
-			normalizeDirection.x = gameObject->getRootParent()->getComponent<PlayerController>()->getDirection().x;
+		if (normalizeDirection.x != 0 && normalizeDirection.x != gameObject->getRootParent()->getComponentInChildren<PlayerController>()->getDirection().x) {
+			normalizeDirection.x = gameObject->getRootParent()->getComponentInChildren<PlayerController>()->getDirection().x;
 		}
 
 		activeAttackColliders();
@@ -206,7 +206,7 @@ void PlayerAttack::manageNormalizeDirection()
 	if (Game::instance()->event.type == SDL_KEYDOWN && (Game::instance()->event.key.keysym.sym == SDLK_UP || Game::instance()->event.key.keysym.sym == SDLK_DOWN || Game::instance()->event.key.keysym.sym == SDLK_LEFT || Game::instance()->event.key.keysym.sym == SDLK_RIGHT)) {
 
 		
-		normalizeDirection = gameObject->getRootParent()->getComponent<PlayerController>()->getDirection();
+		normalizeDirection = gameObject->getRootParent()->getComponentInChildren<PlayerController>()->getDirection();
 
 		//Managing the normalize direction
 		const Uint8* keystates = SDL_GetKeyboardState(NULL);

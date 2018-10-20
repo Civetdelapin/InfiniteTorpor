@@ -42,7 +42,6 @@ void Button::onClick()
 
 void Button::update()
 {
-	buttonText->setPosition(position);
 	buttonRect.x = position.x - ((size.x / 2) * abs(gameObject->getWorldScale().x));
 	buttonRect.y = position.y - ((size.y / 2) * abs(gameObject->getWorldScale().y));
 
@@ -97,6 +96,7 @@ OwnMathFuncs::Vector2 Button::getPosition()
 void Button::setPosition(OwnMathFuncs::Vector2 value)
 {
 	position = value;
+	getText()->setPosition(value);
 }
 
 void Button::setSize(OwnMathFuncs::Vector2 value)

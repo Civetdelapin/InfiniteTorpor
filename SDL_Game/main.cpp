@@ -10,6 +10,7 @@
 #include "DisplayScreenFadeInOut.h"
 #include "DisplayBetweenFloor.h"
 #include "DisplayGameOver.h"
+#include "MainMenu.h"
 
 #include "TransitionManager.h"
 
@@ -23,11 +24,23 @@ int main(int argc, char* args[]) {
 
 	Game::setInstance(new Game("My game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, false));
 
+	
+	GameObject* mainMenuGameObject = new GameObject();
+	mainMenuGameObject->active = false;
+	Game::instance()->instantiateGameObject(mainMenuGameObject);
+
+	mainMenuGameObject->localScale = { 4, 4 };
+	MainMenu* mainMenu = new MainMenu(mainMenuGameObject);
+	
+
+	GameObject* mainGameObject = new GameObject();
+	mainGameObject->active = false;
+
+	Game::instance()->instantiateGameObject(mainGameObject);
 
 	//Add the player in the game
 	Player *player = new Player({ 1366, 768 });
-	Game::instance()->instantiateGameObject(player);
-
+	Game::instance()->instantiateGameObject(player, mainGameObject);
 
 	//----------- ADD ENEMY ----------------
 	
@@ -89,7 +102,7 @@ int main(int argc, char* args[]) {
 		uiManager->addGameObjectAsChild(gameOverGameObject);
 		//------------------------------
 
-	Game::instance()->instantiateGameObject(uiManager);
+	Game::instance()->instantiateGameObject(uiManager, mainGameObject);
 	//--------------------------------------
 
 	//------- Add Game Managers ------------
@@ -97,9 +110,9 @@ int main(int argc, char* args[]) {
 	gameManager->tag = "Manager";
 
 	GenerateLevel* generate_level = new GenerateLevel(gameManager);
-	GameManager* game_manager_component = new GameManager(gameManager);
+	GameManager* gameManagerComponent = new GameManager(gameManager);
 
-	Game::instance()->instantiateGameObject(gameManager);
+	Game::instance()->instantiateGameObject(gameManager, mainGameObject);
 	//--------------------------------------
 
 

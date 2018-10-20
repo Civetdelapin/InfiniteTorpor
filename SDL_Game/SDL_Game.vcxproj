@@ -141,8 +141,8 @@
     <ClCompile Include="DisplayPlayerHealth.cpp" />
     <ClCompile Include="DisplayPlayerScore.cpp" />
     <ClCompile Include="DisplayScreenFadeInOut.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Rectangle.cpp" />
-    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TransitionManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -202,8 +202,8 @@
     <ClInclude Include="DisplayPlayerHealth.h" />
     <ClInclude Include="DisplayPlayerScore.h" />
     <ClInclude Include="DisplayScreenFadeInOut.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Rectangle.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="TransitionManager.h" />
     <ClInclude Include="Enemy.h" />

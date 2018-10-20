@@ -41,7 +41,7 @@ void GenerateLevel::start()
 	startTimeEnemyMultiplicator = timeEnemyMultiplicator;
 
 	loadRoomsFromFiles(); // We load all the rooms data 
-	generateLevel(); // We create the levels	
+	//generateLevel(); // We create the levels	
 }
 
 void GenerateLevel::render()
@@ -662,7 +662,7 @@ void GenerateLevel::generateLevel()
 					new_enemy->active = false;
 					room->addEnemy(new_enemy);
 
-					Game::instance()->instantiateGameObject(new_enemy);
+					Game::instance()->instantiateGameObject(new_enemy, gameObject->getRootParent());
 
 				}
 			}
@@ -674,7 +674,7 @@ void GenerateLevel::generateLevel()
 		TileMapCollider* tile_map_collider = new TileMapCollider(roomPrefab);
 		tile_map_collider->setLayer(40);
 
-		Game::instance()->instantiateGameObject(roomPrefab);
+		Game::instance()->instantiateGameObject(roomPrefab, gameObject->getRootParent());
 
 		roomPrefabs.push_back(roomPrefab);
 	}

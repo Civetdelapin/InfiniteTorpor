@@ -23,8 +23,8 @@ void EnemyAttackCollider::update()
 				
 					if (collider->getGameObject()->tag == "Player") {
 
-						if (collider->getGameObject()->getRootParent()->getComponent<PlayerBehavior>()->addDamage(dmg) && isDestroyed) {
-							Game::instance()->destroyGameObject(getGameObject());
+						if (collider->getGameObject()->getRootParent()->getComponentInChildren<PlayerBehavior>()->addDamage(dmg) && isDestroyed) {
+							Game::instance()->destroyGameObject(gameObject);
 						}
 
 					}

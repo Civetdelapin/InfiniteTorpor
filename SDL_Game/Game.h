@@ -51,6 +51,7 @@ public:
 	void render();
 	void clean();
 
+	void quitGame();
 	
 	void instantiateGameObject(GameObject* gameObject, GameObject* new_parent = nullptr);
 	void destroyGameObject(GameObject* gameObject);

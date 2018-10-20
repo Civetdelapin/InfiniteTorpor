@@ -21,7 +21,6 @@ public:
 	void endLevel();
 	void restartGame();
 
-
 	void gameOver(int playerScore);
 	void nextFloor();
 

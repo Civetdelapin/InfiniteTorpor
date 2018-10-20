@@ -22,7 +22,7 @@ void ButtonManager::addButton(Button * button)
 
 	std::sort(buttons.begin(), buttons.end(), [](Button* a, Button* b) {
 
-		return a->getPosition().y < b->getPosition().y;
+		return a->getPosition().y > b->getPosition().y;
 	});
 }
 
@@ -44,6 +44,9 @@ void ButtonManager::update()
 				case SDLK_UP:
 					buttonOK = true;
 					break;
+				case SDLK_RETURN:
+					buttonOK = true;
+					break;
 			}
 			break;
 
@@ -62,8 +65,9 @@ void ButtonManager::update()
 
 				case SDLK_RETURN:
 
-					if(buttons[currentIndex]->isReallyActive()) {
+					if(buttons[currentIndex]->isReallyActive() && buttonOK) {
 						buttons[currentIndex]->onClick();
+						buttonOK = false;
 					}
 
 					break;
@@ -80,7 +84,7 @@ void ButtonManager::update()
 void ButtonManager::setButtonSelected(Button * button)
 {
 	ptrdiff_t pos = std::find(buttons.begin(), buttons.end(), button) - buttons.begin();
-	if (pos < buttons.size()) {
+	if (pos < buttons.size() && pos != currentIndex) {
 
 		buttons[currentIndex]->setBasic();
 		buttons[pos]->setFocus();
@@ -92,12 +96,19 @@ void ButtonManager::setButtonSelected(Button * button)
 void ButtonManager::navigateButtons(bool goDown)
 {
 	if (buttonOK) {
+		
 		int index = currentIndex;
 		bool newButtonFound = false;
 
 		do {
 
-			index = goDown ? (index - 1) % buttons.size() : (index + 1) % buttons.size();
+			index = goDown ? (index - 1) : (index + 1);
+
+			if (index < 0) {
+				index = buttons.size() - 1;
+			}
+
+			index = index % buttons.size();
 
 			if (buttons[index]->isReallyActive() || currentIndex == index) {
 				newButtonFound = true;

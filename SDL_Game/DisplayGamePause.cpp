@@ -63,8 +63,10 @@ void DisplayGamePause::resume()
 
 void DisplayGamePause::pause()
 {
-	gameObject->active = true;
-	Time::timeScale = 0;
+	if (!gameObject->active) {
+		gameObject->active = true;
+		Time::timeScale = 0;
 
-	Game::instance()->getButtonManager()->setButtonSelected(resumeButton);
+		Game::instance()->getButtonManager()->setButtonSelected(resumeButton);
+	}
 }

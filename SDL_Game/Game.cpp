@@ -143,6 +143,11 @@ void Game::clean()
 	printInConsole("Game closed!");
 }
 
+void Game::quitGame()
+{
+	isRunning = false;
+}
+
 void Game::addGameObject(GameObject* gameObject)
 {
 	gameObjects.push_back(gameObject);
