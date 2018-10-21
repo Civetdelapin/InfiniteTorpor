@@ -49,5 +49,5 @@ void BoxCollider::update() {
 }
 
 void BoxCollider::render() {
-	//TextureManager::DrawRect(rect);
+	TextureManager::DrawRect(rect);
 }

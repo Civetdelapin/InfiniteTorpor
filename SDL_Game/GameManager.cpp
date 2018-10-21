@@ -1,6 +1,6 @@
 #include "GameManager.h"
 #include "Game.h"
-
+#include "MainMenu.h"
 
 GameManager::GameManager(GameObject * gameObject) : Component(gameObject)
 {
@@ -84,6 +84,41 @@ void GameManager::restartGame()
 	}
 }
 
+void GameManager::startGame()
+{
+	
+	if (mainMenu == nullptr) {
+		mainMenu = Game::instance()->findGameObject("MainMenu");
+	}
+	mainMenu->active = false;
+
+	if (mainGame == nullptr) {
+		mainGame = Game::instance()->findGameObject("MainGameObject");
+	}
+	mainGame->active = true;
+
+	gameObject->getRootParent()->active = true;
+	gameObject->getComponent<GenerateLevel>()->generateNewGame();
+
+	if (player != nullptr) {
+
+		PlayerBehavior* player_behavior = player->getComponent<PlayerBehavior>();
+		if (player_behavior != nullptr) {
+			player_behavior->restartGame();
+		}
+	}
+}
+
+void GameManager::goMainMenu()
+{
+	mainMenu->active = true;
+	mainGame->active = false;
+
+	mainMenu->getComponent<MainMenu>()->activateMainMenu();
+
+	gameObject->getComponent<GenerateLevel>()->cleanGeneratedData();
+}
+
 void GameManager::gameOver(int playerScore)
 {
 	if (uiManager != nullptr) {
@@ -99,4 +134,9 @@ void GameManager::gameOver(int playerScore)
 void GameManager::nextFloor()
 {
 	gameObject->getComponent<GenerateLevel>()->playerNextFloor();
+}
+
+GameObject * GameManager::getMainGame()
+{
+	return mainGame;
 }

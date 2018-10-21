@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "Game.h"
+#include "GameManager.h"
 
 MainMenu::MainMenu(GameObject* gameObject) : Component(gameObject)
 {
@@ -22,6 +23,11 @@ MainMenu::MainMenu(GameObject* gameObject) : Component(gameObject)
 	resumeButton->getText()->setLayer(RendererManager::MAX_LAYER);
 	resumeButton->getText()->setText("PLAY");
 	resumeButton->setSize({ 65, 12 });
+
+	std::function<void()> play = [this]() {
+		Game::instance()->findGameObject("Manager")->getComponent<GameManager>()->startGame();
+	};
+	resumeButton->setOnClickFunction(play);
 
 	creditsButton = new Button(firstScreen);
 	creditsButton->setPosition({ Game::instance()->getScreenSize().x / 2,

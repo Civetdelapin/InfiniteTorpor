@@ -21,6 +21,8 @@ struct RoomDataStruct {
 	TileMapData* tileMapData;
 	std::vector<SDL_Texture*> roomTextures;
 
+	~RoomDataStruct();
+
 	std::vector<OwnMathFuncs::Vector2> doorsPossible;
 };
 
@@ -63,6 +65,8 @@ public:
 	void render();
 	void clean();
 
+	void cleanGeneratedData();
+
 private:
 
 	
@@ -88,6 +92,7 @@ private:
 	std::vector<std::vector<SDL_Texture*>> openDoorTextures;
 	std::vector<std::vector<SDL_Texture*>> closeDoorTextures;
 
+	SDL_Texture* tile_map_texture;
 	//---------------------------
 
 	int curFloor = 0;
@@ -96,8 +101,8 @@ private:
 	int minEnemy = 2;
 	int maxEnemy = 3;
 
-	float nbEnemyMultiplicator = 1.01f;
-	float timeEnemyMultiplicator = 0.9f;
+	float nbEnemyMultiplicator = 1.025f;
+	float timeEnemyMultiplicator = 0.98f;
 
 	float startNbEnemyMultiplicator;
 	float startTimeEnemyMultiplicator;
@@ -112,11 +117,9 @@ private:
 	void readCSVSpawner(const char* file_path, TileMapData* tileMapData);
 	void loadRoomDataStruct(std::string room_name, RoomDataStruct* roomDataStruct);
 
-	void cleanGeneratedData();
-
 	OwnMathFuncs::Vector2 getNewPos();
 
-	SDL_Texture* tile_map_texture;
+	
 
 	int convDoorPosToIndex(OwnMathFuncs::Vector2 pos);
 	OwnMathFuncs::Vector2 convIndexToDoorPos(int index);

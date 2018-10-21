@@ -86,7 +86,8 @@ void PlayerAttack::update()
 					if (collider->getGameObject()->tag == "Enemy") {
 
 						EnemyBasicBehavior* enemyBehavior = collider->getGameObject()->getRootParent()->getComponentInChildren<EnemyBasicBehavior>();
-						if (enemyBehavior != nullptr) {	
+						if (enemyBehavior != nullptr) {
+							
 							if (enemyBehavior->takeDamage(normalizeDirection, velocityAttack * 0.80, attackDamage[nb_combo - 1], timeEnemyStun)) {
 								
 								//We have killed the enemy

@@ -12,7 +12,7 @@ class Player : public GameObject
 {
 public:
 	Player(OwnMathFuncs::Vector2 init_local_pos = { 0, 0 });
-	~Player();
+	virtual ~Player();
 
 private:
 	

@@ -14,6 +14,6 @@ class Enemy : public GameObject
 {
 public:
 	Enemy(std::string img_path, OwnMathFuncs::Vector2 spriteSize, OwnMathFuncs::Vector2 init_local_pos = { 0, 0 });
-	~Enemy();
+	virtual ~Enemy();
 };
 

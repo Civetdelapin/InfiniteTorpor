@@ -46,7 +46,7 @@ void GenerateLevel::start()
 
 void GenerateLevel::render()
 {
-
+	/*
 	const int size = 50;
 
 	//Draw the rects for testing
@@ -95,13 +95,36 @@ void GenerateLevel::render()
 		}
 
 	}
-
+	*/
 }
 
 void GenerateLevel::clean()
 {
 	
 	cleanGeneratedData();
+
+	delete startingRoom;
+	delete endingRoom;
+
+	for (RoomDataStruct* roomData : roomDataStructs) {
+		delete roomData;
+	}
+
+	for (SDL_Texture* text : noDoorTextures) {
+		SDL_DestroyTexture(text);
+	}
+
+	for (std::vector<SDL_Texture*> vect : openDoorTextures) {
+		for (SDL_Texture* text : vect) {
+			SDL_DestroyTexture(text);
+		}
+	}
+
+	for (std::vector<SDL_Texture*> vect : closeDoorTextures) {
+		for (SDL_Texture* text : vect) {
+			SDL_DestroyTexture(text);
+		}
+	}
 
 	SDL_DestroyTexture(tile_map_texture);
 
@@ -271,7 +294,6 @@ void GenerateLevel::generateLevel()
 		Room* newRoom = new Room(newPos);
 		rooms[(int)newPos.x][(int)newPos.y] = newRoom;
 
-	
 		roomsVector.push_back(newRoom);
 		posTaken.push_back(newPos);
 	}
@@ -601,8 +623,7 @@ void GenerateLevel::generateLevel()
 		if (room->getRoomType() != Room::StartRoom && room->getRoomType() != Room::EndRoom) {
 
 			// ------ CREATE ENEMIES OF THE ROOM -------------
-			//int nb_enemies = 0;
-
+			
 			int nb_enemy_min = minEnemy * nbEnemyMultiplicator;
 			int nb_enemy_max = maxEnemy * nbEnemyMultiplicator;
 
@@ -662,7 +683,7 @@ void GenerateLevel::generateLevel()
 					new_enemy->active = false;
 					room->addEnemy(new_enemy);
 
-					Game::instance()->instantiateGameObject(new_enemy, gameObject->getRootParent());
+					Game::instance()->instantiateGameObject(new_enemy);
 
 				}
 			}
@@ -674,7 +695,7 @@ void GenerateLevel::generateLevel()
 		TileMapCollider* tile_map_collider = new TileMapCollider(roomPrefab);
 		tile_map_collider->setLayer(40);
 
-		Game::instance()->instantiateGameObject(roomPrefab, gameObject->getRootParent());
+		Game::instance()->instantiateGameObject(roomPrefab);
 
 		roomPrefabs.push_back(roomPrefab);
 	}
@@ -987,7 +1008,6 @@ void GenerateLevel::cleanGeneratedData()
 
 	}
 
-
 	for (GameObject* roomPrefab : roomPrefabs) {
 
 		Game::instance()->destroyGameObject(roomPrefab);
@@ -1094,5 +1114,13 @@ OwnMathFuncs::Vector2 GenerateLevel::convIndexToDoorPos(int index)
 	default:
 		return { 0, 0 };
 		break;
+	}
+}
+
+RoomDataStruct::~RoomDataStruct()
+{
+	delete tileMapData;
+	for (SDL_Texture* text : roomTextures) {
+		SDL_DestroyTexture(text);
 	}
 }

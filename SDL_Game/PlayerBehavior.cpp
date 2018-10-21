@@ -123,7 +123,7 @@ void PlayerBehavior::setDying()
 
 	state = endingLevel;
 
-	Game::instance()->findGameObject("Manager")->getComponent<GameManager>()->gameOver(getScore());
+	Game::instance()->findGameObject("Manager")->getComponent<GameManager>()->gameOver(score);
 }
 
 bool PlayerBehavior::addDamage(float dmg)

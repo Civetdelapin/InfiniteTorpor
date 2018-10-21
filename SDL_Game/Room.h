@@ -20,6 +20,8 @@ struct TileMapData {
 	
 	OwnMathFuncs::Vector2 spriteSize = { 16, 16 };
 
+	~TileMapData();
+
 	TileData* getTile(int x, int y);
 };
 

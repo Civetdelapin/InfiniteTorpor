@@ -1,5 +1,6 @@
 #include "DisplayGamePause.h"
 #include "Game.h"
+#include "GameManager.h"
 
 DisplayGamePause::DisplayGamePause(GameObject * gameObject) : Component(gameObject)
 {
@@ -38,6 +39,12 @@ DisplayGamePause::DisplayGamePause(GameObject * gameObject) : Component(gameObje
 	mainMenuButton->getText()->setLayer(RendererManager::MAX_LAYER);
 	mainMenuButton->getText()->setText("MAIN MENU");
 	mainMenuButton->setSize({ 65, 12 });
+
+	std::function<void()> mainMenu = [this]() {
+		resume();
+		Game::instance()->findGameObject("Manager")->getComponent<GameManager>()->goMainMenu();
+	};
+	mainMenuButton->setOnClickFunction(mainMenu);
 }
 
 DisplayGamePause::~DisplayGamePause()

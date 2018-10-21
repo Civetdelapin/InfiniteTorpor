@@ -20,13 +20,21 @@ public:
 	void startLevel(OwnMathFuncs::Vector2 position);
 	void endLevel();
 	void restartGame();
+	void startGame();
+	void goMainMenu();
 
 	void gameOver(int playerScore);
 	void nextFloor();
+
+	GameObject* getMainGame();
 
 private:
 
 	GameObject* player;
 	GameObject* uiManager;
+
+	GameObject* mainMenu;
+	GameObject* mainGame;
+
 };
 

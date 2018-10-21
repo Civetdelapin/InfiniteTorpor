@@ -20,7 +20,7 @@ MinotaurPrefab::MinotaurPrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("im
 	localScale = { 4, 4 };
 
 	BoxCollider* ground_collider = getComponent<BoxCollider>();
-	ground_collider->offset = { -2, 22 };
+	ground_collider->offset = { 0, 22 };
 	ground_collider->size = { 18, 6 };
 	//----------------------------------------------
 

@@ -35,8 +35,8 @@ bool TileMapCollider::isColliding(Collider * collider)
 			//We test every corner of the BoxCollider
 			
 			//UPPER LEFT
-			x = ((boxCollider->getRect().x ) - (new_world_pos.x) / div_x);
-			y = ((boxCollider->getRect().y ) - (new_world_pos.y) / div_y);
+			x = ((boxCollider->getRect().x ) - new_world_pos.x) / div_x;
+			y = ((boxCollider->getRect().y ) - new_world_pos.y) / div_y;
 
 			
 			TileData* tileData = tileMapData->getTile(x, y);
@@ -45,7 +45,6 @@ bool TileMapCollider::isColliding(Collider * collider)
 				return true;
 			}
 			
-
 			//DOWN LEFT
 			x = ((boxCollider->getRect().x) - new_world_pos.x) /div_x;
 			y = ((boxCollider->getRect().y + boxCollider->getRect().h) - new_world_pos.y) / div_y;

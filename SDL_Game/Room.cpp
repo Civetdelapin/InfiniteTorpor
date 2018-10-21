@@ -8,14 +8,7 @@ Room::Room(OwnMathFuncs::Vector2 gridPosition) : gridPosition(gridPosition)
 
 Room::~Room()
 {
-	for (std::vector<TileData*> tiles_ligne : tileMapData->data) {
-
-		for (TileData* tile : tiles_ligne) {
-			delete tile;
-		}
-	}
-
-	tileMapData->spawners.clear();
+	delete tileMapData;
 
 	for (GameObject* enemy : enemiesWaves) {
 		Game::instance()->destroyGameObject(enemy);
@@ -99,6 +92,18 @@ TileData::TileData() : collider(false) {
 }
 
 
+
+TileMapData::~TileMapData()
+{
+	for (std::vector<TileData*> tiles_ligne : data) {
+
+		for (TileData* tile : tiles_ligne) {
+			delete tile;
+		}
+	}
+
+	spawners.clear();
+}
 
 TileData* TileMapData::getTile(int x, int y)
 {

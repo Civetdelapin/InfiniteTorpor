@@ -24,9 +24,10 @@ int main(int argc, char* args[]) {
 
 	Game::setInstance(new Game("My game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, false));
 
-	
 	GameObject* mainMenuGameObject = new GameObject();
 	mainMenuGameObject->active = false;
+	mainMenuGameObject->tag = "MainMenu";
+
 	Game::instance()->instantiateGameObject(mainMenuGameObject);
 
 	mainMenuGameObject->localScale = { 4, 4 };
@@ -34,6 +35,7 @@ int main(int argc, char* args[]) {
 	
 
 	GameObject* mainGameObject = new GameObject();
+	mainGameObject->tag = "MainGameObject";
 	mainGameObject->active = false;
 
 	Game::instance()->instantiateGameObject(mainGameObject);
@@ -112,7 +114,7 @@ int main(int argc, char* args[]) {
 	GenerateLevel* generate_level = new GenerateLevel(gameManager);
 	GameManager* gameManagerComponent = new GameManager(gameManager);
 
-	Game::instance()->instantiateGameObject(gameManager, mainGameObject);
+	Game::instance()->instantiateGameObject(gameManager);
 	//--------------------------------------
 
 

@@ -39,6 +39,14 @@ DisplayGameOver::DisplayGameOver(GameObject * gameObject) : Component(gameObject
 	mainMenuButton->getText()->setLayer(RendererManager::MAX_LAYER);
 	mainMenuButton->getText()->setText("MAIN MENU");
 	mainMenuButton->setSize({ 65, 12 });
+	std::function<void()> mainMenu = [this]() {
+		this->gameObject->active = false;
+		Game::instance()->findGameObject("Manager")->getComponent<GameManager>()->goMainMenu();
+	};
+
+	mainMenuButton->setOnClickFunction(mainMenu);
+
+	
 }
 
 DisplayGameOver::~DisplayGameOver()

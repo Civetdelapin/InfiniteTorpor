@@ -54,7 +54,7 @@ void TransitionManager::transitionBetweenFloors(int nextFloor)
 
 void TransitionManager::transitionGameOver(int playerGameScore)
 {
-	this->playerScore = playerScore;
+	this->playerScore = playerGameScore;
 
 	state = GameOver;
 	timeLeft = timeBeforeTransition;
