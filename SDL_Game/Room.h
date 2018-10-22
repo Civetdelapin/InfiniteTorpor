@@ -11,6 +11,7 @@ struct TileData {
 	bool spawner = false;
 
 	TileData();
+	~TileData();
 };
 
 struct TileMapData {
@@ -34,6 +35,8 @@ struct Door {
 
 	GameObject* openDoor;
 	GameObject* closeDoor;
+
+	~Door();
 };
 
 class Room

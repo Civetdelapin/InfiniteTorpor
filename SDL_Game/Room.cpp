@@ -15,6 +15,9 @@ Room::~Room()
 	}
 	enemiesWaves.clear();
 
+	for (Door* door : doors) {
+		delete door;
+	}
 }
 
 OwnMathFuncs::Vector2 Room::getGridPos()
@@ -91,6 +94,10 @@ TileData::TileData() : collider(false) {
 
 }
 
+TileData::~TileData()
+{
+}
+
 
 
 TileMapData::~TileMapData()
@@ -117,3 +124,6 @@ TileData* TileMapData::getTile(int x, int y)
 	return nullptr;
 }
 
+Door::~Door()
+{
+}

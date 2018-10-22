@@ -18,37 +18,45 @@ void Animator::addAnimation(std::pair<std::string, Animation> animation)
 
 void Animator::start()
 {
-	spriteRenderer = gameObject->getComponent<SpriteRenderer>();
-
+	if (spriteRenderers.size() == 0) {
+		SpriteRenderer* spriteRenderer = gameObject->getComponent<SpriteRenderer>();
+		if (spriteRenderer != nullptr) {
+			spriteRenderers.push_back(spriteRenderer);
+		}		
+	}
+	
 }
 
 void Animator::update()
 {
 
-	if (spriteRenderer != nullptr && currentAnimation != "") {
+	if (animations[currentAnimation].spriteRendererIndex >= 0 && 
+		animations[currentAnimation].spriteRendererIndex < spriteRenderers.size() 
+		&& spriteRenderers[animations[currentAnimation].spriteRendererIndex] != nullptr
+		&& currentAnimation != "") {
 
-		if (timeLeft >= animations[currentAnimation].speed) {
+			if (timeLeft >= animations[currentAnimation].speed) {
 
-			timeLeft = 0;
+				timeLeft = 0;
 
-			currentSprite++;
+				currentSprite++;
 
-			if (!animations[currentAnimation].looping && currentSprite >= animations[currentAnimation].nbSprites) {
+				if (!animations[currentAnimation].looping && currentSprite >= animations[currentAnimation].nbSprites) {
 				
-				for (Transition transi : animations[currentAnimation].transitions) {
+					for (Transition transi : animations[currentAnimation].transitions) {
 
-					if (transi.ready_when_animation_is_over) {
-						currentAnimation = transi.next_animation;
+						if (transi.ready_when_animation_is_over) {
+							currentAnimation = transi.next_animation;
+						}
 					}
 				}
-			}
-			else {
+				else {
 
-				setRectRenderer();
+					setRectRenderer();
+				}
 			}
-		}
 
-		timeLeft += Time::deltaTime;
+			timeLeft += Time::deltaTime;
 	}
 
 }
@@ -61,13 +69,18 @@ void Animator::play(std::string name)
 		currentSprite = 0;
 
 		if (animations.count(name) > 0) {
+
+			if (currentAnimation != "" && animations[name].spriteRendererIndex != animations[currentAnimation].spriteRendererIndex) {
+				spriteRenderers[animations[currentAnimation].spriteRendererIndex]->setActive(false);
+				spriteRenderers[animations[name].spriteRendererIndex]->setActive(true);
+			}
+
 			currentAnimation = name;
 
 			timeLeft = animations[currentAnimation].speed;
 		}
 		else {
 			currentAnimation = "";
-			
 		}
 	}
 }
@@ -75,9 +88,13 @@ void Animator::play(std::string name)
 void Animator::clean()
 {
 	animations.clear();
-	spriteRenderer = NULL;
-
+	
 	Component::clean();
+}
+
+void Animator::addSpriteRenderer(SpriteRenderer* spriteRenderer)
+{
+	spriteRenderers.push_back(spriteRenderer);
 }
 
 void Animator::setRectRenderer()
@@ -86,13 +103,13 @@ void Animator::setRectRenderer()
 	SDL_Rect tempRect;
 
 	if (animations[currentAnimation].reverse) {
-		tempRect.x = (animations[currentAnimation].nbSprites - currentSprite + animations[currentAnimation].indexX) * spriteRenderer->getSpriteSize().x;
+		tempRect.x = (animations[currentAnimation].nbSprites - currentSprite + animations[currentAnimation].indexX) * spriteRenderers[animations[currentAnimation].spriteRendererIndex]->getSpriteSize().x;
 	}
 	else {
-		tempRect.x = (currentSprite + animations[currentAnimation].indexX) * spriteRenderer->getSpriteSize().x;
+		tempRect.x = (currentSprite + animations[currentAnimation].indexX) * spriteRenderers[animations[currentAnimation].spriteRendererIndex]->getSpriteSize().x;
 	}
 
-	tempRect.y = animations[currentAnimation].indexY * spriteRenderer->getSpriteSize().y;
-	spriteRenderer->setSourceRect(tempRect);
+	tempRect.y = animations[currentAnimation].indexY * spriteRenderers[animations[currentAnimation].spriteRendererIndex]->getSpriteSize().y;
+	spriteRenderers[animations[currentAnimation].spriteRendererIndex]->setSourceRect(tempRect);
 }
 

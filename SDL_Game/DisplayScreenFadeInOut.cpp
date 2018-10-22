@@ -72,10 +72,12 @@ void DisplayScreenFadeInOut::clean()
 
 void DisplayScreenFadeInOut::setState(State value, float time)
 {
-	stateFading = value;
+	if ((stateFading == Over && value != Over) || (stateFading != Over && value == Over)) {
+		stateFading = value;
 
-	timeLeft = time;
-	timeToFade = time;
+		timeLeft = time;
+		timeToFade = time;
+	}
 }
 
 void DisplayScreenFadeInOut::setAlpha(float value)

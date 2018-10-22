@@ -9,7 +9,7 @@ class State {
 public:
 
 	State(std::string nextState = "");
-	~State();
+	virtual ~State();
 
 	virtual void start(StateMachine* state_machine) = 0;
 	virtual void operation(StateMachine* state_machine) = 0;

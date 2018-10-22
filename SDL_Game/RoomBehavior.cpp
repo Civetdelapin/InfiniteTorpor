@@ -130,7 +130,6 @@ void RoomBehavior::update()
 
 void RoomBehavior::clean()
 {
-	
 	Component::clean();
 }
 

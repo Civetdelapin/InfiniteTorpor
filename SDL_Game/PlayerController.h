@@ -34,7 +34,7 @@ private:
 
 	float speed = 1200;
 	float dashSpeed = 1750;
-	float timeDash = 0.35;
+	float timeDash = 0.4;
 	float timeInvisibleDash = 0.5;
 	float timeCDDash = 0.10;
 

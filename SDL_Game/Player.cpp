@@ -3,10 +3,16 @@
 
 Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_pos)
 {
-	SpriteRenderer* spriteRenderer = new SpriteRenderer(this, "img/player.png", { 32, 32 });
-	spriteRenderer->setLayer(5);
+	SpriteRenderer* spriteRenderer = new SpriteRenderer(this, "img/player_0.png", { 32, 32 });
+	spriteRenderer->setLayer(RendererManager::TOP_DOWN_LAYER);
+
+	SpriteRenderer* spriteRenderer2 = new SpriteRenderer(this, "img/player_1.png", { 54, 41 });
+	spriteRenderer2->setLayer(RendererManager::TOP_DOWN_LAYER);
+	spriteRenderer2->setActive(false);
 
 	Animator* animator = new Animator(this);
+	animator->addSpriteRenderer(spriteRenderer);
+	animator->addSpriteRenderer(spriteRenderer2);
 
 	// Creation of Animations
 	Animation animIdle;
@@ -40,6 +46,14 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	animWakeUp.reverse = true;
 
 	animator->addAnimation(std::pair <std::string, Animation>("WakingUp", animWakeUp));
+
+	Animation animDodge;
+	animDodge.nbSprites = 8;
+	animDodge.speed = 0.075f;
+	animDodge.looping = false;
+	animDodge.spriteRendererIndex = 1;
+
+	animator->addAnimation(std::pair <std::string, Animation>("Dodge", animDodge));
 
 	BoxCollider* boxCollider = new BoxCollider(this);
 	boxCollider->offset = { 1, 14};

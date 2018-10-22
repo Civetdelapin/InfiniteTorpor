@@ -424,8 +424,6 @@ void GenerateLevel::generateLevel()
 			if (texture != nullptr) {
 				SpriteRenderer* spriteRenderer = new SpriteRenderer(roomPrefab, texture, false);
 				spriteRenderer->setLayer(i);
-
-				std::cout << i << std::endl;
 			}
 		}
 

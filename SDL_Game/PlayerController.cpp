@@ -79,6 +79,8 @@ void PlayerController::update()
 
 				if (keystates[SDL_SCANCODE_LCTRL]) {
 
+					animator->play("Dodge");
+
 					state = State::dashing;
 					timeLeft = timeDash;
 
@@ -119,7 +121,7 @@ void PlayerController::update()
 
 	//std::cout << "velocity x : " << velocityBody->velocity.x << ", velocity y : " << velocityBody->velocity.y << std::endl;
 
-	if (canMove) {
+	if (canMove && state == State::ready_dash) {
 
 		if (abs(velocityBody->getVelocity().x) > 3 || abs(velocityBody->getVelocity().y) > 3) {
 			animator->play("Walking");

@@ -17,6 +17,8 @@ struct Animation {
 	int indexY = 0;
 	int indexX = 0;
 
+	int spriteRendererIndex = 0;
+
 	int nbSprites;
 	bool looping = true;
 
@@ -40,8 +42,10 @@ public:
 
 	void clean();
 
+	void addSpriteRenderer(SpriteRenderer* spriteRenderer);
+
 private:
-	SpriteRenderer * spriteRenderer;
+	std::vector<SpriteRenderer *>  spriteRenderers;
 
 	std::string currentAnimation = "";
 	std::map <std::string, Animation> animations;
