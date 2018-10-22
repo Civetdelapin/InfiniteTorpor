@@ -74,6 +74,9 @@ void Animator::play(std::string name)
 				spriteRenderers[animations[currentAnimation].spriteRendererIndex]->setActive(false);
 				spriteRenderers[animations[name].spriteRendererIndex]->setActive(true);
 			}
+			else if (currentAnimation != "" && !spriteRenderers[animations[currentAnimation].spriteRendererIndex]->isActive()) {
+				spriteRenderers[animations[currentAnimation].spriteRendererIndex]->setActive(true);
+			}
 
 			currentAnimation = name;
 

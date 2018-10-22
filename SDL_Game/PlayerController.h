@@ -32,8 +32,8 @@ private:
 	bool canMove = true;
 	State state = ready_dash;
 
-	float speed = 1200;
-	float dashSpeed = 1750;
+	float speed = 1000;
+	float dashSpeed = 1450;
 	float timeDash = 0.4;
 	float timeInvisibleDash = 0.5;
 	float timeCDDash = 0.10;
