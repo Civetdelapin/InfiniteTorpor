@@ -42,3 +42,8 @@ void Collider::setCollisionLayer(int value)
 {
 	collisionLayer = value;
 }
+
+OwnMathFuncs::Vector2 Collider::getWorldPosition()
+{
+	return gameObject->getWorldPosition();
+}

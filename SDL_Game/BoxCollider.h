@@ -18,6 +18,8 @@ public:
 	void update();
 	void render();
 
+	OwnMathFuncs::Vector2 getWorldPosition();
+
 private:
 	SDL_Rect rect;
 };

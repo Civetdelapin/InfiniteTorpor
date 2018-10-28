@@ -19,6 +19,10 @@ private:
 	GameObject * target;
 	EnemyBasicBehavior* enemyBasicBehavior;
 
+	OwnMathFuncs::Vector2 positionToGo = { 0, 0 };
+	
+	void findNewPosition(StateMachine* state_machine);
+
 	float range = 50;
 };
 

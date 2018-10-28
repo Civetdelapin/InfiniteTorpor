@@ -51,3 +51,9 @@ void BoxCollider::update() {
 void BoxCollider::render() {
 	//TextureManager::DrawRect(rect);
 }
+
+OwnMathFuncs::Vector2 BoxCollider::getWorldPosition()
+{
+	return { gameObject->getWorldPosition().x + (offset.x * gameObject->getWorldScale().x),
+		gameObject->getWorldPosition().y + (offset.y * gameObject->getWorldScale().y) };
+}

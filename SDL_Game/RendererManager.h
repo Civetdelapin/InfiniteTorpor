@@ -20,8 +20,6 @@ public:
 
 	void render();
 
-
-
 private:
 	std::vector<std::vector<Renderer*>> renderersToRender;
 

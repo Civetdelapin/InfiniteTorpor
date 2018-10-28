@@ -56,6 +56,8 @@ void RendererManager::render()
 		i++;
 	}
 	
+
+
 	SDL_RenderPresent(Game::instance()->getRenderer());
 }
 

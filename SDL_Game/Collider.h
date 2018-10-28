@@ -20,6 +20,8 @@ public:
 	int getCollisionLayer();
 	void setCollisionLayer(int value);
 
+	virtual OwnMathFuncs::Vector2 getWorldPosition();
+
 private:
 	bool trigger = false;
 	int collisionLayer = 0;

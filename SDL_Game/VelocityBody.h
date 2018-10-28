@@ -23,6 +23,8 @@ public:
 
 	void AddForce(OwnMathFuncs::Vector2 direction, float power);
 
+	OwnMathFuncs::Vector2 getColliderWorldPosition();
+
 private:
 	Collider * collider;
 

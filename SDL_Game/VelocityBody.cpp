@@ -88,6 +88,11 @@ void VelocityBody::AddForce(OwnMathFuncs::Vector2 direction, float power)
 	velocity.y += direction.y * power;
 }
 
+OwnMathFuncs::Vector2 VelocityBody::getColliderWorldPosition()
+{
+	return collider->getWorldPosition();
+}
+
 VelocityBody::~VelocityBody()
 {
 }
