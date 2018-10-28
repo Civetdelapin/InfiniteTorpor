@@ -65,7 +65,7 @@ std::vector<TileData*> PathFinding::getPath(TileMapData * tileMapData, OwnMathFu
 				continue;
 			}
 			
-			int totalCost = currentNode->score + 1;
+			int totalCost = i < 4 ? currentNode->score + 10 : currentNode->score + 15;
 
 			Node* newNode = findNodeOnVectorByPosition(openTile, newCoordinates);
 			if (newNode == nullptr) {
