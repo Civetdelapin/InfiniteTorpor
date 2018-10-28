@@ -7,7 +7,7 @@ SnakePrefab::SnakePrefab(OwnMathFuncs::Vector2 init_local_pos) : Enemy("img/snak
 
 	EnemyBasicBehavior* enemyBasicBehavior = getComponent<EnemyBasicBehavior>();
 	enemyBasicBehavior->setMaxHP(60);
-	enemyBasicBehavior->setSpeed(1500);
+	enemyBasicBehavior->setSpeed(2500);
 	enemyBasicBehavior->setTimeBeforeEnemy(7.0f);
 
 	getComponent<DisplayEnemyHp>()->setYOffset(8);

@@ -17,8 +17,8 @@ std::vector<TileData*> PathFinding::getPath(TileMapData * tileMapData, OwnMathFu
 		{ 0, 1 },{ 1, 0 },{ 0, -1 },{ -1, 0 },
 	{ -1, -1 },{ 1, 1 },{ -1, 1 },{ 1, -1 }
 	};
-	std::vector<TileData*> path;
 
+	std::vector<TileData*> path;
 
 	if (tileMapData->getTile(startPoint.x, startPoint.y) == nullptr || tileMapData->getTile(startPoint.x, startPoint.y)->collider || tileMapData->getTile(endPoint.x, endPoint.y) == nullptr || tileMapData->getTile(endPoint.x, endPoint.y)->collider) {
 		std::cout << "NO VALID POSITION " << std::endl;
@@ -28,7 +28,10 @@ std::vector<TileData*> PathFinding::getPath(TileMapData * tileMapData, OwnMathFu
 	std::vector<Node*> openTile;
 	std::vector<Node*> closeTile;
 
-	openTile.push_back(new Node({ startPoint.x, startPoint.y }));
+	Node* startNode = new Node({ startPoint.x, startPoint.y });
+	startNode->heuristic = abs(startNode->position.x - endPoint.x) + abs(startNode->position.y - endPoint.y);
+
+	openTile.push_back(startNode);
 
 	Node* currentNode;
 
@@ -53,7 +56,7 @@ std::vector<TileData*> PathFinding::getPath(TileMapData * tileMapData, OwnMathFu
 		openTile.erase(std::find(openTile.begin(), openTile.end(), currentNode));
 
 
-		for (int i = 0; i < 4; ++i) {
+		for (int i = 0; i < 8; ++i) {
 			OwnMathFuncs::Vector2 newCoordinates = currentNode->position + direction[i];
 
 			TileData* newTile = tileMapData->getTile(newCoordinates.x, newCoordinates.y);
@@ -62,29 +65,25 @@ std::vector<TileData*> PathFinding::getPath(TileMapData * tileMapData, OwnMathFu
 				continue;
 			}
 			
-			int totalCost = currentNode->score + 10;
+			int totalCost = currentNode->score + 1;
 
 			Node* newNode = findNodeOnVectorByPosition(openTile, newCoordinates);
 			if (newNode == nullptr) {
 				newNode = new Node(newCoordinates);
-
-				newNode->score = totalCost;
-				newNode->heuristic = abs(newNode->position.x - endPoint.x) + abs(newNode->position.y - endPoint.y);
-				newNode->parent = currentNode;
-
 				openTile.push_back(newNode);
 			}
-			else if (totalCost < newNode->score) {
-				newNode->parent = currentNode;
-				newNode->score = totalCost;
+			else if (totalCost >= newNode->score) {
+				continue;
 			}
 
+			newNode->score = totalCost;
+			newNode->heuristic = abs(newNode->position.x - endPoint.x) + abs(newNode->position.y - endPoint.y);
+			newNode->parent = currentNode;
 		}
 
 	}
 
 	while (currentNode != nullptr) {
-		
 		path.push_back(tileMapData->getTile(currentNode->position.x, currentNode->position.y));
 		currentNode = currentNode->parent;
 	}
@@ -115,7 +114,7 @@ Node * PathFinding::findNodeOnVectorByPosition(std::vector<Node*>& vector, OwnMa
 
 int Node::getScore()
 {
-	return 0;
+	return score + heuristic;
 }
 
 Node::Node(OwnMathFuncs::Vector2 pos) : position(pos)

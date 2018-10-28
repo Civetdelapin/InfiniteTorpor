@@ -78,24 +78,24 @@ void StateRushPlayer::findNewPosition(StateMachine* state_machine)
 	OwnMathFuncs::Vector2 endPoint = {(float) (int)( (targetColliderPosition.x - new_world_pos.x) / div_x),
 		(float) (int)( (targetColliderPosition.y - new_world_pos.y) / div_y )};
 
-	std::cout << "ENEMY : " << startPoint.toString() << std::endl;
-	std::cout << " PLAYER : " <<endPoint.toString() << std::endl;
+	//std::cout << "ENEMY : " << startPoint.toString() << std::endl;
+	//std::cout << " PLAYER : " <<endPoint.toString() << std::endl;
 
 	std::vector<TileData*> pathToTarget = PathFinding::getPath(roomBehavior->getRoomData()->getTileMapData(), startPoint, endPoint);
 
-			
+	/*
 	std::cout << "PRINT PATH" << std::endl;
 	for (TileData* tileData : pathToTarget) {
 		std::cout << tileData->positionGrid.toString() << std::endl;
 	}
 	std::cout << "---------------------" << std::endl;
-			
+	*/		
 
 	if (pathToTarget.size() >= 2) {
 
 		positionToGo = { new_world_pos.x + (pathToTarget[pathToTarget.size() - 2]->positionGrid.x * div_x) + div_x / 2,
 			new_world_pos.y + (pathToTarget[pathToTarget.size() - 2]->positionGrid.y * div_y) + div_y / 2 };
 
-		std::cout << "New Pos : " << positionToGo.toString() << std::endl;
+		//std::cout << "New Pos : " << positionToGo.toString() << std::endl;
 	}
 }
