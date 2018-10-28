@@ -22,7 +22,7 @@
 
 int main(int argc, char* args[]) {
 
-	Game::setInstance(new Game("My game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 1024, false));
+	Game::setInstance(new Game("My game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, false));
 
 	GameObject* mainMenuGameObject = new GameObject();
 	mainMenuGameObject->active = false;

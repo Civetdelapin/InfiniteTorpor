@@ -46,9 +46,11 @@ void StateRushPlayer::operation(StateMachine* state_machine)
 			OwnMathFuncs::Vector2 endPoint = {(float) (int)( (target->getWorldPosition().x - new_world_pos.x) / div_x),
 				(float) (int)( (target->getWorldPosition().y - new_world_pos.y) / div_y )};
 
+			startPoint.y += 1;
+			endPoint.y += 1;
 
-			//std::cout << "ENEMY : " << startPoint.toString() << std::endl;
-			//std::cout << " PLAYER : " <<endPoint.toString() << std::endl;
+			std::cout << "ENEMY : " << startPoint.toString() << std::endl;
+			std::cout << " PLAYER : " <<endPoint.toString() << std::endl;
 
 			std::vector<TileData*> pathToTarget = PathFinding::getPath(roomBehavior->getRoomData()->getTileMapData(), startPoint, endPoint);
 

@@ -107,15 +107,10 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	//--------- CREATION OF SHADOW -------------
 	
 	GameObject* game_object_child_3 = new GameObject({ 0, spriteRenderer->getSpriteSize().y / 2});
-	SpriteRenderer* sprite_renderer_2 = new SpriteRenderer(game_object_child_3, "img/dungeon_tileset.png", { 16, 16 });
-	sprite_renderer_2->setLayer(4);
+	SpriteRenderer* sprite_renderer_2 = new SpriteRenderer(game_object_child_3, "img/shadow_small.png", { 21, 21 });
+	sprite_renderer_2->setLayer(RendererManager::TOP_DOWN_LAYER - 1);
 
-	SDL_Rect tempRect;
-	tempRect.x = 0 * sprite_renderer_2->getSpriteSize().x;
-	tempRect.y = 32 * sprite_renderer_2->getSpriteSize().y;
-	sprite_renderer_2->setSourceRect(tempRect);
 	addGameObjectAsChild(game_object_child_3);
-	
 	//------------------------------------------
 }
 

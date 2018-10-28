@@ -21,7 +21,7 @@ std::vector<TileData*> PathFinding::getPath(TileMapData * tileMapData, OwnMathFu
 
 
 	if (tileMapData->getTile(startPoint.x, startPoint.y) == nullptr || tileMapData->getTile(startPoint.x, startPoint.y)->collider || tileMapData->getTile(endPoint.x, endPoint.y) == nullptr || tileMapData->getTile(endPoint.x, endPoint.y)->collider) {
-		std::cout << "SALUssssssT " << std::endl;
+		std::cout << "NO VALID POSITION " << std::endl;
 		return path;
 	}
 
@@ -44,7 +44,7 @@ std::vector<TileData*> PathFinding::getPath(TileMapData * tileMapData, OwnMathFu
 		}
 
 		if (currentNode->position == endPoint) {
-			std::cout << "SALUT " << std::endl;
+			std::cout << "FIND THE END, EXIT " << std::endl;
 			break;
 		}
 
@@ -53,7 +53,7 @@ std::vector<TileData*> PathFinding::getPath(TileMapData * tileMapData, OwnMathFu
 		openTile.erase(std::find(openTile.begin(), openTile.end(), currentNode));
 
 
-		for (int i = 0; i < 8; ++i) {
+		for (int i = 0; i < 4; ++i) {
 			OwnMathFuncs::Vector2 newCoordinates = currentNode->position + direction[i];
 
 			TileData* newTile = tileMapData->getTile(newCoordinates.x, newCoordinates.y);

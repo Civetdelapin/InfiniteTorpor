@@ -21,6 +21,7 @@ public:
 
 	void setAlpha(float value);
 	void setIsLookingRight(bool value);
+	
 
 	OwnMathFuncs::Vector2 getBottomPosition();
 
@@ -30,6 +31,7 @@ private:
 	OwnMathFuncs::Vector2 imgSize = { 30, 30 };
 	OwnMathFuncs::Vector2 spriteSize = { 30, 30 };
 
+	
 	float alpha = 255;
 
 	bool lookingRight = true;

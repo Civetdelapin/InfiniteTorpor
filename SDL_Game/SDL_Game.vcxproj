@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Famille\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\include;C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Famille\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\lib\x64;C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\lib\x64;C:\Program Files %28x86%29\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\SuperFondue\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\include;C:\Users\Famille\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\include;C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\SuperFondue\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\lib\x64;C:\Users\Famille\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\lib\x64;C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\lib\x64;C:\Program Files %28x86%29\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -88,7 +88,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Famille\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\SuperFondue\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\include;C:\Users\Famille\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>

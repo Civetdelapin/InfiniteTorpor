@@ -17,6 +17,9 @@ struct Animation {
 	int indexY = 0;
 	int indexX = 0;
 
+	int offsetX = 0;
+	int offsetY = 0;
+
 	int spriteRendererIndex = 0;
 
 	int nbSprites;
