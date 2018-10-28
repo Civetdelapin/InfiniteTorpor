@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A2CF0D57-9692-4F85-AF02-2821E0616753}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\lib\x64;C:\Program Files %28x86%29\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Famille\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\include;C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Famille\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\lib\x64;C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\lib\x64;C:\Program Files %28x86%29\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -88,12 +88,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Famille\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Famille\source\repos\InfiniteTorpor\SDL_Game\SDL2-2.0.8\lib\x64;C:\Users\Civetdelapin\source\repos\SDL_Game\SDL_Game\SDL2-2.0.8\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,6 +142,7 @@
     <ClCompile Include="DisplayPlayerScore.cpp" />
     <ClCompile Include="DisplayScreenFadeInOut.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TransitionManager.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="DisplayPlayerScore.h" />
     <ClInclude Include="DisplayScreenFadeInOut.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="PathFinding.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="TransitionManager.h" />

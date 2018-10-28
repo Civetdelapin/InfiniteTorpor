@@ -4,6 +4,7 @@
 #include <math.h>
 #include <random>
 #include "SDL.h"
+#include <string>
 
 namespace OwnMathFuncs
 {
@@ -48,6 +49,7 @@ namespace OwnMathFuncs
 			return vector;
 		}
 
+		std::string toString();
 	};
 
 

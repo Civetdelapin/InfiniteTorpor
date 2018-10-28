@@ -1,5 +1,6 @@
 #include "EnemyBasicBehavior.h"
 #include "Game.h"
+#include "RoomBehavior.h"
 
 EnemyBasicBehavior::EnemyBasicBehavior(GameObject* gameObject) : Component(gameObject)
 {
@@ -137,6 +138,16 @@ float EnemyBasicBehavior::getTimeBeforeEnemy()
 void EnemyBasicBehavior::setTimeBeforeEnemy(float value)
 {
 	timeBeforeNextEnemy = value;
+}
+
+void EnemyBasicBehavior::setRoomBehavior(RoomBehavior * roomBehavior)
+{
+	this->roomBehavior = roomBehavior;
+}
+
+RoomBehavior * EnemyBasicBehavior::getRoomBehavior()
+{
+	return roomBehavior;
 }
 
 void EnemyBasicBehavior::setDying()

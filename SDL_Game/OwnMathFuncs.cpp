@@ -85,3 +85,8 @@ bool OwnMathFuncs::OwnMathFuncs::AABB(SDL_Rect rectA, SDL_Rect rectB)
 	return false;
 }
 
+std::string OwnMathFuncs::Vector2::toString()
+{
+	std::string str = "x : "+ std::to_string(x) + ", y : " + std::to_string(y);
+	return str;
+}

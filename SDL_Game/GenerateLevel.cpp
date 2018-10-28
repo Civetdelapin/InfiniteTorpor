@@ -367,6 +367,11 @@ void GenerateLevel::generateLevel()
 		GameObject* roomPrefab = new GameObject();
 		roomPrefab->localScale = { 4, 4 };
 		roomPrefab->localPosition = { room->getGridPos().x * roomPrefab->localScale.x * ROOM_GRID_SIZE_X * tileSize.x, room->getGridPos().y * roomPrefab->localScale.y * ROOM_GRID_SIZE_Y * tileSize.y };
+		
+		RoomBehavior* roomBehavior = new RoomBehavior(roomPrefab, room);
+
+		TileMapCollider* tile_map_collider = new TileMapCollider(roomPrefab);
+		tile_map_collider->setLayer(40);
 
 
 		RoomDataStruct* roomDataStructChoosen;
@@ -474,10 +479,10 @@ void GenerateLevel::generateLevel()
 			for (SDL_Texture* texture : openDoorTextures[convDoorPosToIndex(door->doorPosition)]) {
 				SpriteRenderer* spriteRenderer = new SpriteRenderer(openDoorPrefab, texture, false);
 				if (convDoorPosToIndex(door->doorPosition) != 1 && convDoorPosToIndex(door->doorPosition) < 3) {
-					spriteRenderer->setLayer(4);
+					spriteRenderer->setLayer(RendererManager::TOP_DOWN_LAYER - 1);
 				}
 				else {
-					spriteRenderer->setLayer(5);
+					spriteRenderer->setLayer(RendererManager::TOP_DOWN_LAYER);
 				}
 			}
 
@@ -485,10 +490,10 @@ void GenerateLevel::generateLevel()
 				SpriteRenderer* spriteRenderer = new SpriteRenderer(closeDoorPrefab, texture, false);
 
 				if (convDoorPosToIndex(door->doorPosition) != 1) {
-					spriteRenderer->setLayer(4);
+					spriteRenderer->setLayer(RendererManager::TOP_DOWN_LAYER - 1);
 				}
 				else {
-					spriteRenderer->setLayer(5);
+					spriteRenderer->setLayer(RendererManager::TOP_DOWN_LAYER);
 				}
 			}
 			//-------------------------------------------
@@ -677,6 +682,7 @@ void GenerateLevel::generateLevel()
 
 					EnemyBasicBehavior* enemy_behavior = new_enemy->getComponent<EnemyBasicBehavior>();
 					enemy_behavior->setTimeBeforeEnemy(enemy_behavior->getTimeBeforeEnemy() * timeEnemyMultiplicator);
+					enemy_behavior->setRoomBehavior(roomBehavior);
 
 					new_enemy->active = false;
 					room->addEnemy(new_enemy);
@@ -688,11 +694,7 @@ void GenerateLevel::generateLevel()
 		}
 		//-------------------------------------------
 
-		RoomBehavior* roomBehavior = new RoomBehavior(roomPrefab, room);
-
-		TileMapCollider* tile_map_collider = new TileMapCollider(roomPrefab);
-		tile_map_collider->setLayer(40);
-
+		
 		Game::instance()->instantiateGameObject(roomPrefab);
 
 		roomPrefabs.push_back(roomPrefab);

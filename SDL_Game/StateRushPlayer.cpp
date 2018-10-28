@@ -1,5 +1,8 @@
 #include "StateRushPlayer.h"
 #include "Game.h"
+#include "RoomBehavior.h"
+#include "PathFinding.h"
+#include "GenerateLevel.h"
 
 StateRushPlayer::StateRushPlayer(GameObject * gameObject, float range, std::string nextState) : State(nextState), range(range)
 {
@@ -28,10 +31,48 @@ void StateRushPlayer::operation(StateMachine* state_machine)
 			state_machine->getGameObject()->getComponent<StateMachine>()->play(getNextState());
 		}
 		else {
-			OwnMathFuncs::Vector2 directionVector = (target->getWorldPosition() - state_machine->getGameObject()->getWorldPosition());
-			OwnMathFuncs::OwnMathFuncs::normalize(directionVector);
+			RoomBehavior* roomBehavior = state_machine->getGameObject()->getComponent<EnemyBasicBehavior>()->getRoomBehavior();
+			
+			OwnMathFuncs::Vector2 new_world_pos = { roomBehavior->getGameObject()->getWorldPosition().x - (GenerateLevel::ROOM_GRID_SIZE_X * roomBehavior->getRoomData()->getTileMapData()->spriteSize.x * roomBehavior->getGameObject()->localScale.x) / 2,
+				roomBehavior->getGameObject()->getWorldPosition().y - (GenerateLevel::ROOM_GRID_SIZE_Y * roomBehavior->getRoomData()->getTileMapData()->spriteSize.y * roomBehavior->getGameObject()->localScale.y) / 2 };
 
-			enemyBasicBehavior->addForce(directionVector, enemyBasicBehavior->getSpeed());
+			float div_x = (roomBehavior->getGameObject()->getWorldScale().x * roomBehavior->getRoomData()->getTileMapData()->spriteSize.x);
+			float div_y = (roomBehavior->getGameObject()->getWorldScale().y * roomBehavior->getRoomData()->getTileMapData()->spriteSize.y);
+
+			
+			OwnMathFuncs::Vector2 startPoint = {(float)(int)( (state_machine->getGameObject()->getWorldPosition().x - new_world_pos.x) / div_x),
+				(float) (int)( (state_machine->getGameObject()->getWorldPosition().y - new_world_pos.y) / div_y )};
+
+			OwnMathFuncs::Vector2 endPoint = {(float) (int)( (target->getWorldPosition().x - new_world_pos.x) / div_x),
+				(float) (int)( (target->getWorldPosition().y - new_world_pos.y) / div_y )};
+
+
+			//std::cout << "ENEMY : " << startPoint.toString() << std::endl;
+			//std::cout << " PLAYER : " <<endPoint.toString() << std::endl;
+
+			std::vector<TileData*> pathToTarget = PathFinding::getPath(roomBehavior->getRoomData()->getTileMapData(), startPoint, endPoint);
+
+			
+			std::cout << "PRINT PATH" << std::endl;
+			for (TileData* tileData : pathToTarget) {
+				std::cout << tileData->positionGrid.toString() << std::endl;
+			}
+			std::cout << "---------------------" << std::endl;
+			
+
+			if (pathToTarget.size() >= 2) {
+
+				
+				OwnMathFuncs::Vector2 direction = pathToTarget[pathToTarget.size() - 2]->positionGrid - startPoint;
+				direction = { direction.x, direction.y };
+
+				std::cout << "Direction : " << direction.toString() << std::endl;
+
+				OwnMathFuncs::OwnMathFuncs::normalize(direction);
+				enemyBasicBehavior->addForce(direction, enemyBasicBehavior->getSpeed());
+			}
+
+			
 		}
 	}
 	else {

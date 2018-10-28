@@ -3,6 +3,8 @@
 #include "VelocityBody.h"
 #include "StateMachine.h"
 
+class RoomBehavior;
+
 class EnemyBasicBehavior : public Component
 {
 public:
@@ -33,6 +35,9 @@ public:
 	float getTimeBeforeEnemy();
 	void setTimeBeforeEnemy(float value);
 
+	void setRoomBehavior(RoomBehavior* roomBehavior);
+	RoomBehavior* getRoomBehavior();
+
 private:
 
 	bool stunned = false;
@@ -41,6 +46,8 @@ private:
 	float speed = 2300;
 
 	float timeBeforeNextEnemy = 5.0f;
+
+	RoomBehavior* roomBehavior;
 
 	float knockBackResistance = 1;
 	float timeStunned = 0;
