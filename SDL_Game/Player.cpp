@@ -48,8 +48,8 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	animator->addAnimation(std::pair <std::string, Animation>("WakingUp", animWakeUp));
 
 	Animation animDodge;
-	animDodge.nbSprites = 8;
-	animDodge.speed = 0.075f;
+	animDodge.nbSprites = 6;
+	animDodge.speed = 0.09f;
 	animDodge.looping = false;
 	animDodge.spriteRendererIndex = 1;
 

@@ -121,7 +121,7 @@ void PlayerController::update()
 
 	//std::cout << "velocity x : " << velocityBody->velocity.x << ", velocity y : " << velocityBody->velocity.y << std::endl;
 
-	if (canMove && state == State::ready_dash) {
+	if (canMove && state != State::dashing) {
 
 		if (abs(velocityBody->getVelocity().x) > 3 || abs(velocityBody->getVelocity().y) > 3) {
 			animator->play("Walking");
