@@ -77,9 +77,8 @@ void Animator::play(std::string name)
 			else if (currentAnimation != "" && !spriteRenderers[animations[currentAnimation].spriteRendererIndex]->isActive()) {
 				spriteRenderers[animations[currentAnimation].spriteRendererIndex]->setActive(true);
 			}
-
 			currentAnimation = name;
-
+		
 			timeLeft = animations[currentAnimation].speed;
 		}
 		else {
@@ -91,7 +90,6 @@ void Animator::play(std::string name)
 void Animator::clean()
 {
 	animations.clear();
-	
 	Component::clean();
 }
 
@@ -114,5 +112,9 @@ void Animator::setRectRenderer()
 
 	tempRect.y = animations[currentAnimation].indexY * spriteRenderers[animations[currentAnimation].spriteRendererIndex]->getSpriteSize().y;
 	spriteRenderers[animations[currentAnimation].spriteRendererIndex]->setSourceRect(tempRect);
+
+	OwnMathFuncs::Vector2 offset = { (float)animations[currentAnimation].offsetX,
+		(float)animations[currentAnimation].offsetY };
+	spriteRenderers[animations[currentAnimation].spriteRendererIndex]->setOffset(offset);
 }
 

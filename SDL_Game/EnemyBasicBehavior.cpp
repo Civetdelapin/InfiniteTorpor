@@ -54,7 +54,7 @@ void EnemyBasicBehavior::addForce(OwnMathFuncs::Vector2 direction, float power, 
 	}
 }
 
-bool EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float timeStunned)
+int EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power_knock_back, float damage, float timeStunned)
 {
 	currentHealthPoint -= damage;
 	if (currentHealthPoint > 0) {
@@ -69,14 +69,16 @@ bool EnemyBasicBehavior::takeDamage(OwnMathFuncs::Vector2 direction, float power
 			stunned = true;
 			gameObject->getComponent<StateMachine>()->play("Stun");
 		}
+
+		return 0;
 	}
 	else if(!dying){
 		setDying();
 
-		return true;
+		return 2;
 	}
 
-	return false;
+	return 1;
 }
 
 bool EnemyBasicBehavior::isStunned()

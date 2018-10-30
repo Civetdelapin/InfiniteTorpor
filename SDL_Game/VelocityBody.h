@@ -25,6 +25,8 @@ public:
 
 	OwnMathFuncs::Vector2 getColliderWorldPosition();
 
+	void resetVelocity();
+
 private:
 	Collider * collider;
 

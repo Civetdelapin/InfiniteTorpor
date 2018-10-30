@@ -93,6 +93,11 @@ OwnMathFuncs::Vector2 VelocityBody::getColliderWorldPosition()
 	return collider->getWorldPosition();
 }
 
+void VelocityBody::resetVelocity()
+{
+	velocity = { 0, 0 };
+}
+
 VelocityBody::~VelocityBody()
 {
 }

@@ -52,6 +52,7 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 	animDodge.speed = 0.09f;
 	animDodge.looping = false;
 	animDodge.spriteRendererIndex = 1;
+	animDodge.offsetY = 4.5f;
 
 	animator->addAnimation(std::pair <std::string, Animation>("Dodge", animDodge));
 
@@ -105,7 +106,6 @@ Player::Player(OwnMathFuncs::Vector2 init_local_pos) :  GameObject(init_local_po
 
 
 	//--------- CREATION OF SHADOW -------------
-	
 	GameObject* game_object_child_3 = new GameObject({ 0, spriteRenderer->getSpriteSize().y / 2});
 	SpriteRenderer* sprite_renderer_2 = new SpriteRenderer(game_object_child_3, "img/shadow_small.png", { 21, 21 });
 	sprite_renderer_2->setLayer(RendererManager::TOP_DOWN_LAYER - 1);

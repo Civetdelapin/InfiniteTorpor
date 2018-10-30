@@ -33,8 +33,8 @@ void SpriteRenderer::render()
 	
 	if (texture != nullptr) {
 
-		dstrect.x = (gameObject->getWorldPosition().x - (spriteSize.x / 2) * fabs(gameObject->getWorldScale().x));
-		dstrect.y = (gameObject->getWorldPosition().y - (spriteSize.y / 2) * fabs(gameObject->getWorldScale().y));
+		dstrect.x = (gameObject->getWorldPosition().x - ((spriteSize.x / 2) + offset.x) * fabs(gameObject->getWorldScale().x));
+		dstrect.y = (gameObject->getWorldPosition().y - ((spriteSize.y / 2) + offset.y) * fabs(gameObject->getWorldScale().y));
 
 		dstrect.w = spriteSize.x * fabs(gameObject->getWorldScale().x);
 		dstrect.h = spriteSize.y * fabs(gameObject->getWorldScale().y);
@@ -87,6 +87,11 @@ void SpriteRenderer::setAlpha(float value)
 void SpriteRenderer::setIsLookingRight(bool value)
 {
 	lookingRight = value;
+}
+
+void SpriteRenderer::setOffset(OwnMathFuncs::Vector2 value)
+{
+	offset = value;
 }
 
 OwnMathFuncs::Vector2 SpriteRenderer::getBottomPosition()

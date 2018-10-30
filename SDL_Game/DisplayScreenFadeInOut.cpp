@@ -38,6 +38,7 @@ void DisplayScreenFadeInOut::update()
 		setAlpha(alpha_value);
 
 		if (timeLeft <= 0) {
+			setAlpha(SDL_ALPHA_OPAQUE);
 			setState(Over);
 		}
 	}
@@ -46,6 +47,7 @@ void DisplayScreenFadeInOut::update()
 		setAlpha(alpha_value);
 
 		if (timeLeft <= 0) {
+			setAlpha(0);
 			setState(Over);
 		}
 	}

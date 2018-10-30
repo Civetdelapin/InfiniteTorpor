@@ -20,8 +20,9 @@ public:
 	void update();
 
 	State getState();
-
 	OwnMathFuncs::Vector2 getDirection();
+
+	void resetPlayerController();
 
 private:
 

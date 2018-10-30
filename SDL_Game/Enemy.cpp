@@ -25,6 +25,13 @@ Enemy::Enemy(std::string img_path, OwnMathFuncs::Vector2 spriteSize, OwnMathFunc
 	StateMachine* stateMachine = new StateMachine(this);
 	stateMachine->addState(std::pair <std::string, State*>("Stun", new StateStun(this)));
 	stateMachine->addState(std::pair <std::string, State*>("Dying", new StateDying(this)));
+
+
+	GameObject* game_object_child_3 = new GameObject({ 0, spriteRenderer->getSpriteSize().y / 2 });
+	SpriteRenderer* sprite_renderer_2 = new SpriteRenderer(game_object_child_3, "img/shadow_small.png", { 21, 21 });
+	sprite_renderer_2->setLayer(RendererManager::TOP_DOWN_LAYER - 1);
+
+	addGameObjectAsChild(game_object_child_3);
 }
 
 

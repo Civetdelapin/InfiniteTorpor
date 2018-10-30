@@ -141,3 +141,9 @@ OwnMathFuncs::Vector2 PlayerController::getDirection()
 {
 	return direction;
 }
+
+void PlayerController::resetPlayerController()
+{
+	state = ready_dash;
+	velocityBody->resetVelocity();
+}

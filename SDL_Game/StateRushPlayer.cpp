@@ -36,8 +36,8 @@ void StateRushPlayer::operation(StateMachine* state_machine)
 			OwnMathFuncs::Vector2 enemyColliderWorldPosition = state_machine->getGameObject()->getComponent<VelocityBody>()->getColliderWorldPosition();
 
 			OwnMathFuncs::Vector2 testEnemyColliderWorldPosition = { abs(enemyColliderWorldPosition.x), abs(enemyColliderWorldPosition.y) };
-			if (testEnemyColliderWorldPosition.x > positionToGo.x - 20 && testEnemyColliderWorldPosition.x < positionToGo.x + 20 &&
-				testEnemyColliderWorldPosition.y > positionToGo.y - 20 && testEnemyColliderWorldPosition.y < positionToGo.y + 20) {
+			if (testEnemyColliderWorldPosition.x > positionToGo.x - 10 && testEnemyColliderWorldPosition.x < positionToGo.x + 10 &&
+				testEnemyColliderWorldPosition.y > positionToGo.y - 10 && testEnemyColliderWorldPosition.y < positionToGo.y + 10) {
 
 					findNewPosition(state_machine);
 			}

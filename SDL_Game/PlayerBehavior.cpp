@@ -95,6 +95,8 @@ void PlayerBehavior::startLevel()
 
 	timeLeft = timeSpawn;
 	state = spawning;
+
+	gameObject->getComponent<PlayerController>()->resetPlayerController();
 }
 
 void PlayerBehavior::endLevel()
